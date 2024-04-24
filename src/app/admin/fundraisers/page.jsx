@@ -14,9 +14,10 @@ export default function FundraiserPage() {
 
   const [fundraisers, setFundraisers] = useState([]);
   const [error, setError] = useState(null);
-  const [active, setactive] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedFundraiser, setSelectedFundraiser] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   const [header, setheader] = useState();
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ export default function FundraiserPage() {
     target_amount: "",
   });
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const response = await axios.put(
@@ -35,9 +37,13 @@ export default function FundraiserPage() {
         formData,
         { headers: header }
       );
+      setLoading(false);
+
       console.log("Update successful:", response.data);
       setShowPopup(false);
     } catch (error) {
+      setLoading(false);
+
       console.error("Error updating fundraiser:", error);
     }
   };
@@ -64,6 +70,7 @@ export default function FundraiserPage() {
     console.log("f", fundraisers);
 
     const fetchData = async () => {
+      setLoading(true);
       try {
         const config = {
           headers: {
@@ -76,12 +83,14 @@ export default function FundraiserPage() {
           "https://allowing-shiner-needlessly.ngrok-free.app/admin/fundraiser",
           config
         );
+        setLoading(false);
         setFundraisers(response.data);
 
         console.log(response);
         setFundraisers(response.data);
         // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state
       } catch (error) {
+        setLoading(false);
         setError("Error fetching fundraisers. Please try again later.");
         console.error("Error fetching fundraisers:", error);
       }
@@ -189,6 +198,7 @@ export default function FundraiserPage() {
                   disabled
                 />
               </span>
+
               <span>
                 <span>Name</span>
                 <br />
@@ -257,22 +267,23 @@ export default function FundraiserPage() {
                   }
                 ></textarea>
               </span>
-              <span>
-                <span>My Story</span>
-                <br />
-                <textarea
-                  name="story"
-                  id="story"
-                  cols="30"
-                  rows="10"
-                  placeholder="Enter my story.."
-                  value={formData.story}
-                  onChange={(e) =>
-                    setFormData({ ...formData, story: e.target.value })
-                  }
-                ></textarea>
-              </span>
+              <br />
             </div>
+            <span>
+              <span>My Story</span>
+              <br />
+              <textarea
+                name="story"
+                id="story"
+                cols="30"
+                rows="10"
+                placeholder="Enter my story.."
+                value={formData.story}
+                onChange={(e) =>
+                  setFormData({ ...formData, story: e.target.value })
+                }
+              ></textarea>
+            </span>
             <div className="fourthfundraiserDetail">
               <span>
                 <span>Money Raised For</span>
@@ -307,8 +318,9 @@ export default function FundraiserPage() {
                 type="submit"
                 onClick={handleSubmit}
                 className="fundButton"
+                disable={loading}
               >
-                Save
+                {loading ? "Loading..." : "Save"}
               </button>
             </div>
           </div>

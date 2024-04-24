@@ -1,15 +1,14 @@
 "use client";
 import Sidebar from "@/component/sidebar";
 // export default GeneratePage;
-import "./styles.css";
+import "./styCles.css";
 import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
-
 export default function page() {
   const cookies = new Cookies();
-  const [loading, setloading] = useState(false);
   const [token, settoken] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -50,12 +49,13 @@ export default function page() {
     }
     setFormData({
       ...formData,
-      [name]: name === "amount" ? parseInt(value) : value,
+      [name]: value,
     });
   };
 
   const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     // Validation
@@ -94,6 +94,7 @@ export default function page() {
           Authorization: `Bearer ${token}`,
         },
       };
+      formData["amount"] = Number(formData["amount"]);
       const response = await axios({
         method: "post",
         //processENV
@@ -103,6 +104,7 @@ export default function page() {
       });
       if (response.status == 201) {
         console.log("success");
+        setLoading(false);
         setFormData({
           email: "",
           amount: "",
@@ -131,7 +133,7 @@ export default function page() {
       setErrors({});
     } catch (error) {
       console.error("API error:", error);
-      // Handle API error if needed
+      setLoading(false);
     }
   };
   return (
@@ -428,6 +430,7 @@ export default function page() {
                   className="fundButton"
                   type="submit"
                   onClick={handleSubmit}
+                  disabled={loading}
                 >
                   {loading ? "Loading..." : "Submit"}
                 </button>

@@ -8,12 +8,13 @@ body {
 }
 .popup {
   position: fixed;
+  overflow-y: scroll;
   top: 0;
   left: 0;
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.01); /* Semi-transparent background */
+  background-color: rgba(160, 160, 160, 0.26); /* Semi-transparent background */
   z-index: 999; /* Ensure the pop-up is above other elements */
   display: flex;
   justify-content: center;
@@ -41,7 +42,7 @@ body {
 }
 .fundraiserDetail {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
 }
 .fundraiserDetail input,
@@ -73,6 +74,7 @@ body {
   gap: 10px;
   margin: 16px 0;
 }
+ 
 .formButton {
   display: flex;
   gap: 8px;

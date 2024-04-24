@@ -22,8 +22,6 @@ const LoginPage = () => {
     if (token) {
       handleLoginSuccess(token);
       setLoggedin(true);
-    } else {
-      return;
     }
   }, []);
 

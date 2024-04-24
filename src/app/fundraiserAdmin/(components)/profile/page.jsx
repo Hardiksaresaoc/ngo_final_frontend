@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import useAuth from "@/context/auth";
-import "./module.profile.css"; // Make sure to adjust the import path
+import "./profile.css";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");

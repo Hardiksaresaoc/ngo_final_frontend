@@ -26,7 +26,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchData();
-  }, [filters, token]);
+  }, [token]);
   const fetchData = async () => {
     try {
       const response = await axios.get(

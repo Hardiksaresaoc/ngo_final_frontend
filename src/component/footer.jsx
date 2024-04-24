@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import "./module.footer.css";
+import styles from "./footer.module.css";
 export default function Footer() {
   return (
-    <footer className="mainFooter">
+    <footer className={styles.mainFooter}>
       <div className="upperFooter">
         <div className="aboutUs">
           <h3>About Us</h3>

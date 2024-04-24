@@ -174,16 +174,34 @@ export default function Header({ role, rolename }) {
                         <i className="fa-solid fa-angle-down"></i>
                       </div>
                     </div>
+
                     <ul className="dropdown-options">
-                      <li data-value="option1">Dashboard</li>
-                      <li data-value="option2">View Profile</li>
-                      <li data-value="option3" style={{ color: "red" }}>
+                      <li data-value="option1">
+                        {" "}
                         <a
-                          onClick={handleLogout}
+                          href="/logout"
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          Dashboard
+                        </a>
+                      </li>
+                      <li data-value="option2">
+                        {" "}
+                        <a
+                          href="/logout"
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          Profile
+                        </a>
+                      </li>
+                      <li data-value="option3" style={{ color: "red" }}>
+                        <span
+                          onClick={() => handleLogout()}
+                          // href="/logout"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
-                        </a>
+                        </span>
                       </li>
                     </ul>
                   </>
