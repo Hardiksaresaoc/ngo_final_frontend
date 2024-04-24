@@ -73,15 +73,13 @@ export default function page() {
     if (!formData.donor_phone) {
       newErrors.mobileNumber = "Mobile Number is required";
     }
-    if (!formData.refrence_payment) {
-      newErrors.refrence_payment = "Reference Number is required";
-    }
+
     if (!formData.donation_date) {
       newErrors.paymentDate = "Donation Date is required";
     }
-    if (!formData.donor_paymentType) {
-      newErrors.donor_paymentType = "Donation Date is required";
-    }
+    // if (!formData.donor_paymentType) {
+    //   newErrors.donor_paymentType = "Donation type required";
+    // }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -105,6 +103,27 @@ export default function page() {
       });
       if (response.status == 201) {
         console.log("success");
+        setFormData({
+          email: "",
+          amount: "",
+          donor_name: "",
+          // merge fname and lname
+          donor_email: "",
+          donor_phone: "",
+          payment_type: "",
+          donation_date: "",
+          //
+          lastName: "",
+          donor_address: "",
+          city: "",
+          state: "",
+          country: "",
+          pincode: "",
+          pan: "",
+          refrence_payment: "",
+          donor_bankName: "",
+          donor_bankBranch: "",
+        });
         console.log("API response:", response.data);
         alert("done");
       }
@@ -342,6 +361,7 @@ export default function page() {
                     )}
                   </span>
                   <span>
+                    Reference number
                     <input
                       type="text"
                       name="refrence_payment"

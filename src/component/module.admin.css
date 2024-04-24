@@ -8,6 +8,7 @@ section {
 }
 .leftSection {
   width: 20%;
+  min-height: 100vh;
   height: auto;
 }
 .tab {

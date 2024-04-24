@@ -63,9 +63,9 @@ const LoginPage = () => {
         { email, password },
         config
       );
-      if (data === 401) {
+      if (!data || !data.token) {
         setErrors({
-          LOGIN: "email or password error",
+          loginError: "email or password error",
         });
       } else {
         setCookie("token", data.token);
@@ -228,7 +228,7 @@ const LoginPage = () => {
                   </div>
                 </div>
                 <div>
-                  {errors.LOGIN && (
+                  {errors.loginError && (
                     <p
                       style={{
                         color: "red",
@@ -236,7 +236,7 @@ const LoginPage = () => {
                         marginBottom: "6px",
                       }}
                     >
-                      {errors.LOGIN}
+                      {errors.loginError}
                     </p>
                   )}
                 </div>

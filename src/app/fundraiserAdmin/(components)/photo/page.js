@@ -4,92 +4,118 @@ import AsideBar, { TopHeader } from "@/component/fundraiser/sidebar";
 import "./photo.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
+import axios from "axios";
+import { Cookies } from "react-cookie";
 
-export default function page() {
-  const [fundraiser, setFundraiser] = useState({}); // Initialize
+export default function Page() {
+  const [fundraiser, setFundraiser] = useState([]);
+  const fundraiserCtx = useContext(FundraiserContext);
+  const cookies = new Cookies();
+  const [token, setToken] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+    setIsSubmitDisabled(false); // Enable the submit button when a file is selected
+  };
+  useEffect(() => {
+    const data = cookies.get("token");
+    setToken(data);
+  }, [cookies]);
 
+  const handleFileUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
 
-  const fundraiserCtx = useContext(FundraiserContext); // Assuming FundraiserContext is already imported and set up
-
-  const [images, setImages] = useState([]);
-
-  const thisFileUpload = (event) => {
-    const files = event.target.files;
-    const uploadedImages = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        uploadedImages.push(e.target.result);
-        if (uploadedImages.length === files.length) {
-          setImages([...images, ...uploadedImages]);
+      const response = await axios.post(
+        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser_page?.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+            "ngrok-skip-browser-warning": "true",
+          },
         }
+      );
+
+      console.log("File uploaded successfully:", response.data);
+      // You can handle the response or update the UI as needed
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      // Handle error (e.g., show error message to user)
+    }
+  };
+  useEffect(() => {
+    // Fetch data from context and date state
+    setFundraiser(fundraiserCtx.fundraiserData);
+  }, [fundraiserCtx.fundraiserData]);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const handleDeleteImage = async (index, image) => {
+    try {
+      // Make an HTTP DELETE request to delete the image
+      await axios.delete(
+        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${image}`,
+        config
+      );
+
+      // Update the local state or context after successful deletion
+      const updatedGallery = [...fundraiserCtx.fundraiser_page.gallery];
+      updatedGallery.splice(index, 1); // Remove the image at the specified index
+      const updatedFundraiserPage = {
+        ...fundraiserCtx.fundraiser_page,
+        gallery: updatedGallery,
       };
-      fileReader.readAsDataURL(files[i]);
+      fundraiserCtx.updateFundraiserPage(updatedFundraiserPage);
+    } catch (error) {
+      console.error("Error deleting image:", error);
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
-          },
-        };
-        const response = await axios.get(
-          `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${fundraiserID}`,
-          config
-        );
-        setFundraiser(response.data); // Set the response data to the state
-        console.log(response); // Set the response data to the state
-      } catch (error) {
-        console.error("Error fetching fundraisers:", error);
-      }
-    };
-    fetchData();
-  }, []);
   return (
     <>
-      <TopHeader link="none" />
+      <TopHeader link={fundraiserCtx.fundraiser_page?.id} />
       <aside>
         <AsideBar />
-
         <section className="photowrapper">
-          <div class="imgwrapper">
-            <div class="imgcount">
-              <p>
-                Photos (21)
-                <a href="#">
-                  <button type="button" class="ctaBtn">
-                    <i class="fa-solid fa-arrow-up-from-bracket"></i>Upload
-                    Photo
-                  </button>
-                </a>
-              </p>
+          <div className="imgwrapper">
+            <div className="imgcount">
+              <input type="file" onChange={handleFileChange} />
+              <button
+                type="button"
+                onClick={handleFileUpload}
+                disabled={isSubmitDisabled}
+              >
+                Upload File
+              </button>
             </div>
-            <div class="row">
-              {fundraiser?.gallery?.map((image, index) => (
+            <div className="row">
+              {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
                 <div key={index} className="galleryImage">
-                  <h1>{image}</h1>
-
                   <Image
                     src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
-                    alt={`Image ${image}`}
+                    alt={`Image ${index}`}
                     className="galleryImg"
                     height="200"
                     width="200"
                   />
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteImage(index, image)}
+                    className="delete"
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
                 </div>
               ))}
-              <div class="col">
-                <button type="button" class="delete">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-                <img src="img\logo.png" />
-              </div>
             </div>
           </div>
         </section>

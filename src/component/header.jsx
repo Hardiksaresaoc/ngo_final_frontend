@@ -178,17 +178,51 @@ export default function Header({ role, rolename }) {
                       <li data-value="option1">Dashboard</li>
                       <li data-value="option2">View Profile</li>
                       <li data-value="option3" style={{ color: "red" }}>
-                        Log out
-                        <img src="img/Vector.svg" height="18px" />
+                        <a
+                          onClick={handleLogout}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          Log out
+                        </a>
                       </li>
                     </ul>
                   </>
                 )}
               </button>
             </div>
-            <Button className="innerBtn" onClick={handleLogout}>
-              Logout
-            </Button>
+          </>
+        ) : user && user.role === "ADMIN" ? (
+          <>
+            <div className="profileimg">
+              <button type="button" onClick={toggle} className="profilebutton">
+                <img style={{ background: "grey" }} width="40" height="40" />
+                {!isopen ? (
+                  <div className="custom-dropdown">
+                    <div className="selected-option">
+                      <i className="fa-solid fa-angle-up fa-rotate-180"></i>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="custom-dropdown">
+                      <div className="selected-option">
+                        <i className="fa-solid fa-angle-down"></i>
+                      </div>
+                    </div>
+                    <ul className="dropdown-options">
+                      <li data-value="option3" style={{ color: "red" }}>
+                        <a
+                          onClick={handleLogout}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          Log out
+                        </a>
+                      </li>
+                    </ul>
+                  </>
+                )}
+              </button>
+            </div>
           </>
         ) : (
           <>

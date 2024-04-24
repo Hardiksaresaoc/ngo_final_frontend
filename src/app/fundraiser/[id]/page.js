@@ -5,6 +5,14 @@ import "../../../component/module.fundraiser.css";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+
 // import Dashboard from "../(fundraiserAdmin)/(components)/dashboard/page";
 
 export default function page({ params }) {
@@ -12,8 +20,21 @@ export default function page({ params }) {
   const fundraiserID = params.id;
   console.log("af", fundraiserID);
   const [activeTab, setActiveTab] = useState("myStory");
+
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
+  };
+  const [showPopup, setShowPopup] = useState(false);
+  const [shareURL, setShareURL] = useState(""); // URL to share
+
+  const handleShare = (url) => {
+    const message = ` ${fundraiser.resolution} ${url}`;
+    setShareURL(message);
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   useEffect(() => {
@@ -37,6 +58,23 @@ export default function page({ params }) {
     };
     fetchData();
   }, []);
+  const calculateGoalPercentage = () => {
+    const raisedAmount = fundraiser.raised_amount;
+    const targetAmount = fundraiser.target_amount;
+
+    if (isNaN(raisedAmount) || isNaN(targetAmount) || targetAmount <= 0) {
+      return "--";
+    }
+
+    const percentage = (raisedAmount / targetAmount) * 100;
+
+    if (percentage > 100) {
+      return "100%+";
+    } else {
+      return `${Math.round(percentage)}%`;
+    }
+  };
+
   return (
     <>
       <div className="box">
@@ -55,7 +93,7 @@ export default function page({ params }) {
           <div className="mainGoal" style={{ width: "50%" }}>
             <div className="goal">
               <div className="subGoal">
-                <p className="completeGoal">(50%)</p>
+                <p className="completeGoal">{calculateGoalPercentage()}</p>
                 <h2 className="currentGoal">
                   &#8377; {fundraiser.raised_amount}
                 </h2>
@@ -76,8 +114,37 @@ export default function page({ params }) {
               {fundraiser.resolution}
             </p>
             <div className="resolutionBtn">
-              <a href="#" className="resolutionLink">
-                <button type="submit" className="mainbtn">
+              {showPopup && (
+                <div className="sharePopupOverlay" onClick={closePopup}>
+                  <div
+                    className="sharePopup"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <h3>Share this fundraiser:</h3>
+                    <div className="shareToggle">
+                      <FacebookShareButton url={shareURL}>
+                        <FaFacebook className="shareIcon" />
+                      </FacebookShareButton>
+                      <TwitterShareButton url={shareURL}>
+                        <FaTwitter className="shareIcon" />
+                      </TwitterShareButton>
+                      <LinkedinShareButton url={shareURL}>
+                        <FaLinkedin className="shareIcon" />
+                      </LinkedinShareButton>
+                      <WhatsappShareButton url={shareURL}>
+                        <FaWhatsapp className="shareIcon" />
+                      </WhatsappShareButton>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <a className="resolutionLink">
+                <button
+                  type="button"
+                  className="mainbtn"
+                  onClick={() => handleShare(window.location.href)}
+                  style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
+                >
                   <i className="fa-solid fa-share-nodes"></i>Share
                 </button>
               </a>
@@ -122,8 +189,6 @@ export default function page({ params }) {
           <div className="leftAside">
             {fundraiser?.gallery?.map((image, index) => (
               <div key={index} className="galleryImage">
-                <h1>{image}</h1>
-               
                 <Image
                   src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
                   alt={`Image ${image}`}
