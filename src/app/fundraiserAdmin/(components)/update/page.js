@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import AsideBar, { TopHeader } from "@/component/fundraiser/sidebar";
+import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import "./module.update.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";

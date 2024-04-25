@@ -2,12 +2,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import "./fundraisersAdmin.css";
 // import "./module.fundraiser.css";
-import "../../../component/module.admin.css";
-import "../../../component/module.popupadmin.css";
+import styles from "./fundraisersAdmin.module.css";
+// import "../../../component/module.admin.css";
 import useAuth from "@/context/auth";
-import Sidebar from "../../../component/sidebar";
+import Sidebar from "@/component/sidebar";
 export default function FundraiserPage() {
   const [cookies, setCookie] = useCookies(["token"]);
   const { user } = useAuth("ADMIN");
@@ -99,21 +98,21 @@ export default function FundraiserPage() {
   }, []);
 
   return user ? (
-    <section>
+    <section className={styles.section}>
       <Sidebar />
-      <div className="rightSection">
-        <div className="rightsubSection">
+      <div className={styles.rightSection}>
+        <div className={styles.rightsubSection}>
           <h1>Fundraiser</h1>
-          <table className="adminTable">
+          <table className={styles.adminTable}>
             <thead>
               <tr>
-                <th className="tableHead">Id</th>
-                <th className="tableHead">Name</th>
-                <th className="tableHead">Email</th>
-                <th className="tableHead">Phone Number</th>
-                <th className="tableHead">URL</th>
-                <th className="tableHead">Status</th>
-                <th className="tableHead">Edit</th>
+                <th className={styles.tableHead}>Id</th>
+                <th className={styles.tableHead}>Name</th>
+                <th className={styles.tableHead}>Email</th>
+                <th className={styles.tableHead}>Phone Number</th>
+                <th className={styles.tableHead}>URL</th>
+                <th className={styles.tableHead}>Status</th>
+                <th className={styles.tableHead}>Edit</th>
               </tr>
             </thead>
             {fundraisers.length >= 0 ? (
@@ -129,23 +128,19 @@ export default function FundraiserPage() {
                       {fundraiser.fundraiser_page?.id}
                     </td>
                     <td>
-                      <label className="switch">
+                      <label className={styles.switch}>
                         <input
                           type="checkbox"
                           onChange={() => {
-                            // Toggle the status locally
                             const updatedStatus = !fundraiser.status;
                             console.log(updatedStatus);
-                            // Update the status in the state
                             setFundraisers((prevFundraisers) =>
-                              // console.log(prevFundraisers),
                               prevFundraisers.map((item) =>
                                 item.id === fundraiser.id
                                   ? { ...item, status: updatedStatus }
                                   : item
                               )
                             );
-                            // Make API request to update status
                             console.log("aa", header);
                             axios(
                               {
@@ -158,7 +153,9 @@ export default function FundraiserPage() {
                           }}
                           defaultChecked={fundraiser.status === "active"}
                         />
-                        <span className="slider round"></span>
+                        <span
+                          className={`${styles.slider} ${styles.round}`}
+                        ></span>
                       </label>
                     </td>
 
@@ -169,7 +166,9 @@ export default function FundraiserPage() {
                           setSelectedFundraiser(fundraiser);
                         }}
                       >
-                        <i className="fa-solid fa-pen-to-square editText"></i>
+                        <i
+                          className={`${styles["fa-solid"]} ${styles["fa-pen-to-square"]} ${styles.editText}`}
+                        ></i>
                       </button>
                     </td>
                   </tr>
@@ -182,10 +181,10 @@ export default function FundraiserPage() {
         </div>
       </div>
       {showPopup && (
-        <div className="popup">
-          <div className="hero">
+        <div className={styles.popup}>
+          <div className={styles.hero}>
             <h1>Edit Fundraiser Details</h1>
-            <div className="fundraiserDetail">
+            <div className={styles.popupfundraiserDetail}>
               <span>
                 <span>ID</span>
                 <br />
@@ -248,7 +247,7 @@ export default function FundraiserPage() {
                 />
               </span>
             </div>
-            <div className="thirdfundraiserDetail">
+            <div className={styles.popupthirdfundraiserDetail}>
               <span>
                 <span>About My Resolution</span>
                 <br />
@@ -284,7 +283,7 @@ export default function FundraiserPage() {
                 }
               ></textarea>
             </span>
-            <div className="fourthfundraiserDetail">
+            <div className={styles.popupfourthfundraiserDetail}>
               <span>
                 <span>Money Raised For</span>
                 <br />
@@ -304,20 +303,20 @@ export default function FundraiserPage() {
                 ></textarea>
               </span>
             </div>
-            <div className="formButton">
+            <div className={styles.popupformButton}>
               <button
                 onClick={() => {
                   setShowPopup(false);
                 }}
                 type="reset"
-                className="fundButton donorButton"
+                className={(styles.fpopupundButton, styles.popupdonorButton)}
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="fundButton"
+                className={styles.popupfundButton}
                 disable={loading}
               >
                 {loading ? "Loading..." : "Save"}

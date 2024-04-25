@@ -1,42 +1,57 @@
 "use client";
-import { usePathname } from "next/navigation";
-import "../component/module.admin.css";
-import "../app/admin/fundraisers/fundraisersAdmin.css";
+import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./sidebar.module.css"; // Import your CSS module
+import Image from "next/image";
+
 export default function Sidebar() {
   const pathname = usePathname();
-  console.log(pathname);
+
   return (
-    <>
-      <div className="leftSection">
-        <Link href="/admin">
-          <p className={` ${pathname === "/admin" ? "active" : ""}`}>
-            <img src="/images/dashboardIcon.png" height="16" width="16" />
-            Dashboard
-          </p>
-        </Link>
-        <Link href="/admin/generatecode">
-          <p
-            className={` ${pathname === "/admin/generatecode" ? "active" : ""}`}
-          >
-            <i className="fa-regular fa-address-book"></i>Credentials
-          </p>
-        </Link>
-        <Link href="/admin/fundraisers">
-          <p
-            className={` ${pathname === "/admin/fundraisers" ? "active" : ""}`}
-          >
-            <i className="fa-solid fa-coins"></i>Fundraiser
-          </p>
-        </Link>
-        <Link href="/admin/adddonation">
-          <p
-            className={` ${pathname === "/admin/adddonation" ? "active" : ""}`}
-          >
-            <i className="fa-solid fa-hand-holding-dollar"></i>Donation
-          </p>
-        </Link>
-      </div>
-    </>
+    <div className={styles.leftSection}>
+      <Link href="/admin">
+        <p
+          className={`${styles.link} ${
+            pathname === "/admin" ? `${styles.active}` : ""
+          }`}
+        >
+          <Image
+            src="/images/dashboardIcon.png"
+            height="16"
+            width="16"
+            alt="Dashboard Icon"
+          />
+          Dashboard
+        </p>
+      </Link>
+      <Link href="/admin/generatecode">
+        <p
+          className={`${styles.link} ${
+            pathname === "/admin/generatecode" ? `${styles.active}` : ""
+          }`}
+        >
+          <i className="fa-regular fa-address-book"></i>Credentials
+        </p>
+      </Link>
+      <Link href="/admin/fundraisers">
+        <p
+          className={`${styles.link} ${
+            pathname === "/admin/fundraisers" ? `${styles.active}` : ""
+          }`}
+        >
+          <i className="fa-solid fa-coins"></i>Fundraiser
+        </p>
+      </Link>
+      <Link href="/admin/adddonation">
+        <p
+          className={`${styles.link} ${
+            pathname === "/admin/adddonation" ? `${styles.active}` : ""
+          }`}
+        >
+          <i className="fa-solid fa-hand-holding-dollar"></i>Donation
+        </p>
+      </Link>
+    </div>
   );
 }

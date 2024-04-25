@@ -1,6 +1,6 @@
 "use client";
 import { useState, useContext, useEffect } from "react";
-import AsideBar, { TopHeader } from "@/component/fundraiser/sidebar";
+import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import "./photo.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";

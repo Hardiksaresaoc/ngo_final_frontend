@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import Sidebar from "../../component/sidebar";
-import Loading from "@/app/loading";
 import useAuth from "@/context/auth";
-import "./module.admin.css";
+import styles from "./admin.module.css";
+import Image from "next/image";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -48,41 +48,41 @@ export default function FundraiserPage() {
 
   return user ? (
     <>
-      <section>
+      <section className={styles.section}>
         <Sidebar />
-        <div className="rightwrapper">
-          <div className="rightmain">
-            <div className="mainbox">
-              <div className="box">
-                <img src="/images/coins-hand.svg" width="58px" height="58px" />
+        <div className={styles.rightwrapper}>
+          <div className={styles.rightmain}>
+            <div className={styles.mainbox}>
+              <div className={styles.box}>
+                <Image src="/images/coins-hand.svg" width="58px" height="58px" />
                 <p>
                   <span> &#8377; {allData.totalDonations}/-</span>
                   <span>Total Donation</span>
                 </p>
               </div>
-              <div className="box secend">
-                <img src="/images/Icon.svg" />
+              <div className={`${styles.box} ${styles.secend}`}>
+                <Image src="/images/Icon.svg" />
                 <p>
                   <span> {allData.totalFundraisers}</span>
                   <span>Total Fundraisers</span>
                 </p>
               </div>
-              <div className="box">
-                <img src="/images/Icon.svg" />
+              <div className={styles.box}>
+                <Image src="/images/Icon.svg" />
                 <p>
                   <span>{allData.activeFundraisers}</span>
                   <span>Active Fundraisers</span>
                 </p>
               </div>
-              <div className="box secend">
-                <img src="/images/coins-03.svg" />
+              <div className={`${styles.box} ${styles.secend}`}>
+                <Image src="/images/coins-03.svg" />
                 <p>
                   <span> &#8377; {allData.todayDonations}/-</span>
                   <span>Today’s Donation</span>
                 </p>
               </div>
-              <div className="box">
-                <img src="/images/coins-03.svg" />
+              <div className={styles.box}>
+                <Image src="/images/coins-03.svg" />
                 <p>
                   <span> &#8377; {allData.thisMonthDonations}/-</span>
                   <span>Last Month Donation</span>

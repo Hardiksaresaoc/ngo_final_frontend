@@ -8,32 +8,7 @@
   display: flex;
   flex-direction: row;
 }
-.leftSection {
-  width: 20%;
-  height: 100vh;
-  border: 1px solid lightgray;
-  padding: 24px 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.leftSection .sidebarLink {
-  text-decoration: none;
-  color: #505050;
-  border-radius: 8px;
-}
-.mainSection .leftSection .sidebarLink:hover {
-  background-color: #010080b2;
-  color: #fff;
-}
-.sideBar {
-  padding: 16px 24px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  gap: 10px;
-  font-size: 20px;
-}
+
 .mainSection .leftSection .sideBar.active {
   background-color: #010080b2;
   color: #fff;

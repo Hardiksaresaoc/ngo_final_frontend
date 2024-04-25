@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./report.css";
-import AsideBar, { TopHeader } from "@/component/fundraiser/sidebar";
+import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import { Cookies } from "react-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
 

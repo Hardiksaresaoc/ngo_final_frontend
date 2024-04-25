@@ -1,0 +1,186 @@
+.popup {
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  background-color: rgba(160, 160, 160, 0.26); /* Semi-transparent background */
+  z-index: 999; /* Ensure the pop-up is above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the pop-up content */
+.popup .hero {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.hero {
+  width: 100%;
+  padding: 24px;
+}
+.hero h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  padding-bottom: 16px;
+}
+.popupfundraiserDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popupfundraiserDetail input,
+.popupsecondfundraiserDetail input,
+.popupthirdfundraiserDetail textarea,
+.popupfourthfundraiserDetail textarea {
+  width: 450px;
+  height: 40px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 8px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px 0px #1018280d;
+  font-size: 16px;
+  color: #000000;
+  margin-top: 6px;
+  outline: none;
+}
+.popupthirdfundraiserDetail textarea,
+.popupfourthfundraiserDetail textarea {
+  height: 80px;
+}
+.popupsecondfundraiserDetail,
+.popupthirdfundraiserDetail,
+.popupfourthfundraiserDetail {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.popupformButton {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 16px;
+}
+.popupformButton .fundButton {
+  padding: 10px 20px;
+  height: 45px;
+  min-width: 95px;
+  border: 1px solid #79747e;
+  border-radius: 8px;
+  color: #fff;
+  background-color: #010080;
+  font-size: 16px;
+  cursor: pointer;
+}
+.popupformButton .fundButton.donorButton {
+  background-color: #fff;
+  color: #505050;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.rightSection {
+  width: 80%;
+}
+.rightsubSection {
+  margin: 24px 24px 0 24px;
+  border: 1px solid #eaecf0;
+  border-radius: 8px;
+}
+.rightSection .rightsubSection h1 {
+  padding: 20px 24px;
+}
+.adminTable {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.tableRow,
+.tableHead {
+  border: 1px solid #e4e1e1;
+  text-align: left;
+  padding: 8px;
+  background-color: #fff;
+}
+.tableHead {
+  background-color: #f8f8f8;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #38d147;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #38d147;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.editTable {
+  color: #000;
+}

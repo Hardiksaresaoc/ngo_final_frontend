@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
+import Image from "next/image";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -132,8 +133,8 @@ const LoginPage = () => {
           <div className="leftSection">
             <form className="mainForm" onSubmit={submithandler}>
               <div className="formImg">
-                <img
-                  src="images/ProjectForm.png"
+                <Image
+                  src="/images/ProjectForm.png"
                   className="w100"
                   alt="Indian Flag Tricolor"
                   height="120"
@@ -219,9 +220,9 @@ const LoginPage = () => {
                   </div>
                   <div className="forgot">
                     <p className="forgotPass">
-                      <a href="/forgot" title="" className="forgotLink">
+                      <Link href="/forgot" title="" className="forgotLink">
                         Forgot password?
-                      </a>
+                      </Link>
                     </p>
                   </div>
                 </div>

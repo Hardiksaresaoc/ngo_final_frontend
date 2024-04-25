@@ -1,71 +1,75 @@
 "use client";
 import { usePathname } from "next/navigation";
-import "./style.css";
+import styles from "./fundraiserSidebar.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function AsideBar() {
   const pathname = usePathname();
   return (
     <>
-      <div className="leftAside">
-        <div className="container">
-          <a href="/fundraiserAdmin/dashboard">
+      <div className={styles.leftAside}>
+        <div className={styles.container}>
+          <Link href="/fundraiserAdmin/dashboard">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/dashboard" ? "active" : ""
+                pathname === "/fundraiserAdmin/dashboard" ? "styles.active" : ""
               }`}
             >
-              <img
+              <Image
                 src="/images/dashboard.png"
                 alt="dashboard"
-                className="sidebarImg"
+                className={styles.sidebarImage}
                 height="16"
                 width="16"
               />
               Dashboard
             </p>
-          </a>
-          <a href="/fundraiserAdmin/update">
+          </Link>
+          <Link href="/fundraiserAdmin/update">
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/update" ? "active" : ""
               }`}
             >
-              <img
+              <Image
                 src="/images/circle.png"
                 alt="fundraiser"
-                className="sidebarImg"
+                className={styles.sidebarImage}
                 height="16"
                 width="16"
               />
               Fundraiser
             </p>
-          </a>
-          <a href="/fundraiserAdmin/photo">
+          </Link>
+          <Link href="/fundraiserAdmin/photo">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/photo" ? "active" : ""
+                pathname === "/fundraiserAdmin/photo" ? "styles.active" : ""
               }`}
             >
-              <i className="fa-solid fa-image asideIcon"></i>Photos
+              <i
+                className="fa-solid fa-image asideIcon"
+              ></i>
+              Photos
             </p>
-          </a>
-          <a href="report">
+          </Link>
+          <Link href="report">
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/report" ? "active" : ""
               }`}
             >
-              <img
+              <Image
                 src="/images/table.png"
                 alt="Report"
-                className="sidebarImg"
+                className={styles.sidebarImage}
                 height="16"
                 width="16"
               />
               Donations Report
             </p>
-          </a>
+          </Link>
         </div>
       </div>
     </>
@@ -75,9 +79,9 @@ export const TopHeader = ({ link }) => {
   return (
     <>
       <section>
-        <div className="main">
-          <div className="leftSection">
-            <div className="content">
+        <div className={styles.main}>
+          <div className={styles.leftSection}>
+            <div className={styles.content}>
               <h1>Heroes Who Shielded Us, Let's Shield Their Future.</h1>
               <p>
                 Creating a society where every family of our defence
@@ -86,9 +90,9 @@ export const TopHeader = ({ link }) => {
               </p>
             </div>
           </div>
-          <div className="rightSection">
-            <div className="imgArea">
-              <img
+          <div className={styles.rightSection}>
+            <div className={styles.ImageArea}>
+              <Image
                 src="/images/FrontImage.png"
                 alt="Soldiers"
                 height="300"
@@ -97,10 +101,12 @@ export const TopHeader = ({ link }) => {
             </div>
           </div>
         </div>
-        <div className="lowerPart">
+        <div className={styles.lowerPart}>
           <p>
             Fundraising Page Link:
-            <a href={`http://localhost:3000/fundraiser/${link}`}>{link}</a>
+            <Link href={`http://localhost:3000/fundraiser/${link}`}>
+              {link}
+            </Link>
           </p>
         </div>
       </section>

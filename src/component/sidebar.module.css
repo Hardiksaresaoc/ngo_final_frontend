@@ -1,10 +1,50 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-section {
-  width: 100%;
+ 
+.leftSection {
+  width: 20%;
+  height: auto;
+  border: 1px solid lightgray;
+  padding: 24px 4px;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.leftSection a {
+  text-decoration: none;
+  color: #505050;
+  border-radius: 8px;
+}
+.leftSection a:hover {
+  background-color: #010080b2;
+  color: #fff;
+}
+.leftSection p {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  gap: 10px;
+  font-size: 20px;
+}
+.active {
+  background-color: #010080b2;
+  color: #fff;
+}
+.leftSection .sidebarLink {
+  text-decoration: none;
+  color: #505050;
+  border-radius: 8px;
+}
+.mainSection .leftSection .sidebarLink:hover {
+  background-color: #010080b2;
+  color: #fff;
+}
+.sideBar {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  gap: 10px;
+  font-size: 20px;
 }
 .leftSection {
   width: 20%;
@@ -47,7 +87,7 @@ a .tabButton {
   width: 80%;
   margin-left: 40px;
 }
-table {
+/* table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -61,7 +101,7 @@ th {
 }
 th {
   background-color: #d3cece;
-}
+} */
 .switch {
   position: relative;
   display: inline-block;
@@ -122,9 +162,9 @@ Rounded sliders .slider.round {
   border-radius: 50%;
 }
 
-h1 {
+/* h1 {
   margin: 20px 0;
-}
+} */
 a .editText {
   text-decoration: none;
   color: #000000;

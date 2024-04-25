@@ -1,7 +1,7 @@
 "use client";
-import { TopHeader } from "@/component/fundraiser/sidebar";
+import { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import "./dashboard.css";
-import AsideBar from "@/component/fundraiser/sidebar";
+import AsideBar from "@/component/fundraiser/fundraiserSidebar";
 import useAuth from "@/context/auth";
 import { useContext, useEffect, useState } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";

@@ -1,8 +1,7 @@
 "use client";
 
 import axios from "axios";
-import "../../../component/module.fundraiser.css";
-
+import styles from "../../../component/fundraiser.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
@@ -12,6 +11,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import Link from "next/link";
 
 // import Dashboard from "../(fundraiserAdmin)/(components)/dashboard/page";
 
@@ -77,29 +77,31 @@ export default function page({ params }) {
 
   return (
     <>
-      <div className="box">
-        <div className="banner">
-          <div className="imgArea">
-            <img
+      <div className={styles.box}>
+        <div className={styles.banner}>
+          <div className={styles.imgArea}>
+            <Image
               src="/images/fundraisal.png"
               alt="Indian Military"
-              className="mainImage"
+              className={styles.mainImage}
               height="100%"
               width="100%"
             />
           </div>
         </div>
-        <div className="hero" style={{ width: "100%" }}>
-          <div className="mainGoal" style={{ width: "50%" }}>
-            <div className="goal">
-              <div className="subGoal">
-                <p className="completeGoal">{calculateGoalPercentage()}</p>
-                <h2 className="currentGoal">
+        <div className={styles.hero} style={{ width: "100%" }}>
+          <div className={styles.mainGoal} style={{ width: "50%" }}>
+            <div className={styles.goal}>
+              <div className={styles.subGoal}>
+                <p className={styles.completeGoal}>
+                  {calculateGoalPercentage()}
+                </p>
+                <h2 className={styles.currentGoal}>
                   &#8377; {fundraiser.raised_amount}
                 </h2>
-                <p className="completeGoal">
+                <p className={styles.completeGoal}>
                   of{" "}
-                  <span className="totalGoal">
+                  <span className={styles.totalGoal}>
                     &#8377; {fundraiser.target_amount}
                   </span>{" "}
                   Goal
@@ -107,92 +109,99 @@ export default function page({ params }) {
               </div>
             </div>
           </div>
-          <div className="resolution" style={{ width: "50%" }}>
-            <h1 className="resolutionAbout">About My Resolution</h1>
-            <p className="motivation">
+          <div className={styles.resolution} style={{ width: "50%" }}>
+            <h1 className={styles.resolutionAbout}>About My Resolution</h1>
+            <p className={styles.motivation}>
               <br />
               {fundraiser.resolution}
             </p>
-            <div className="resolutionBtn">
+            <div className={styles.resolutionBtn}>
               {showPopup && (
-                <div className="sharePopupOverlay" onClick={closePopup}>
+                <div className={styles.sharePopupOverlay} onClick={closePopup}>
                   <div
-                    className="sharePopup"
+                    className={styles.sharePopup}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <h3>Share this fundraiser:</h3>
-                    <div className="shareToggle">
+                    <div className={styles.shareToggle}>
                       <FacebookShareButton url={shareURL}>
-                        <FaFacebook className="shareIcon" />
+                        <FaFacebook className={styles.shareIcon} />
                       </FacebookShareButton>
                       <TwitterShareButton url={shareURL}>
-                        <FaTwitter className="shareIcon" />
+                        <FaTwitter className={styles.shareIcon} />
                       </TwitterShareButton>
                       <LinkedinShareButton url={shareURL}>
-                        <FaLinkedin className="shareIcon" />
+                        <FaLinkedin className={styles.shareIcon} />
                       </LinkedinShareButton>
                       <WhatsappShareButton url={shareURL}>
-                        <FaWhatsapp className="shareIcon" />
+                        <FaWhatsapp className={styles.shareIcon} />
                       </WhatsappShareButton>
                     </div>
                   </div>
                 </div>
               )}
-              <a className="resolutionLink">
+              <Link className={styles.resolutionLink}>
                 <button
                   type="button"
-                  className="mainbtn"
+                  className={styles.mainbtn}
                   onClick={() => handleShare(window.location.href)}
                   style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
                 >
-                  <i className="fa-solid fa-share-nodes"></i>Share
+                  <i className="styles.fa-solid fa-share-nodes"></i>Share
                 </button>
-              </a>
-              <a href="#" className="resolutionLink">
-                <button type="submit" className="mainbtn filled">
+              </Link>
+              <Link href="#" className={styles.resolutionLink}>
+                <button
+                  type="submit"
+                  className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
+                >
                   Contribute
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      <article className="article">
+      <article className={styles.article}>
         <button
           type="button"
-          // className="userStory active"
-          className={`userStory ${activeTab === "myStory" ? "active" : ""}`}
+          // className={styles.userStory active"
+          className={`${styles.userStory} ${
+            activeTab === "myStory" ? `${styles.active}` : ""
+          }`}
           onClick={() => handleTabChange("myStory")}
         >
           My Story
         </button>
         <button
           type="button"
-          // className="userStory active"
-          className={`userStory ${activeTab === "gallery" ? "active" : ""}`}
+          // className={styles.userStory active"
+          className={`${styles.userStory} ${
+            activeTab === "gallery" ? `${styles.active}` : ""
+          }`}
           onClick={() => handleTabChange("gallery")}
         >
           Gallery
         </button>
       </article>
-      <aside className="mainAside">
+      <aside className={styles.mainAside}>
         {activeTab === "myStory" ? (
-          <div className="leftAside">
-            <p className="aboutMe">
+          <div className={styles.leftAside}>
+            <p className={styles.aboutMe}>
               {fundraiser.story || "No content to show"}
             </p>
-            <h3 className="reason">Money Raised For</h3>
-            <p className="aboutMe">{fundraiser.money_raised_for} </p>
+            <h3 className={styles.reason}>Money Raised For</h3>
+            <p className={styles.aboutMe}>{fundraiser.money_raised_for} </p>
           </div>
         ) : (
           //images
-          <div className="leftAside">
+          <div className={styles.leftAside}>
             {fundraiser?.gallery?.map((image, index) => (
-              <div key={index} className="galleryImage">
+              <div key={index} className={styles.galleryImage}>
                 <Image
                   src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
                   alt={`Image ${image}`}
-                  className="galleryImg"
+                  className={styles.galleryImg}
                   height="200"
                   width="200"
                 />
@@ -200,13 +209,13 @@ export default function page({ params }) {
             ))}
           </div>
         )}
-        <div className="rightAside">
-          <div className="container">
-            <h3 className="supporters">Our Supporters</h3>
-            <div className="allSupporters">
+        <div className={styles.rightAside}>
+          <div className={styles.container}>
+            <h3 className={styles.supporters}>Our Supporters</h3>
+            <div className={styles.allSupporters}>
               {fundraiser.supporters && fundraiser.supporters.length > 0 ? (
                 fundraiser.supporters.map((supporter, index) => (
-                  <p key={index} className="ourSupporters">
+                  <p key={index} className={styles.ourSupporters}>
                     <i className="fa-sharp fa-solid fa-play rightTriangle"></i>
                     {supporter}
                   </p>

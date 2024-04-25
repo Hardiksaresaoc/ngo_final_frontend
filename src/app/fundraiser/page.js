@@ -2,6 +2,7 @@
 import { useState } from "react";
 import "../../component/module.fundraiser.css";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function page() {
   const [fundraiser, setfundraiser] = useState([]);
@@ -11,7 +12,7 @@ export default function page() {
       <div className="box">
         <div className="banner">
           <div className="imgArea">
-            <img
+            <Image
               src="/images/fundraisal.png"
               alt="Indian Military"
               className="mainImage"

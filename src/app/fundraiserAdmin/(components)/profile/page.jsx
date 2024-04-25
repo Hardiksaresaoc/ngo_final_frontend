@@ -4,6 +4,8 @@ import axios from "axios";
 import { Cookies } from "react-cookie";
 import useAuth from "@/context/auth";
 import "./profile.css";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -309,7 +311,7 @@ export default function Page() {
                   </span>
                 </div>
                 <div className="formButton">
-                  <a href="#">
+                  <Link href="#">
                     <button
                       type="reset"
                       onClick={reset}
@@ -317,7 +319,7 @@ export default function Page() {
                     >
                       Cancel
                     </button>
-                  </a>
+                  </Link>
                   <button
                     type="submit"
                     onClick={handleUpdate}
@@ -329,7 +331,7 @@ export default function Page() {
               </form>
             ) : (
               <div>
-                <img
+                <Image
                   id="blah"
                   src={imagePreview || "#"} // Set image source from state
                   alt="your image"

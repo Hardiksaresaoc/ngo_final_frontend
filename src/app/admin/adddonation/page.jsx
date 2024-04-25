@@ -1,7 +1,8 @@
 "use client";
 import Sidebar from "@/component/sidebar";
 // export default GeneratePage;
-import "./styCles.css";
+import styles from "./adddonation.module.css";
+// import "./styles.css";
 import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
@@ -140,16 +141,17 @@ export default function page() {
     <>
       {/* {console.log(token)} */}
 
-      <section className="mainFundraiser">
+      <section className={styles.mainFundraiser}>
         <Sidebar />
-        <div className="rightSection">
-          <div className="rightpart">
-            <h1 className="bigText">Fundraiser Information</h1>
-            <form className="mainForm">
-              <div className="fundraiserDetail">
+        <div className={styles.rightSection}>
+          <div className={styles.rightpart}>
+            <h1 className={styles.bigText}>Fundraiser Information</h1>
+            <form className={styles.mainForm}>
+              <div className={styles.fundraiserDetail}>
                 <span>
                   <span>
-                    Fundraiser E-mail <span className="compulsory">*</span>
+                    Fundraiser E-mail{" "}
+                    <span className={styles.compulsory}>*</span>
                   </span>
                   <br />
                   <input
@@ -163,7 +165,7 @@ export default function page() {
                 </span>
                 <span>
                   <span>
-                    Amount <span className="compulsory">*</span>
+                    Amount <span className={styles.compulsory}>*</span>
                   </span>
                   <br />
                   <input
@@ -184,11 +186,11 @@ export default function page() {
                 </span>
               </div>
               <h2>Personal Information</h2>
-              <div className="personalDetail">
-                <div className="firstpersonalDetail">
+              <div className={styles.personalDetail}>
+                <div className={styles.firstpersonalDetail}>
                   <span>
                     <span>
-                      First Name <span className="compulsory">*</span>
+                      First Name <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
@@ -220,7 +222,7 @@ export default function page() {
                   </span>
                   <span>
                     <span>
-                      Email <span className="compulsory">*</span>
+                      Email <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
@@ -239,7 +241,7 @@ export default function page() {
                     )}
                   </span>
                 </div>
-                <div className="secondpersonalDetail">
+                <div className={styles.secondpersonalDetail}>
                   <span>
                     <span>Address</span>
                     <br />
@@ -277,7 +279,7 @@ export default function page() {
                     />
                   </span>
                 </div>
-                <div className="thirdpersonalDetail">
+                <div className={styles.thirdpersonalDetail}>
                   <span>
                     <span>Country</span>
                     <br />
@@ -304,7 +306,7 @@ export default function page() {
                   </span>
                   <span>
                     <span>
-                      Mobile Number <span className="compulsory">*</span>
+                      Mobile Number <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
@@ -327,8 +329,8 @@ export default function page() {
                 </div>
               </div>
               <h2>Donation Information</h2>
-              <div className="donationDetail">
-                <div className="firstdonationDetail">
+              <div className={styles.donationDetail}>
+                <div className={styles.firstdonationDetail}>
                   <span>
                     <span>PAN Number</span>
                     <br />
@@ -344,7 +346,7 @@ export default function page() {
                   <span>
                     <span>
                       Offline Payment Method
-                      <span className="compulsory">*</span>
+                      <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
@@ -374,10 +376,11 @@ export default function page() {
                     />
                   </span>
                 </div>
-                <div className="seconddonationDetail">
-                  <span className="offlinePaymentDate">
+                <div className={styles.seconddonationDetail}>
+                  <span className={styles.offlinePaymentDate}>
                     <span>
-                      Donation (Date) <span className="compulsory">*</span>
+                      id="bankName" Donation (Date){" "}
+                      <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
@@ -386,7 +389,7 @@ export default function page() {
                       id="donation_date"
                       value={formData.donation_date}
                       onChange={handleChange}
-                      className="paymentDate"
+                      className={styles.paymentDate}
                       placeholder="Enter your Cheque/DD/NEFT date"
                       required
                     />
@@ -422,12 +425,15 @@ export default function page() {
                   </span>
                 </div>
               </div>
-              <div className="formButton">
-                <button type="reset" className="fundButton donorButton">
+              <div className={styles.formButton}>
+                <button
+                  type="reset"
+                  className={(styles.fundButton, styles.donorButton)}
+                >
                   Cancel
                 </button>
                 <button
-                  className="fundButton"
+                  className={styles.fundButton}
                   type="submit"
                   onClick={handleSubmit}
                   disabled={loading}
@@ -435,7 +441,7 @@ export default function page() {
                   {loading ? "Loading..." : "Submit"}
                 </button>
                 {Object.keys(errors).length > 0 && (
-                  <div className="errorMessages">
+                  <div className={styles.errorMessages}>
                     {Object.values(errors).map((error, index) => (
                       <p key={index} style={{ color: "red" }}>
                         {error}

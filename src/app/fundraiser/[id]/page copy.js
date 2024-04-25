@@ -1,9 +1,20 @@
 "use client";
 
 import axios from "axios";
+// import "../../../component/module.fundraiser.css";
 import "../../../component/module.fundraiser.css";
-
+Image
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import Link from "next/link";
+
 // import Dashboard from "../(fundraiserAdmin)/(components)/dashboard/page";
 
 export default function page({ params }) {
@@ -11,15 +22,35 @@ export default function page({ params }) {
   const fundraiserID = params.id;
   console.log("af", fundraiserID);
   const [activeTab, setActiveTab] = useState("myStory");
+
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
+  };
+  const [showPopup, setShowPopup] = useState(false);
+  const [shareURL, setShareURL] = useState(""); // URL to share
+
+  const handleShare = (url) => {
+    const message = ` ${fundraiser.resolution} ${url}`;
+    setShareURL(message);
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+        };
         const response = await axios.get(
-          `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${fundraiserID}`
+          `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${fundraiserID}`,
+          config
         );
         setFundraiser(response.data); // Set the response data to the state
         console.log(response); // Set the response data to the state
@@ -29,12 +60,29 @@ export default function page({ params }) {
     };
     fetchData();
   }, []);
+  const calculateGoalPercentage = () => {
+    const raisedAmount = fundraiser.raised_amount;
+    const targetAmount = fundraiser.target_amount;
+
+    if (isNaN(raisedAmount) || isNaN(targetAmount) || targetAmount <= 0) {
+      return "--";
+    }
+
+    const percentage = (raisedAmount / targetAmount) * 100;
+
+    if (percentage > 100) {
+      return "100%+";
+    } else {
+      return `${Math.round(percentage)}%`;
+    }
+  };
+
   return (
     <>
       <div className="box">
         <div className="banner">
           <div className="imgArea">
-            <img
+            <Image
               src="/images/fundraisal.png"
               alt="Indian Military"
               className="mainImage"
@@ -47,7 +95,7 @@ export default function page({ params }) {
           <div className="mainGoal" style={{ width: "50%" }}>
             <div className="goal">
               <div className="subGoal">
-                <p className="completeGoal">(50%)</p>
+                <p className="completeGoal">{calculateGoalPercentage()}</p>
                 <h2 className="currentGoal">
                   &#8377; {fundraiser.raised_amount}
                 </h2>
@@ -68,16 +116,45 @@ export default function page({ params }) {
               {fundraiser.resolution}
             </p>
             <div className="resolutionBtn">
-              <a href="#" className="resolutionLink">
-                <button type="submit" className="mainbtn">
+              {showPopup && (
+                <div className="sharePopupOverlay" onClick={closePopup}>
+                  <div
+                    className="sharePopup"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <h3>Share this fundraiser:</h3>
+                    <div className="shareToggle">
+                      <FacebookShareButton url={shareURL}>
+                        <FaFacebook className="shareIcon" />
+                      </FacebookShareButton>
+                      <TwitterShareButton url={shareURL}>
+                        <FaTwitter className="shareIcon" />
+                      </TwitterShareButton>
+                      <LinkedinShareButton url={shareURL}>
+                        <FaLinkedin className="shareIcon" />
+                      </LinkedinShareButton>
+                      <WhatsappShareButton url={shareURL}>
+                        <FaWhatsapp className="shareIcon" />
+                      </WhatsappShareButton>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <Link className="resolutionLink">
+                <button
+                  type="button"
+                  className="mainbtn"
+                  onClick={() => handleShare(window.location.href)}
+                  style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
+                >
                   <i className="fa-solid fa-share-nodes"></i>Share
                 </button>
-              </a>
-              <a href="#" className="resolutionLink">
+              </Link>
+              <Link href="#" className="resolutionLink">
                 <button type="submit" className="mainbtn filled">
                   Contribute
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -112,10 +189,17 @@ export default function page({ params }) {
         ) : (
           //images
           <div className="leftAside">
-            <img
-              style={{ height: "200px", width: "200px" }}
-              src="crawler.drawiofa39749d-f4de-4770-95f5-8aa6f737b3b0.png"
-            />
+            {fundraiser?.gallery?.map((image, index) => (
+              <div key={index} className="galleryImage">
+                <Image
+                  src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
+                  alt={`Image ${image}`}
+                  className="galleryImg"
+                  height="200"
+                  width="200"
+                />
+              </div>
+            ))}
           </div>
         )}
         <div className="rightAside">
