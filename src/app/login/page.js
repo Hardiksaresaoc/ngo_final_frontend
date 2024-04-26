@@ -6,6 +6,7 @@ import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./login.module.css";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -128,32 +129,35 @@ const LoginPage = () => {
 
   return !loggedin ? (
     <>
-      <div className="main">
+      <div className={styles.main}>
         {/* <Header /> */}
-        <section className="mainSection">
-          <div className="leftSection">
-            <form className="mainForm" onSubmit={submithandler}>
-              <div className="formImg">
+
+        <section className={styles.mainSection}>
+          <div className={styles.leftSection}>
+            <form className={styles.mainForm} onSubmit={submithandler}>
+              <div className={styles.formImg}>
                 <Image
                   src="/images/ProjectForm.png"
-                  className="w100"
+                  className={styles.w100}
                   alt="Indian Flag Tricolor"
                   height="120"
                   width="366"
                 />
               </div>
-              <div className="lowerForm">
-                <h2 className="formTag">Log In</h2>
-                <div className="formInput">
-                  <div className="inputInside">
-                    <label htmlFor="email" className="filled">
+              <div className={styles.lowerForm}>
+                <h2 className={styles.formTag}>Log In</h2>
+                <div className={styles.formInput}>
+                  <div className={styles.inputInside}>
+                    <label htmlFor="email" className={styles.filled}>
                       Email
                     </label>
-                    <div className="inputIcon">
-                      <i className="fa-solid fa-envelope formIcon"></i>
+                    <div className={styles.inputIcon}>
+                      <i
+                        className={` ${styles["fa-solid"]} fas fa-envelope  ${styles.formIcon}`}
+                      ></i>
                     </div>
                     <input
-                      className="inputField"
+                      className={styles.inputField}
                       name="email"
                       onChange={(e) => setEmail(e.target.value)}
                       onBlur={handleBlur("email")}
@@ -169,19 +173,17 @@ const LoginPage = () => {
                     )}
                   </div>
 
-                  <div className="inputInside">
-                    <label htmlFor="password" className="filled">
+                  <div className={styles.inputInside}>
+                    <label htmlFor="password" className={styles.filled}>
                       Password
                     </label>
-                    <div className="inputIcon">
-                      <i className="fa-solid fa-key keyIcon"></i>
+                    <div className={styles.inputIcon}>
+                      <i className={`fas fa-key ${styles.keyIcon}`}></i>
 
                       <i
-                        className={
-                          showPassword
-                            ? "fa-regular fa-eye eyeIcon formIcon"
-                            : "fa-regular fa-eye-slash eyeIcon formIcon"
-                        }
+                        className={`fas ${
+                          showPassword ? "fa-eye" : "fa-eye-slash"
+                        } ${styles.eyeIcon} ${styles.formIcon}`}
                         onClick={() =>
                           setShowPassword(
                             (prevShowPassword) => !prevShowPassword
@@ -191,7 +193,7 @@ const LoginPage = () => {
                       ></i>
                       <input
                         name="password"
-                        className="inputField"
+                        className={styles.inputField}
                         onChange={(e) => setPassword(e.target.value)}
                         onBlur={handleBlur("password")}
                         type={showPassword ? "text" : "password"}
@@ -207,21 +209,25 @@ const LoginPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="identification">
-                  <div className="remember">
+                <div className={styles.identification}>
+                  <div className={styles.remember}>
                     <label htmlFor="rememberme">
                       <input
                         type="checkbox"
-                        className="rememberme"
+                        className={styles.rememberme}
                         id="rememberme"
                         name="rememberme"
                       />
                       Remember me
                     </label>
                   </div>
-                  <div className="forgot">
-                    <p className="forgotPass">
-                      <Link href="/forgot" title="" className="forgotLink">
+                  <div className={styles.forgot}>
+                    <p className={styles.forgotPass}>
+                      <Link
+                        href="/forgot"
+                        title=""
+                        className={styles.forgotLink}
+                      >
                         Forgot password?
                       </Link>
                     </p>
@@ -240,17 +246,17 @@ const LoginPage = () => {
                     </p>
                   )}
                 </div>
-                <div className="submit">
-                  <button type="submit" className="buttonSubmit">
+                <div className={styles.submit}>
+                  <button type="submit" className={styles.buttonSubmit}>
                     {loading ? "loading" : "Log In"}
                   </button>
                 </div>
               </div>
             </form>
           </div>
-          <div className="rightSection">
-            <div className="comment">
-              <h1 className="coreValue">
+          <div className={styles.rightSection}>
+            <div className={styles.comment}>
+              <h1 className={styles.coreValue}>
                 Empower Fundraising Heroes: Your
                 <br />
                 Appeal Sparks Change!

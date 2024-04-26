@@ -80,7 +80,7 @@ export default function page({ params }) {
       <div className={styles.box}>
         <div className={styles.banner}>
           <div className={styles.imgArea}>
-            <Image
+            <img
               src="/images/fundraisal.png"
               alt="Indian Military"
               className={styles.mainImage}
@@ -140,7 +140,7 @@ export default function page({ params }) {
                   </div>
                 </div>
               )}
-              <Link className={styles.resolutionLink}>
+              <a className={styles.resolutionLink}>
                 <button
                   type="button"
                   className={styles.mainbtn}
@@ -149,15 +149,15 @@ export default function page({ params }) {
                 >
                   <i className="styles.fa-solid fa-share-nodes"></i>Share
                 </button>
-              </Link>
-              <Link href="#" className={styles.resolutionLink}>
+              </a>
+              <a href="#" className={styles.resolutionLink}>
                 <button
                   type="submit"
                   className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
                 >
                   Contribute
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function page({ params }) {
           <div className={styles.leftAside}>
             {fundraiser?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
-                <Image
+                <img
                   src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
                   alt={`Image ${image}`}
                   className={styles.galleryImg}

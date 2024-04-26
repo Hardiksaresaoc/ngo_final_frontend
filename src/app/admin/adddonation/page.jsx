@@ -379,7 +379,7 @@ export default function page() {
                 <div className={styles.seconddonationDetail}>
                   <span className={styles.offlinePaymentDate}>
                     <span>
-                      id="bankName" Donation (Date){" "}
+                      Donation (Date){" "}
                       <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
@@ -428,7 +428,7 @@ export default function page() {
               <div className={styles.formButton}>
                 <button
                   type="reset"
-                  className={(styles.fundButton, styles.donorButton)}
+                  className={`${styles.fundButton} ${styles.donorButton}`}
                 >
                   Cancel
                 </button>

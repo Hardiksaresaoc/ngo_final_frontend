@@ -23,7 +23,6 @@ export default function FundraiserPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        ///ngrok
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -31,6 +30,7 @@ export default function FundraiserPage() {
             Authorization: `Bearer ${token}`,
           },
         };
+        ///ngrok
         const response = await axios.get(
           "https://allowing-shiner-needlessly.ngrok-free.app/admin/adminDashboard",
           config
@@ -54,35 +54,35 @@ export default function FundraiserPage() {
           <div className={styles.rightmain}>
             <div className={styles.mainbox}>
               <div className={styles.box}>
-                <Image src="/images/coins-hand.svg" width="58px" height="58px" />
+                <Image src="/images/coins-hand.svg" width={58} height={58} />
                 <p>
                   <span> &#8377; {allData.totalDonations}/-</span>
                   <span>Total Donation</span>
                 </p>
               </div>
               <div className={`${styles.box} ${styles.secend}`}>
-                <Image src="/images/Icon.svg" />
+                <img src="/images/Icon.svg" />
                 <p>
                   <span> {allData.totalFundraisers}</span>
                   <span>Total Fundraisers</span>
                 </p>
               </div>
               <div className={styles.box}>
-                <Image src="/images/Icon.svg" />
+                <img src="/images/Icon.svg" />
                 <p>
                   <span>{allData.activeFundraisers}</span>
                   <span>Active Fundraisers</span>
                 </p>
               </div>
               <div className={`${styles.box} ${styles.secend}`}>
-                <Image src="/images/coins-03.svg" />
+                <img src="/images/coins-03.svg" />
                 <p>
                   <span> &#8377; {allData.todayDonations}/-</span>
                   <span>Today’s Donation</span>
                 </p>
               </div>
               <div className={styles.box}>
-                <Image src="/images/coins-03.svg" />
+                <img src="/images/coins-03.svg" />
                 <p>
                   <span> &#8377; {allData.thisMonthDonations}/-</span>
                   <span>Last Month Donation</span>

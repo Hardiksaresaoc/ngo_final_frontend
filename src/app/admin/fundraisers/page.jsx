@@ -167,7 +167,7 @@ export default function FundraiserPage() {
                         }}
                       >
                         <i
-                          className={`${styles["fa-solid"]} ${styles["fa-pen-to-square"]} ${styles.editText}`}
+                          className={`fa-solid fa-pen-to-square ${styles.editText}`}
                         ></i>
                       </button>
                     </td>
@@ -309,14 +309,14 @@ export default function FundraiserPage() {
                   setShowPopup(false);
                 }}
                 type="reset"
-                className={(styles.fpopupundButton, styles.popupdonorButton)}
+                className={`${styles.popupfundbutton} ${styles.popupdonorButton}`}
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className={styles.popupfundButton}
+                className={styles.popupfundbutton}
                 disable={loading}
               >
                 {loading ? "Loading..." : "Save"}

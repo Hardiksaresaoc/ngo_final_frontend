@@ -1,5 +1,6 @@
 .mainFundraiser .rightSection {
   width: 80%;
+  display: block;
 }
 .mainFundraiser .rightSection .rightpart {
   border: 1px solid #eaecf0;

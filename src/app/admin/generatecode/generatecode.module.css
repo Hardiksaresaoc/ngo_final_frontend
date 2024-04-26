@@ -1,9 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-section {
+.section {
   width: 100%;
   display: flex;
 }
@@ -20,12 +15,12 @@ section {
 .rightSection .rightsubSection h1 {
   padding: 20px 24px;
 }
-form {
+.form {
   display: flex;
   gap: 10px;
   padding: 16px;
 }
-form input {
+.form input {
   height: 40px;
   width: 350px;
   margin-top: 6px;

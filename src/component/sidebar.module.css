@@ -87,21 +87,7 @@ a .tabButton {
   width: 80%;
   margin-left: 40px;
 }
-/* table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-td,
-th {
-  border: 1px solid #000000;
-  text-align: left;
-  padding: 8px;
-  background-color: #fff;
-}
-th {
-  background-color: #d3cece;
-} */
+
 .switch {
   position: relative;
   display: inline-block;

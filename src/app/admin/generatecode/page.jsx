@@ -5,7 +5,7 @@ import useAuth from "@/context/auth";
 import axios from "axios"; // Added axios import
 import Sidebar from "../../../component/sidebar";
 import { Cookies } from "react-cookie";
-import "./generatecode.css";
+import styles from "./generatecode.module.css";
 import Link from "next/link";
 
 const GeneratePage = () => {
@@ -76,16 +76,16 @@ const GeneratePage = () => {
   };
 
   return (
-    <section>
+    <section className={styles.section}>
       <Sidebar />
-      <div className="rightSection">
-        <div className="rightsubSection">
+      <div className={styles.rightSection}>
+        <div className={styles.rightsubSection}>
           <h1>Generate Credentials</h1>
-          <div className="rightsectionForm">
-            <form onSubmit={handleSubmit}>
+          <div className={styles.rightsectionForm}>
+            <form className={styles.form} onSubmit={handleSubmit}>
               <span>
                 <span>E-mail </span>
-                <span className="compulsory">*</span>
+                <span className={styles.compulsory}>*</span>
                 <br />
                 <input
                   type="email"
@@ -98,7 +98,7 @@ const GeneratePage = () => {
               </span>
               <span>
                 <span>Name </span>
-                <span className="compulsory">*</span>
+                <span className={styles.compulsory}>*</span>
                 <br />
                 <input
                   type="text"
@@ -111,7 +111,7 @@ const GeneratePage = () => {
               </span>
               <span>
                 <span>Mobile Number </span>
-                <span className="compulsory">*</span>
+                <span className={styles.compulsory}>*</span>
                 <br />
                 <input
                   type="text"
@@ -124,15 +124,15 @@ const GeneratePage = () => {
                   maxLength="10"
                 />
               </span>
-              <div className="rightsectionBtn">
+              <div className={styles.rightsectionBtn}>
                 <button
                   type="reset"
                   onClick={reset}
-                  className="cancelBtn filled"
+                  className={`${styles.cancelBtn} ${styles.filled}`}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="cancelBtn">
+                <button type="submit" className={styles.cancelBtn}>
                   Generate
                 </button>
               </div>

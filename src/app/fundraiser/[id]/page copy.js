@@ -82,7 +82,7 @@ export default function page({ params }) {
       <div className="box">
         <div className="banner">
           <div className="imgArea">
-            <Image
+            <img
               src="/images/fundraisal.png"
               alt="Indian Military"
               className="mainImage"

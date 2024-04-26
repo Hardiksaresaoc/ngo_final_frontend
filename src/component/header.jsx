@@ -4,19 +4,18 @@ import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import { useCookies } from "react-cookie";
 import { usePathname } from "next/navigation";
-import "./module.header.css"; // Assuming this imports your custom styles
+import styles from "./header.module.css"; // Assuming this imports your custom styles
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
 
-export default function Header({ role, rolename }) {
+export default function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
-  // console.log(pathname);
-  // const user = useAuth(role);
+
   const [isopen, setisopen] = useState(false);
   const toggle = () => {
     setisopen(!isopen);
@@ -36,89 +35,97 @@ export default function Header({ role, rolename }) {
   };
 
   return (
-    <header className="head">
-      <div className="logo">
+    <header className={styles.head}>
+      <div className={styles.logo}>
         <Image
+          priority
           src="/images/ProjectLogo.png"
           alt="Webpage Logo"
-          className="logoImg"
+          className={styles.logoImg}
           height="100"
           width="100"
         />
       </div>
-      <nav className="headerNav">
-        <ul className="headerUL">
-          <li className="headerLi">
+      <nav className={styles.headerNav}>
+        <ul className={styles.headerUL}>
+          <li className={styles.headerLi}>
             <Link legacyBehavior href="/">
               <a
-                className={`navlink ${pathname == "/login" ? "active" : ""}`}
+                className={`${styles.navlink} ${
+                  pathname === "/login" ? styles.active : ""
+                }`}
               >
                 Home
               </a>
             </Link>
           </li>
-          <li className="dropdownLi">
-            <div className="dropdown">
-              <button className="dropbtn navlink">
+          <li className={styles.dropdownLi}>
+            <div className={styles.dropdown}>
+              <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 Projects
-                <i className="fa fa-caret-down downIcon"></i>
+                <i
+                  className={`${styles.fa} fa-caret-down ${styles.downIcon}`}
+                ></i>
               </button>
-              <div className="dropdown-content">
+              <div className={`${styles["dropdown-content"]}`}>
+                {" "}
                 <Link
                   href="https://supportourheroes.in/project-pithu/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Project PITHU
                 </Link>
                 <Link
                   href="https://supportourheroes.in/project-sehat/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Project SEHAT
                 </Link>
                 <Link
                   href="https://supportourheroes.in/project-saksham/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Project SAKSHAM
                 </Link>
                 <Link
                   href="https://supportourheroes.in/project-sashakt/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Project SASHAKT
                 </Link>
                 <Link
                   href="https://supportourheroes.in/project-insaniyat/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Project INSANIYAT
                 </Link>
               </div>
             </div>
           </li>
-          <li className="dropdownLi">
-            <div className="dropdown">
-              <button className="dropbtn navlink">
+          <li className={styles.dropdownLi}>
+            <div className={styles.dropdown}>
+              <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 About Us
-                <i className="fa fa-caret-down downIcon"></i>
+                <i
+                  className={`${styles.fa} fa-caret-down ${styles.downIcon}`}
+                ></i>
               </button>
-              <div className="dropdown-content">
+              <div className={`${styles["dropdown-content"]}`}>
                 <Link
                   href="https://supportourheroes.in/vision-mission/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Vission & Mission
                 </Link>
                 <Link
                   href="https://supportourheroes.in/team/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Team
                 </Link>
                 <Link
                   href="https://supportourheroes.in/letters-of-appreciation/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Letters of
                   <br />
@@ -126,13 +133,13 @@ export default function Header({ role, rolename }) {
                 </Link>
                 <Link
                   href="https://supportourheroes.in/legal-status/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Legal Status
                 </Link>
                 <Link
                   href="https://supportourheroes.in/tax-exemption-donation-faqs/"
-                  className="dropdownProject"
+                  className={styles.dropdownProject}
                 >
                   Tax Exemption
                   <br />
@@ -141,43 +148,51 @@ export default function Header({ role, rolename }) {
               </div>
             </div>
           </li>
-          <li className="headerLi">
+          <li className={styles.headerLi}>
             <Link legacyBehavior href="https://supportourheroes.in/our-faqs/">
-              <a className="navlink">Our FAQs</a>
+              <a className={styles.navlink}>Our FAQs</a>
             </Link>
           </li>
-          <li className="headerLi">
+          <li className={styles.headerLi}>
             <Link legacyBehavior href="https://supportourheroes.in/contact-us/">
-              <a className="navlink">Contact Us</a>
+              <a className={styles.navlink}>Contact Us</a>
             </Link>
           </li>
         </ul>
       </nav>
-      <div className="headerBtn">
+      <div className={styles.headerBtn}>
         {user && user.role === "FUNDRAISER" ? (
           <>
-            <div className="profileimg">
-              <button type="button" onClick={toggle} className="profilebutton">
+            <div className={styles.profileimg}>
+              <button
+                type="button"
+                onClick={toggle}
+                className={styles.profilebutton}
+              >
                 <Image
                   src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${FundraiserContext.fundraiser_image}`}
                   width="40"
                   height="40"
                 />
                 {!isopen ? (
-                  <div className="custom-dropdown">
-                    <div className="selected-option">
-                      <i className="fa-solid fa-angle-up fa-rotate-180"></i>
+                  <div className={`${styles["custom-dropdown"]}`}>
+                    <div className={`${styles["selcted-option"]}`}>
+                      <i
+                        className={`${styles["fa-solid"]} fa-angle-up fa-rotate-180`}
+                      ></i>
                     </div>
                   </div>
                 ) : (
                   <>
-                    <div className="custom-dropdown">
-                      <div className="selected-option">
-                        <i className="fa-solid fa-angle-down"></i>
+                    <div className={`${styles["custom-dropdown"]}`}>
+                      <div className={`${styles["selcted-option"]}`}>
+                        <i
+                          className={`${styles["fa-solid"]} fa-angle-down`}
+                        ></i>
                       </div>
                     </div>
 
-                    <ul className="dropdown-options">
+                    <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option1">
                         {" "}
                         <Link
@@ -213,30 +228,44 @@ export default function Header({ role, rolename }) {
           </>
         ) : user && user.role === "ADMIN" ? (
           <>
-            <div className="profileimg">
-              <button type="button" onClick={toggle} className="profilebutton">
-                <Image style={{ background: "grey" }} width="40" height="40" />
+            <div className={styles.profileimg}>
+              <button
+                type="button"
+                onClick={toggle}
+                className={styles.profilebutton}
+              >
+                <Image
+                  src="/"
+                  alt
+                  style={{ background: "grey" }}
+                  width="40"
+                  height="40"
+                />
                 {!isopen ? (
-                  <div className="custom-dropdown">
-                    <div className="selected-option">
-                      <i className="fa-solid fa-angle-up fa-rotate-180"></i>
+                  <div className={`${styles["custom-dropdown"]}`}>
+                    <div className={`${styles["selcted-option"]}`}>
+                      <i
+                        className={`${styles["fa-solid"]} fa-angle-up fa-rotate-180`}
+                      ></i>
                     </div>
                   </div>
                 ) : (
                   <>
-                    <div className="custom-dropdown">
-                      <div className="selected-option">
-                        <i className="fa-solid fa-angle-down"></i>
+                    <div className={`${styles["custom-dropdown"]}`}>
+                      <div className={`${styles["selcted-option"]}`}>
+                        <i
+                          className={`${styles["fa-solid"]} fa-angle-down`}
+                        ></i>
                       </div>
                     </div>
-                    <ul className="dropdown-options">
+                    <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option3" style={{ color: "red" }}>
-                        <Link
-                          onClick={handleLogout}
+                        <a
+                          onClick={() => handleLogout()}
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </>
@@ -247,15 +276,17 @@ export default function Header({ role, rolename }) {
         ) : (
           <>
             <Link href="/login">
-              <Button className="innerBtn">Log in</Button>
+              <Button className={styles.innerBtn}>Log in</Button>
             </Link>
             <Link href="https://supportourheroes.in/donate-now/">
-              <Button className="innerBtn filled">Donate</Button>
+              <Button className={`${styles.innerBtn} ${styles.filled}`}>
+                Donate
+              </Button>
             </Link>
           </>
         )}
 
-        <i className="fa-solid fa-bars headerIcon"></i>
+        <i className={`${styles["fa-solid"]} fa-bars ${styles.headerIcon}`}></i>
       </div>
     </header>
   );
