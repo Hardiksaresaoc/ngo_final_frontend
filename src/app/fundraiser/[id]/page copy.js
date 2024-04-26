@@ -140,7 +140,7 @@ export default function page({ params }) {
                   </div>
                 </div>
               )}
-              <Link className="resolutionLink">
+              <a className="resolutionLink">
                 <button
                   type="button"
                   className="mainbtn"
@@ -149,7 +149,7 @@ export default function page({ params }) {
                 >
                   <i className="fa-solid fa-share-nodes"></i>Share
                 </button>
-              </Link>
+              </a>
               <Link href="#" className="resolutionLink">
                 <button type="submit" className="mainbtn filled">
                   Contribute

@@ -50,11 +50,11 @@ export default function Header({ role, rolename }) {
         <ul className="headerUL">
           <li className="headerLi">
             <Link legacyBehavior href="/">
-              <Link
+              <a
                 className={`navlink ${pathname == "/login" ? "active" : ""}`}
               >
                 Home
-              </Link>
+              </a>
             </Link>
           </li>
           <li className="dropdownLi">
@@ -143,12 +143,12 @@ export default function Header({ role, rolename }) {
           </li>
           <li className="headerLi">
             <Link legacyBehavior href="https://supportourheroes.in/our-faqs/">
-              <Link className="navlink">Our FAQs</Link>
+              <a className="navlink">Our FAQs</a>
             </Link>
           </li>
           <li className="headerLi">
             <Link legacyBehavior href="https://supportourheroes.in/contact-us/">
-              <Link className="navlink">Contact Us</Link>
+              <a className="navlink">Contact Us</a>
             </Link>
           </li>
         </ul>

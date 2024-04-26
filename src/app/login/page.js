@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
+import Link from "next/link";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
