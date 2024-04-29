@@ -19,6 +19,7 @@
   display: flex;
   gap: 10px;
   padding: 16px;
+  flex-wrap: wrap;
 }
 .form input {
   height: 40px;
@@ -35,8 +36,9 @@
 }
 .rightsectionBtn {
   display: flex;
+  justify-content: center;
   gap: 8px;
-  justify-content: flex-end;
+  width: 100%;
   padding: 16px;
 }
 .cancelBtn {

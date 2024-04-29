@@ -6,7 +6,7 @@ import Sidebar from "../../component/sidebar";
 import useAuth from "@/context/auth";
 import styles from "./admin.module.css";
 import Image from "next/image";
-
+  
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
   const [allData, setallData] = useState([]);

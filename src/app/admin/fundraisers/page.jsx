@@ -25,7 +25,7 @@ export default function FundraiserPage() {
     resolution: "",
     story: "",
     money_raised_for: "",
-    target_amount: "",
+    target_amount: selectedFundraiser?.target_amount || "",
   });
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -50,7 +50,7 @@ export default function FundraiserPage() {
     if (selectedFundraiser) {
       setFormData({
         name: selectedFundraiser?.firstName || "",
-        target_amount: "",
+        target_amount: selectedFundraiser?.target_amount || "",
         email: selectedFundraiser?.email || "",
         resolution: "",
         story: "",
@@ -116,18 +116,23 @@ export default function FundraiserPage() {
               </tr>
             </thead>
             {fundraisers.length >= 0 ? (
-              <tbody>
+              <tbody className={styles.tableBody}>
                 {fundraisers?.map((fundraiser) => (
-                  <tr key={fundraiser.fundraiser_id}>
-                    <td>{fundraiser.f_id}</td>
-                    <td>{fundraiser.firstName}</td>
-                    <td>{fundraiser.email.toLowerCase()}</td>
-                    <td>{fundraiser.mobile_number}</td>
-                    <td>
-                      http://localhost:3000/fundraiser/
-                      {fundraiser.fundraiser_page?.id}
+                  <tr
+                    className={styles.tableRow}
+                    key={fundraiser.fundraiser_id}
+                  >
+                    <td className={styles.td}>{fundraiser.f_id}</td>
+                    <td className={styles.td}>{fundraiser.firstName}</td>
+                    <td className={styles.td}>
+                      {fundraiser.email.toLowerCase()}
                     </td>
-                    <td>
+                    <td className={styles.td}>{fundraiser.mobile_number}</td>
+                    <td className={styles.td}>
+                      http://localhost:3000/fundraiser/
+                      {fundraiser?.fundraiser_page?.id}
+                    </td>
+                    <td className={styles.td}>
                       <label className={styles.switch}>
                         <input
                           type="checkbox"
@@ -159,17 +164,15 @@ export default function FundraiserPage() {
                       </label>
                     </td>
 
-                    <td>
-                      <button
+                    <td className={styles.td}>
+                      <a
                         onClick={() => {
                           setShowPopup(true);
                           setSelectedFundraiser(fundraiser);
                         }}
                       >
-                        <i
-                          className={`fa-solid fa-pen-to-square ${styles.editText}`}
-                        ></i>
-                      </button>
+                        <i className={`fa-solid fa-pen-to-square fa-xl `}></i>
+                      </a>
                     </td>
                   </tr>
                 ))}
@@ -183,7 +186,7 @@ export default function FundraiserPage() {
       {showPopup && (
         <div className={styles.popup}>
           <div className={styles.hero}>
-            <h1>Edit Fundraiser Details</h1>
+            <h1 style={{ paddingBottom: "1em" }}>Edit Fundraiser Details</h1>
             <div className={styles.popupfundraiserDetail}>
               <span>
                 <span>ID</span>
@@ -210,7 +213,6 @@ export default function FundraiserPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  disabled
                 />
               </span>
               <span>
@@ -236,14 +238,14 @@ export default function FundraiserPage() {
                   type="number"
                   name="target_amount"
                   id="target_amount"
-                  placeholder="target_amount"
+                  placeholder="Target Amount"
+                  value={formData?.target_amount}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
                       target_amount: parseInt(e.target.value, 10),
                     })
                   }
-                  value={selectedFundraiser?.fundraiser_page?.target_amount}
                 />
               </span>
             </div>
@@ -252,6 +254,7 @@ export default function FundraiserPage() {
                 <span>About My Resolution</span>
                 <br />
                 <textarea
+                  className={styles.textarea}
                   name="resolution"
                   id="resolution"
                   cols="30"
@@ -272,6 +275,7 @@ export default function FundraiserPage() {
               <span>My Story</span>
               <br />
               <textarea
+                className={styles.textarea}
                 name="story"
                 id="story"
                 cols="30"
@@ -288,6 +292,7 @@ export default function FundraiserPage() {
                 <span>Money Raised For</span>
                 <br />
                 <textarea
+                  className={styles.textarea}
                   name="money_raised_for"
                   id="money_raised_for"
                   cols="30"

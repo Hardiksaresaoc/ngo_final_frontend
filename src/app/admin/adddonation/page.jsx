@@ -389,8 +389,8 @@ export default function page() {
                       id="donation_date"
                       value={formData.donation_date}
                       onChange={handleChange}
-                      className={styles.paymentDate}
-                      placeholder="Enter your Cheque/DD/NEFT date"
+                      style={{ width: "170px", color: "#667085" }}
+                      className={styles.donation_date}
                       required
                     />
                     {errors.donation_date && (
