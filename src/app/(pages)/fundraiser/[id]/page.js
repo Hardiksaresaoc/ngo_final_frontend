@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import styles from "../../../component/fundraiser.module.css";
+import styles from "@/component/fundraiser.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import {

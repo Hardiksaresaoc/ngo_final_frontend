@@ -1,6 +1,8 @@
+.mainFundraiser {
+  display: flex;
+}
 .mainFundraiser .rightSection {
   width: 80%;
-  display: block;
 }
 .mainFundraiser .rightSection .rightpart {
   border: 1px solid #eaecf0;
@@ -90,4 +92,8 @@
 }
 .mainFundraiser .rightSection .rightpart .mainForm .compulsory {
   color: #ff0000;
+}
+.donation_date {
+  width: 170px;
+  color: #667085;
 }

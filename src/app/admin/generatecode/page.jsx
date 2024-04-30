@@ -117,13 +117,14 @@ const GeneratePage = () => {
                   type="text"
                   name="mobileNumber"
                   id="mobileNumber"
-                  value={mobile_number} // Changed from mobile_number to mobile_number
-                  onChange={(e) => setMobileNumber(e.target.value)} // Changed from setmobile_number to setMobileNumber
+                  value={mobile_number}
+                  onChange={(e) => setMobileNumber(e.target.value)}
                   placeholder="Enter your mobile no."
                   pattern="[0-9]{10}"
                   maxLength="10"
                 />
               </span>
+
               <div className={styles.rightsectionBtn}>
                 <button
                   type="reset"
