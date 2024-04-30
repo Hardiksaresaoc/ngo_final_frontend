@@ -29,7 +29,7 @@ export default function Header() {
     }
   }, [cookies.token]);
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
     removeCookie("token");
     router.replace("/login");
   };
@@ -39,8 +39,8 @@ export default function Header() {
       <div className={styles.logo}>
         <Image
           priority
+          alt="SOH"
           src="/images/ProjectLogo.png"
-          alt="Webpage Logo"
           className={styles.logoImg}
           height="100"
           width="100"
@@ -68,7 +68,7 @@ export default function Header() {
                 ></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
-                {" "}
+                
                 <Link
                   href="https://supportourheroes.in/project-pithu/"
                   className={styles.dropdownProject}
@@ -173,6 +173,7 @@ export default function Header() {
                   src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${FundraiserContext.fundraiser_image}`}
                   width="40"
                   height="40"
+                  alt="profile"
                 />
                 {!isopen ? (
                   <div className={`${styles["custom-dropdown"]}`}>
@@ -194,18 +195,17 @@ export default function Header() {
 
                     <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option1">
-                        {" "}
+                        
                         <Link
-                          href="/logout"
+                          href="/dashboard"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Dashboard
                         </Link>
                       </li>
                       <li data-value="option2">
-                        {" "}
                         <Link
-                          href="/logout"
+                          href="/profile"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Profile
@@ -213,59 +213,11 @@ export default function Header() {
                       </li>
                       <li data-value="option3" style={{ color: "red" }}>
                         <span
-                          onClick={() => handleLogout()}
-                          // href="/logout"
+                          onClick={(e) => handleLogout()}
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
                         </span>
-                      </li>
-                    </ul>
-                  </>
-                )}
-              </button>
-            </div>
-          </>
-        ) : user && user.role === "ADMIN" ? (
-          <>
-            <div className={styles.profileimg}>
-              <button
-                type="button"
-                onClick={toggle}
-                className={styles.profilebutton}
-              >
-                <Image
-                  src="/"
-                  alt
-                  style={{ background: "grey" }}
-                  width="40"
-                  height="40"
-                />
-                {!isopen ? (
-                  <div className={`${styles["custom-dropdown"]}`}>
-                    <div className={`${styles["selcted-option"]}`}>
-                      <i
-                        className={`${styles["fa-solid"]} fa-angle-up fa-rotate-180`}
-                      ></i>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className={`${styles["custom-dropdown"]}`}>
-                      <div className={`${styles["selcted-option"]}`}>
-                        <i
-                          className={`${styles["fa-solid"]} fa-angle-down`}
-                        ></i>
-                      </div>
-                    </div>
-                    <ul className={`${styles["dropdown-options"]}`}>
-                      <li data-value="option3" style={{ color: "red" }}>
-                        <a
-                          onClick={() => handleLogout()}
-                          style={{ textDecoration: "none", color: "inherit" }}
-                        >
-                          Log out
-                        </a>
                       </li>
                     </ul>
                   </>

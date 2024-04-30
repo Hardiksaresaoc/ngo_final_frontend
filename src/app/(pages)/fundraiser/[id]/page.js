@@ -100,10 +100,10 @@ export default function page({ params }) {
                   &#8377; {fundraiser.raised_amount}
                 </h2>
                 <p className={styles.completeGoal}>
-                  of{" "}
+                  of
                   <span className={styles.totalGoal}>
                     &#8377; {fundraiser.target_amount}
-                  </span>{" "}
+                  </span>
                   Goal
                 </p>
               </div>
@@ -147,7 +147,8 @@ export default function page({ params }) {
                   onClick={() => handleShare(window.location.href)}
                   style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
                 >
-                  <i className="styles.fa-solid fa-share-nodes"></i>Share
+                  <i className={`${styles["fa-solid"]} fa-share-nodes`}></i>
+                  Share
                 </button>
               </a>
               <a href="#" className={styles.resolutionLink}>
@@ -216,7 +217,9 @@ export default function page({ params }) {
               {fundraiser.supporters && fundraiser.supporters.length > 0 ? (
                 fundraiser.supporters.map((supporter, index) => (
                   <p key={index} className={styles.ourSupporters}>
-                    <i className="fa-sharp fa-solid fa-play rightTriangle"></i>
+                    <i
+                      className={`fa-sharp ${styles["fa-solid"]} rightTriangle`}
+                    ></i>
                     {supporter}
                   </p>
                 ))

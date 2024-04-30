@@ -1,7 +1,7 @@
 "use client";
 import { useState, useContext, useEffect } from "react";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
-import "./photo.css";
+import styles from "./photo.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
 import axios from "axios";
@@ -85,9 +85,9 @@ export default function Page() {
       <TopHeader link={fundraiserCtx.fundraiser_page?.id} />
       <aside>
         <AsideBar />
-        <section className="photowrapper">
-          <div className="imgwrapper">
-            <div className="imgcount">
+        <section className={styles.photowrapper}>
+          <div className={styles.imgwrapper}>
+            <div className={styles.imgcount}>
               <input type="file" onChange={handleFileChange} />
               <button
                 type="button"
@@ -97,22 +97,22 @@ export default function Page() {
                 Upload File
               </button>
             </div>
-            <div className="row">
+            <div className={styles.row}>
               {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
-                <div key={index} className="galleryImage">
+                <div key={index} className={styles.galleryImage}>
                   <Image
                     src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
                     alt={`Image ${index}`}
-                    className="galleryImg"
+                    className={styles.galleryImg}
                     height="200"
                     width="200"
                   />
                   <button
                     type="button"
                     onClick={() => handleDeleteImage(index, image)}
-                    className="delete"
+                    className={styles.delete}
                   >
-                    <i className="fa-solid fa-trash"></i>
+                    <i className={`${styles["fa-solid"]} fa-trash`}></i>
                   </button>
                 </div>
               ))}

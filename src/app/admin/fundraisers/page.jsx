@@ -25,7 +25,7 @@ export default function FundraiserPage() {
     resolution: "",
     story: "",
     money_raised_for: "",
-    target_amount: selectedFundraiser?.target_amount || "",
+    target_amount: selectedFundraiser?.fundraiser_page?.target_amount || "",
   });
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -50,11 +50,12 @@ export default function FundraiserPage() {
     if (selectedFundraiser) {
       setFormData({
         name: selectedFundraiser?.firstName || "",
-        target_amount: selectedFundraiser?.target_amount || "",
+        target_amount: selectedFundraiser?.fundraiser_page?.target_amount || "",
         email: selectedFundraiser?.email || "",
-        resolution: "",
-        story: "",
-        money_raised_for: "",
+        resolution: selectedFundraiser?.fundraiser_page?.resolution || "",
+        story: selectedFundraiser?.fundraiser_page?.story || "",
+        money_raised_for:
+          selectedFundraiser?.fundraiser_page?.money_raised_for || "",
       });
     }
   }, [selectedFundraiser]);

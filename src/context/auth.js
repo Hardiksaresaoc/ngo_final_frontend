@@ -24,7 +24,6 @@ const useAuth = (allowedRoles) => {
       return;
     }
 
-    // Check if allowedRoles is defined and not empty before using includes
     if (
       allowedRoles &&
       allowedRoles.length > 0 &&

@@ -54,7 +54,7 @@ const DefaultResetPassword = () => {
 
   return otpGen ? (
     <div>
-      <form className="reset-password" onSubmit={resetpassword}>
+      <form className={styles["reset-password"]} onSubmit={resetpassword}>
         <h1>Forgot Password</h1>
         <p>Enter OTP and your new password.</p>
         <div>
@@ -81,14 +81,14 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className="reset-pwd">
+        <button type="submit" className={styles["reset-pwd"]}>
           {!loading ? "Submit" : "Sending..."}
         </button>
       </form>
     </div>
   ) : (
     <div>
-      <form className="reset-password" onSubmit={handleForgot}>
+      <form className={styles["reset-password"]} onSubmit={handleForgot}>
         <h1>Forgot Password</h1>
         <p>You are not alone. We've all been here at some point.</p>
         <div>
@@ -103,7 +103,7 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className="reset-pwd">
+        <button type="submit" className={styles["reset-pwd"]}>
           {!loading ? "Get secure link" : "Sending..."}
         </button>
       </form>

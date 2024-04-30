@@ -31,7 +31,8 @@ export default function Sidebar() {
             pathname === "/admin/generatecode" ? `${styles.active}` : ""
           }`}
         >
-          <i className="fa-regular fa-address-book"></i>Credentials
+          <i className={`fa-regular ${styles["fa-address-book"]}`}></i>
+          Credentials
         </p>
       </Link>
       <Link href="/admin/fundraisers">
@@ -40,7 +41,8 @@ export default function Sidebar() {
             pathname === "/admin/fundraisers" ? `${styles.active}` : ""
           }`}
         >
-          <i className="fa-solid fa-coins"></i>Fundraiser
+          <i className={`fa-regular ${styles["fa-coins"]}`}></i>
+          Fundraiser
         </p>
       </Link>
       <Link href="/admin/adddonation">
@@ -49,7 +51,8 @@ export default function Sidebar() {
             pathname === "/admin/adddonation" ? `${styles.active}` : ""
           }`}
         >
-          <i className="fa-solid fa-hand-holding-dollar"></i>Donation
+          <i className={`fa-regular ${styles["fa-hand-holding-dollar"]}`}></i>
+          Donation
         </p>
       </Link>
     </div>

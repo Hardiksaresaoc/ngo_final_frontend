@@ -22,7 +22,6 @@ export default function Page() {
 
   return (
     <div
-      className="unauthorized"
       style={{
         fontSize: "2rem",
         textAlign: "center",
@@ -30,7 +29,7 @@ export default function Page() {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        flexDirection: "column", // Added to display child elements vertically
+        flexDirection: "column",
       }}
     >
       <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>

@@ -139,196 +139,209 @@ export default function Page() {
 
   return user ? (
     <>
-      <section className="mainSection">
-        <div className="leftSection">
+      <section className={styles.mainSection}>
+        <div className={styles.leftSection}>
           <a
             href="#"
-            className="sidebarLink"
+            className={styles.sidebarLink}
             onClick={() => setShowAccountDetails(true)}
           >
-            <p className={`sideBar ${showAccountDetails ? "active" : ""}`}>
-              <i className="fa-solid fa-user"></i> Account Details
+            <p
+              className={`${styles.sideBar} ${
+                showAccountDetails ? "active" : ""
+              }`}
+            >
+              <i className={`${styles["fa-solid"]} fa-user`}></i> Account
+              Details
             </p>
           </a>
           <a
-            className="sidebarLink"
+            className={styles.sidebarLink}
             onClick={() => setShowAccountDetails(false)}
           >
-            <p className={`sideBar ${!showAccountDetails ? "active" : ""}`}>
-              <i className="fa-regular fa-image"></i> Upload Profile Photo
+            <p
+              className={`${styles.sideBar} ${
+                !showAccountDetails ? "active" : ""
+              }`}
+            >
+              <i className={`${styles["fa-regular"]} fa-image`}></i> Upload
+              Profile Photo
             </p>
           </a>
         </div>
-        <div className="rightSection">
-          <div className="accountDetails">
+        <div className={styles.rightSection}>
+          <div className={styles.accountDetails}>
             <h1>
               {showAccountDetails ? "Account Details" : "Upload Profile Photo"}
             </h1>
             {showAccountDetails ? (
-              <form>
-                <div className="firstpersonalDetail">
-                  <span>
+              <>
+                <form>
+                  <div className={styles.firstpersonalDetail}>
                     <span>
-                      First Name <span className="compulsory">*</span>
+                      <span>
+                        First Name <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        name="firstName"
+                        id="firstName"
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Enter your first name"
+                        required
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="text"
-                      name="firstName"
-                      id="firstName"
-                      onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="Enter your first name"
-                      required
-                    />
-                  </span>
-                  <span>
                     <span>
-                      Last Name <span className="compulsory">*</span>
+                      <span>
+                        Last Name <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        name="lastName"
+                        id="lastName"
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Enter your last name"
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="text"
-                      name="lastName"
-                      id="lastName"
-                      onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Enter your last name"
-                    />
-                  </span>
-                  <span>
                     <span>
-                      Email <span className="compulsory">*</span>
+                      <span>
+                        Email <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="email"
+                        name="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        id="email"
+                        placeholder="Enter your e-mail"
+                        required
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                      id="email"
-                      placeholder="Enter your e-mail"
-                      required
-                    />
-                  </span>
-                </div>
-                <div className="secondpersonalDetail">
-                  <span>
+                  </div>
+                  <div className={styles.secondpersonalDetail}>
                     <span>
-                      Address <span className="compulsory">*</span>
+                      <span>
+                        Address <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        name="address"
+                        onChange={(e) => setAddress(e.target.value)}
+                        id="address"
+                        placeholder="Enter your address"
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="text"
-                      name="address"
-                      onChange={(e) => setAddress(e.target.value)}
-                      id="address"
-                      placeholder="Enter your address"
-                    />
-                  </span>
-                  <span>
-                    <span>City</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="Enter your city"
-                    />
-                  </span>
-                  <span>
-                    <span>State</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="state"
-                      onChange={(e) => setState(e.target.value)}
-                      id="state"
-                      placeholder="Enter your state"
-                    />
-                  </span>
-                </div>
-                <div className="thirdpersonalDetail">
-                  <span>
-                    <span>Country</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="country"
-                      id="country"
-                      onChange={(e) => setCountry(e.target.value)}
-                      placeholder="Enter your country"
-                    />
-                  </span>
-                  <span>
-                    <span>Pincode</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="pincode"
-                      id="pincode"
-                      onChange={(e) => setPincode(e.target.value)}
-                      placeholder="Enter your pincode"
-                    />
-                  </span>
-                  <span>
                     <span>
-                      Mobile Number <span className="compulsory">*</span>
+                      <span>City</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="city"
+                        id="city"
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Enter your city"
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="number"
-                      name="mobileNumber"
-                      id="mobileNumber"
-                      placeholder="Enter your mobile no."
-                      maxLength="10"
-                      onChange={(e) => setNumber(e.target.value)}
-                      pattern="[1-9]{1}[0-9]{9}]"
-                      required
-                    />
-                  </span>
-                </div>
-                <div className="fourthpersonalDetail">
-                  <span>
-                    <span>DOB</span>
-                    <br />
-                    <input
-                      type="date"
-                      name="PANnumber"
-                      id="DOB"
-                      onChange={(e) => setDOB(e.target.value)}
-                      placeholder="Enter your PAN number"
-                    />
-                  </span>
-                  <span>
-                    <span>PAN Number</span>
-                    <br />
-                    <input
-                      type="text"
-                      onChange={(e) => setPan(e.target.value)}
-                      name="PANnumber"
-                      id="PANnumber"
-                      placeholder="Enter your PAN number"
-                    />
-                  </span>
-                </div>
-                <div className="formButton">
-                  <Link href="#">
+                    <span>
+                      <span>State</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="state"
+                        onChange={(e) => setState(e.target.value)}
+                        id="state"
+                        placeholder="Enter your state"
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.thirdpersonalDetail}>
+                    <span>
+                      <span>Country</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="country"
+                        id="country"
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder="Enter your country"
+                      />
+                    </span>
+                    <span>
+                      <span>Pincode</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="pincode"
+                        id="pincode"
+                        onChange={(e) => setPincode(e.target.value)}
+                        placeholder="Enter your pincode"
+                      />
+                    </span>
+                    <span>
+                      <span>
+                        Mobile Number
+                        <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="number"
+                        name="mobileNumber"
+                        id="mobileNumber"
+                        placeholder="Enter your mobile no."
+                        maxLength="10"
+                        onChange={(e) => setNumber(e.target.value)}
+                        pattern="[1-9]{1}[0-9]{9}]"
+                        required
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.fourthpersonalDetail}>
+                    <span>
+                      <span>DOB</span>
+                      <br />
+                      <input
+                        type="date"
+                        name="PANnumber"
+                        id="DOB"
+                        onChange={(e) => setDOB(e.target.value)}
+                        placeholder="Enter your PAN number"
+                      />
+                    </span>
+                    <span>
+                      <span>PAN Number</span>
+                      <br />
+                      <input
+                        type="text"
+                        onChange={(e) => setPan(e.target.value)}
+                        name="PANnumber"
+                        id="PANnumber"
+                        placeholder="Enter your PAN number"
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.formButton}>
+                    <Link href="#">
+                      <button
+                        type="reset"
+                        onClick={reset}
+                        className={`${styles.fundButton} ${styles.donorButton}`}
+                      >
+                        Cancel
+                      </button>
+                    </Link>
                     <button
-                      type="reset"
-                      onClick={reset}
-                      className="fundButton donorButton"
+                      type="submit"
+                      onClick={handleUpdate}
+                      className={styles.fundButton}
                     >
-                      Cancel
+                      Save
                     </button>
-                  </Link>
-                  <button
-                    type="submit"
-                    onClick={handleUpdate}
-                    className="fundButton"
-                  >
-                    Save
-                  </button>
-                </div>
-              </form>
+                  </div>
+                </form>
+              </>
             ) : (
               <div>
                 <Image
@@ -349,7 +362,7 @@ export default function Page() {
                 <button
                   type="submit"
                   onClick={handleImageUpload}
-                  className="fundButton"
+                  className={styles.fundButton}
                 >
                   submit
                 </button>
