@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
-import "./module.update.css";
+import styles from "./update.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
 import { Cookies } from "react-cookie";
@@ -64,14 +64,14 @@ export default function Update() {
   return user ? (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
-      <aside>
+      <aside className={styles.aside}>
         <AsideBar />
 
-        <div className="rightAside">
+        <div className={styles.rightAside}>
           <h1>Update Fundraiser Page</h1>
           <form onSubmit={handleSubmit}>
-            <div className="mainCol">
-              <div className="firstCol">
+            <div className={styles.mainCol}>
+              <div className={styles.firstCol}>
                 <label htmlFor="FundraisingTarget">
                   Fundraising Target (INR)*
                   <br />
@@ -96,8 +96,8 @@ export default function Update() {
                   ></textarea>
                 </label>
               </div>
-              <div className="secondCol">
-                <label htmlFor="MyStory" className="aboutMe">
+              <div className={styles.secondCol}>
+                <label htmlFor="MyStory" className={styles.aboutMe}>
                   My Story *<br />
                   <textarea
                     name="MyStory"
@@ -110,7 +110,7 @@ export default function Update() {
                 </label>
               </div>
             </div>
-            <div className="thirdCol">
+            <div className={styles.thirdCol}>
               <label htmlFor="MoneyRaised">
                 Money Raised For *<br />
                 <textarea
@@ -123,8 +123,8 @@ export default function Update() {
                 ></textarea>
               </label>
             </div>
-            <div className="submitButton">
-              <button type="submit" className="formButton">
+            <div className={styles.submitButton}>
+              <button type="submit" className={styles.formButton}>
                 Save Changes
               </button>
             </div>

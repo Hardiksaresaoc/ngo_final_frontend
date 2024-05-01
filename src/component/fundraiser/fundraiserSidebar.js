@@ -13,7 +13,7 @@ export default function AsideBar() {
           <Link href="/fundraiserAdmin/dashboard">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/dashboard" ? "styles.active" : ""
+                pathname === "/fundraiserAdmin/dashboard" ? styles.active : ""
               }`}
             >
               <Image
@@ -29,7 +29,7 @@ export default function AsideBar() {
           <Link href="/fundraiserAdmin/update">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/update" ? "active" : ""
+                pathname === "/fundraiserAdmin/update" ? styles.active : ""
               }`}
             >
               <Image
@@ -45,19 +45,17 @@ export default function AsideBar() {
           <Link href="/fundraiserAdmin/photo">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/photo" ? "styles.active" : ""
+                pathname === "/fundraiserAdmin/photo" ? styles.active : ""
               }`}
             >
-              <i
-                className="fa-solid fa-image asideIcon"
-              ></i>
+              <i className={`fas fa-image ${styles.asideIcon}`}></i>
               Photos
             </p>
           </Link>
           <Link href="report">
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/report" ? "active" : ""
+                pathname === "/fundraiserAdmin/report" ? styles.active : ""
               }`}
             >
               <Image
@@ -78,7 +76,7 @@ export default function AsideBar() {
 export const TopHeader = ({ link }) => {
   return (
     <>
-      <section>
+      <section className={styles.section}>
         <div className={styles.main}>
           <div className={styles.leftSection}>
             <div className={styles.content}>
@@ -93,8 +91,10 @@ export const TopHeader = ({ link }) => {
           <div className={styles.rightSection}>
             <div className={styles.ImageArea}>
               <Image
+                style={{ width: "100%", height: "400px", objectFit: "contain" }}
                 src="/images/FrontImage.png"
                 alt="Soldiers"
+                unoptimized
                 height="300"
                 width="100"
               />

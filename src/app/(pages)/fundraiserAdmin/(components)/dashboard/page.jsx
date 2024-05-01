@@ -1,6 +1,6 @@
 "use client";
 import { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
-import "./dashboard.css";
+import styles from "./dashboard.module.css";
 import AsideBar from "@/component/fundraiser/fundraiserSidebar";
 import useAuth from "@/context/auth";
 import { useContext, useEffect, useState } from "react";
@@ -12,28 +12,30 @@ export default function Dashboard() {
   return user ? (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
-      <aside>
+      <aside className={styles.aside}>
         <AsideBar />
-        <div className="rightAside">
-          <div className="upperPortion">
+        <div className={styles.rightAside}>
+          <div className={styles.upperPortion}>
             <h2>Welcome to your Support our Heroes Account!</h2>
           </div>
-          <div className="lowerPortion">
-            <div className="donors">
-              <div className="totalRaise">
+          <div className={styles.lowerPortion}>
+            <div className={styles.donors}>
+              <div className={styles.totalRaise}>
                 <p>
-                  <i className="fa-solid fa-coins"></i>Total Amount Raised
+                  <i className={` fa-solid fa-coins`}></i>Total Amount Raised
                 </p>
-                <p className="amtMoney">
+                <p className={styles.amtMoney}>
                   &#8377; {fundraiserCtx.total_amount_raised}
                 </p>
               </div>
-              <div className="totalDonors">
+              <div className={styles.totalDonors}>
                 <p>
-                  <i className="fa-solid fa-hand-holding-heart"></i>No. of
-                  Donors
+                  <i className={`fa-solid fa-hand-holding-heart`}></i>
+                  No. of Donors
                 </p>
-                <p className="no-donor">{fundraiserCtx.total_donations}</p>
+                <p className={`${styles["no-donor"]}`}>
+                  {fundraiserCtx.total_donations}
+                </p>
               </div>
             </div>
           </div>

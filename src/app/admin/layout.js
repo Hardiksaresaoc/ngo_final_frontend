@@ -1,5 +1,4 @@
-import Footer from "@/component/footer";
-import Header from "@/component/header";
+import Header from "@/component/admin/header";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,7 +9,10 @@ export default function RootLayout({ children }) {
   return (
     <>
       <html>
-        <body>{children}</body>
+        <body>
+          <Header />
+          {children}
+        </body>
       </html>
     </>
   );

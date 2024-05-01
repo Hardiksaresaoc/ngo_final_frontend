@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "./report.css";
+import styles from "./report.module.css";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import { Cookies } from "react-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
@@ -101,13 +101,13 @@ export default function Page() {
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
-      <aside>
+      <aside className={styles.aside}>
         <AsideBar />
 
-        <div className="rightAside">
+        <div className={styles.rightAside}>
           <h1>Donation Report</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="upperForm">
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.upperForm}>
               <span>
                 <span>FromDate</span>
                 <br />
@@ -160,7 +160,7 @@ export default function Page() {
                 </datalist>
               </span>
             </div>
-            <div className="lowerForm">
+            <div className={styles.lowerForm}>
               <p>
                 <label htmlFor="payment_status">Payment Status</label>
                 <br />
@@ -178,8 +178,9 @@ export default function Page() {
                 </datalist>
               </p>
 
-              <button type="submit" className="formsearchButton">
-                <i className="fa-solid fa-magnifying-glass"></i> Search
+              <button type="submit" className={styles.formsearchButton}>
+                <i className={`${styles["fa-solid"]} fa-magnifying-glass`}></i>
+                Search
               </button>
             </div>
           </form>
@@ -187,11 +188,12 @@ export default function Page() {
           <button
             type="button"
             onClick={handleDownload}
-            className="downloadExcel"
+            className={styles.downloadExcel}
           >
-            <i className="fa-solid fa-file-excel"></i> Download Excel
+            <i className={`${styles["fa-solid"]} fa-file-excel`}></i> Download
+            Excel
           </button>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>Donation Id</th>

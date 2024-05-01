@@ -217,15 +217,16 @@
 .profileimg .dropdown-options {
   min-width: 91px;
   list-style: none;
-  padding: 24px;
+  padding: 12px;
   position: absolute;
   border: 1px solid #ccc;
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 11px;
   z-index: 1;
   position: absolute;
   align-content: center;
-  transform: translate3d(-44px, 60px, 0px);
+  transform: translate3d(-40px, 55px, 0px);
+
   display: block;
 }
 .dropdown-options i {
@@ -246,4 +247,12 @@
 
 .profileimg .dropdown-options li:hover {
   background-color: #f0f0f0;
+}
+
+.TagLine {
+  display: flex;
+  align-items: center;
+  font-family: Helvetica;
+  text-shadow: 2px 2px rgb(197, 179, 179);
+  font-size: 50px;
 }

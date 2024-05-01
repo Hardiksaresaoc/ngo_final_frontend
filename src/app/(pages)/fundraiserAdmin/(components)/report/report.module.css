@@ -3,7 +3,7 @@
   height: 400px;
   display: flex;
   flex-direction: row;
-  background-image: url(/images/BackgroundImage.png);
+  background-image: url(/images/background-bigSize.png);
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -25,11 +25,9 @@
 }
 .content h1 {
   font-size: 40px;
-  font-family: Helvetica;
   letter-spacing: 2px;
 }
 .content p {
-  font-family: Helvetica;
   font-size: 20px;
   margin-top: 20px;
   letter-spacing: 2px;
@@ -40,14 +38,18 @@
 .imgArea {
   margin-right: 60px;
 }
-
+.imgArea img {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+}
 .lowerPart {
   width: 100%;
   height: 50px;
   background-color: #04045f;
   color: #fff;
   position: absolute;
-  top: 453px;
+  top: 350px;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -88,15 +90,14 @@
   width: 100%;
 }
 .container p {
-  padding: 16px 24px;
-  color: #001080;
+  padding: 15px 10px;
+  color: #0000ff;
   width: 100%;
   font-weight: 700;
   cursor: pointer;
   display: flex;
-  font-family: roboto;
-  font-size: 20px;
   border-radius: 8px;
+  font-size: 20px;
 }
 .container p a {
   text-decoration: none;
@@ -114,55 +115,81 @@
   margin-right: 10px;
   color: 0000ff;
 }
+
+/* adminFundraiser Starts */
+
 .rightAside {
   width: 80%;
+  padding: 0 20px 20px;
+  background-color: #dfdada;
 }
-.upperPortion {
-  background-color: rgb(248, 237, 233);
-  height: 158px;
-  display: flex;
-  align-items: flex-start;
-}
-.upperPortion h2 {
+.rightAside h1 {
   color: #fd8900;
-  margin: 20px 0 0 40px;
-  font-weight: bolder;
-}
-.donors {
-  display: flex;
-  flex-direction: row;
-  gap: 25px;
-  margin-left: 40px;
-  position: relative;
-  bottom: 35px;
-}
-.T .totalRaise {
-  border: 2px solid #0000ff;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 8px;
-  background-color: #fff;
-}
-.totalRaise i,
-.totalDonors i {
-  margin-right: 10px;
-}
-.totalRaise .amtMoney,
-.no-donor {
-  margin: 10px 0 0 26px;
+  padding: 15px 0;
   font-weight: bold;
 }
-.totalDonors {
-  border: 2px solid #008000;
-  padding: 15px 30px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
+.form {
+  padding: 10px 10px;
   background-color: #fff;
 }
-.totalRaise p,
-.totalDonors p {
-  font-size: 18px;
+.upperForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lowerForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+}
+.formsearchButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #0000ff;
+  color: #fff;
+  border: 2px solid #0000ff;
+  border-radius: 6px;
+}
+.formsearchButton a {
+  text-decoration: none;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+.form input {
+  border: 1px solid;
+  outline: none;
+  margin-top: 5px;
+  padding: 3px 3px;
+  border-radius: 6px;
+  background-color: #dfdada;
+}
+.downloadExcel {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 5px;
+  background-color: #fff;
+  color: #0000ff;
+  border: 1px solid;
+  outline: none;
+  margin-top: 30px;
+  cursor: pointer;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  margin-top: 20px;
+}
+.table th,
+.table td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
 }

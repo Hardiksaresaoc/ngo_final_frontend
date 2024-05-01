@@ -150,7 +150,7 @@ export default function page() {
               <div className={styles.fundraiserDetail}>
                 <span>
                   <span>
-                    Fundraiser E-mail{" "}
+                    Fundraiser E-mail
                     <span className={styles.compulsory}>*</span>
                   </span>
                   <br />
@@ -161,7 +161,7 @@ export default function page() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your fundraiser e-mail"
-                  />{" "}
+                  />
                 </span>
                 <span>
                   <span>
@@ -379,7 +379,7 @@ export default function page() {
                 <div className={styles.seconddonationDetail}>
                   <span className={styles.offlinePaymentDate}>
                     <span>
-                      Donation (Date){" "}
+                      Donation (Date)
                       <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
