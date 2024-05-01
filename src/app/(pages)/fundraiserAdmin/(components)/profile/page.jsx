@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import useAuth from "@/context/auth";
-import "./profile.css";
+import styles from "./profile.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -148,11 +148,10 @@ export default function Page() {
           >
             <p
               className={`${styles.sideBar} ${
-                showAccountDetails ? "active" : ""
+                showAccountDetails ? `${styles.active}` : ""
               }`}
             >
-              <i className={`${styles["fa-solid"]} fa-user`}></i> Account
-              Details
+              <i className={`fa-solid fa-user`}></i> Account Details
             </p>
           </a>
           <a
@@ -161,11 +160,10 @@ export default function Page() {
           >
             <p
               className={`${styles.sideBar} ${
-                !showAccountDetails ? "active" : ""
+                !showAccountDetails ? `${styles.active}` : ""
               }`}
             >
-              <i className={`${styles["fa-regular"]} fa-image`}></i> Upload
-              Profile Photo
+              <i className={`fa-regular fa-image`}></i> Upload Profile Photo
             </p>
           </a>
         </div>
@@ -176,7 +174,7 @@ export default function Page() {
             </h1>
             {showAccountDetails ? (
               <>
-                <form>
+                <form className={styles.form}>
                   <div className={styles.firstpersonalDetail}>
                     <span>
                       <span>

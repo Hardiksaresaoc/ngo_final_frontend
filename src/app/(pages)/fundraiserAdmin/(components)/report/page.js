@@ -179,7 +179,7 @@ export default function Page() {
               </p>
 
               <button type="submit" className={styles.formsearchButton}>
-                <i className={`${styles["fa-solid"]} fa-magnifying-glass`}></i>
+                <i className={`fa-solid fa-magnifying-glass`}></i>
                 Search
               </button>
             </div>
@@ -190,8 +190,7 @@ export default function Page() {
             onClick={handleDownload}
             className={styles.downloadExcel}
           >
-            <i className={`${styles["fa-solid"]} fa-file-excel`}></i> Download
-            Excel
+            <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
           <table className={styles.table}>
             <thead>

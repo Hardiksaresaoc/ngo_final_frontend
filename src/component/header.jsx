@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/react";
 import { useCookies } from "react-cookie";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.css"; // Assuming this imports your custom styles
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
@@ -15,7 +15,6 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
-
   const [isopen, setisopen] = useState(false);
   const toggle = () => {
     setisopen(!isopen);
@@ -33,6 +32,7 @@ export default function Header() {
     removeCookie("token");
     router.replace("/login");
   };
+  console.log(user);
 
   return (
     <header className={styles.head}>
@@ -68,7 +68,6 @@ export default function Header() {
                 ></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
-                
                 <Link
                   href="https://supportourheroes.in/project-pithu/"
                   className={styles.dropdownProject}
@@ -170,7 +169,7 @@ export default function Header() {
                 className={styles.profilebutton}
               >
                 <Image
-                  src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${FundraiserContext.fundraiser_image}`}
+                  src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/profile-image/${user?.profileImage}`}
                   width="40"
                   height="40"
                   alt="profile"
@@ -178,24 +177,19 @@ export default function Header() {
                 {!isopen ? (
                   <div className={`${styles["custom-dropdown"]}`}>
                     <div className={`${styles["selcted-option"]}`}>
-                      <i
-                        className={`${styles["fa-solid"]} fa-angle-up fa-rotate-180`}
-                      ></i>
+                      <i className={`fa-solid  fa-angle-up fa-rotate-180`}></i>
                     </div>
                   </div>
                 ) : (
                   <>
                     <div className={`${styles["custom-dropdown"]}`}>
                       <div className={`${styles["selcted-option"]}`}>
-                        <i
-                          className={`${styles["fa-solid"]} fa-angle-down`}
-                        ></i>
+                        <i className={`fa-solid  fa-angle-down`}></i>
                       </div>
                     </div>
 
                     <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option1">
-                        
                         <Link
                           href="/dashboard"
                           style={{ textDecoration: "none", color: "inherit" }}
@@ -238,7 +232,7 @@ export default function Header() {
           </>
         )}
 
-        <i className={`${styles["fa-solid"]} fa-bars ${styles.headerIcon}`}></i>
+        <i className={`fa-solid  fa-bars ${styles.headerIcon}`}></i>
       </div>
     </header>
   );

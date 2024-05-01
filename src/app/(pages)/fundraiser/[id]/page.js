@@ -13,8 +13,6 @@ import {
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 
-// import Dashboard from "../(fundraiserAdmin)/(components)/dashboard/page";
-
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState({}); // Initialize fundraiser as an empty object
   const fundraiserID = params.id;
@@ -69,7 +67,7 @@ export default function page({ params }) {
     const percentage = (raisedAmount / targetAmount) * 100;
 
     if (percentage > 100) {
-      return "100%+";
+      return "100%";
     } else {
       return `${Math.round(percentage)}%`;
     }
@@ -147,18 +145,21 @@ export default function page({ params }) {
                   onClick={() => handleShare(window.location.href)}
                   style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
                 >
-                  <i className={`${styles["fa-solid"]} fa-share-nodes`}></i>
+                  <i className={`fa-solid fa-share-nodes`}></i>
                   Share
                 </button>
               </a>
-              <a href="#" className={styles.resolutionLink}>
+              <Link
+                href={`/fundraiser/${params.id}/donate`}
+                className={styles.resolutionLink}
+              >
                 <button
                   type="submit"
                   className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
                 >
                   Contribute
                 </button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -218,7 +219,7 @@ export default function page({ params }) {
                 fundraiser.supporters.map((supporter, index) => (
                   <p key={index} className={styles.ourSupporters}>
                     <i
-                      className={`fa-sharp ${styles["fa-solid"]} rightTriangle`}
+                      className={`fa-sharp fa-solid ${styles.rightTriangle}`}
                     ></i>
                     {supporter}
                   </p>
