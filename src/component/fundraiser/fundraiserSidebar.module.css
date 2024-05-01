@@ -1,5 +1,4 @@
-
-section {
+.section {
   width: 100%;
 }
 .main {
@@ -73,7 +72,7 @@ section {
   font-weight: bolder;
   margin-left: 5px;
 }
-aside {
+.aside {
   width: 100%;
   display: flex;
   flex-direction: row;

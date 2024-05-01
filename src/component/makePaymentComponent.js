@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const RazorpayPaymentComponent = ({ amount }) => {
+const RazorpayPaymentComponent = ({ amount, name, reference }) => {
   useEffect(() => {
     const loadRazorpayScript = async () => {
       try {
@@ -17,8 +17,9 @@ const RazorpayPaymentComponent = ({ amount }) => {
 
     const fetchOrderDetails = async () => {
       try {
+        console.log({ reference });
         const response = await axios.post(
-          "http://localhost:3003/payment/checkout",
+          `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
         console.log(response.data.response);
@@ -30,26 +31,27 @@ const RazorpayPaymentComponent = ({ amount }) => {
     };
 
     const initiatePayment = async () => {
-      console.log({ amount });
+      console.log({ amount, name });
       try {
         await loadRazorpayScript();
         const orderDetails = await fetchOrderDetails();
 
         console.log(orderDetails + "h");
+        amount = String(amount) + "00";
         var options = {
           key: "rzp_test_b3XerWcrISxnCT", // Enter the Key ID generated from the Dashboard
-          amount: "1000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          amount: parseInt(amount), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
           currency: "INR",
-          name: "Acme Corp",
+          name: "Support Our Heroes",
           description: "Test Transaction",
-          image: "https://example.com/your_logo",
+          image: "",
           order_id: orderDetails, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          callback_url: "http://localhost:3003/payment/paymentVerfications",
-          prefill: {
-            name: "Gaurav Kumar",
-            email: "gaurav.kumar@example.com",
-            contact: "9000090000",
-          },
+          callback_url: "http://localhost:3001/payment/paymentVerfications",
+          // prefill: {
+          //   name: name,
+          //   email: "gaurav.kumar@example.com",
+          //   contact: "9000090000",
+          // },
           notes: {
             address: "Razorpay Corporate Office",
           },

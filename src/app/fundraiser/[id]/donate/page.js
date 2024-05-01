@@ -9,6 +9,7 @@ export default function page({ params }) {
   const [donor_phone, setPhoneNumber] = useState();
   const [donor_name, setName] = useState("");
   const [submitted, setsubmitted] = useState(false);
+  const [reference, setReference] = useState({}); // Initialize fundraiser as an empty object
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +32,7 @@ export default function page({ params }) {
         formData,
         config
       );
+      setReference(response.data);
       setsubmitted(true);
 
       console.log(response);
@@ -75,7 +77,7 @@ export default function page({ params }) {
           </form>
         </>
       ) : (
-        <Payment amount={amount} />
+        <Payment amount={amount} name={donor_name} reference={reference} />
       )}
     </>
   );
