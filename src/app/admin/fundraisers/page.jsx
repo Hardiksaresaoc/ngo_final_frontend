@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-// import "./module.fundraiser.css";
 import styles from "./fundraisersAdmin.module.css";
-// import "../../../component/module.admin.css";
 import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
+import { FaRegPenToSquare } from "react-icons/fa6";
+
 export default function FundraiserPage() {
   const [cookies, setCookie] = useCookies(["token"]);
   const { user } = useAuth("ADMIN");
@@ -172,7 +172,7 @@ export default function FundraiserPage() {
                           setSelectedFundraiser(fundraiser);
                         }}
                       >
-                        <i className={`fa-solid fa-pen-to-square fa-xl `}></i>
+                        <FaRegPenToSquare />
                       </a>
                     </td>
                   </tr>
@@ -197,7 +197,7 @@ export default function FundraiserPage() {
                   name="fundraiserId"
                   id="fundraiserId"
                   placeholder="Enter your fundraiser Id"
-                  value={selectedFundraiser?.fundraiser_page?.id} // Assuming fundraiser_id is the correct property
+                  value={selectedFundraiser?.fundraiser_page?.id}
                   disabled
                 />
               </span>

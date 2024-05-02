@@ -4,12 +4,10 @@ import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import styles from "./sidebar.module.css"; // Import your CSS module
-import Image from "next/image";
 
 import { BsPersonRaisedHand } from "react-icons/bs";
 import { TbPasswordFingerprint } from "react-icons/tb";
 import { MdAddCircleOutline, MdDashboard } from "react-icons/md";
-import { FaDonate } from "react-icons/fa";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -22,7 +20,7 @@ export default function Sidebar() {
             pathname === "/admin" ? `${styles.active}` : ""
           }`}
         >
-          <MdDashboard color="black" />
+          <MdDashboard color={`${pathname === "/admin" ? "white" : "black"}`} />
           Dashboard
         </p>
       </Link>
@@ -32,7 +30,9 @@ export default function Sidebar() {
             pathname === "/admin/generatecode" ? `${styles.active}` : ""
           }`}
         >
-          <TbPasswordFingerprint color="black" />
+          <TbPasswordFingerprint
+            color={`${pathname === "/admin/generatecode" ? "white" : "black"}`}
+          />
           Credentials
         </p>
       </Link>
@@ -42,7 +42,9 @@ export default function Sidebar() {
             pathname === "/admin/fundraisers" ? `${styles.active}` : ""
           }`}
         >
-          <BsPersonRaisedHand color="black" />
+          <BsPersonRaisedHand
+            color={`${pathname === "/admin/fundraisers" ? "white" : "black"}`}
+          />
           {/* <i className={`fa-regular fa-coins}`}></i> */}
           Fundraiser
         </p>
@@ -53,7 +55,9 @@ export default function Sidebar() {
             pathname === "/admin/adddonation" ? `${styles.active}` : ""
           }`}
         >
-          <MdAddCircleOutline color="black" />
+          <MdAddCircleOutline
+            color={`${pathname === "/admin/adddonation" ? "white" : "black"}`}
+          />
           Donation
         </p>
       </Link>
