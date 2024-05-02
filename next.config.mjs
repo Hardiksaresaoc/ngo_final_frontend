@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/fundRaiser/fundraiser-page/**",
       },
+      {
+        protocol: "https",
+        hostname: "allowing-shiner-needlessly.ngrok-free.app",
+        port: "",
+        pathname: "/fundRaiser/profile-image/**",
+      },
     ],
   },
 };

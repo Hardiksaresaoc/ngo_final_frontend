@@ -150,7 +150,7 @@ export default function page({ params }) {
                   <i className="styles.fa-solid fa-share-nodes"></i>Share
                 </button>
               </a>
-              <a href="#" className={styles.resolutionLink}>
+              <a href="# " className={styles.resolutionLink}>
                 <button
                   type="submit"
                   className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes

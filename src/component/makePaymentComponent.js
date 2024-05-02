@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
-const RazorpayPaymentComponent = ({ amount, name, reference }) => {
+const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
   useEffect(() => {
     const loadRazorpayScript = async () => {
       try {
@@ -46,7 +46,7 @@ const RazorpayPaymentComponent = ({ amount, name, reference }) => {
           description: "Test Transaction",
           image: "",
           order_id: orderDetails, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          callback_url: "http://localhost:3001/payment/paymentVerfications",
+          callback_url: `http://localhost:3001/payment/paymentVerfications?id=${id}`,
           // prefill: {
           //   name: name,
           //   email: "gaurav.kumar@example.com",

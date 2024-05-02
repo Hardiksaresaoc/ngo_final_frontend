@@ -64,6 +64,7 @@ const LoginPage = () => {
         { email, password },
         config
       );
+      console.log(data);
       if (!data || !data.token) {
         setErrors({
           loginError: "email or password error",

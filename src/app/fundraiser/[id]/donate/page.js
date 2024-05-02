@@ -77,7 +77,12 @@ export default function page({ params }) {
           </form>
         </>
       ) : (
-        <Payment amount={amount} name={donor_name} reference={reference} />
+        <Payment
+          amount={amount}
+          name={donor_name}
+          reference={reference}
+          id={params.id}
+        />
       )}
     </>
   );
