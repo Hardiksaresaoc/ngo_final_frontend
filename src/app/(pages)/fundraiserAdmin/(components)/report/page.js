@@ -202,7 +202,6 @@ export default function Page() {
                 <th>Amount</th>
                 <th>Payment Option</th>
                 <th>Payment Status</th>
-                <th>Certificate</th>
               </tr>
             </thead>
             <tbody>
@@ -225,7 +224,6 @@ export default function Page() {
                   <td>{item.amount}</td>
                   <td>{item.payment_type}</td>
                   <td>{item.payment_status}</td>
-                  <td>{item.certificate}</td>
                 </tr>
               ))}
             </tbody>

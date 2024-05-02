@@ -20,6 +20,11 @@ const GeneratePage = () => {
   const [error, setError] = useState(null);
   const [mobile_number, setMobileNumber] = useState(""); // Changed from setmobile_number to setMobileNumber
 
+  // State variables for blur and error messages
+  const [emailError, setEmailError] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [mobileNumberError, setMobileNumberError] = useState("");
+
   useEffect(() => {
     const data = cookies.get("token");
     setToken(data || ""); // Set token to an empty string if data is undefined
@@ -29,45 +34,101 @@ const GeneratePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
 
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await axios.post(
-        "https://allowing-shiner-needlessly.ngrok-free.app/admin/generate",
-        {
-          email,
-          firstName,
-          mobile_number, // Changed from mobile_number to mobile_number
-        },
-        config
-      );
+    let newerrors = {};
 
-      if (response.status == 201) {
-        console.log("success", config);
-        await axios.post(
-          "https://allowing-shiner-needlessly.ngrok-free.app/admin/createPage",
-          { email },
+    // Validation logic
+    if (!email) {
+      newerrors("Email is required.");
+    }
+    if (!firstName) {
+      setFirstNameError("name is required.");
+    }
+
+    if (!mobile_number) {
+      setMobileNumberError("Mobile number is required.");
+    } else if (!/^\d{10}$/.test(mobile_number)) {
+      setMobileNumberError("Mobile number must be 10 digits.");
+    }
+
+    if (email && firstName && mobile_number && /^\d{10}$/.test(mobile_number)) {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        const response = await axios.post(
+          "https://allowing-shiner-needlessly.ngrok-free.app/admin/generate",
+          {
+            email,
+            firstName,
+            mobile_number, // Changed from mobile_number to mobile_number
+          },
           config
         );
-      }
-      if (response.status !== 200) {
-        // Changed from !response.ok to response.status !== 200
-        throw new Error("Failed to generate.");
-      }
 
-      router.push("/success");
-    } catch (err) {
-      setError(err.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
+        if (response.status == 201) {
+          console.log("success", config);
+          await axios.post(
+            "https://allowing-shiner-needlessly.ngrok-free.app/admin/createPage",
+            { email },
+            config
+          );
+        }
+        if (response.status !== 200) {
+          <showAlert
+            title={"ooppss!!"}
+            text={`Something went wrong`}
+            icon="failed"
+            confirmButtonText="close"
+          />;
+          throw new Error("Failed to generate.");
+        }
+
+        router.push("/success");
+      } catch (err) {
+        console.log("Something went wrong.");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false); // Reset loading state if form is invalid
     }
   };
+
+  // Handle blur events for input fields
+  const handleBlur = (field, value) => {
+    switch (field) {
+      case "email":
+        if (!value) {
+          setEmailError("Email is required.");
+        } else {
+          setEmailError("");
+        }
+        break;
+      case "firstName":
+        if (!value) {
+          setFirstNameError("Name is required.");
+        } else {
+          setFirstNameError("");
+        }
+        break;
+      case "mobileNumber":
+        if (!value) {
+          setMobileNumberError("Mobile number is required.");
+        } else if (!/^\d{10}$/.test(value)) {
+          setMobileNumberError("Mobile number must be 10 digits.");
+        } else {
+          setMobileNumberError("");
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   const reset = () => {
     setEmail("");
     setFirstName("");
@@ -93,8 +154,14 @@ const GeneratePage = () => {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your e-mail"
+                  onBlur={() => handleBlur("email", email)}
+                  placeholder="Enter Fundraiser's e-mail"
                 />
+                {emailError && (
+                  <p style={{ color: "red" }} className={styles.error}>
+                    {emailError}
+                  </p>
+                )}
               </span>
               <span>
                 <span>Name </span>
@@ -106,8 +173,14 @@ const GeneratePage = () => {
                   name="fullName"
                   id="fullName"
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Enter your full name"
+                  onBlur={() => handleBlur("firstName", firstName)}
+                  placeholder="Enter Fundraiser's full name"
                 />
+                {firstNameError && (
+                  <p style={{ color: "red" }} className={styles.error}>
+                    {firstNameError}
+                  </p>
+                )}
               </span>
               <span>
                 <span>Mobile Number </span>
@@ -119,10 +192,16 @@ const GeneratePage = () => {
                   id="mobileNumber"
                   value={mobile_number}
                   onChange={(e) => setMobileNumber(e.target.value)}
-                  placeholder="Enter your mobile no."
+                  onBlur={() => handleBlur("mobileNumber", mobile_number)}
+                  placeholder="Enter Fundraiser's mobile no."
                   pattern="[0-9]{10}"
                   maxLength="10"
                 />
+                {mobileNumberError && (
+                  <p style={{ color: "red" }} className={styles.error}>
+                    {mobileNumberError}
+                  </p>
+                )}
               </span>
 
               <div className={styles.rightsectionBtn}>
