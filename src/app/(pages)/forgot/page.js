@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios"; // Add Axios import
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const DefaultResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const DefaultResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState(""); // State for password error
 
+  
   const router = useRouter();
   const handleForgot = async (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -22,6 +24,13 @@ const DefaultResetPassword = () => {
       );
       console.log(response.data);
       setLoading(false);
+      Swal.fire({
+        title: "OTP generate Successfully",
+        text: "check your mail for otp!",
+        icon: "success",
+        confirmButtonText: "okay",
+      });
+
       setOtpGen(true);
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -54,7 +63,7 @@ const DefaultResetPassword = () => {
 
   return otpGen ? (
     <div>
-      <form className={styles["reset-password"]} onSubmit={resetpassword}>
+      <form className={["reset-password"]} onSubmit={resetpassword}>
         <h1>Forgot Password</h1>
         <p>Enter OTP and your new password.</p>
         <div>
@@ -81,14 +90,14 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className={styles["reset-pwd"]}>
+        <button type="submit" className={["reset-pwd"]}>
           {!loading ? "Submit" : "Sending..."}
         </button>
       </form>
     </div>
   ) : (
     <div>
-      <form className={styles["reset-password"]} onSubmit={handleForgot}>
+      <form className={["reset-password"]} onSubmit={handleForgot}>
         <h1>Forgot Password</h1>
         <p>You are not alone. We've all been here at some point.</p>
         <div>
@@ -103,7 +112,7 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className={styles["reset-pwd"]}>
+        <button type="submit" className={["reset-pwd"]}>
           {!loading ? "Get secure link" : "Sending..."}
         </button>
       </form>

@@ -1,9 +1,15 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 import styles from "./sidebar.module.css"; // Import your CSS module
 import Image from "next/image";
+
+import { BsPersonRaisedHand } from "react-icons/bs";
+import { TbPasswordFingerprint } from "react-icons/tb";
+import { MdAddCircleOutline, MdDashboard } from "react-icons/md";
+import { FaDonate } from "react-icons/fa";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -16,12 +22,7 @@ export default function Sidebar() {
             pathname === "/admin" ? `${styles.active}` : ""
           }`}
         >
-          <Image
-            src="/images/dashboardIcon.png"
-            height="16"
-            width="16"
-            alt="Dashboard Icon"
-          />
+          <MdDashboard color="black" />
           Dashboard
         </p>
       </Link>
@@ -31,7 +32,7 @@ export default function Sidebar() {
             pathname === "/admin/generatecode" ? `${styles.active}` : ""
           }`}
         >
-          <i className={`fa-regular ${styles["fa-address-book"]}`}></i>
+          <TbPasswordFingerprint color="black" />
           Credentials
         </p>
       </Link>
@@ -41,7 +42,8 @@ export default function Sidebar() {
             pathname === "/admin/fundraisers" ? `${styles.active}` : ""
           }`}
         >
-          <i className={`fa-regular ${styles["fa-coins"]}`}></i>
+          <BsPersonRaisedHand color="black" />
+          {/* <i className={`fa-regular fa-coins}`}></i> */}
           Fundraiser
         </p>
       </Link>
@@ -51,7 +53,7 @@ export default function Sidebar() {
             pathname === "/admin/adddonation" ? `${styles.active}` : ""
           }`}
         >
-          <i className={`fa-regular ${styles["fa-hand-holding-dollar"]}`}></i>
+          <MdAddCircleOutline color="black" />
           Donation
         </p>
       </Link>

@@ -6,7 +6,9 @@ import Sidebar from "../../component/sidebar";
 import useAuth from "@/context/auth";
 import styles from "./admin.module.css";
 import Image from "next/image";
-  
+import { MdDashboard } from "react-icons/md";
+import { FaDonate } from "react-icons/fa";
+
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
   const [allData, setallData] = useState([]);
@@ -62,12 +64,15 @@ export default function FundraiserPage() {
               </div>
               <div className={`${styles.box} ${styles.secend}`}>
                 <img src="/images/Icon.svg" />
+                {/* icon */}
                 <p>
                   <span> {allData.totalFundraisers}</span>
                   <span>Total Fundraisers</span>
                 </p>
               </div>
               <div className={styles.box}>
+                {/* icon */}
+
                 <img src="/images/Icon.svg" />
                 <p>
                   <span>{allData.activeFundraisers}</span>

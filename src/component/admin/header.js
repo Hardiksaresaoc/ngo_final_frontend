@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import styles from "../header.module.css"; // Assuming this imports your custom styles
 
 import { useEffect, useState } from "react";
+import defaultProfileImage from "../../../public/images/profile.jpeg";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 
@@ -52,24 +53,23 @@ export default function Header() {
             className={styles.profilebutton}
           >
             <Image
-              src="/path/to/your/image.png" // Replace with your actual image path
-              alt="Profile Image"
+              // src={!user.profileImage?(/images/profile) : (user.profileImage)}
+              src={defaultProfileImage}
+              alt="profile"
               width="40"
               height="40"
             />
             {!isopen ? (
               <div className={styles["custom-dropdown"]}>
                 <div className={styles["selcted-option"]}>
-                  <i
-                    className={`${styles["fa-solid"]} fa-angle-up fa-rotate-180`}
-                  ></i>
+                  <i className={`fa-solid fa-angle-up fa-rotate-180`}></i>
                 </div>
               </div>
             ) : (
               <>
                 <div className={styles["custom-dropdown"]}>
                   <div className={styles["selcted-option"]}>
-                    <i className={`${styles["fa-solid"]} fa-angle-down`}></i>
+                    <i className={`fa-solid fa-angle-down`}></i>
                   </div>
                 </div>
                 <ul className={styles["dropdown-options"]}>
@@ -86,7 +86,7 @@ export default function Header() {
             )}
           </button>
         </div>
-        <i className={`${styles["fa-solid"]} fa-bars ${styles.headerIcon}`}></i>
+        <i className={`fa-solid fa-bars ${styles.headerIcon}`}></i>
       </div>
     </header>
   );

@@ -10,31 +10,27 @@ export default function Footer() {
           <h3>About Us</h3>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Our
-              Story
+              <i className={`fa-regular  fa-circle-dot }`}></i> Our Story
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Vision
-              & Mission
+              <i className={`fa-regular  fa-circle-dot }`}></i> Vision & Mission
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Team
+              <i className={`fa-regular  fa-circle-dot }`}></i> Team
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Legal
-              Status
+              <i className={`fa-regular  fa-circle-dot }`}></i> Legal Status
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> OUR
-              FAQs
+              <i className={`fa-regular  fa-circle-dot }`}></i> OUR FAQs
             </Link>
           </p>
         </div>
@@ -42,26 +38,24 @@ export default function Footer() {
           <h3>Donate</h3>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Online
-              Donation
+              <i className={`fa-regular  fa-circle-dot }`}></i> Online Donation
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Bank
-              Transfer
+              <i className={`fa-regular  fa-circle-dot }`}></i> Bank Transfer
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Write
-              a Cheque / Demand Draft
+              <i className={`fa-regular  fa-circle-dot }`}></i> Write a Cheque /
+              Demand Draft
             </Link>
           </p>
           <p className={styles.aboutCompany}>
             <Link href="#" className={styles.aboutUsLink}>
-              <i className={`fa-regular ${styles["fa-circle-dot"]}`}></i> Donate
-              for Tax Benefits
+              <i className={`fa-regular  fa-circle-dot }`}></i> Donate for Tax
+              Benefits
             </Link>
           </p>
         </div>

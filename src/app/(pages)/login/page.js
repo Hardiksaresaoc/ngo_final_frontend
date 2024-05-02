@@ -153,7 +153,7 @@ const LoginPage = () => {
                     </label>
                     <div className={styles.inputIcon}>
                       <i
-                        className={` ${styles["fa-solid"]} fas fa-envelope  ${styles.formIcon}`}
+                        className={` fa-solid fas fa-envelope  ${styles.formIcon}`}
                       ></i>
                     </div>
                     <input

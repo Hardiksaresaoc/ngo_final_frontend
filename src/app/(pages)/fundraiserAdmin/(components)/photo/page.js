@@ -83,19 +83,13 @@ export default function Page() {
   return (
     <>
       <TopHeader link={fundraiserCtx.fundraiser_page?.id} />
-      <aside>
+      <aside className={styles.aside}>
         <AsideBar />
+
         <section className={styles.photowrapper}>
           <div className={styles.imgwrapper}>
             <div className={styles.imgcount}>
-              <input type="file" onChange={handleFileChange} />
-              <button
-                type="button"
-                onClick={handleFileUpload}
-                disabled={isSubmitDisabled}
-              >
-                Upload File
-              </button>
+              <p> photos(21)</p>
             </div>
             <div className={styles.row}>
               {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
@@ -107,15 +101,34 @@ export default function Page() {
                     height="200"
                     width="200"
                   />
-                  <button
+                  <a
                     type="button"
                     onClick={() => handleDeleteImage(index, image)}
                     className={styles.delete}
                   >
-                    <i className={`${styles["fa-solid"]} fa-trash`}></i>
-                  </button>
+                    <i className={`fa-solid fa-trash`}></i>
+                  </a>
                 </div>
               ))}
+            </div>
+            <div className={styles.upload}>
+              <input type="file" onChange={handleFileChange} />
+              <button
+                type="button"
+                onClick={handleFileUpload}
+                disabled={isSubmitDisabled}
+                style={
+                  isSubmitDisabled
+                    ? {
+                        backgroundColor: "grey",
+                        color: "white",
+                        borderColor: "white",
+                      }
+                    : {}
+                }
+              >
+                Upload File
+              </button>
             </div>
           </div>
         </section>

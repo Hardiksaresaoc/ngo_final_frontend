@@ -6,7 +6,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "allowing-shiner-needlessly.ngrok-free.app",
         port: "",
-        pathname: "/fundRaiser/fundraiser-page/**",
+        pathname: "/**",
       },
     ],
   },

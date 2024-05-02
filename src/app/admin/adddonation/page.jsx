@@ -6,6 +6,7 @@ import styles from "./adddonation.module.css";
 import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
+import { showAlert } from "@/component/alert";
 export default function page() {
   const cookies = new Cookies();
   const [token, settoken] = useState(null);
@@ -33,6 +34,27 @@ export default function page() {
     donor_bankBranch: "",
   });
 
+  const reset = () => {
+    setFormData({
+      email: "",
+      amount: "",
+      donor_name: "",
+      donor_email: "",
+      donor_phone: "",
+      payment_type: "",
+      donation_date: "",
+      lastName: "",
+      donor_address: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+      pan: "",
+      refrence_payment: "",
+      donor_bankName: "",
+      donor_bankBranch: "",
+    });
+  };
   useEffect(() => {
     const data = cookies.get("token");
     settoken(data);
@@ -56,10 +78,21 @@ export default function page() {
 
   const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
+
+    // showAlert({
+    //   title: "hey",
+    //   text: "new",
+    //   icon: "success",
+    //   confirmButtonText: "cool",
+    // });
     setLoading(true);
     e.preventDefault();
 
     // Validation
+    const isEmailValid = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
     const newErrors = {};
 
     if (!formData.amount) {
@@ -68,26 +101,25 @@ export default function page() {
     if (!formData.donor_name) {
       newErrors.firstName = "First Name is required";
     }
-    if (!formData.donor_email) {
-      newErrors.email = "Email is required";
+    if (!formData.donor_email || !isEmailValid(formData.donor_email)) {
+      newErrors.donor_email = "email is required";
     }
     if (!formData.donor_phone) {
-      newErrors.mobileNumber = "Mobile Number is required";
+      newErrors.donor_phone = "Mobile Number should be 10 digits";
     }
-
     if (!formData.donation_date) {
-      newErrors.paymentDate = "Donation Date is required";
+      newErrors.donation_date = "Donation Date is required";
     }
-    // if (!formData.donor_paymentType) {
-    //   newErrors.donor_paymentType = "Donation type required";
-    // }
+    if (!formData.payment_type) {
+      newErrors.payment_type = "Donation type is required";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setLoading(false);
       return;
     }
 
-    // API Call
     try {
       const config = {
         headers: {
@@ -105,34 +137,16 @@ export default function page() {
       });
       if (response.status == 201) {
         console.log("success");
+        reset();
         setLoading(false);
-        setFormData({
-          email: "",
-          amount: "",
-          donor_name: "",
-          // merge fname and lname
-          donor_email: "",
-          donor_phone: "",
-          payment_type: "",
-          donation_date: "",
-          //
-          lastName: "",
-          donor_address: "",
-          city: "",
-          state: "",
-          country: "",
-          pincode: "",
-          pan: "",
-          refrence_payment: "",
-          donor_bankName: "",
-          donor_bankBranch: "",
-        });
         console.log("API response:", response.data);
         alert("done");
       }
-
+      setLoading(false);
       setErrors({});
     } catch (error) {
+      <showAlert title="done" />;
+
       console.error("API error:", error);
       setLoading(false);
     }
@@ -160,7 +174,7 @@ export default function page() {
                     id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Enter your fundraiser e-mail"
+                    placeholder="Enter fundraiser e-mail"
                   />
                 </span>
                 <span>
@@ -172,10 +186,11 @@ export default function page() {
                     type="number"
                     name="amount"
                     min={1}
+                    pattern="[0-9]*"
                     value={formData.amount}
                     onChange={handleChange}
-                    id="donor_phone"
-                    placeholder="Enter your amount"
+                    id="amount"
+                    placeholder="Enter donor amount"
                     required
                   />
                   {errors.amount && (
@@ -199,7 +214,7 @@ export default function page() {
                       onChange={handleChange}
                       name="donor_name"
                       id="donor_name"
-                      placeholder="Enter your first name"
+                      placeholder="Enter donor first name"
                       required
                     />
                     {errors.firstName && (
@@ -217,7 +232,7 @@ export default function page() {
                       value={formData.lastName}
                       onChange={handleChange}
                       id="lastName"
-                      placeholder="Enter your last name"
+                      placeholder="Enter donor last name"
                     />
                   </span>
                   <span>
@@ -231,7 +246,7 @@ export default function page() {
                       onChange={handleChange}
                       name="donor_email"
                       id="donor_email"
-                      placeholder="Enter your e-mail"
+                      placeholder="Enter donor e-mail"
                       required
                     />
                     {errors.donor_email && (
@@ -251,7 +266,7 @@ export default function page() {
                       onChange={handleChange}
                       name="donor_address"
                       id="donor_address"
-                      placeholder="Enter your address"
+                      placeholder="Enter donor address"
                     />
                   </span>
                   <span>
@@ -263,7 +278,7 @@ export default function page() {
                       value={formData.city}
                       onChange={handleChange}
                       id="city"
-                      placeholder="Enter your city"
+                      placeholder="Enter donor city"
                     />
                   </span>
                   <span>
@@ -275,7 +290,7 @@ export default function page() {
                       onChange={handleChange}
                       name="state"
                       id="state"
-                      placeholder="Enter your state"
+                      placeholder="Enter donor state"
                     />
                   </span>
                 </div>
@@ -289,7 +304,7 @@ export default function page() {
                       onChange={handleChange}
                       name="country"
                       id="country"
-                      placeholder="Enter your country"
+                      placeholder="Enter donor country"
                     />
                   </span>
                   <span>
@@ -301,7 +316,7 @@ export default function page() {
                       onChange={handleChange}
                       name="pincode"
                       id="pincode"
-                      placeholder="Enter your pincode"
+                      placeholder="Enter donor pincode"
                     />
                   </span>
                   <span>
@@ -311,13 +326,19 @@ export default function page() {
                     <br />
                     <input
                       type="text"
+                      onInput={(e) => {
+                        e.target.value = e.target.value
+                          .replace(/\D/g, "")
+                          .substring(0, 10);
+                      }}
+                      min={0}
                       name="donor_phone"
                       value={formData.donor_phone}
                       onChange={handleChange}
+                      autoComplete="off"
                       id="donor_phone"
-                      placeholder="Enter your mobile no."
+                      placeholder="Enter donor mobile no."
                       maxLength="10"
-                      pattern="[1-9]{1}[0-9]{9}"
                       required
                     />
                     {errors.donor_phone && (
@@ -340,7 +361,7 @@ export default function page() {
                       value={formData.pan}
                       onChange={handleChange}
                       id="pan"
-                      placeholder="Enter your PAN number"
+                      placeholder="Enter donor PAN number"
                     />
                   </span>
                   <span>
@@ -355,7 +376,7 @@ export default function page() {
                       value={formData.payment_type}
                       onChange={handleChange}
                       id="payment_type"
-                      placeholder="Choose your payment method"
+                      placeholder="Choose donor payment method"
                       required
                     />
                     {errors.donor_paymentType && (
@@ -372,7 +393,7 @@ export default function page() {
                       value={formData.refrence_payment}
                       onChange={handleChange}
                       id="refrence_payment"
-                      placeholder="Enter your Reference Number"
+                      placeholder="Enter donor Reference Number"
                     />
                   </span>
                 </div>
@@ -408,7 +429,7 @@ export default function page() {
                       id="bankName"
                       value={formData.donor_bankName}
                       onChange={handleChange}
-                      placeholder="Enter your bank name"
+                      placeholder="Enter donor bank name"
                     />
                   </span>
                   <span>
@@ -420,7 +441,7 @@ export default function page() {
                       id="branchName"
                       value={formData.donor_bankBranch}
                       onChange={handleChange}
-                      placeholder="Enter your branch name"
+                      placeholder="Enter donor branch name"
                     />
                   </span>
                 </div>
@@ -429,6 +450,7 @@ export default function page() {
                 <button
                   type="reset"
                   className={`${styles.fundButton} ${styles.donorButton}`}
+                  onClick={reset}
                 >
                   Cancel
                 </button>
@@ -436,11 +458,10 @@ export default function page() {
                   className={styles.fundButton}
                   type="submit"
                   onClick={handleSubmit}
-                  disabled={loading}
                 >
                   {loading ? "Loading..." : "Submit"}
                 </button>
-                {Object.keys(errors).length > 0 && (
+                {/* {Object.keys(errors).length > 0 && (
                   <div className={styles.errorMessages}>
                     {Object.values(errors).map((error, index) => (
                       <p key={index} style={{ color: "red" }}>
@@ -448,7 +469,7 @@ export default function page() {
                       </p>
                     ))}
                   </div>
-                )}
+                )} */}
               </div>
             </form>
           </div>

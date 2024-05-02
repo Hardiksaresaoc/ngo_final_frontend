@@ -179,7 +179,7 @@ export default function Page() {
               </p>
 
               <button type="submit" className={styles.formsearchButton}>
-                <i className={`${styles["fa-solid"]} fa-magnifying-glass`}></i>
+                <i className={`fa-solid fa-magnifying-glass`}></i>
                 Search
               </button>
             </div>
@@ -190,8 +190,7 @@ export default function Page() {
             onClick={handleDownload}
             className={styles.downloadExcel}
           >
-            <i className={`${styles["fa-solid"]} fa-file-excel`}></i> Download
-            Excel
+            <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
           <table className={styles.table}>
             <thead>
@@ -203,7 +202,6 @@ export default function Page() {
                 <th>Amount</th>
                 <th>Payment Option</th>
                 <th>Payment Status</th>
-                <th>Certificate</th>
               </tr>
             </thead>
             <tbody>
@@ -226,7 +224,6 @@ export default function Page() {
                   <td>{item.amount}</td>
                   <td>{item.payment_type}</td>
                   <td>{item.payment_status}</td>
-                  <td>{item.certificate}</td>
                 </tr>
               ))}
             </tbody>

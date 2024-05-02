@@ -9,6 +9,7 @@ import { FundraiserContext } from "@/context/FundraiserContext";
 export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
   const fundraiserCtx = useContext(FundraiserContext);
+  console.log("data",fundraiserCtx.fundraiser_page);
   return user ? (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
