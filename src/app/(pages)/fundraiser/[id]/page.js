@@ -12,18 +12,19 @@ import {
 } from "react-share";
 import { PiHandHeartDuotone } from "react-icons/pi";
 import { BiDonateHeart } from "react-icons/bi";
-
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { FaXTwitter } from "react-icons/fa6";
 import { CiShare2 } from "react-icons/ci";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState({}); // Initialize fundraiser as an empty object
   const fundraiserID = params.id;
-  console.log("af", fundraiserID);
   const [activeTab, setActiveTab] = useState("myStory");
 
+  const [Isfundraiser, setIsfundraiser] = useState(false);
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
   };
@@ -59,11 +60,12 @@ export default function page({ params }) {
           },
         };
         const response = await axios.get(
-          `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${fundraiserID}`,
+          `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        setFundraiser(response.data); // Set the response data to the state
-        console.log(response); // Set the response data to the state
+        setFundraiser(response.data);
+        setIsfundraiser(true);
+        console.log(response);
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
       }
@@ -88,6 +90,7 @@ export default function page({ params }) {
   };
 
   return (
+    //  Isfundraiser ? (
     <>
       <main className={styles.mainClass}>
         <div className={styles.imgArea}>
@@ -202,7 +205,7 @@ export default function page({ params }) {
           <div className={styles.fundraiserResolution}>
             <div className={styles.fundraiserImg}>
               <Image
-                src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${fundraiser.profileImage}`}
+                src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${fundraiser.profileImage}`}
                 alt=""
                 width="200"
                 height="200"
@@ -254,7 +257,7 @@ export default function page({ params }) {
             {fundraiser?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
                 <img
-                  src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
+                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
                   alt={`Image ${image}`}
                   className={styles.galleryImg}
                   height="200"
@@ -284,4 +287,7 @@ export default function page({ params }) {
       </aside>
     </>
   );
+  // : (
+  // <Notfundraiser />
+  // );
 }

@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
+import showAlert from "@/component/alert";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +61,7 @@ const LoginPage = () => {
       };
       const { data } = await axios.post(
         //processENV
-        "https://allowing-shiner-needlessly.ngrok-free.app/auth/login",
+        `${process.env.NEXT_PUBLIC_serverAPI}/auth/login`,
         { email, password },
         config
       );

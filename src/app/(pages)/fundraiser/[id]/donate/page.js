@@ -27,7 +27,7 @@ export default function page({ params }) {
     };
     try {
       const response = await axios.post(
-        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${params.id}/donate`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${params.id}/donate`,
         formData,
         config
       );

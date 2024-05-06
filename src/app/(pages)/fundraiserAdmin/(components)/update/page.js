@@ -51,7 +51,7 @@ export default function Update() {
         },
       };
       const res = await axios.put(
-        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/updatePage/${fundraiserCtx.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx.fundraiser_page?.id}`,
         data,
         config
       );

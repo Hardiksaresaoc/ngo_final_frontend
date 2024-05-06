@@ -223,7 +223,6 @@
   flex-direction: column;
   gap: 16px;
   position: relative;
-
 }
 
 .mainAside .rightAside .container .supporters {
@@ -278,4 +277,29 @@
 .clipboard:hover {
   background-color: #796767;
   cursor: pointer;
+}
+
+/* circular  */
+.progress-ring {
+  display: block;
+  margin: 20px auto;
+}
+
+.progress-ring__circle {
+  stroke: #e6e6e6;
+}
+
+.progress-ring__circle--progress {
+  stroke: #2ecc71;
+  transition: stroke-dashoffset 0.35s;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.progress-ring__text {
+  fill: #000;
+  font-size: 24px;
+  font-weight: bold;
+  dominant-baseline: middle;
+  text-anchor: middle;
 }

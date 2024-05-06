@@ -43,7 +43,7 @@ export default function Page() {
         },
       };
       const response = await axios.put(
-        "https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/update",
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
         {
           firstName,
           lastName,
@@ -82,7 +82,7 @@ export default function Page() {
         };
 
         const response = await axios.post(
-          "https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/upload",
+          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/upload`,
           formData,
           config
         );

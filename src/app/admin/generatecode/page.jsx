@@ -58,7 +58,7 @@ const GeneratePage = () => {
           },
         };
         const response = await axios.post(
-          "https://allowing-shiner-needlessly.ngrok-free.app/admin/generate",
+          `${process.env.NEXT_PUBLIC_serverAPI}/admin/generate`,
           {
             email,
             firstName,
@@ -70,7 +70,7 @@ const GeneratePage = () => {
         if (response.status == 201) {
           console.log("success", config);
           await axios.post(
-            "https://allowing-shiner-needlessly.ngrok-free.app/admin/createPage",
+            `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
             { email },
             config
           );

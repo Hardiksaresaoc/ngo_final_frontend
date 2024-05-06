@@ -34,7 +34,7 @@ export default function FundraiserPage() {
         };
         ///ngrok
         const response = await axios.get(
-          "https://allowing-shiner-needlessly.ngrok-free.app/admin/adminDashboard",
+          `${process.env.NEXT_PUBLIC_serverAPI}/admin/adminDashboard`,
           config
         );
 

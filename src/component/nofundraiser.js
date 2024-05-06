@@ -1,8 +1,7 @@
-"use client";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function Page() {
+export default function Notfundraiser() {
   const router = useRouter();
   const [count, setCount] = useState(10); // Initial countdown value
 
@@ -32,13 +31,10 @@ export default function Page() {
         flexDirection: "column",
       }}
     >
-      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
-        Unauthorized!
-      </div>
+      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>Not found!</div>
       <div style={{ fontSize: "2rem" }}>
         Redirecting to home page in {count} seconds...
       </div>
     </div>
   );
 }
-

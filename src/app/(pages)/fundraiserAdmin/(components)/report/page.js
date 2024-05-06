@@ -30,7 +30,7 @@ export default function Page() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/donations",
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
         {
           headers: {
             "ngrok-skip-browser-warning": "true",
@@ -84,7 +84,7 @@ export default function Page() {
         },
       };
       const response = await fetch(
-        "https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/donations/download",
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations/download`,
         requestOptions
       );
       const blob = await response.blob();
