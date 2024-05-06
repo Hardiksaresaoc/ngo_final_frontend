@@ -98,8 +98,8 @@ export default function Page() {
                     src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
                     alt={`Image ${index}`}
                     className={styles.galleryImg}
-                    height="200"
-                    width="200"
+                    height="230"
+                    width="300"
                   />
                   <a
                     type="button"

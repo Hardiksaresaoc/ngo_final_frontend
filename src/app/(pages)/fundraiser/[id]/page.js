@@ -20,7 +20,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function page({ params }) {
-  const [fundraiser, setFundraiser] = useState({}); // Initialize fundraiser as an empty object
+  const [fundraiser, setFundraiser] = useState(null);
   const fundraiserID = params.id;
   const [activeTab, setActiveTab] = useState("myStory");
 
@@ -29,7 +29,7 @@ export default function page({ params }) {
     setActiveTab(tabName);
   };
   const [showPopup, setShowPopup] = useState(false);
-  const [shareURL, setShareURL] = useState(""); // URL to share
+  const [shareURL, setShareURL] = useState("");
   const [copied, setCopied] = useState(false);
 
   const handleShare = (url) => {
@@ -65,7 +65,6 @@ export default function page({ params }) {
         );
         setFundraiser(response.data);
         setIsfundraiser(true);
-        console.log(response);
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
       }
@@ -73,8 +72,8 @@ export default function page({ params }) {
     fetchData();
   }, []);
   const calculateGoalPercentage = () => {
-    const raisedAmount = fundraiser.raised_amount;
-    const targetAmount = fundraiser.target_amount;
+    const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
+    const targetAmount = fundraiser?.fundraiserPage?.target_amount;
 
     if (isNaN(raisedAmount) || isNaN(targetAmount) || targetAmount <= 0) {
       return "--";
@@ -106,12 +105,12 @@ export default function page({ params }) {
             <div className={styles.subGoal}>
               <p className={styles.completeGoal}>{calculateGoalPercentage()}</p>
               <h2 className={styles.currentGoal}>
-                &#8377; {fundraiser.raised_amount}
+                &#8377; {fundraiser?.fundraiserPage?.raised_amount}
               </h2>
               <p className={styles.completeGoal}>
                 of{" "}
                 <span className={styles.totalGoal}>
-                  &#8377; {fundraiser.target_amount}
+                  &#8377; {fundraiser?.fundraiserPage?.target_amount}
                 </span>{" "}
                 Goal
               </p>
@@ -205,17 +204,17 @@ export default function page({ params }) {
           <div className={styles.fundraiserResolution}>
             <div className={styles.fundraiserImg}>
               <Image
-                src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${fundraiser.profileImage}`}
+                src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiser?.profileImage}`}
                 alt=""
                 width="200"
                 height="200"
                 className={styles.userImg}
               />
-              <p className={styles.fundraiserName}>{""}</p>
+              <p className={styles.fundraiserName}>{fundraiser?.firstName} </p>
             </div>
             <div className={styles.fundraiserDetail}>
               <h1>About My Resolution</h1>
-              <p>{fundraiser.resolution}</p>
+              <p>{fundraiser?.resolution}</p>
             </div>
           </div>
         </div>
@@ -246,15 +245,17 @@ export default function page({ params }) {
         {activeTab === "myStory" ? (
           <div className={styles.leftAside}>
             <p className={styles.aboutMe}>
-              {fundraiser.story || "No content to show"}
+              {fundraiser?.fundraiserPage?.story || "No content to show"}
             </p>
             <h3 className={styles.reason}>Money Raised For</h3>
-            <p className={styles.aboutMe}>{fundraiser.money_raised_for} </p>
+            <p className={styles.aboutMe}>
+              {fundraiser?.fundraiserPage?.money_raised_for}{" "}
+            </p>
           </div>
         ) : (
           //images
           <div className={styles.leftAside}>
-            {fundraiser?.gallery?.map((image, index) => (
+            {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
                 <img
                   src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
@@ -271,13 +272,16 @@ export default function page({ params }) {
           <div className={styles.container}>
             <h3 className={styles.supporters}>Our Supporters</h3>
             <div className={styles.allSupporters}>
-              {fundraiser.supporters && fundraiser.supporters.length > 0 ? (
-                fundraiser.supporters.map((supporter, index) => (
-                  <p key={index} className={styles.ourSupporters}>
-                    <PiHandHeartDuotone />
-                    {supporter}
-                  </p>
-                ))
+              {fundraiser?.fundraiserPage?.supporters &&
+              fundraiser?.fundraiserPage?.supporters.length > 0 ? (
+                fundraiser?.fundraiserPage?.supporters.map(
+                  (supporter, index) => (
+                    <p key={index} className={styles.ourSupporters}>
+                      <PiHandHeartDuotone />
+                      {supporter}
+                    </p>
+                  )
+                )
               ) : (
                 <p>No supporters found.</p>
               )}

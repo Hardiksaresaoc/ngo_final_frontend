@@ -36,7 +36,7 @@
 .delete {
   position: relative;
   top: 0.8em;
-  left: 10.5em;
+  left: 16.5em;
   color: #fff;
   border: 1px solid #000000;
   padding: 5px;
@@ -75,12 +75,15 @@
   margin-left: 22px;
 }
 .photowrapper .row {
-  width: 100%;
   overflow: hidden;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 230px 230px 230px;
+  grid-row-gap: 25px;
   row-gap: 25px;
+  grid-column-gap: 100px;
   column-gap: 100px;
+  grid-template-columns: 300px 300px 300px;
+  /* padding: 0 40px; */
 }
 
 .photowrapper .row .col button {
