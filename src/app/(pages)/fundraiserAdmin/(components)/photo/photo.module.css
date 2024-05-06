@@ -84,6 +84,7 @@
   column-gap: 100px;
   grid-template-columns: 300px 300px 300px;
   /* padding: 0 40px; */
+  justify-content: space-around;
 }
 
 .photowrapper .row .col button {

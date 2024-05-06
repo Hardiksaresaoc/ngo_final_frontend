@@ -344,10 +344,10 @@ export default function Page() {
               <div>
                 <Image
                   id="blah"
-                  src={imagePreview || "#"} // Set image source from state
+                  src={{imagePreview} || "#"} // Set image source from state
                   alt="your image"
-                  width="225px"
-                  height="225px"
+                  width="225"
+                  height="225"
                 />
                 <br />
                 <input

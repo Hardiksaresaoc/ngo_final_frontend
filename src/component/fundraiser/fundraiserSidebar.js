@@ -75,7 +75,7 @@ export const TopHeader = ({ link }) => {
           <div className={styles.rightSection}>
             <div className={styles.ImageArea}>
               <img
-                style={{ width: "100%", height: "639px", objectFit: "contain" }}
+                style={{ width: "100%", height: "548px", objectFit: "contain" }}
                 src="/images/FrontImage.png"
                 alt="Soldiers"
               />
@@ -94,7 +94,12 @@ export const TopHeader = ({ link }) => {
               }}
             >
               {link}
-              <span className={styles.tooltiptext}>click to copy</span>
+              <span
+                style={{ width: "fit-content" }}
+                className={styles.tooltiptext}
+              >
+                click to copy
+              </span>
             </a>
           </p>
         </div>

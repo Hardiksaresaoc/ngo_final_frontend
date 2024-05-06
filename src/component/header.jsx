@@ -203,7 +203,7 @@ export default function Header() {
                       </li>
                       <li data-value="option2">
                         <Link
-                          href="/profile"
+                          href="/fundraiserAdmin/profile"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Profile
