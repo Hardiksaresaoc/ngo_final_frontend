@@ -7,15 +7,16 @@ import { usePathname } from "next/navigation";
 import styles from "./header.module.css"; // Assuming this imports your custom styles
 import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
 
+import showAlert from "@/component/alert";
 export default function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
   const [isopen, setisopen] = useState(false);
+  const [loding, setloding] = useState(false);
   const toggle = () => {
     setisopen(!isopen);
   };
@@ -29,8 +30,15 @@ export default function Header() {
   }, [cookies.token]);
 
   const handleLogout = (e) => {
+    setLoading(true);
+    try {
+      removeCookie("token");
+      router.replace("/login");
+    } catch (error) {}
     removeCookie("token");
     router.replace("/login");
+
+    setLoading(false);
   };
   console.log(user);
 
@@ -63,9 +71,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 Projects
-                <i
-                  className={`${styles.fa} fa-caret-down ${styles.downIcon}`}
-                ></i>
+                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link
@@ -105,9 +111,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 About Us
-                <i
-                  className={`${styles.fa} fa-caret-down ${styles.downIcon}`}
-                ></i>
+                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link
@@ -169,7 +173,7 @@ export default function Header() {
                 className={styles.profilebutton}
               >
                 <Image
-                  src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/profile-image/${user?.profileImage}`}
+                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${user?.profileImage}`}
                   width="40"
                   height="40"
                   alt="profile"
@@ -211,6 +215,9 @@ export default function Header() {
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
+                        </span>
+                        <span>
+                          <showAlert />
                         </span>
                       </li>
                     </ul>

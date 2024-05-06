@@ -26,7 +26,7 @@ export default function FundraiserContextData({ children }) {
           },
         };
         const response = await axios.get(
-          "https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser",
+          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser`,
           config
         );
         if (response.status === 200) {

@@ -12,14 +12,13 @@ const DefaultResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState(""); // State for password error
 
-  
   const router = useRouter();
   const handleForgot = async (e) => {
     e.preventDefault(); // Prevent default form submission
     setLoading(true);
     try {
       const response = await axios.get(
-        "https://allowing-shiner-needlessly.ngrok-free.app/auth/forgot-password",
+        `${process.env.NEXT_PUBLIC_serverAPI}/auth/forgot-password`,
         { email }
       );
       console.log(response.data);
@@ -47,7 +46,7 @@ const DefaultResetPassword = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://allowing-shiner-needlessly.ngrok-free.app/auth/reset-password",
+        `${process.env.NEXT_PUBLIC_serverAPI}/auth/reset-password`,
         { otp, newPassword }
       );
       console.log(response.data);

@@ -32,7 +32,7 @@ export default function FundraiserPage() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://allowing-shiner-needlessly.ngrok-free.app/admin/fundraiserPage/updatePage/${selectedFundraiser.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiserPage/updatePage/${selectedFundraiser.fundraiser_page?.id}`,
         formData,
         { headers: header }
       );
@@ -80,7 +80,7 @@ export default function FundraiserPage() {
           },
         };
         const response = await axios.get(
-          "https://allowing-shiner-needlessly.ngrok-free.app/admin/fundraiser",
+          `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser`,
           config
         );
         setLoading(false);
@@ -151,7 +151,7 @@ export default function FundraiserPage() {
                             axios(
                               {
                                 method: "put",
-                                url: `https://allowing-shiner-needlessly.ngrok-free.app/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
+                                url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
                                 headers: header,
                               }
                               // { status: updatedStatus }

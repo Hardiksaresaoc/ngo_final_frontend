@@ -78,7 +78,6 @@ export default function page() {
 
   const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
-
     // showAlert({
     //   title: "hey",
     //   text: "new",
@@ -131,7 +130,7 @@ export default function page() {
       const response = await axios({
         method: "post",
         //processENV
-        url: `https://allowing-shiner-needlessly.ngrok-free.app/admin/addOfflineDonation`,
+        url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/addOfflineDonation`,
         headers: config.headers,
         data: formData,
       });

@@ -19,8 +19,8 @@ const MakePaymentComponent = ({ amount, name, reference }) => {
       try {
         console.log({ reference });
         const response = await axios.post(
-          `https://allowing-shiner-needlessly.ngrok-free.app/payment/checkout/${reference.reference}`,
-          { amount },
+          `${process.env.NEXT_PUBLIC_serverAPI}/payment/checkout/${reference.reference}`,
+          { amount }
         );
         console.log(response.data.response);
         return response?.data?.response.id;
@@ -46,8 +46,7 @@ const MakePaymentComponent = ({ amount, name, reference }) => {
           description: "Test Transaction",
           image: "",
           order_id: orderDetails, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          callback_url:
-            "https://allowing-shiner-needlessly.ngrok-free.app/payment/paymentVerfications",
+          callback_url: `${process.env.NEXT_PUBLIC_serverAPI}/payment/paymentVerfications`,
           // prefill: {
           //   name: name,
           //   email: "gaurav.kumar@example.com",

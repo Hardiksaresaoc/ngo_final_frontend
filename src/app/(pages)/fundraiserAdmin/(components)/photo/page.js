@@ -30,7 +30,7 @@ export default function Page() {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser_page?.id}`,
         formData,
         {
           headers: {
@@ -63,7 +63,7 @@ export default function Page() {
     try {
       // Make an HTTP DELETE request to delete the image
       await axios.delete(
-        `https://allowing-shiner-needlessly.ngrok-free.app/fundraiser-page/${image}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
         config
       );
 
@@ -95,7 +95,7 @@ export default function Page() {
               {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
                 <div key={index} className={styles.galleryImage}>
                   <Image
-                    src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${image}`}
+                    src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
                     alt={`Image ${index}`}
                     className={styles.galleryImg}
                     height="200"
