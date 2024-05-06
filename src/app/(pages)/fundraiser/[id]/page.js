@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import styles from "@/component/fundraiser.module.css";
+import styles from "./fundraiser.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
@@ -10,8 +10,13 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { PiHandHeartDuotone } from "react-icons/pi";
+import { BiDonateHeart } from "react-icons/bi";
+
 import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
+import { FaXTwitter } from "react-icons/fa6";
+import { CiShare2 } from "react-icons/ci";
 
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState({}); // Initialize fundraiser as an empty object
@@ -24,6 +29,7 @@ export default function page({ params }) {
   };
   const [showPopup, setShowPopup] = useState(false);
   const [shareURL, setShareURL] = useState(""); // URL to share
+  const [copied, setCopied] = useState(false);
 
   const handleShare = (url) => {
     const message = ` ${fundraiser.resolution} ${url}`;
@@ -34,7 +40,15 @@ export default function page({ params }) {
   const closePopup = () => {
     setShowPopup(false);
   };
-
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Error copying to clipboard:", error);
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,95 +89,134 @@ export default function page({ params }) {
 
   return (
     <>
-      <div className={styles.box}>
-        <div className={styles.banner}>
-          <div className={styles.imgArea}>
-            <img
-              src="/images/fundraisal.png"
-              alt="Indian Military"
-              className={styles.mainImage}
-              height="100%"
-              width="100%"
-            />
-          </div>
+      <main className={styles.mainClass}>
+        <div className={styles.imgArea}>
+          <img
+            src="/images/HeroImage.png"
+            alt="Our Soldier"
+            height="400px"
+            width="100%"
+          />
         </div>
-        <div className={styles.hero} style={{ width: "100%" }}>
-          <div className={styles.mainGoal} style={{ width: "50%" }}>
-            <div className={styles.goal}>
-              <div className={styles.subGoal}>
-                <p className={styles.completeGoal}>
-                  {calculateGoalPercentage()}
-                </p>
-                <h2 className={styles.currentGoal}>
-                  &#8377; {fundraiser.raised_amount}
-                </h2>
-                <p className={styles.completeGoal}>
-                  of
-                  <span className={styles.totalGoal}>
-                    &#8377; {fundraiser.target_amount}
-                  </span>
-                  Goal
-                </p>
+        <div className={styles.contributers}>
+          <div className={styles.goal}>
+            <div className={styles.subGoal}>
+              <p className={styles.completeGoal}>{calculateGoalPercentage()}</p>
+              <h2 className={styles.currentGoal}>
+                &#8377; {fundraiser.raised_amount}
+              </h2>
+              <p className={styles.completeGoal}>
+                of{" "}
+                <span className={styles.totalGoal}>
+                  &#8377; {fundraiser.target_amount}
+                </span>{" "}
+                Goal
+              </p>
+            </div>
+            <div className={styles.resolution} style={{ width: "50%" }}>
+              <div className={styles.resolutionBtn}>
+                {showPopup && (
+                  <div
+                    className={styles.sharePopupOverlay}
+                    onClick={closePopup}
+                  >
+                    <div
+                      className={styles.sharePopup}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <h3
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "-30px",
+                          fontSize: "32px",
+                        }}
+                      >
+                        Share this fundraiser
+                      </h3>
+                      <div className={styles.shareToggle}>
+                        <FacebookShareButton url={shareURL}>
+                          <FaFacebook
+                            color="#1877F2"
+                            className={styles.shareIcon}
+                          />
+                        </FacebookShareButton>
+                        <TwitterShareButton url={shareURL}>
+                          <FaXTwitter className={styles.shareIcon} />
+                        </TwitterShareButton>
+                        <LinkedinShareButton url={shareURL}>
+                          <FaLinkedin
+                            color="#0a66c2"
+                            className={styles.shareIcon}
+                          />
+                        </LinkedinShareButton>
+                        <WhatsappShareButton url={shareURL}>
+                          <FaWhatsapp
+                            color="#25D366"
+                            className={styles.shareIcon}
+                          />
+                        </WhatsappShareButton>
+                      </div>
+                      <div>
+                        <button
+                          className={styles.clipboard}
+                          onClick={(e) => {
+                            e.preventDefault(); // Prevent default button behavior
+                            if (!copied) {
+                              handleCopy();
+                            }
+                          }}
+                        >
+                          {copied ? "Copied!" : "Copy to clipboard"}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <a className={styles.resolutionLink}>
+                  <button
+                    type="button"
+                    className={styles.mainbtn}
+                    onClick={() => handleShare(window.location.href)}
+                    style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
+                  >
+                    <CiShare2 />
+                    Share
+                  </button>
+                </a>
+                <Link
+                  href={`/fundraiser/${params.id}/donate`}
+                  className={styles.resolutionLink}
+                >
+                  <button
+                    type="submit"
+                    className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
+                  >
+                    <BiDonateHeart />
+                    Contribute
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
-          <div className={styles.resolution} style={{ width: "50%" }}>
-            <h1 className={styles.resolutionAbout}>About My Resolution</h1>
-            <p className={styles.motivation}>
-              <br />
-              {fundraiser.resolution}
-            </p>
-            <div className={styles.resolutionBtn}>
-              {showPopup && (
-                <div className={styles.sharePopupOverlay} onClick={closePopup}>
-                  <div
-                    className={styles.sharePopup}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <h3>Share this fundraiser:</h3>
-                    <div className={styles.shareToggle}>
-                      <FacebookShareButton url={shareURL}>
-                        <FaFacebook className={styles.shareIcon} />
-                      </FacebookShareButton>
-                      <TwitterShareButton url={shareURL}>
-                        <FaTwitter className={styles.shareIcon} />
-                      </TwitterShareButton>
-                      <LinkedinShareButton url={shareURL}>
-                        <FaLinkedin className={styles.shareIcon} />
-                      </LinkedinShareButton>
-                      <WhatsappShareButton url={shareURL}>
-                        <FaWhatsapp className={styles.shareIcon} />
-                      </WhatsappShareButton>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <a className={styles.resolutionLink}>
-                <button
-                  type="button"
-                  className={styles.mainbtn}
-                  onClick={() => handleShare(window.location.href)}
-                  style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
-                >
-                  <i className={`fa-solid fa-share-nodes`}></i>
-                  Share
-                </button>
-              </a>
-              <Link
-                href={`/fundraiser/${params.id}/donate`}
-                className={styles.resolutionLink}
-              >
-                <button
-                  type="submit"
-                  className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
-                >
-                  Contribute
-                </button>
-              </Link>
+          <div className={styles.fundraiserResolution}>
+            <div className={styles.fundraiserImg}>
+              <Image
+                src={`https://allowing-shiner-needlessly.ngrok-free.app/fundRaiser/fundraiser-page/${fundraiser.profileImage}`}
+                alt=""
+                width="200"
+                height="200"
+                className={styles.userImg}
+              />
+              <p className={styles.fundraiserName}>{""}</p>
+            </div>
+            <div className={styles.fundraiserDetail}>
+              <h1>About My Resolution</h1>
+              <p>{fundraiser.resolution}</p>
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <article className={styles.article}>
         <button
           type="button"
@@ -218,9 +271,7 @@ export default function page({ params }) {
               {fundraiser.supporters && fundraiser.supporters.length > 0 ? (
                 fundraiser.supporters.map((supporter, index) => (
                   <p key={index} className={styles.ourSupporters}>
-                    <i
-                      className={`fa-sharp fa-solid ${styles.rightTriangle}`}
-                    ></i>
+                    <PiHandHeartDuotone />
                     {supporter}
                   </p>
                 ))

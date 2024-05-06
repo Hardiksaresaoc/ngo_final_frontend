@@ -80,7 +80,7 @@ export default function Update() {
                     min="1"
                     value={target_amount}
                     name="FundraisingTarget"
-                    id="FundraisingTarget"
+                    className={styles.FundraisingTarget}
                     onChange={(e) => setTargetAmount(e.target.value)}
                   />
                 </label>
@@ -89,7 +89,7 @@ export default function Update() {
                   <textarea
                     value={resolution}
                     name="MyResolution"
-                    id="MyResolution"
+                    className={styles.MyStory}
                     cols="30"
                     rows="10"
                     onChange={(e) => setResolution(e.target.value)}
@@ -102,7 +102,7 @@ export default function Update() {
                   <textarea
                     name="MyStory"
                     value={story}
-                    id="MyStory"
+                    className={styles.MyStory}
                     cols="30"
                     rows="16"
                     onChange={(e) => setMyStory(e.target.value)}
@@ -116,7 +116,7 @@ export default function Update() {
                 <textarea
                   name="MoneyRaised"
                   value={money_raised_for}
-                  id="MoneyRaised"
+                  className={styles.MoneyRaised}
                   cols="30"
                   rows="5"
                   onChange={(e) => setRaisedFor(e.target.value)}

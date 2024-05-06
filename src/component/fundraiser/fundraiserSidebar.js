@@ -3,6 +3,9 @@ import { usePathname } from "next/navigation";
 import styles from "./fundraiserSidebar.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { MdDashboard } from "react-icons/md";
+import { AiFillInfoCircle } from "react-icons/ai";
+import { BiSolidReport } from "react-icons/bi";
 
 export default function AsideBar() {
   const pathname = usePathname();
@@ -16,14 +19,7 @@ export default function AsideBar() {
                 pathname === "/fundraiserAdmin/dashboard" ? styles.active : ""
               }`}
             >
-              <Image
-                src="/images/dashboard.png"
-                alt="dashboard"
-                className={styles.sidebarImage}
-                height="16"
-                width="16"
-              />
-              Dashboard
+              <MdDashboard /> Dashboard
             </p>
           </Link>
           <Link href="/fundraiserAdmin/update">
@@ -32,13 +28,7 @@ export default function AsideBar() {
                 pathname === "/fundraiserAdmin/update" ? styles.active : ""
               }`}
             >
-              <Image
-                src="/images/circle.png"
-                alt="fundraiser"
-                className={styles.sidebarImage}
-                height="16"
-                width="16"
-              />
+              <AiFillInfoCircle />
               Fundraiser
             </p>
           </Link>
@@ -48,7 +38,7 @@ export default function AsideBar() {
                 pathname === "/fundraiserAdmin/photo" ? styles.active : ""
               }`}
             >
-              <i className={`fas fa-image ${styles.asideIcon}`}></i>
+              <i className={`fas fa-image `}></i>
               Photos
             </p>
           </Link>
@@ -58,13 +48,7 @@ export default function AsideBar() {
                 pathname === "/fundraiserAdmin/report" ? styles.active : ""
               }`}
             >
-              <Image
-                src="/images/table.png"
-                alt="Report"
-                className={styles.sidebarImage}
-                height="16"
-                width="16"
-              />
+              <BiSolidReport />
               Donations Report
             </p>
           </Link>
@@ -90,13 +74,10 @@ export const TopHeader = ({ link }) => {
           </div>
           <div className={styles.rightSection}>
             <div className={styles.ImageArea}>
-              <Image
-                style={{ width: "100%", height: "400px", objectFit: "contain" }}
+              <img
+                style={{ width: "100%", height: "639px", objectFit: "contain" }}
                 src="/images/FrontImage.png"
                 alt="Soldiers"
-                unoptimized
-                height="300"
-                width="100"
               />
             </div>
           </div>
@@ -104,9 +85,17 @@ export const TopHeader = ({ link }) => {
         <div className={styles.lowerPart}>
           <p>
             Fundraising Page Link:
-            <Link href={`http://localhost:3000/fundraiser/${link}`}>
+            <a
+              className={styles.tooltip}
+              onClick={() => {
+                navigator.clipboard
+                  .writeText(`http://localhost:3000/fundraiser/${link}`)
+                  .then(alert("Link Copied"));
+              }}
+            >
               {link}
-            </Link>
+              <span className={styles.tooltiptext}>click to copy</span>
+            </a>
           </p>
         </div>
       </section>

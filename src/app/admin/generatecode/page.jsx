@@ -35,11 +35,9 @@ const GeneratePage = () => {
     e.preventDefault();
     setLoading(true);
 
-    let newerrors = {};
-
     // Validation logic
     if (!email) {
-      newerrors("Email is required.");
+      setEmailError("Email is required.");
     }
     if (!firstName) {
       setFirstNameError("name is required.");
