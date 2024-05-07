@@ -10,13 +10,14 @@ import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 
 import showAlert from "@/component/alert";
+import Loading from "@/app/loading";
 export default function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
   const [isopen, setisopen] = useState(false);
-  const [loding, setloding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const toggle = () => {
     setisopen(!isopen);
   };
@@ -31,6 +32,7 @@ export default function Header() {
 
   const handleLogout = (e) => {
     setLoading(true);
+
     try {
       removeCookie("token");
       router.replace("/login");
@@ -42,7 +44,9 @@ export default function Header() {
   };
   console.log(user);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <header className={styles.head}>
       <div className={styles.logo}>
         <Image
@@ -195,7 +199,7 @@ export default function Header() {
                     <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option1">
                         <Link
-                          href="/dashboard"
+                          href="/fundraiserAdmin/dashboard"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Dashboard

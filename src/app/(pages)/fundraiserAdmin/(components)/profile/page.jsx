@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import useAuth from "@/context/auth";
@@ -7,6 +7,7 @@ import styles from "./profile.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import { FundraiserContext } from "@/context/FundraiserContext";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -25,12 +26,18 @@ export default function Page() {
   const [showAccountDetails, setShowAccountDetails] = useState(true);
   const cookies = new Cookies();
   const [imagePreview, setImagePreview] = useState(""); // State to store image preview URL
-
+  const fundraiserCtx = useContext(FundraiserContext);
+  const [profileImage, setprofileImage] = useState(null);
   useEffect(() => {
     const data = cookies.get("token");
     setToken(data || "");
     cookies.set("token", data || "");
   }, []);
+  useEffect(() => {
+    console.log("ctx", fundraiserCtx);
+    const profile = fundraiserCtx?.profileImage;
+    setprofileImage(profile);
+  }, [fundraiserCtx]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -374,11 +381,16 @@ export default function Page() {
               <div>
                 <Image
                   id="blah"
-                  src={{ imagePreview } || "#"} // Set image source from state
+                  src={
+                    profileImage
+                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
+                      : "/images/profile.jpeg"
+                  }
                   alt="your image"
-                  width="225"
-                  height="225"
+                  width={225}
+                  height={225}
                 />
+
                 <br />
                 <input
                   accept="image/*"

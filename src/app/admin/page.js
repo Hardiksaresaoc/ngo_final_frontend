@@ -90,7 +90,7 @@ export default function FundraiserPage() {
                 <img src="/images/coins-03.svg" />
                 <p>
                   <span> &#8377; {allData.thisMonthDonations}/-</span>
-                  <span>Last Month Donation</span>
+                  <span>This Month Donation</span>
                 </p>
               </div>
             </div>

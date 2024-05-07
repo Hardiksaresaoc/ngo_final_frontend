@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 export default function page({ params }) {
   const [amount, setDonationAmount] = useState();
   const [donor_phone, setPhoneNumber] = useState();
-  const [donor_email, setDonor_email] = useState("");
+  const [email, setemail] = useState("");
   const [donor_name, setName] = useState("");
   const [pan, setPan] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +24,7 @@ export default function page({ params }) {
   const reset = () => {
     setDonationAmount("");
     setPhoneNumber("");
-    setDonor_email("");
+    setemail("");
     setName("");
     setPan("");
     setAddress("");
@@ -43,8 +43,7 @@ export default function page({ params }) {
       amount: amount,
       donor_phone: donor_phone,
       donor_name: donor_name,
-      email: donor_email,
-      donor_name: donor_name,
+      email: email,
       pan: pan,
       address: address,
       donor_state: donor_state,
@@ -53,13 +52,10 @@ export default function page({ params }) {
     };
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
     if (!formData.donor_name) newErrors.donor_name = "Please enter donor name.";
-    if (!formData.donor_phone == 0)
+    if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
-    if (!formData.donor_phone <= 10 || formData.donor_phone > 10)
-      newErrors.donor_phone = "Please enter valid number.";
 
-    if (!formData.donor_email)
-      newErrors.donor_email = "Please enter donor email.";
+    if (!formData.email) newErrors.email = "Please enter donor email.";
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -79,7 +75,9 @@ export default function page({ params }) {
         formData,
         config
       );
+
       console.log(response);
+      setsubmitted(true);
       Swal.fire({
         title: "Added Succesfully",
         text: "Donation added!!",
@@ -148,7 +146,6 @@ export default function page({ params }) {
                         maxLength="20"
                         size="30"
                         required
-                        autoComplete="username"
                       />
                       {errors.donor_name && (
                         <span style={{ color: "red" }} className={styles.error}>
@@ -161,16 +158,15 @@ export default function page({ params }) {
                       <input
                         type="email"
                         className={styles.email}
-                        value={donor_email}
-                        onChange={(e) => setDonor_email(e.target.value)}
+                        value={email}
+                        onChange={(e) => setemail(e.target.value)}
                         name="email"
                         placeholder="Enter your e-mail"
                         required
-                        autoComplete="email"
                       />
-                      {errors.donor_email && (
+                      {errors.email && (
                         <span style={{ color: "red" }} className={styles.error}>
-                          {errors.donor_email}
+                          {errors.email}
                         </span>
                       )}
                     </div>
@@ -264,7 +260,7 @@ export default function page({ params }) {
                       <input
                         type="text"
                         value={donor_Comments}
-                        onChange={(e) => setComments(e.target.value)}
+                        onChange={(e) => setdonor_Comments(e.target.value)}
                         className={styles.comment}
                         name="Comment"
                         placeholder="Write a comment..."

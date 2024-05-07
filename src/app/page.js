@@ -95,28 +95,69 @@
 
 // export default CircularProgressBar;
 
-import { useEffect, useState } from "react";
-import Script from "next/script";
+import { useEffect, useRef, useState } from "react";
+
+export const CircularProgress = ({ percentage }) => {
+  const circularProgressRef = useRef(null);
+  const [currentPercentage, setCurrentPercentage] = useState(40);
+
+  useEffect(() => {
+    const circularProgress = circularProgressRef.current;
+    const progressValue = circularProgress.querySelector(".percentage");
+    const innerCircle = circularProgress.querySelector(".inner-circle");
+
+    let startValue = currentPercentage;
+    const endValue = Number(percentage);
+    const speed = 50;
+    const progressColor = circularProgress.getAttribute("data-progress-color");
+
+    const progress = setInterval(() => {
+      startValue++;
+      progressValue.textContent = `(${endValue}%)`;
+
+      innerCircle.style.backgroundColor = circularProgress.getAttribute(
+        "data-inner-circle-color"
+      );
+
+      circularProgress.style.background = `conic-gradient(${progressColor} ${
+        endValue * 3.6
+      }deg,${circularProgress.getAttribute("data-bg-color")} 0deg)`;
+
+      if (startValue === endValue) {
+        clearInterval(progress);
+      }
+    }, speed);
+
+    setCurrentPercentage(endValue); // Update currentPercentage state
+    return () => clearInterval(progress);
+  }, [percentage]);
+
+  return (
+    <div
+      ref={circularProgressRef}
+      className="circular-progress"
+      data-inner-circle-color="white"
+      data-percentage={percentage}
+      data-progress-color="#0FA900"
+      data-bg-color="#D2F2CF"
+    >
+      <div className="subGoal">
+        <div className="inner-circle"></div>
+        <p className="percentage">({currentPercentage}%)</p>{" "}
+        {/* Use currentPercentage instead of percentage */}
+        <h2 className="currentGoal">&#8377; 1,500</h2>
+        <p className="percentage">
+          of <span className="totalGoal">&#8377; 3,000</span> Goal
+        </p>
+      </div>
+    </div>
+  );
+};
+
 export default function page() {
   return (
     <>
-      <div
-        className="circular-progress"
-        data-inner-circle-color="white"
-        data-percentage="50"
-        data-progress-color="#0FA900"
-        data-bg-color="#D2F2CF"
-      >
-        <div className="subGoal">
-          <div className="inner-circle"></div>
-          <p className="percentage">(50%)</p>
-          <h2 className="currentGoal">&#8377; 1,500</h2>
-          <p className="percentage">
-            of <span className="totalGoal">&#8377; 3,000</span> Goal{" "}
-          </p>
-        </div>
-      </div>
-      <Script type="text/javascript" async defer src="/index.js"></Script>
+      <CircularProgress percentage={510} />
     </>
   );
 }

@@ -7,6 +7,7 @@ import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { useSnippet } from "@nextui-org/react";
 
 export default function FundraiserPage() {
   const [cookies, setCookie] = useCookies(["token"]);
@@ -18,7 +19,6 @@ export default function FundraiserPage() {
   const [selectedFundraiser, setSelectedFundraiser] = useState(null);
 
   const [loading, setLoading] = useState(false);
-
   const [header, setheader] = useState();
   const [formData, setFormData] = useState({
     name: selectedFundraiser?.firstName || "",
@@ -154,14 +154,19 @@ export default function FundraiserPage() {
                     </td>
                     <td className={styles.td}>{fundraiser.mobile_number}</td>
                     <td className={styles.td}>
-                      http://localhost:3000/fundraiser/
-                      {fundraiser?.fundraiser_page?.id}
+                      <a
+                        href={`http://localhost:3000/fundraiser/${fundraiser?.fundraiser_page?.id}`}
+                        target="_blank"
+                      >
+                        http://localhost:3000/fundraiser/
+                        {fundraiser?.fundraiser_page?.id}
+                      </a>
                     </td>
                     <td className={styles.td}>
                       <label className={styles.switch}>
                         <input
                           type="checkbox"
-                          onChange={() => {
+                          onChange={async () => {
                             const updatedStatus = !fundraiser.status;
                             console.log(updatedStatus);
                             setFundraisers((prevFundraisers) =>
@@ -171,15 +176,30 @@ export default function FundraiserPage() {
                                   : item
                               )
                             );
-                            console.log("aa", header);
-                            axios(
-                              {
-                                method: "put",
-                                url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
-                                headers: header,
-                              }
-                              // { status: updatedStatus }
-                            );
+                            const response = await axios({
+                              method: "put",
+                              url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
+                              headers: header,
+                            });
+                            console.log("new", response.data?.status);
+                            if (
+                              response?.status == 201 ||
+                              response?.status == 200
+                            ) {
+                              const statusMessage =
+                                response?.data?.status === 0
+                                  ? "inactivated"
+                                  : "activated";
+                              const title = `Changed to ${statusMessage}`;
+
+                              Swal.fire({
+                                title: title,
+                                text: statusMessage,
+                                icon: "success",
+                                confirmButtonText: "Close",
+                                confirmButtonColor: "#000080",
+                              });
+                            }
                           }}
                           defaultChecked={fundraiser.status === "active"}
                         />

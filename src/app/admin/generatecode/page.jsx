@@ -68,7 +68,7 @@ const GeneratePage = () => {
           config
         );
 
-        if (response.status == 201) {
+        if (response.data.status == 201) {
           console.log("success", config);
           await axios.post(
             `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
@@ -84,10 +84,15 @@ const GeneratePage = () => {
             confirmButtonText: "Close",
           });
         }
-        if (response.status !== 200) {
+        if (
+          response.status !== 200 ||
+          response.status !== 201 ||
+          response.status == 404
+        ) {
+          // const errorMsg = ;
           Swal.fire({
             title: "Opps!",
-            text: "Something Went Wrong,try again!!",
+            text: response.data.response.message,
             icon: "failed",
             confirmButtonColor: "#000080",
 

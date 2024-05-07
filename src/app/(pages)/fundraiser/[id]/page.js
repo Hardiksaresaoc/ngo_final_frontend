@@ -225,7 +225,7 @@ export default function page({ params }) {
             </div>
             <div className={styles.fundraiserDetail}>
               <h1>About My Resolution</h1>
-              <p>{fundraiser?.resolution}</p>
+              <p>{fundraiser?.fundraiserPage?.resolution}</p>
             </div>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function page({ params }) {
             {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                  src={`${process.env.NEXT_PUBLIC_serverAPI_local}/fundRaiser/fundraiser-page/${image}`}
                   loader={({ src }) =>
                     `${src}?headers=${JSON.stringify(headers)}`
                   }

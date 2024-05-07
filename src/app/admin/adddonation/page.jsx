@@ -147,7 +147,6 @@ export default function page() {
         reset();
         setLoading(false);
         console.log("API response:", response.data);
-        alert("done");
       }
       setLoading(false);
       setErrors({});
