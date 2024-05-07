@@ -3,7 +3,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import Swal from "sweetalert2";
-
+import styles from "./donationHistory.css";
+import Sidebar from "@/component/sidebar";
 export default function Page() {
   const [data, setData] = useState([]);
   const [token, setToken] = useState();
@@ -81,7 +82,7 @@ export default function Page() {
         },
       };
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations/download`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/admin/donations/download`,
         requestOptions
       );
       const blob = await response.blob();
@@ -105,10 +106,8 @@ export default function Page() {
   };
   return (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
       <aside className={styles.aside}>
-        <AsideBar />
-
+        <Sidebar />
         <div className={styles.rightAside}>
           <h1>Donation Report</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
