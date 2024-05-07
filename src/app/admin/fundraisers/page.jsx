@@ -9,9 +9,9 @@ import { FaRegPenToSquare } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 export default function FundraiserPage() {
-  const [cookies, setCookie] = useCookies(["token"]);
-  const { user } = useAuth("FUNDRAISER");
-
+  const { user } = useAuth("ADMIN");
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [popupActive, setpopupActive] = useState(false);
   const [fundraisers, setFundraisers] = useState([]);
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -27,6 +27,7 @@ export default function FundraiserPage() {
     money_raised_for: "",
     target_amount: selectedFundraiser?.fundraiser_page?.target_amount || "",
   });
+
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -121,114 +122,10 @@ export default function FundraiserPage() {
     fetchData();
   }, []);
 
-  return user ? (
-    <section className={styles.section}>
-      <Sidebar />
-      <div className={styles.rightSection}>
-        <div className={styles.rightsubSection}>
-          <h1>Fundraiser</h1>
-          <table className={styles.adminTable}>
-            <thead>
-              <tr>
-                <th className={styles.tableHead}>Id</th>
-                <th className={styles.tableHead}>Name</th>
-                <th className={styles.tableHead}>Email</th>
-                <th className={styles.tableHead}>Phone Number</th>
-                <th className={styles.tableHead}>URL</th>
-                <th className={styles.tableHead}>Status</th>
-                <th className={styles.tableHead}>Edit</th>
-              </tr>
-            </thead>
-            {fundraisers.length >= 0 ? (
-              <tbody className={styles.tableBody}>
-                {fundraisers?.map((fundraiser) => (
-                  <tr
-                    className={styles.tableRow}
-                    key={fundraiser.fundraiser_id}
-                  >
-                    <td className={styles.td}>{fundraiser.f_id}</td>
-                    <td className={styles.td}>{fundraiser.firstName}</td>
-                    <td className={styles.td}>
-                      {fundraiser.email.toLowerCase()}
-                    </td>
-                    <td className={styles.td}>{fundraiser.mobile_number}</td>
-                    <td className={styles.td}>
-                      <a
-                        href={`http://localhost:3000/fundraiser/${fundraiser?.fundraiser_page?.id}`}
-                        target="_blank"
-                      >
-                        http://localhost:3000/fundraiser/
-                        {fundraiser?.fundraiser_page?.id}
-                      </a>
-                    </td>
-                    <td className={styles.td}>
-                      <label className={styles.switch}>
-                        <input
-                          type="checkbox"
-                          onChange={async () => {
-                            const updatedStatus = !fundraiser.status;
-                            console.log(updatedStatus);
-                            setFundraisers((prevFundraisers) =>
-                              prevFundraisers.map((item) =>
-                                item.id === fundraiser.id
-                                  ? { ...item, status: updatedStatus }
-                                  : item
-                              )
-                            );
-                            const response = await axios({
-                              method: "put",
-                              url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
-                              headers: header,
-                            });
-                            console.log("new", response.data?.status);
-                            if (
-                              response?.status == 201 ||
-                              response?.status == 200
-                            ) {
-                              const statusMessage =
-                                response?.data?.status === 0
-                                  ? "inactivated"
-                                  : "activated";
-                              const title = `Changed to ${statusMessage}`;
-
-                              Swal.fire({
-                                title: title,
-                                text: statusMessage,
-                                icon: "success",
-                                confirmButtonText: "Close",
-                                confirmButtonColor: "#000080",
-                              });
-                            }
-                          }}
-                          defaultChecked={fundraiser.status === "active"}
-                        />
-                        <span
-                          className={`${styles.slider} ${styles.round}`}
-                        ></span>
-                      </label>
-                    </td>
-
-                    <td className={styles.td}>
-                      <a
-                        onClick={() => {
-                          setShowPopup(true);
-                          setSelectedFundraiser(fundraiser);
-                        }}
-                      >
-                        <FaRegPenToSquare />
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            ) : (
-              "error fetching data , try again later"
-            )}
-          </table>
-        </div>
-      </div>
+  return (
+    <>
       {showPopup && (
-        <div className={styles.popup}>
+        <div className={`${styles.popup} ${styles.popupOpen}`}>
           <div className={styles.hero}>
             <h1 style={{ paddingBottom: "1em" }}>Edit Fundraiser Details</h1>
             <div className={styles.popupfundraiserDetail}>
@@ -356,6 +253,7 @@ export default function FundraiserPage() {
               <button
                 onClick={() => {
                   setShowPopup(false);
+                  setpopupActive(false);
                 }}
                 type="reset"
                 className={`${styles.popupfundbutton} ${styles.popupdonorButton}`}
@@ -374,8 +272,125 @@ export default function FundraiserPage() {
           </div>
         </div>
       )}
-    </section>
-  ) : (
-    "loading"
+      {user ? (
+        <>
+          <section
+            className={`${
+              showPopup == true ? styles.stopScroll : styles.section
+            }`}
+          >
+            <Sidebar />
+            <div className={styles.rightSection}>
+              <div className={styles.rightsubSection}>
+                <h1>Fundraiser</h1>
+                <table className={styles.adminTable}>
+                  <thead>
+                    <tr>
+                      <th className={styles.tableHead}>Id</th>
+                      <th className={styles.tableHead}>Name</th>
+                      <th className={styles.tableHead}>Email</th>
+                      <th className={styles.tableHead}>Phone Number</th>
+                      <th className={styles.tableHead}>URL</th>
+                      <th className={styles.tableHead}>Status</th>
+                      <th className={styles.tableHead}>Edit</th>
+                    </tr>
+                  </thead>
+                  {fundraisers.length >= 0 ? (
+                    <tbody className={styles.tableBody}>
+                      {fundraisers?.map((fundraiser) => (
+                        <tr
+                          className={styles.tableRow}
+                          key={fundraiser.fundraiser_id}
+                        >
+                          <td className={styles.td}>{fundraiser.f_id}</td>
+                          <td className={styles.td}>{fundraiser.firstName}</td>
+                          <td className={styles.td}>
+                            {fundraiser.email.toLowerCase()}
+                          </td>
+                          <td className={styles.td}>
+                            {fundraiser.mobile_number}
+                          </td>
+                          <td className={styles.td}>
+                            <a
+                              href={`http://localhost:3000/fundraiser/${fundraiser?.fundraiser_page?.id}`}
+                              target="_blank"
+                            >
+                              http://localhost:3000/fundraiser/
+                              {fundraiser?.fundraiser_page?.id}
+                            </a>
+                          </td>
+                          <td className={styles.td}>
+                            <label className={styles.switch}>
+                              <input
+                                type="checkbox"
+                                onChange={async () => {
+                                  const updatedStatus = !fundraiser.status;
+                                  console.log(updatedStatus);
+                                  setFundraisers((prevFundraisers) =>
+                                    prevFundraisers.map((item) =>
+                                      item.id === fundraiser.id
+                                        ? { ...item, status: updatedStatus }
+                                        : item
+                                    )
+                                  );
+                                  const response = await axios({
+                                    method: "put",
+                                    url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
+                                    headers: header,
+                                  });
+                                  console.log("new", response.data?.status);
+                                  if (
+                                    response?.status == 201 ||
+                                    response?.status == 200
+                                  ) {
+                                    const statusMessage =
+                                      response?.data?.status === 0
+                                        ? "inactivated"
+                                        : "activated";
+                                    const title = `Changed to ${statusMessage}`;
+
+                                    Swal.fire({
+                                      title: title,
+                                      text: statusMessage,
+                                      icon: "success",
+                                      confirmButtonText: "Close",
+                                      confirmButtonColor: "#000080",
+                                    });
+                                  }
+                                }}
+                                defaultChecked={fundraiser.status === "active"}
+                              />
+                              <span
+                                className={`${styles.slider} ${styles.round}`}
+                              ></span>
+                            </label>
+                          </td>
+
+                          <td className={styles.td}>
+                            <a
+                              onClick={() => {
+                                setShowPopup(true);
+                                setpopupActive(true);
+                                setSelectedFundraiser(fundraiser);
+                              }}
+                            >
+                              <FaRegPenToSquare />
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
+                    "error fetching data , try again later"
+                  )}
+                </table>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        "loading"
+      )}
+    </>
   );
 }

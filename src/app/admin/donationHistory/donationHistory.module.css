@@ -1,0 +1,158 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.container a {
+  text-decoration: none;
+  width: 100%;
+}
+.container p {
+  font-family: "Roboto", sans-serif;
+  padding: 24px 40px;
+  color: #000080;
+  width: 100%;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  gap: 20px;
+}
+.container p a {
+  text-decoration: none;
+}
+.container p:hover {
+  background-color: #0000801a;
+}
+.active {
+  background-color: #0000801a;
+}
+.asideIcon {
+  margin-right: 10px;
+}
+.sidebarImg {
+  margin-right: 10px;
+  color: 0000ff;
+}
+
+.rightsection {
+  width: 75%;
+  padding: 40px 20px;
+}
+
+.rightSection h1 {
+  color: #fd8900;
+  font-family: "Roboto", sans-serif;
+  padding-bottom: 40px;
+  font-weight: 700;
+  font-size: 36px;
+}
+.form {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.upperForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chooseDate {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #171a1f;
+}
+.lowerForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+}
+.formsearchButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 28px;
+  cursor: pointer;
+  background-color: #000080;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.formsearchButton a {
+  text-decoration: none;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+.form input {
+  border: 1px solid #d9d9d9;
+  outline: none;
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.downloadExcel {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 11px 28px;
+  background-color: #fff;
+  color: #000080;
+  border: 1px solid #000080;
+  border-radius: 4px;
+  outline: none;
+  margin: 28px 0;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+}
+.table th,
+.table td {
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 8px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #171a1f;
+}
+.tableButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.tableButton .iconButton {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  outline: none;
+  margin-left: 5px;
+}

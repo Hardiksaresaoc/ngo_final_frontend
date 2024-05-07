@@ -1,24 +1,27 @@
 .popup {
-  position: fixed;
   width: 100%;
-  height: 100vh;
-  background: rgba(160, 160, 160, 0.267);
-  z-index: 999; /* Ensure the pop-up is above other elements */
+  /* position: absolute; */
+  overflow: hidden;
+  background-color: rgb(128, 128, 128, 0.276);
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
+}
+.stopScroll {
+  position: fixed;
+  overflow: hidden;
 }
 .popup-open .popup {
   overflow: hidden;
 }
-/* Styles for the pop-up content */
 .popup .hero {
   background-color: white;
   padding: 20px;
+
   border-radius: 5px;
   max-width: 800px;
-  width: calc(100% - 40px); /* Adjusted width to accommodate padding */
+  width: calc(100% - 40px);
 }
 
 /* Input and textarea styles */
@@ -90,8 +93,7 @@
   width: 100%;
 }
 .td {
-
-  padding: 14px 20px  14px 20px;
+  padding: 14px 20px 14px 20px;
   font-size: 16px;
   font-weight: 400;
   text-align: left;
