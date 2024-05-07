@@ -10,11 +10,11 @@ const DefaultResetPassword = () => {
   const [otpGen, setOtpGen] = useState(false);
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState(""); // State for password error
+  const [error, setError] = useState("");  
 
   const router = useRouter();
   const handleForgot = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();  
     setLoading(true);
     try {
       const response = await axios.get(

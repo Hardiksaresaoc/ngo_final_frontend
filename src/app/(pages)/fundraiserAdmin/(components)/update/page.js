@@ -6,6 +6,7 @@ import styles from "./update.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
 import { Cookies } from "react-cookie";
+import Swal from "sweetalert2";
 
 export default function Update() {
   const { user } = useAuth("FUNDRAISER");
@@ -55,9 +56,24 @@ export default function Update() {
         data,
         config
       );
+      Swal.fire({
+        title: "Done",
+        text: "Updated Sucessfully!!",
+        icon: "success",
+        confirmButtonColor: "#000080",
+
+        confirmButtonText: "Close",
+      });
       console.log(res.data);
     } catch (error) {
       console.error("Error submitting form:", error);
+      Swal.fire({
+        title: "Ooops!!",
+        text: "something went wrong!!",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor: "#000080",
+      });
     }
   };
 

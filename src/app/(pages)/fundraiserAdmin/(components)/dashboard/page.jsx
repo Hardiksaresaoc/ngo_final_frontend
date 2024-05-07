@@ -5,6 +5,7 @@ import AsideBar from "@/component/fundraiser/fundraiserSidebar";
 import useAuth from "@/context/auth";
 import { useContext, useEffect, useState } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
+import Loading from "@/app/loading";
 
 export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
@@ -44,6 +45,6 @@ export default function Dashboard() {
       </aside>
     </>
   ) : (
-    ""
+    <Loading/>
   );
 }

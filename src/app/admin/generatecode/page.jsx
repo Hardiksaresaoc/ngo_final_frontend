@@ -7,6 +7,7 @@ import Sidebar from "../../../component/sidebar";
 import { Cookies } from "react-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 const GeneratePage = () => {
   const cookies = new Cookies();
@@ -74,14 +75,24 @@ const GeneratePage = () => {
             { email },
             config
           );
+          Swal.fire({
+            title: "Page created",
+            text: "check Email for more details!!",
+            icon: "success",
+            confirmButtonColor: "#000080",
+
+            confirmButtonText: "Close",
+          });
         }
         if (response.status !== 200) {
-          <showAlert
-            title={"ooppss!!"}
-            text={`Something went wrong`}
-            icon="failed"
-            confirmButtonText="close"
-          />;
+          Swal.fire({
+            title: "Opps!",
+            text: "Something Went Wrong,try again!!",
+            icon: "failed",
+            confirmButtonColor: "#000080",
+
+            confirmButtonText: "Close",
+          });
           throw new Error("Failed to generate.");
         }
 

@@ -13,6 +13,7 @@ export default function NavigationEvents() {
         text: "Thanks for your donation!",
         icon: "success",
         confirmButtonText: "Cool",
+        confirmButtonColor: "#000080",
       }).then((result) => {
         if (result.isConfirmed) {
           router.replace("/");

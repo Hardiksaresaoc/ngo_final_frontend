@@ -2,10 +2,10 @@
 import { usePathname } from "next/navigation";
 import styles from "./fundraiserSidebar.module.css";
 import Link from "next/link";
-import Image from "next/image";
 import { MdDashboard } from "react-icons/md";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSolidReport } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 export default function AsideBar() {
   const pathname = usePathname();
@@ -75,7 +75,7 @@ export const TopHeader = ({ link }) => {
           <div className={styles.rightSection}>
             <div className={styles.ImageArea}>
               <img
-                style={{ width: "100%", height: "639px", objectFit: "contain" }}
+                style={{ width: "100%", height: "548px", objectFit: "contain" }}
                 src="/images/FrontImage.png"
                 alt="Soldiers"
               />
@@ -90,11 +90,24 @@ export const TopHeader = ({ link }) => {
               onClick={() => {
                 navigator.clipboard
                   .writeText(`http://localhost:3000/fundraiser/${link}`)
-                  .then(alert("Link Copied"));
+                  .then(
+                    Swal.fire({
+                      title: "Coppied!",
+                      text: "Coppied to ClipBoard!!",
+                      icon: "success  ",
+                      confirmButtonText: "Close",
+                      confirmButtonColor: "#000080",
+                    })
+                  );
               }}
             >
               {link}
-              <span className={styles.tooltiptext}>click to copy</span>
+              <span
+                style={{ width: "fit-content" }}
+                className={styles.tooltiptext}
+              >
+                click to copy
+              </span>
             </a>
           </p>
         </div>

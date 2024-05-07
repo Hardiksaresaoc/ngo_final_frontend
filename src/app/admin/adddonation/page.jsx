@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import { showAlert } from "@/component/alert";
+import Swal from "sweetalert2";
 export default function page() {
   const cookies = new Cookies();
   const [token, settoken] = useState(null);
@@ -135,6 +136,13 @@ export default function page() {
         data: formData,
       });
       if (response.status == 201) {
+        Swal.fire({
+          title: "Added Succesfully",
+          text: "Donation added!!",
+          icon: "success",
+          confirmButtonText: "Close",
+          confirmButtonColor: "#000080",
+        });
         console.log("success");
         reset();
         setLoading(false);
@@ -144,7 +152,13 @@ export default function page() {
       setLoading(false);
       setErrors({});
     } catch (error) {
-      <showAlert title="done" />;
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong!!",
+        icon: "error",
+        confirmButtonText: "Close",
+        confirmButtonColor: "#000080",
+      });
 
       console.error("API error:", error);
       setLoading(false);

@@ -18,6 +18,8 @@ import { FaXTwitter } from "react-icons/fa6";
 import { CiShare2 } from "react-icons/ci";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Notfundraiser from "@/component/nofundraiser";
+import Loading from "@/app/loading";
 
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState(null);
@@ -25,6 +27,8 @@ export default function page({ params }) {
   const [activeTab, setActiveTab] = useState("myStory");
 
   const [Isfundraiser, setIsfundraiser] = useState(false);
+  const [loading, setloading] = useState(false);
+
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
   };
@@ -52,6 +56,7 @@ export default function page({ params }) {
   };
   useEffect(() => {
     const fetchData = async () => {
+      setloading(true);
       try {
         const config = {
           headers: {
@@ -63,10 +68,12 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        setFundraiser(response.data);
+        setFundraiser(() => response.data);
         setIsfundraiser(true);
+        setloading(false);
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
+        setloading(false);
       }
     };
     fetchData();
@@ -87,9 +94,13 @@ export default function page({ params }) {
       return `${Math.round(percentage)}%`;
     }
   };
+  const headers = {
+    "ngrok-skip-browser-warning": "true",
+  };
 
-  return (
-    //  Isfundraiser ? (
+  return loading ? (
+    <Loading />
+  ) : Isfundraiser ? (
     <>
       <main className={styles.mainClass}>
         <div className={styles.imgArea}>
@@ -259,6 +270,9 @@ export default function page({ params }) {
               <div key={index} className={styles.galleryImage}>
                 <img
                   src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                  loader={({ src }) =>
+                    `${src}?headers=${JSON.stringify(headers)}`
+                  }
                   alt={`Image ${image}`}
                   className={styles.galleryImg}
                   height="200"
@@ -290,8 +304,7 @@ export default function page({ params }) {
         </div>
       </aside>
     </>
+  ) : (
+    <Loading />
   );
-  // : (
-  // <Notfundraiser />
-  // );
 }

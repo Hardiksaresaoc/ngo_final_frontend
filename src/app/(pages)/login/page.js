@@ -7,7 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
-import showAlert from "@/component/alert";
+import Swal from "sweetalert2";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,6 +65,13 @@ const LoginPage = () => {
         { email, password },
         config
       );
+      Swal.fire({
+        title: "Success",
+        text: "Login Successfully!!",
+        icon: "success",
+        confirmButtonText: "Close",
+        confirmButtonColor: "#000080",
+      });
       if (!data || !data.token) {
         setErrors({
           loginError: "email or password error",
@@ -75,7 +82,15 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);
+      Swal.fire({
+        title: "Opps!!",
+        text: "Something Went Wrong, try again",
+        icon: "failed",
+        timer: 1500,
+        confirmButtonColor: "#000080",
 
+        confirmButtonText: "Close",
+      });
       if (error.response && error.response.status === 401) {
         setErrors({
           loginError: "Email or password is incorrect.",

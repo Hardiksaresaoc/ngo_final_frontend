@@ -6,6 +6,7 @@ import useAuth from "@/context/auth";
 import styles from "./profile.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -59,9 +60,23 @@ export default function Page() {
         },
         config
       );
+      Swal.fire({
+        title: "Updated",
+        text: "Updated  Succesfully!!",
+        icon: "success",
+        confirmButtonText: "Close",
+        confirmButtonColor: "#000080",
+        confirmButtonColor: "#000080",
+      });
       console.log(response);
     } catch (err) {
       console.log(err.message || "Something went wrong.");
+      Swal.fire({
+        title: "Error",
+        text: "Try Again!!",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
     }
   };
   const handleImageUpload = async (e) => {
@@ -86,12 +101,27 @@ export default function Page() {
           formData,
           config
         );
+        Swal.fire({
+          title: "upload complete ",
+          text: "added!!",
+          icon: "success",
+          confirmButtonColor: "#000080",
+
+          confirmButtonText: "Close",
+        });
 
         // Assuming the API response contains the uploaded image URL
         const imageUrl = response.data.imageUrl;
         setImagePreview(imageUrl);
         console.log("Image uploaded:", imageUrl);
       } catch (err) {
+        Swal.fire({
+          title: "Opps",
+          text: "something went wrong!!",
+          icon: "error",
+          confirmButtonText: "Close",
+          confirmButtonColor: "#000080",
+        });
         console.log(err.message || "Something went wrong.");
       }
     } else {
@@ -344,10 +374,10 @@ export default function Page() {
               <div>
                 <Image
                   id="blah"
-                  src={imagePreview || "#"} // Set image source from state
+                  src={{ imagePreview } || "#"} // Set image source from state
                   alt="your image"
-                  width="225px"
-                  height="225px"
+                  width="225"
+                  height="225"
                 />
                 <br />
                 <input

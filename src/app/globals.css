@@ -3,11 +3,10 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 body {
   width: 100%;
-
-  /* margin-right: 1px;  */
 }
 
 /* circular  */
@@ -33,4 +32,45 @@ body {
   font-weight: bold;
   dominant-baseline: middle;
   text-anchor: middle;
+}
+
+/* circular2 */
+.circular-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 500px;
+  border-radius: 50%;
+  background: #0fa900;
+  background: radial-gradient(circle, #0fa900 0%, #d2f2cf 90%);
+  position: relative;
+  bottom: 55px;
+}
+.circular-progress .subGoal {
+  height: 440px;
+  width: 440px;
+  background-color: #fafafa;
+  border-radius: 50%;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.subGoal .currentGoal {
+  font-size: 90px;
+  font-weight: 500;
+  color: #000080;
+}
+.subGoal .percentage {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 46px;
+  font-weight: 400;
+}
+
+.subGoal .totalGoal {
+  color: #000080;
+  font-weight: 500;
+  font-size: 48px;
 }
