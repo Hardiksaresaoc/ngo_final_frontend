@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
-const MakePaymentComponent = ({ amount, name, reference }) => {
+const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
+  console.log(amount, name, reference, id);
   useEffect(() => {
     const loadRazorpayScript = async () => {
       try {
@@ -19,7 +20,7 @@ const MakePaymentComponent = ({ amount, name, reference }) => {
       try {
         console.log({ reference });
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_serverAPI}/payment/checkout/${reference.reference}`,
+          `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
         console.log(response.data.response);
@@ -46,7 +47,7 @@ const MakePaymentComponent = ({ amount, name, reference }) => {
           description: "Test Transaction",
           image: "",
           order_id: orderDetails, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          callback_url: `${process.env.NEXT_PUBLIC_serverAPI}/payment/paymentVerfications`,
+          callback_url: `http://localhost:3001/payment/paymentVerfications?id=${id}`,
           // prefill: {
           //   name: name,
           //   email: "gaurav.kumar@example.com",
@@ -72,4 +73,4 @@ const MakePaymentComponent = ({ amount, name, reference }) => {
   return null;
 };
 
-export default MakePaymentComponent;
+export default RazorpayPaymentComponent;

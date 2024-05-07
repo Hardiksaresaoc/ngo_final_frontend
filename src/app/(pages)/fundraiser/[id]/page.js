@@ -28,6 +28,10 @@ import "react-circular-progressbar/dist/styles.css";
 import Notfundraiser from "@/component/nofundraiser";
 import Loading from "@/app/loading";
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState(null);
   const fundraiserID = params.id;
@@ -232,7 +236,9 @@ export default function page({ params }) {
                 height="200"
                 className={styles.userImg}
               />
-              <p className={styles.fundraiserName}>{fundraiser?.firstName} </p>
+              <p className={styles.fundraiserName}>
+                {capitalizeFirstLetter(fundraiser?.firstName)}{" "}
+              </p>
             </div>
             <div className={styles.fundraiserDetail}>
               <h1>About My Resolution</h1>
@@ -302,8 +308,8 @@ export default function page({ params }) {
                 fundraiser?.fundraiserPage?.supporters.map(
                   (supporter, index) => (
                     <p key={index} className={styles.ourSupporters}>
-                      <PiHandHeartDuotone />
-                      {supporter}
+                      <PiHandHeartDuotone fill="#000080" />
+                      {capitalizeFirstLetter(supporter)}
                     </p>
                   )
                 )

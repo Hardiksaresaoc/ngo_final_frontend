@@ -76,6 +76,7 @@ export default function page({ params }) {
         config
       );
 
+      setReference(response.data);
       console.log(response);
       setsubmitted(true);
       Swal.fire({
@@ -300,6 +301,7 @@ export default function page({ params }) {
           amount={amount}
           name={donor_name}
           reference={reference}
+          id={params.id}
         />
       )}
     </>
