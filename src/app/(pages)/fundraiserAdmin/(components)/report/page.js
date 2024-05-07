@@ -118,7 +118,7 @@ export default function Page() {
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.upperForm}>
               <span>
-                <span>FromDate</span>
+                <span>From Date</span>
                 <br />
                 <input
                   type="date"

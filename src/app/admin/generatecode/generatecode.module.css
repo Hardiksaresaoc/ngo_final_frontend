@@ -5,6 +5,7 @@
 .rightSection {
   width: 80%;
   margin: 0;
+
 }
 .rightsubSection {
   margin: 24px 24px 0 24px;
@@ -39,8 +40,9 @@
 .rightsectionBtn {
   display: flex;
   gap: 8px;
+  padding-left: 19px;
   width: 100%;
-  padding-top: 16px;
+  padding-top: 18px;
   margin-left: 9px;
 }
 .cancelBtn {
