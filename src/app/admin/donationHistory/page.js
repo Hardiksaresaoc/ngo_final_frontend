@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import Swal from "sweetalert2";
-import styles from "./donationHistory.css";
+import styles from "./donationHistory.module.css";
 import Sidebar from "@/component/sidebar";
 export default function Page() {
   const [data, setData] = useState([]);
@@ -85,13 +85,26 @@ export default function Page() {
         `${process.env.NEXT_PUBLIC_serverAPI}/admin/donations/download`,
         requestOptions
       );
+      Swal.fire({
+        title: "Please wait...",
+        text: "Your download is in progress.",
+        icon: "info",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       const blob = await response.blob();
+
       const downloadUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = downloadUrl;
       a.download = "DonationData.xlsx";
       a.click();
       URL.revokeObjectURL(downloadUrl);
+      Swal.close();
     } catch (error) {
       console.error("Error downloading file:", error);
       Swal.fire({
@@ -106,9 +119,9 @@ export default function Page() {
   };
   return (
     <>
-      <aside className={styles.aside}>
+      <section className={styles.section}>
         <Sidebar />
-        <div className={styles.rightAside}>
+        <div className={styles.rightsection}>
           <h1>Donation Report</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.upperForm}>
@@ -233,7 +246,7 @@ export default function Page() {
             </tbody>
           </table>
         </div>
-      </aside>
+      </section>
     </>
   );
 }
