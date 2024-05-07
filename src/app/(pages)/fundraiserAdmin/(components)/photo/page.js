@@ -6,23 +6,35 @@ import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import Swal from "sweetalert2";
+import { FaRegTrashAlt } from "react-icons/fa";
+import useAuth from "@/context/auth";
+import Loading from "@/app/loading";
 
 export default function Page() {
-  const [fundraiser, setFundraiser] = useState([]);
   const fundraiserCtx = useContext(FundraiserContext);
   const cookies = new Cookies();
   const [token, setToken] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const { user } = useAuth("FUNDRAISER");
+  const [loading, setLoading] = useState(true);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-    setIsSubmitDisabled(false); // Enable the submit button when a file is selected
+    setIsSubmitDisabled(false);
   };
+
   useEffect(() => {
     const data = cookies.get("token");
     setToken(data);
   }, [cookies]);
+
+  useEffect(() => {
+    if (fundraiserCtx && fundraiserCtx.fundraiser_page) {
+      setLoading(false);
+    }
+  }, [fundraiserCtx]);
 
   const handleFileUpload = async () => {
     try {
@@ -42,16 +54,14 @@ export default function Page() {
       );
 
       console.log("File uploaded successfully:", response.data);
-      // You can handle the response or update the UI as needed
     } catch (error) {
       console.error("Error uploading file:", error);
-      // Handle error (e.g., show error message to user)
     }
   };
   useEffect(() => {
-    // Fetch data from context and date state
-    setFundraiser(fundraiserCtx.fundraiserData);
-  }, [fundraiserCtx.fundraiserData]);
+    fundraiserCtx;
+  }, [fundraiserCtx]);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -59,26 +69,40 @@ export default function Page() {
       Authorization: `Bearer ${token}`,
     },
   };
+
   const handleDeleteImage = async (index, image) => {
     try {
-      // Make an HTTP DELETE request to delete the image
       await axios.delete(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
         config
       );
-
-      // Update the local state or context after successful deletion
+      Swal.fire({
+        title: "Deleted Succesfully",
+        text: "Done!!",
+        icon: "success",
+        confirmButtonText: "Close",
+      });
       const updatedGallery = [...fundraiserCtx.fundraiser_page.gallery];
-      updatedGallery.splice(index, 1); // Remove the image at the specified index
+      updatedGallery.splice(index, 1); // Remove image at the specified index
       const updatedFundraiserPage = {
         ...fundraiserCtx.fundraiser_page,
         gallery: updatedGallery,
       };
       fundraiserCtx.updateFundraiserPage(updatedFundraiserPage);
     } catch (error) {
+      Swal.fire({
+        title: "Ooops!!!",
+        text: "try again!!",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
       console.error("Error deleting image:", error);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -89,7 +113,10 @@ export default function Page() {
         <section className={styles.photowrapper}>
           <div className={styles.imgwrapper}>
             <div className={styles.imgcount}>
-              <p> photos(21)</p>
+              <p>
+                {" "}
+                photos({fundraiserCtx?.fundraiser_page?.gallery?.length || 0})
+              </p>
             </div>
             <div className={styles.row}>
               {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
@@ -106,7 +133,7 @@ export default function Page() {
                     onClick={() => handleDeleteImage(index, image)}
                     className={styles.delete}
                   >
-                    <i className={`fa-solid fa-trash`}></i>
+                    <FaRegTrashAlt />
                   </a>
                 </div>
               ))}

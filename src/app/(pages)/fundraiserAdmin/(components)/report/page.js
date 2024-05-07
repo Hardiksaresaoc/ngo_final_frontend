@@ -5,6 +5,7 @@ import styles from "./report.module.css";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import { Cookies } from "react-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
+import Swal from "sweetalert2";
 
 export default function Page() {
   const [data, setData] = useState([]);
@@ -96,6 +97,14 @@ export default function Page() {
       URL.revokeObjectURL(downloadUrl);
     } catch (error) {
       console.error("Error downloading file:", error);
+      Swal.fire({
+        title: "Opps!",
+        text: "something went wrong!!",
+        icon: "error",
+        confirmButtonColor: "#000080",
+
+        confirmButtonText: "Close",
+      });
     }
   };
   return (

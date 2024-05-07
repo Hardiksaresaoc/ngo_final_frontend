@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <>
-      <div style={{ width: "100%" }}>loading........</div>
+      <h1>loading</h1>
     </>
   );
 }

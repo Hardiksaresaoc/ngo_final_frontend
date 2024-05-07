@@ -6,6 +6,7 @@ import styles from "./fundraisersAdmin.module.css";
 import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export default function FundraiserPage() {
   const [cookies, setCookie] = useCookies(["token"]);
@@ -37,10 +38,25 @@ export default function FundraiserPage() {
         { headers: header }
       );
       setLoading(false);
+      Swal.fire({
+        title: "Complate",
+        text: "added Complate!!",
+        icon: "success",
+        confirmButtonText: "Close",
+        confirmButtonColor: "#000080",
+      });
 
       console.log("Update successful:", response.data);
       setShowPopup(false);
     } catch (error) {
+      Swal.fire({
+        title: "Opps",
+        confirmButtonColor: "#000080",
+
+        text: "Something Went wrong!!",
+        icon: "success",
+        confirmButtonText: "Close",
+      });
       setLoading(false);
 
       console.error("Error updating fundraiser:", error);
@@ -79,6 +95,7 @@ export default function FundraiserPage() {
             Authorization: `Bearer ${token}`,
           },
         };
+
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser`,
           config
@@ -91,6 +108,13 @@ export default function FundraiserPage() {
         // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state
       } catch (error) {
         setLoading(false);
+        Swal.fire({
+          title: "Oops",
+          text: "Something went Wrong!!",
+          icon: "success",
+          confirmButtonText: "Close",
+          confirmButtonColor: "#000080",
+        });
         setError("Error fetching fundraisers. Please try again later.");
         console.error("Error fetching fundraisers:", error);
       }
