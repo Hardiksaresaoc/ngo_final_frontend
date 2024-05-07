@@ -12,11 +12,18 @@ import {
 } from "react-share";
 import { PiHandHeartDuotone } from "react-icons/pi";
 import { BiDonateHeart } from "react-icons/bi";
-import { FaFacebook, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { TiTick } from "react-icons/ti";
+
+import {
+  FaFacebook,
+  FaLinkedin,
+  FaRegCopy,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 import Link from "next/link";
 import { FaXTwitter } from "react-icons/fa6";
 import { CiShare2 } from "react-icons/ci";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Notfundraiser from "@/component/nofundraiser";
 import Loading from "@/app/loading";
@@ -170,9 +177,13 @@ export default function page({ params }) {
                           />
                         </WhatsappShareButton>
                       </div>
-                      <div>
-                        <button
-                          className={styles.clipboard}
+                      <div className={styles.clipboard}>
+                        <a
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            fontSize: "2em",
+                          }}
                           onClick={(e) => {
                             e.preventDefault(); // Prevent default button behavior
                             if (!copied) {
@@ -180,8 +191,8 @@ export default function page({ params }) {
                             }
                           }}
                         >
-                          {copied ? "Copied!" : "Copy to clipboard"}
-                        </button>
+                          {copied ? <TiTick /> : <FaRegCopy />}
+                        </a>
                       </div>
                     </div>
                   </div>

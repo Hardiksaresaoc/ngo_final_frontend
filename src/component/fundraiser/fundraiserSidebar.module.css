@@ -135,10 +135,11 @@
   text-decoration: none;
 }
 .container p:hover {
-  background-color: #eaeaea;
+  background-color: rgba(0, 0, 128, 10%);
+  /* background-color: #e1dfdf; */
 }
 .active {
-  background-color: #eaeaea;
+  background-color: rgba(0, 0, 128, 20%);
 }
 .asideIcon {
   margin-right: 10px;

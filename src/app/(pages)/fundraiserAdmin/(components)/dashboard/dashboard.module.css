@@ -63,10 +63,10 @@ section {
   text-decoration: none;
 }
 .container p:hover {
-  background-color: #eaeaea;
+  background-color: #f8f8f8;
 }
 .active {
-  background-color: #eaeaea;
+  background-color: #f8f8f8;
 }
 .asideIcon {
   margin-right: 10px;

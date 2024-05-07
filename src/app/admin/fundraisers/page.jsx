@@ -7,11 +7,10 @@ import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import { useSnippet } from "@nextui-org/react";
 
 export default function FundraiserPage() {
   const [cookies, setCookie] = useCookies(["token"]);
-  const { user } = useAuth("ADMIN");
+  const { user } = useAuth("FUNDRAISER");
 
   const [fundraisers, setFundraisers] = useState([]);
   const [error, setError] = useState(null);
