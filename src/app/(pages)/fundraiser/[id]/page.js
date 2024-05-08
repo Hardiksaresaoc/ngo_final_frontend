@@ -208,7 +208,7 @@ export default function page({ params }) {
                 }}
               />
             </div>
-            <div className={styles.resolution} style={{ width: "50%" }}>
+            <div className={styles.resolution}>
               <div className={styles.resolutionBtn}>
                 {showPopup && (
                   <div

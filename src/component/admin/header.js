@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import defaultProfileImage from "../../../public/images/profile.jpeg";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 export default function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
@@ -29,9 +30,29 @@ export default function Header() {
   }, [cookies.token]);
 
   const handleLogout = (e) => {
+    Swal.fire({
+      title: "Logging you Out",
+      text: "Please Wait",
+      icon: "loading",
+    });
+
+    try {
+      removeCookie("token");
+      router.replace("/login");
+    } catch (error) {}
     removeCookie("token");
+    Swal.fire({
+      title: "Success",
+      text: "Login Successfully!!",
+      icon: "success",
+      confirmButtonText: "Close",
+      timer: 1500,
+      confirmButtonColor: "#000080",
+    });
     router.replace("/login");
+    Swal.close();
   };
+  console.log(user);
   return (
     <header className={styles.head}>
       <div className={styles.logo}>

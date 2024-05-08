@@ -279,7 +279,7 @@
 import React from "react";
 const CircularProgressbar = () => {
   // Constants for amount and goal
-  const percentage=90
+  const percentage = 90;
   const amount = 1500; // Example: ₹1,500
   const goal = 3000; // Example: ₹3,000
 

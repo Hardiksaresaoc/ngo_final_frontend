@@ -60,66 +60,73 @@ const DefaultResetPassword = () => {
     }
   };
 
-  return otpGen ? (
-    <div className={styles["main"]}>
-      <form className={styles["reset-password"]} onSubmit={resetpassword}>
-        <h1>Forgot Password</h1>
-        <p>Enter OTP and your new password.</p>
-        <div>
-          <label htmlFor="otp">OTP:</label>
-          <input
-            type="text"
-            name="otp"
-            id="otp"
-            placeholder="OTP"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className={className["reset-pwd"]}>
-          {!loading ? "Submit" : "Sending..."}
-        </button>
-      </form>
-    </div>
-  ) : (
-    <div>
-      <form className={styles["reset-password"]} onSubmit={handleForgot}>
-        <h1>Forgot Password</h1>
-        <p>
-          Trouble While login??
-          <br />
-          <span style={{ fontWeight: 600 }}> here We are to help You out</span>
-        </p>
-        <div>
-          <label htmlFor="email">Email address:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Your email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className={styles["reset-pwd"]}>
-          {!loading ? "Get secure link" : "Sending..."}
-        </button>
-      </form>
-    </div>
+  return (
+    <>
+      <div className={styles.main}>
+        {otpGen ? (
+          <div className={styles.main}>
+            <form className={styles["reset-password"]} onSubmit={resetpassword}>
+              <h1>Forgot Password</h1>
+              <p>Enter OTP and your new password.</p>
+              <div>
+                <label htmlFor="otp">OTP:</label>
+                <input
+                  type="text"
+                  name="otp"
+                  id="otp"
+                  placeholder="OTP"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Enter password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className={styles["reset-pwd"]}>
+                {!loading ? "Submit" : "Sending..."}
+              </button>
+            </form>
+          </div>
+        ) : (
+          <form className={styles["reset-password"]} onSubmit={handleForgot}>
+            <h1>Forgot Password</h1>
+            <p>
+              Trouble While login??
+              <br />
+              <span style={{ fontWeight: 600 }}>
+                {" "}
+                here We are to help You out
+              </span>
+            </p>
+            <div>
+              <label htmlFor="email">Email address:</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className={styles["reset-pwd"]}>
+              {!loading ? "Get secure link" : "Sending..."}
+            </button>
+          </form>
+        )}
+      </div>
+    </>
   );
 };
 

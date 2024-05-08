@@ -11,6 +11,7 @@ import Image from "next/image";
 
 import showAlert from "@/component/alert";
 import Loading from "@/app/loading";
+import Swal from "sweetalert2";
 export default function Header() {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
@@ -32,6 +33,11 @@ export default function Header() {
 
   const handleLogout = (e) => {
     setLoading(true);
+    Swal.fire({
+      title: "Logging you Out",
+      text: "Please Wait",
+      icon: "loading",
+    });
 
     try {
       removeCookie("token");
@@ -39,7 +45,7 @@ export default function Header() {
     } catch (error) {}
     removeCookie("token");
     router.replace("/login");
-
+    Swal.close();
     setLoading(false);
   };
   console.log(user);
