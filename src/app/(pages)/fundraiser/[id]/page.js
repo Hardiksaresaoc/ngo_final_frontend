@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import styles from "./fundraiser.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import {
   FacebookShareButton,
@@ -28,17 +28,20 @@ import "react-circular-progressbar/dist/styles.css";
 import Notfundraiser from "@/component/nofundraiser";
 import Loading from "@/app/loading";
 
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//   return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 export default function page({ params }) {
-  const [fundraiser, setFundraiser] = useState(null);
+  const [fundraiser, setFundraiser] = useState([]);
   const fundraiserID = params.id;
   const [activeTab, setActiveTab] = useState("myStory");
+  const progressBarRef = useRef(null);
+  const [startValue, setStartValue] = useState(0);
 
   const [Isfundraiser, setIsfundraiser] = useState();
   const [loading, setloading] = useState(false);
+  const [percentage, setpercentage] = useState();
 
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
@@ -79,20 +82,66 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        setFundraiser(() => response.data);
+        setFundraiser(response.data);
         setIsfundraiser(true);
         setloading(false);
-
-        if (response.status == 400) {
-          setIsfundraiser(false);
-        }
+        // Cleanup function on unmount
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
         setloading(false);
       }
     };
+
     fetchData();
   }, []);
+  console.log("fnd", fundraiser);
+  useEffect(() => {
+    const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
+    const targetAmount = fundraiser?.fundraiserPage?.target_amount;
+
+    if (raisedAmount > 0 && targetAmount > 0) {
+      const percentage = Math.round((raisedAmount / targetAmount) * 100);
+      setpercentage(percentage);
+    } else {
+      setpercentage(0); // or any default value you want to set
+    }
+  }, [fundraiser]);
+
+  // Progress bar update logic
+  useEffect(() => {
+    const progressBar = progressBarRef.current;
+    if (!progressBar) return;
+
+    const speed = 50;
+    const endValue = percentage;
+
+    const progressInterval = setInterval(() => {
+      setStartValue((prevValue) => {
+        const newValue = Math.min(prevValue + 1, endValue);
+        if (newValue === endValue) {
+          clearInterval(progressInterval);
+        }
+        return newValue;
+      });
+
+      const progressValueElement = progressBar.querySelector(".percentage");
+      if (progressValueElement) {
+        progressValueElement.textContent = `(${endValue}%)`;
+      }
+
+      const innerCircleElement = progressBar.querySelector(".inner-circle");
+      if (innerCircleElement) {
+        innerCircleElement.style.backgroundColor = "white"; // Replace with desired color
+      }
+
+      progressBar.style.background = `conic-gradient(#0FA900 ${
+        endValue * 3.6
+      }deg, #D2F2CF 0deg)`; // Replace colors
+    }, speed);
+
+    return () => clearInterval(progressInterval);
+  }, [percentage]);
+
   const calculateGoalPercentage = () => {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;
@@ -109,6 +158,7 @@ export default function page({ params }) {
       return `${Math.round(percentage)}%`;
     }
   };
+
   const headers = {
     "ngrok-skip-browser-warning": "true",
   };
@@ -119,7 +169,9 @@ export default function page({ params }) {
 
   return loading ? (
     <Loading />
-  ) : Isfundraiser ? (
+  ) : (
+    // : Isfundraiser ? (
+
     <>
       <main className={styles.mainClass}>
         <div className={styles.imgArea}>
@@ -131,87 +183,31 @@ export default function page({ params }) {
           />
         </div>
         <div className={styles.contributers}>
-          {/* <div style={{ width: "384px", height: "384px" }}></div> */}
-          <div className={styles.goal}>
-            <svg
-              className={styles.CircularProgressbar}
-              viewBox="0 0 384 384"
-              data-test-id="CircularProgressbar"
-            >
-              <path
-                className={styles["CircularProgressbar-trail"]}
+          <div>
+            <div ref={progressBarRef} className="circular-progress">
+              <div className="subGoal">
+                <div className="inner-circle"></div>
+                <p className="percentage">({startValue}%)</p>
+                <h2 className="currentGoal">
+                  &#8377; {fundraiser?.fundraiserPage?.raised_amount}
+                </h2>
+                <p className="percentage">
+                  of{" "}
+                  <span className="totalGoal">
+                    &#8377; {fundraiser?.fundraiserPage?.target_amount}
+                  </span>{" "}
+                  Goal
+                </p>
+              </div>
+              <div
+                className="progress-circle"
                 style={{
-                  stroke: "#d6d6d6",
-                  strokeLinecap: "butt",
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                  strokeDasharray: `${pathLength}px ${pathLength}px`,
-                  strokeDashoffset: "0px",
+                  background: `conic-gradient(#0FA900 ${
+                    startValue * 3.6
+                  }deg, $#D2F2CF 0deg)`,
                 }}
-                d="
-            M 192,192
-            m 0,-184
-            a 184,184 0 1 1 0,368
-            a 184,184 0 1 1 0,-368
-          "
-                strokeWidth="16"
-                fillOpacity="0"
               />
-              <path
-                className={styles["CircularProgressbar-path"]}
-                style={{
-                  stroke: "rgba(62, 152, 199, 0.66)",
-                  strokeLinecap: "butt",
-                  transition: "strokeDashoffset 0.5s ease 0s",
-                  transform: "rotate(0.25turn)",
-                  transformOrigin: "center center",
-                  strokeDasharray: `${pathLength}px ${pathLength}px`,
-                  strokeDashoffset: `${strokeDashoffset}px`,
-                }}
-                d="
-            M 192,192
-            m 0,-184
-            a 184,184 0 1 1 0,368
-            a 184,184 0 1 1 0,-368
-          "
-                strokeWidth="16"
-                fillOpacity="0"
-              />
-              <text
-                className={styles["CircularProgressbar-text"]}
-                style={{ fill: "#f88", fontSize: "32px" }}
-                textAnchor="start"
-                x="20"
-                y="200"
-              >
-                {`${calculateGoalPercentage()}`}
-              </text>
-              <text
-                className={styles["Additional-text"]}
-                style={{ fill: "#333", fontSize: "14px" }}
-                textAnchor="start"
-                fontSize="12em"
-                x="22"
-                y="240"
-              >
-                ({`${calculateGoalPercentage()}`}) ₹
-                {fundraiser?.fundraiserPage?.raised_amount} of ₹
-                {fundraiser?.fundraiserPage?.target_amount} Goal
-              </text>
-            </svg>
-            {/* <div className={styles.subGoal}>
-              <p className={styles.completeGoal}>{calculateGoalPercentage()}</p>
-              <h2 className={styles.currentGoal}>
-                &#8377; {fundraiser?.fundraiserPage?.raised_amount}
-              </h2>
-              <p className={styles.completeGoal}>
-                of{" "}
-                <span className={styles.totalGoal}>
-                  &#8377; {fundraiser?.fundraiserPage?.target_amount}
-                </span>{" "}
-                Goal
-              </p>
-            </div>  */}
+            </div>
             <div className={styles.resolution} style={{ width: "50%" }}>
               <div className={styles.resolutionBtn}>
                 {showPopup && (
@@ -311,9 +307,7 @@ export default function page({ params }) {
                 height="200"
                 className={styles.userImg}
               />
-              <p className={styles.fundraiserName}>
-                {capitalizeFirstLetter(fundraiser?.firstName)}{" "}
-              </p>
+              <p className={styles.fundraiserName}>{fundraiser?.firstName} </p>
             </div>
             <div className={styles.fundraiserDetail}>
               <h1>About My Resolution</h1>
@@ -358,8 +352,8 @@ export default function page({ params }) {
         ) : (
           //images
           <div
-            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
             className={styles.leftAside}
+            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
           >
             {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
@@ -387,7 +381,7 @@ export default function page({ params }) {
                   (supporter, index) => (
                     <p key={index} className={styles.ourSupporters}>
                       <PiHandHeartDuotone fill="#000080" />
-                      {capitalizeFirstLetter(supporter)}
+                      {supporter}
                     </p>
                   )
                 )
@@ -399,9 +393,5 @@ export default function page({ params }) {
         </div>
       </aside>
     </>
-  ) : Isfundraiser === false ? (
-    <Notfundraiser />
-  ) : (
-    <Notfundraiser />
   );
 }

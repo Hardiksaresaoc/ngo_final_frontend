@@ -201,6 +201,12 @@
   width: 100%;
   display: flex;
 }
+
+/* .leftAside {
+  display: grid;
+  grid-template-columns: auto auto auto;
+} */
+
 .mainAside .leftAside {
   width: 60%;
   padding: 28px 60px 0;

@@ -16,7 +16,9 @@ export default function NavigationEvents() {
         confirmButtonColor: "#000080",
       }).then((result) => {
         if (result.isConfirmed) {
-          router.replace("/");
+          router.replace(
+            `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/${params.id}`
+          );
         }
       });
     };
