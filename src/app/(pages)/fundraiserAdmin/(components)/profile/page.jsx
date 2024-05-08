@@ -37,6 +37,7 @@ export default function Page() {
     console.log("ctx", fundraiserCtx);
     const profile = fundraiserCtx?.profileImage;
     setprofileImage(profile);
+    setFundraiserData(fundraiserCtx);
   }, [fundraiserCtx]);
 
   const handleUpdate = async (e) => {
@@ -214,23 +215,20 @@ export default function Page() {
                 <form className={styles.form}>
                   <div className={styles.firstpersonalDetail}>
                     <span>
-                      <span>
-                        First Name <span className={styles.compulsory}>*</span>
-                      </span>
+                      <span>First Name</span>
                       <br />
                       <input
                         type="text"
                         name="firstName"
                         id="firstName"
+                        value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="Enter your first name"
                         required
                       />
                     </span>
                     <span>
-                      <span>
-                        Last Name <span className={styles.compulsory}>*</span>
-                      </span>
+                      <span>Last Name</span>
                       <br />
                       <input
                         type="text"
@@ -241,25 +239,23 @@ export default function Page() {
                       />
                     </span>
                     <span>
-                      <span>
-                        Email <span className={styles.compulsory}>*</span>
-                      </span>
+                      <span>Email</span>
                       <br />
                       <input
                         type="email"
                         name="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        id="email"
-                        placeholder="Enter your e-mail"
-                        required
+                        disabled
+                        value={fundraiserCtx?.email}
+                        // onChange={(e) => setEmail(e.target.value)}
+                        // id="email"
+                        // placeholder="Enter your e-mail"
+                        // required
                       />
                     </span>
                   </div>
                   <div className={styles.secondpersonalDetail}>
                     <span>
-                      <span>
-                        Address <span className={styles.compulsory}>*</span>
-                      </span>
+                      <span>Address</span>
                       <br />
                       <input
                         type="text"
@@ -316,15 +312,13 @@ export default function Page() {
                       />
                     </span>
                     <span>
-                      <span>
-                        Mobile Number
-                        <span className={styles.compulsory}>*</span>
-                      </span>
+                      <span>Mobile Number</span>
                       <br />
                       <input
                         type="number"
                         name="mobileNumber"
                         id="mobileNumber"
+                        value={fundraiserCtx?.mobile_number}
                         placeholder="Enter your mobile no."
                         maxLength="10"
                         onChange={(e) => setNumber(e.target.value)}

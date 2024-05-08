@@ -227,9 +227,7 @@
   margin: 28px 0 16px 0;
 }
 .mainAside .rightAside {
-  width: 560px;
-  height: 701px;
-  margin-left: 48px;
+  width: 40%;
 }
 .mainAside .rightAside .container {
   background-color: #ededed;

@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 export default function page({ params }) {
   const [amount, setDonationAmount] = useState();
   const [donor_phone, setPhoneNumber] = useState();
-  const [email, setemail] = useState("");
+  const [donor_email, setdonor_email] = useState("");
   const [donor_name, setName] = useState("");
   const [pan, setPan] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +24,7 @@ export default function page({ params }) {
   const reset = () => {
     setDonationAmount("");
     setPhoneNumber("");
-    setemail("");
+    setdonor_email("");
     setName("");
     setPan("");
     setAddress("");
@@ -43,7 +43,7 @@ export default function page({ params }) {
       amount: amount,
       donor_phone: donor_phone,
       donor_name: donor_name,
-      email: email,
+      donor_email: donor_email,
       pan: pan,
       address: address,
       donor_state: donor_state,
@@ -55,7 +55,8 @@ export default function page({ params }) {
     if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
 
-    if (!formData.email) newErrors.email = "Please enter donor email.";
+    if (!formData.donor_email)
+      newErrors.donor_email = "Please enter donor donor_email.";
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -151,17 +152,17 @@ export default function page({ params }) {
                     <div className={styles.donationdetails}>
                       <label htmlFor="e-mail">E-mail</label>
                       <input
-                        type="email"
-                        className={styles.email}
-                        value={email}
-                        onChange={(e) => setemail(e.target.value)}
-                        name="email"
+                        type="donor_email"
+                        className={styles.donor_email}
+                        value={donor_email}
+                        onChange={(e) => setdonor_email(e.target.value)}
+                        name="donor_email"
                         placeholder="Enter your e-mail"
                         required
                       />
-                      {errors.email && (
+                      {errors.donor_email && (
                         <span style={{ color: "red" }} className={styles.error}>
-                          {errors.email}
+                          {errors.donor_email}
                         </span>
                       )}
                     </div>

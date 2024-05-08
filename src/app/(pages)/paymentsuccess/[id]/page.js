@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-export default function NavigationEvents() {
+export default function NavigationEvents({ params }) {
   const router = useRouter();
   useEffect(() => {
     // Function to trigger Swal.fire on component mount
@@ -16,9 +16,7 @@ export default function NavigationEvents() {
         confirmButtonColor: "#000080",
       }).then((result) => {
         if (result.isConfirmed) {
-          router.replace(
-            `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/${params.id}`
-          );
+          router.replace(`/fundraiser/${params.id}`);
         }
       });
     };
