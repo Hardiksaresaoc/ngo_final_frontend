@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "allowing-shiner-needlessly.ngrok-free.app",
+        hostname: "special-sloth-heroic.ngrok-free.app",
         port: "",
         pathname: "/**",
       },

@@ -357,7 +357,10 @@ export default function page({ params }) {
           </div>
         ) : (
           //images
-          <div className={styles.leftAside}>
+          <div
+            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
+            className={styles.leftAside}
+          >
             {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
                 <img
