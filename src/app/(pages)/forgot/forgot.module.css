@@ -1,0 +1,13 @@
+.reset-password {
+margin-left: 35%;
+    width: 30%;
+  height: 22em;
+  display: flex;
+  justify-content: center;
+flex-direction: column;
+gap: 12px;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: rgb(240, 248, 255, 10%);
+}

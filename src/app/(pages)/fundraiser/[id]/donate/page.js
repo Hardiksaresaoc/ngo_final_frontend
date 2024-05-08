@@ -79,12 +79,6 @@ export default function page({ params }) {
       setReference(response.data);
       console.log(response);
       setsubmitted(true);
-      Swal.fire({
-        title: "Added Succesfully",
-        text: "Donation added!!",
-        icon: "success",
-        confirmButtonText: "Close",
-      });
     } catch (error) {
       console.log(error.message);
       showAlert({

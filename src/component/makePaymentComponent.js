@@ -26,6 +26,13 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
         console.log(response.data.response);
         return response?.data?.response.id;
       } catch (error) {
+        Swal.fire({
+          title: "Something went Wrong",
+          text: "please try again!",
+          icon: "failed",
+          confirmButtonText: "okay",
+        });
+
         console.error("Error fetching order details:", error);
         throw new Error("Error fetching order details");
       }
@@ -64,6 +71,7 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
         razorpayInstance.open();
       } catch (error) {
         console.error("Error initiating payment:", error);
+
         throw new Error("Error initiating payment");
       }
     };

@@ -31,7 +31,9 @@ export default function Notfundraiser() {
         flexDirection: "column",
       }}
     >
-      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>Not found!</div>
+      <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>
+        No Fundraiser found!
+      </div>
       <div style={{ fontSize: "2rem" }}>
         Redirecting to home page in {count} seconds...
       </div>

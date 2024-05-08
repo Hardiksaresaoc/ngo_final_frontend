@@ -49,14 +49,17 @@ export default function Header() {
   ) : (
     <header className={styles.head}>
       <div className={styles.logo}>
-        <Image
-          priority
-          alt="SOH"
-          src="/images/ProjectLogo.png"
-          className={styles.logoImg}
-          height="100"
-          width="100"
-        />
+        <Link href={"/"}>
+          {" "}
+          <Image
+            priority
+            alt="SOH"
+            src="/images/ProjectLogo.png"
+            className={styles.logoImg}
+            height="100"
+            width="100"
+          />
+        </Link>
       </div>
       <nav className={styles.headerNav}>
         <ul className={styles.headerUL}>

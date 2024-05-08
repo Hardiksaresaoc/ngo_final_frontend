@@ -37,7 +37,7 @@ export default function page({ params }) {
   const fundraiserID = params.id;
   const [activeTab, setActiveTab] = useState("myStory");
 
-  const [Isfundraiser, setIsfundraiser] = useState(false);
+  const [Isfundraiser, setIsfundraiser] = useState();
   const [loading, setloading] = useState(false);
 
   const handleTabChange = (tabName) => {
@@ -82,6 +82,10 @@ export default function page({ params }) {
         setFundraiser(() => response.data);
         setIsfundraiser(true);
         setloading(false);
+
+        if (response.status == 400) {
+          setIsfundraiser(false);
+        }
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
         setloading(false);
@@ -108,6 +112,10 @@ export default function page({ params }) {
   const headers = {
     "ngrok-skip-browser-warning": "true",
   };
+  const pathLength = 1152; // Total strokeDasharray length for the progress bar
+
+  const strokeDashoffset =
+    ((100 - calculateGoalPercentage()) / 100) * pathLength;
 
   return loading ? (
     <Loading />
@@ -123,8 +131,75 @@ export default function page({ params }) {
           />
         </div>
         <div className={styles.contributers}>
+          {/* <div style={{ width: "384px", height: "384px" }}></div> */}
           <div className={styles.goal}>
-            <div className={styles.subGoal}>
+            <svg
+              className={styles.CircularProgressbar}
+              viewBox="0 0 384 384"
+              data-test-id="CircularProgressbar"
+            >
+              <path
+                className={styles["CircularProgressbar-trail"]}
+                style={{
+                  stroke: "#d6d6d6",
+                  strokeLinecap: "butt",
+                  transform: "rotate(0.25turn)",
+                  transformOrigin: "center center",
+                  strokeDasharray: `${pathLength}px ${pathLength}px`,
+                  strokeDashoffset: "0px",
+                }}
+                d="
+            M 192,192
+            m 0,-184
+            a 184,184 0 1 1 0,368
+            a 184,184 0 1 1 0,-368
+          "
+                strokeWidth="16"
+                fillOpacity="0"
+              />
+              <path
+                className={styles["CircularProgressbar-path"]}
+                style={{
+                  stroke: "rgba(62, 152, 199, 0.66)",
+                  strokeLinecap: "butt",
+                  transition: "strokeDashoffset 0.5s ease 0s",
+                  transform: "rotate(0.25turn)",
+                  transformOrigin: "center center",
+                  strokeDasharray: `${pathLength}px ${pathLength}px`,
+                  strokeDashoffset: `${strokeDashoffset}px`,
+                }}
+                d="
+            M 192,192
+            m 0,-184
+            a 184,184 0 1 1 0,368
+            a 184,184 0 1 1 0,-368
+          "
+                strokeWidth="16"
+                fillOpacity="0"
+              />
+              <text
+                className={styles["CircularProgressbar-text"]}
+                style={{ fill: "#f88", fontSize: "32px" }}
+                textAnchor="start"
+                x="20"
+                y="200"
+              >
+                {`${calculateGoalPercentage()}`}
+              </text>
+              <text
+                className={styles["Additional-text"]}
+                style={{ fill: "#333", fontSize: "14px" }}
+                textAnchor="start"
+                fontSize="12em"
+                x="22"
+                y="240"
+              >
+                ({`${calculateGoalPercentage()}`}) ₹
+                {fundraiser?.fundraiserPage?.raised_amount} of ₹
+                {fundraiser?.fundraiserPage?.target_amount} Goal
+              </text>
+            </svg>
+            {/* <div className={styles.subGoal}>
               <p className={styles.completeGoal}>{calculateGoalPercentage()}</p>
               <h2 className={styles.currentGoal}>
                 &#8377; {fundraiser?.fundraiserPage?.raised_amount}
@@ -136,7 +211,7 @@ export default function page({ params }) {
                 </span>{" "}
                 Goal
               </p>
-            </div>
+            </div>  */}
             <div className={styles.resolution} style={{ width: "50%" }}>
               <div className={styles.resolutionBtn}>
                 {showPopup && (
@@ -321,7 +396,9 @@ export default function page({ params }) {
         </div>
       </aside>
     </>
+  ) : Isfundraiser === false ? (
+    <Notfundraiser />
   ) : (
-    <Loading />
+    <Notfundraiser />
   );
 }
