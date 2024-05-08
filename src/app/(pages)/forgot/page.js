@@ -3,18 +3,18 @@ import { useState } from "react";
 import axios from "axios"; // Add Axios import
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-
+import styles from "./forgot.module.css";
 const DefaultResetPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpGen, setOtpGen] = useState(false);
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");  
+  const [error, setError] = useState("");
 
   const router = useRouter();
   const handleForgot = async (e) => {
-    e.preventDefault();  
+    e.preventDefault();
     setLoading(true);
     try {
       const response = await axios.get(
@@ -61,8 +61,8 @@ const DefaultResetPassword = () => {
   };
 
   return otpGen ? (
-    <div>
-      <form className={["reset-password"]} onSubmit={resetpassword}>
+    <div className={styles["main"]}>
+      <form className={styles["reset-password"]} onSubmit={resetpassword}>
         <h1>Forgot Password</h1>
         <p>Enter OTP and your new password.</p>
         <div>
@@ -89,16 +89,20 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className={["reset-pwd"]}>
+        <button type="submit" className={className["reset-pwd"]}>
           {!loading ? "Submit" : "Sending..."}
         </button>
       </form>
     </div>
   ) : (
     <div>
-      <form className={["reset-password"]} onSubmit={handleForgot}>
+      <form className={styles["reset-password"]} onSubmit={handleForgot}>
         <h1>Forgot Password</h1>
-        <p>You are not alone. We've all been here at some point.</p>
+        <p>
+          Trouble While login??
+          <br />
+          <span style={{ fontWeight: 600 }}> here We are to help You out</span>
+        </p>
         <div>
           <label htmlFor="email">Email address:</label>
           <input
@@ -111,7 +115,7 @@ const DefaultResetPassword = () => {
             required
           />
         </div>
-        <button type="submit" className={["reset-pwd"]}>
+        <button type="submit" className={styles["reset-pwd"]}>
           {!loading ? "Get secure link" : "Sending..."}
         </button>
       </form>
