@@ -31,7 +31,6 @@ export default function Page() {
         `${process.env.NEXT_PUBLIC_serverAPI}/admin/donations`,
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
 
             Authorization: `Bearer ${token}`,
           },
@@ -78,7 +77,6 @@ export default function Page() {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": "true",
         },
       };
       const response = await fetch(

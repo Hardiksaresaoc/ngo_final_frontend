@@ -48,7 +48,6 @@ export default function Page() {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": "true",
           },
         }
       );
@@ -65,7 +64,6 @@ export default function Page() {
   const config = {
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true",
       Authorization: `Bearer ${token}`,
     },
   };

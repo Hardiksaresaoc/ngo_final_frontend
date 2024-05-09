@@ -41,7 +41,6 @@ export default function page({ params }) {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
           },
         };
         const response = await axios.get(

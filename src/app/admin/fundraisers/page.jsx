@@ -80,7 +80,6 @@ export default function FundraiserPage() {
     const token = cookies.token;
     const headers = {
       Authorization: `Bearer ${token}`,
-      "ngrok-skip-browser-warning": "true",
     };
     setheader(headers);
     console.log("f", fundraisers);
@@ -91,7 +90,6 @@ export default function FundraiserPage() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
             Authorization: `Bearer ${token}`,
           },
         };
