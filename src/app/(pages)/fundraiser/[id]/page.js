@@ -114,8 +114,10 @@ export default function page({ params }) {
 
     const speed = 50;
     const endValue = percentage;
+    let newValue = 0;
 
     const progressInterval = setInterval(() => {
+      newValue++;
       setStartValue((prevValue) => {
         const newValue = Math.min(prevValue + 1, endValue);
         if (newValue === endValue) {
@@ -135,7 +137,7 @@ export default function page({ params }) {
       }
 
       progressBar.style.background = `conic-gradient(#0FA900 ${
-        endValue * 3.6
+        newValue * 3.6
       }deg, #D2F2CF 0deg)`; // Replace colors
     }, speed);
 
@@ -184,23 +186,23 @@ export default function page({ params }) {
         </div>
         <div className={styles.contributers}>
           <div>
-            <div ref={progressBarRef} className="circular-progress">
-              <div className="subGoal">
-                <div className="inner-circle"></div>
-                <p className="percentage">({startValue}%)</p>
-                <h2 className="currentGoal">
+            <div ref={progressBarRef} className={styles["circular-progress"]}>
+              <div className={styles.subGoal}>
+                <div className={styles["inner-circle"]}></div>
+                <p className={styles.percentage}>({startValue}%)</p>
+                <h2 className={styles.currentGoal}>
                   &#8377; {fundraiser?.fundraiserPage?.raised_amount}
                 </h2>
-                <p className="percentage">
+                <p className={styles.percentage}>
                   of{" "}
-                  <span className="totalGoal">
+                  <span className={styles.totalGoal}>
                     &#8377; {fundraiser?.fundraiserPage?.target_amount}
                   </span>{" "}
                   Goal
                 </p>
               </div>
               <div
-                className="progress-circle"
+                className={styles["progress-circle"]}
                 style={{
                   background: `conic-gradient(#0FA900 ${
                     startValue * 3.6

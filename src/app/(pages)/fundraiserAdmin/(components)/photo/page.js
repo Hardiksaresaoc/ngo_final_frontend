@@ -48,7 +48,7 @@ export default function Page() {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": "true",
+            // "ngrok-skip-browser-warning": "true",
           },
         }
       );
@@ -115,7 +115,7 @@ export default function Page() {
             <div className={styles.imgcount}>
               <p>
                 {" "}
-                photos({fundraiserCtx?.fundraiser_page?.gallery?.length || 0})
+                Photos ({fundraiserCtx?.fundraiser_page?.gallery?.length || 0})
               </p>
             </div>
             <div className={styles.row}>

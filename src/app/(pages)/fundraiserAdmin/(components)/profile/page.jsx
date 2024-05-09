@@ -37,7 +37,7 @@ export default function Page() {
     console.log("ctx", fundraiserCtx);
     const profile = fundraiserCtx?.profileImage;
     setprofileImage(profile);
-    setFundraiserData(fundraiserCtx);
+    // setFundraiserData(fundraiserCtx);
   }, [fundraiserCtx]);
 
   const handleUpdate = async (e) => {

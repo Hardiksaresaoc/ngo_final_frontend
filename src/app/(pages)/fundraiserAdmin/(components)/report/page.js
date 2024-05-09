@@ -34,7 +34,7 @@ export default function Page() {
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
         {
           headers: {
-            "ngrok-skip-browser-warning": "true",
+            // "ngrok-skip-browser-warning": "true",
 
             Authorization: `Bearer ${token}`,
           },

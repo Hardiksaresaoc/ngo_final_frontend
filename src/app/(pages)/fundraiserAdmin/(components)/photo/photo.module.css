@@ -55,6 +55,7 @@
 }
 .photowrapper .imgwrapper {
   margin-top: 10px;
+  margin-left: 4em;
 }
 
 .photowrapper .upload button {
@@ -68,15 +69,22 @@
 
 .photowrapper .imgcount p {
   color: #ffa64d;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 27px;
+  font-size: 36px;
   margin-left: 22px;
 }
+
+.photowrapper {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
 .photowrapper .row {
   overflow: hidden;
   display: grid;
+  margin-left: 1.5em;
   grid-template-rows: 230px 230px 230px;
   grid-row-gap: 25px;
   row-gap: 25px;
