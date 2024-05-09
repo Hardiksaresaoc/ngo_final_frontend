@@ -59,7 +59,12 @@ export default function page({ params }) {
     const raisedAmount = fundraiser.raised_amount;
     const targetAmount = fundraiser.target_amount;
 
-    if (isNaN(raisedAmount) || isNaN(targetAmount) || targetAmount <= 0) {
+    if (
+      !fundraiser ||
+      isNaN(raisedAmount) ||
+      isNaN(targetAmount) ||
+      fundraiser.target_amount <= 0
+    ) {
       return "--";
     }
 
@@ -91,7 +96,7 @@ export default function page({ params }) {
             <div className={styles.goal}>
               <div className={styles.subGoal}>
                 <p className={styles.completeGoal}>
-                  {calculateGoalPercentage()}
+                  {calculateGoalPercentage() || 0}
                 </p>
                 <h2 className={styles.currentGoal}>
                   &#8377; {fundraiser.raised_amount}

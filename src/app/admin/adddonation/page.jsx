@@ -391,9 +391,9 @@ export default function page() {
                       placeholder="Choose donor payment method"
                       required
                     />
-                    {errors.donor_paymentType && (
+                    {errors.payment_type && (
                       <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.donor_paymentType}
+                        {errors.payment_type}
                       </p>
                     )}
                   </span>
