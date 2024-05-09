@@ -75,7 +75,6 @@ export default function page({ params }) {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
           },
         };
         const response = await axios.get(
@@ -161,9 +160,6 @@ export default function page({ params }) {
     }
   };
 
-  const headers = {
-    "ngrok-skip-browser-warning": "true",
-  };
   const pathLength = 1152; // Total strokeDasharray length for the progress bar
 
   const strokeDashoffset =
@@ -360,10 +356,8 @@ export default function page({ params }) {
             {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_serverAPI_local}/fundRaiser/fundraiser-page/${image}`}
-                  loader={({ src }) =>
-                    `${src}?headers=${JSON.stringify(headers)}`
-                  }
+                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                  loader={({ src }) => `${src}`}
                   alt={`Image ${image}`}
                   className={styles.galleryImg}
                   height="200"

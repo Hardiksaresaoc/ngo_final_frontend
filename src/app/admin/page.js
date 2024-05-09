@@ -28,7 +28,6 @@ export default function FundraiserPage() {
         const config = {
           headers: {
             "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
             Authorization: `Bearer ${token}`,
           },
         };

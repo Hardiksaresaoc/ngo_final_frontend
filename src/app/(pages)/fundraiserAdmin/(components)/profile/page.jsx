@@ -48,7 +48,6 @@ export default function Page() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-          "ngrok-skip-browser-warning": "true",
         },
       };
       const response = await axios.put(
@@ -100,7 +99,6 @@ export default function Page() {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
-            "ngrok-skip-browser-warning": "true",
           },
         };
 
