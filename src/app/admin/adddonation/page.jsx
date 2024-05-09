@@ -3,16 +3,15 @@ import Sidebar from "@/component/sidebar";
 // export default GeneratePage;
 import styles from "./adddonation.module.css";
 // import "./styles.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
-import { showAlert } from "@/component/alert";
 import Swal from "sweetalert2";
+
 export default function page() {
   const cookies = new Cookies();
   const [token, settoken] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     email: "",
     amount: "",
@@ -56,6 +55,10 @@ export default function page() {
       donor_bankBranch: "",
     });
   };
+  // useEffect(() => {
+  //   const fundraiserctx = useContext(FundraiserContextData);
+  //   const fundraisers = fundraiserctx.fundraisers;
+  // }, []);
   useEffect(() => {
     const data = cookies.get("token");
     settoken(data);
@@ -181,6 +184,7 @@ export default function page() {
                   </span>
                   <br />
                   <input
+                    list="fundraiserPageList"
                     type="text"
                     name="email"
                     id="email"
@@ -188,6 +192,11 @@ export default function page() {
                     onChange={handleChange}
                     placeholder="Enter fundraiser e-mail"
                   />
+                  <datalist id="fundraiserPageList">
+                    {/* {fundraiserPages.map((page, index) => (
+                      <option key={index} value={page} />
+                    ))}{" "} */}
+                  </datalist>
                 </span>
                 <span>
                   <span>
