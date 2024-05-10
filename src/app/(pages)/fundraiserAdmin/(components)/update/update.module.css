@@ -117,7 +117,7 @@
 }
 .rightAside label {
   font-family: "Roboto";
-  font-weight: 800;
+  font-weight: 700;
   font-size: 16px;
   color: #171a1f;
   display: flex;
@@ -153,8 +153,11 @@
 }
 .MyStory {
   padding: 16px;
+  font-size: 16px;
+  font-family: Roboto;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
+  color: #171a1f;
   width: 30.4rem;
 }
 .MyStory filled {
@@ -174,6 +177,10 @@
 }
 .MoneyRaised {
   width: 100%;
+  padding: 16px;
+  font-family: Roboto;
+  font-size: 16px;
+  color: #171a1f;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   padding: 16px;

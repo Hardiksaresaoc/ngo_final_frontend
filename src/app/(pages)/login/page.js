@@ -97,7 +97,7 @@ const LoginPage = () => {
         });
       }
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
@@ -131,16 +131,24 @@ const LoginPage = () => {
   };
 
   const handleLoginSuccess = (token) => {
+    setLoading(true);
     const decodedToken = jwtDecode(token);
-    if (decodedToken.role === "ADMIN") {
-      router.push("/admin");
-    } else if (decodedToken.role === "FUNDRAISER") {
-      router.push("/fundraiserAdmin");
-    } else if (decodedToken.role === "NORMAL_USER_ROLE") {
-      router.push("/user");
-    } else {
-      router.push("/");
+    let redirectPath = "/";
+    switch (decodedToken.role) {
+      case "ADMIN":
+        redirectPath = "/admin";
+        break;
+      case "FUNDRAISER":
+        redirectPath = "/fundraiserAdmin";
+        break;
+      case "NORMAL_USER_ROLE":
+        redirectPath = "/user";
+        break;
+      default:
+        redirectPath = "/";
     }
+    router.push(redirectPath);
+    setLoading(false); // Set loading to false after the router push
   };
 
   return !loggedin ? (

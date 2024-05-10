@@ -2,6 +2,7 @@ import Header from "@/component/header";
 import "../globals.css";
 import Footer from "@/component/footer";
 import { Inter } from "next/font/google";
+import Loading from "../loading";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
       <html>
         <body className={inter.className}>
           <Header />
-          {children}
+          {/* {children} */}
+          {!children ? <Loading /> : children}
+          {/* {console.log(children)} */}
           <Footer />
         </body>
       </html>

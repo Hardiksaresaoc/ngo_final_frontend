@@ -7,22 +7,18 @@ export default function Loading() {
     <>
       <div
         style={{
-          width: "20%",
-          height: "20%",
-          position: "absolute",
-          top: "40%",
-          right: "40%",
-          // margin: "40%",
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <ThreeDots
-          visible={false}
-          color="#4fa94d"
-          radius="9"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-        />
+        <section class="dots-container">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </section>
       </div>
     </>
   );

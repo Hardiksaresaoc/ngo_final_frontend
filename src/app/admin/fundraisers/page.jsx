@@ -197,6 +197,7 @@ export default function FundraiserPage() {
                   name="resolution"
                   id="resolution"
                   cols="30"
+                  spellCheck="false"
                   rows="10"
                   placeholder="Enter about my resolution.."
                   value={formData.resolution}
@@ -217,6 +218,7 @@ export default function FundraiserPage() {
                 className={styles.textarea}
                 name="story"
                 id="story"
+                spellcheck="false"
                 cols="30"
                 rows="10"
                 placeholder="Enter my story.."
@@ -235,6 +237,7 @@ export default function FundraiserPage() {
                   name="money_raised_for"
                   id="money_raised_for"
                   cols="30"
+                  spellcheck="false"
                   rows="10"
                   placeholder="Enter money raised for.."
                   value={formData.money_raised_for}

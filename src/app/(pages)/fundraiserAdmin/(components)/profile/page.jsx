@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import { FundraiserContext } from "@/context/FundraiserContext";
+import Loading from "@/app/loading";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -405,6 +406,6 @@ export default function Page() {
       </section>
     </>
   ) : (
-    "Loading..."
+    <Loading />
   );
 }

@@ -165,7 +165,7 @@ export default function page({ params }) {
   const strokeDashoffset =
     ((100 - calculateGoalPercentage()) / 100) * pathLength;
 
-  return loading ? (
+  return loading == true ? (
     <Loading />
   ) : (
     // : Isfundraiser ? (
@@ -335,6 +335,9 @@ export default function page({ params }) {
                   </button>
                 </a>
                 <Link
+                  onClick={() => {
+                    setloading(true);
+                  }}
                   href={`/fundraiser/${params.id}/donate`}
                   className={styles.resolutionLink}
                 >
