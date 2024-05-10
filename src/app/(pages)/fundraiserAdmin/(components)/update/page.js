@@ -64,7 +64,7 @@ export default function Update() {
 
         confirmButtonText: "Close",
       });
-      console.log(res.data);
+      console.log(res?.data?.data);
     } catch (error) {
       console.error("Error submitting form:", error);
       Swal.fire({
@@ -103,6 +103,7 @@ export default function Update() {
                 <label htmlFor="MyResolution">
                   About My Resolution *<br />
                   <textarea
+                    spellcheck="false"
                     value={resolution}
                     name="MyResolution"
                     className={styles.MyStory}
@@ -117,6 +118,7 @@ export default function Update() {
                   My Story *<br />
                   <textarea
                     name="MyStory"
+                    spellcheck="false"
                     value={story}
                     className={styles.MyStory}
                     cols="30"
@@ -130,6 +132,7 @@ export default function Update() {
               <label htmlFor="MoneyRaised">
                 Money Raised For *<br />
                 <textarea
+                  spellcheck="false"
                   name="MoneyRaised"
                   value={money_raised_for}
                   className={styles.MoneyRaised}

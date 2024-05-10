@@ -39,7 +39,7 @@ export default function Page() {
           params: filters, // Pass the filters directly to params
         }
       );
-      setData(response.data);
+      setData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -151,18 +151,15 @@ export default function Page() {
                 <label htmlFor="payment_option">Payment Options</label>
                 <br />
                 <input
-                  list="payment_option"
+                  list="payment_optionList"
                   name="payment_option"
                   id="payment_option"
                   value={filters.payment_option}
                   onChange={handleInputChange}
                 />
-                <datalist id="payment_option">
-                  <option value="Edge" />
-                  <option value="Firefox" />
-                  <option value="Chrome" />
-                  <option value="Opera" />
-                  <option value="Safari" />
+                <datalist id="payment_optionList">
+                  <option value="Online" />
+                  <option value="Offline" />
                 </datalist>
               </span>
             </div>
@@ -171,16 +168,16 @@ export default function Page() {
                 <label htmlFor="payment_status">Payment Status</label>
                 <br />
                 <input
-                  list="payment_status"
+                  list="payment_statusList"
                   name="payment_status"
                   id="payment_status"
                   value={filters.payment_status}
                   onChange={handleInputChange}
                 />
-                <datalist id="paymentStatusOptions">
-                  <option value="success" />
+                <datalist id="payment_statusList">
+                  <option value="Success" />
                   <option value="Failed" />
-                  <option value="pending" />
+                  <option value="Pending" />
                 </datalist>
               </p>
 

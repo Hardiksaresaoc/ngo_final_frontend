@@ -52,7 +52,7 @@ export default function Page() {
         }
       );
 
-      console.log("File uploaded successfully:", response.data);
+      console.log("File uploaded successfully:", response?.data?.data);
     } catch (error) {
       console.error("Error uploading file:", error);
     }

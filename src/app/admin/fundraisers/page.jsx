@@ -7,6 +7,7 @@ import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -46,7 +47,7 @@ export default function FundraiserPage() {
         confirmButtonColor: "#000080",
       });
 
-      console.log("Update successful:", response.data);
+      console.log("Update successful:", response?.data?.data);
       setShowPopup(false);
     } catch (error) {
       Swal.fire({
@@ -99,10 +100,9 @@ export default function FundraiserPage() {
           config
         );
         setLoading(false);
-        setFundraisers(response.data);
+        setFundraisers(response?.data?.data);
 
         console.log(response);
-        setFundraisers(response.data);
         // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state
       } catch (error) {
         setLoading(false);
@@ -197,6 +197,7 @@ export default function FundraiserPage() {
                   name="resolution"
                   id="resolution"
                   cols="30"
+                  spellCheck="false"
                   rows="10"
                   placeholder="Enter about my resolution.."
                   value={formData.resolution}
@@ -217,6 +218,7 @@ export default function FundraiserPage() {
                 className={styles.textarea}
                 name="story"
                 id="story"
+                spellcheck="false"
                 cols="30"
                 rows="10"
                 placeholder="Enter my story.."
@@ -235,6 +237,7 @@ export default function FundraiserPage() {
                   name="money_raised_for"
                   id="money_raised_for"
                   cols="30"
+                  spellcheck="false"
                   rows="10"
                   placeholder="Enter money raised for.."
                   value={formData.money_raised_for}
@@ -387,7 +390,7 @@ export default function FundraiserPage() {
           </section>
         </>
       ) : (
-        "loading"
+        <Loading />
       )}
     </>
   );

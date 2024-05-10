@@ -1,4 +1,7 @@
 "use client";
+
+import Loading from "./loading";
+
 // // // import Header from "@/component/header";
 // // // // export default function Home() {
 // // // //   return <>hello</>;
@@ -372,7 +375,8 @@ export default function Page() {
   }
   return (
     <>
-      <button onclick={importData}>Import Data</button>
+    <Loading  />
+      {/* <button onclick={importData}>Import Data</button> */}
     </>
   );
 }

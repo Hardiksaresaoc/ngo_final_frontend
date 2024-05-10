@@ -33,7 +33,7 @@ export default function Header() {
     Swal.fire({
       title: "Logging you Out",
       text: "Please Wait",
-      icon: "loading",
+      icon: "info",
     });
 
     try {

@@ -40,7 +40,7 @@ export default function page({ params }) {
   const [startValue, setStartValue] = useState(0);
 
   const [Isfundraiser, setIsfundraiser] = useState();
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [percentage, setpercentage] = useState();
 
   const handleTabChange = (tabName) => {
@@ -70,7 +70,6 @@ export default function page({ params }) {
   };
   useEffect(() => {
     const fetchData = async () => {
-      setloading(true);
       try {
         const config = {
           headers: {
@@ -81,12 +80,14 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        setFundraiser(response.data);
-        setIsfundraiser(true);
-        setloading(false);
-        // Cleanup function on unmount
+        if (response.status === 200) {
+          setFundraiser(response?.data?.data);
+          setIsfundraiser(true);
+          setloading(false);
+        }
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
+
         setloading(false);
       }
     };
@@ -147,7 +148,7 @@ export default function page({ params }) {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;
 
-    if (isNaN(raisedAmount) || isNaN(targetAmount) || targetAmount <= 0) {
+    if ((isNaN(raisedAmount) && isNaN(targetAmount)) || targetAmount <= 0) {
       return "--";
     }
 
@@ -250,6 +251,59 @@ export default function page({ params }) {
                           />
                         </WhatsappShareButton>
                       </div>
+                      <button
+                        className={styles.copy}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (!copied) {
+                            handleCopy();
+                          }
+                        }}
+                      >
+                        <span
+                          data-text-end="Copied!"
+                          data-text-initial="Copy to clipboard"
+                          className={styles.tooltip}
+                        ></span>
+                        <span>
+                          <svg
+                            style={{ enablebackground: "new 0 0 512 512" }}
+                            viewBox="0 0 6.35 6.35"
+                            y="0"
+                            x="0"
+                            height="20"
+                            width="20"
+                            version="1.1"
+                            className={styles.clipboard}
+                          >
+                            <g>
+                              <path
+                                fill="currentColor"
+                                d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"
+                              ></path>
+                            </g>
+                          </svg>
+                          <svg
+                            style={{ enablebackground: "new 0 0 512 512" }}
+                            viewBox="0 0 24 24"
+                            y="0"
+                            x="0"
+                            height="18"
+                            width="18"
+                            version="1.1"
+                            className={styles.checkmark}
+                          >
+                            <g>
+                              <path
+                                data-original="#000000"
+                                fill="currentColor"
+                                d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"
+                              ></path>
+                            </g>
+                          </svg>
+                        </span>
+                      </button>
+                      {/*                       
                       <div className={styles.clipboard}>
                         <a
                           style={{
@@ -266,7 +320,7 @@ export default function page({ params }) {
                         >
                           {copied ? <TiTick /> : <FaRegCopy />}
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 )}
@@ -282,6 +336,9 @@ export default function page({ params }) {
                   </button>
                 </a>
                 <Link
+                  onClick={() => {
+                    setloading(true);
+                  }}
                   href={`/fundraiser/${params.id}/donate`}
                   className={styles.resolutionLink}
                 >
@@ -344,14 +401,18 @@ export default function page({ params }) {
             </p>
             <h3 className={styles.reason}>Money Raised For</h3>
             <p className={styles.aboutMe}>
-              {fundraiser?.fundraiserPage?.money_raised_for}{" "}
+              {fundraiser?.fundraiserPage?.money_raised_for}
             </p>
           </div>
         ) : (
           //images
           <div
             className={styles.leftAside}
-            style={{ display: "grid", gridTemplateColumns: "auto auto auto" }}
+            style={{
+              display: "grid",
+              gridGap: "22px",
+              gridTemplateColumns: "auto auto auto",
+            }}
           >
             {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
               <div key={index} className={styles.galleryImage}>

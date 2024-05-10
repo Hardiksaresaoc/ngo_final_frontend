@@ -92,7 +92,7 @@ const GeneratePage = () => {
           // const errorMsg = ;
           Swal.fire({
             title: "Opps!",
-            text: response.data.response.message,
+            text: response?.data?.data?.message,
             icon: "failed",
             confirmButtonColor: "#000080",
 
