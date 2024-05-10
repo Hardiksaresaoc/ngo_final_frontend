@@ -33,7 +33,7 @@ export default function FundraiserContextData({ children }) {
           setFundraiser((oldState) => {
             return {
               ...oldState,
-              ...response.data,
+              ...response?.data?.data,
             };
           });
         } else {

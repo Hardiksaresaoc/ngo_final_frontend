@@ -117,8 +117,7 @@ export default function Page() {
           confirmButtonText: "Close",
         });
 
-        // Assuming the API response contains the uploaded image URL
-        const imageUrl = response.data.imageUrl;
+        const imageUrl = response?.data?.data?.imageUrl;
         setImagePreview(imageUrl);
         console.log("Image uploaded:", imageUrl);
       } catch (err) {

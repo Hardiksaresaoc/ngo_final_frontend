@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,11 +50,11 @@ const LoginPage = () => {
   };
 
   const submithandler = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (!validateForm()) return;
 
     try {
-      setLoading(true); // Start loading
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -72,13 +73,13 @@ const LoginPage = () => {
         confirmButtonText: "Close",
         confirmButtonColor: "#000080",
       });
-      if (!data || !data.token) {
+      if (!data || !data?.data?.token) {
         setErrors({
           loginError: "email or password error",
         });
       } else {
-        setCookie("token", data.token);
-        handleLoginSuccess(data.token);
+        setCookie("token", data?.data?.token);
+        handleLoginSuccess(data?.data?.token);
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);
@@ -148,10 +149,11 @@ const LoginPage = () => {
         redirectPath = "/";
     }
     router.push(redirectPath);
-    setLoading(false); // Set loading to false after the router push
   };
 
-  return !loggedin ? (
+  return loggedin ? (
+    <Loading />
+  ) : (
     <>
       <div className={styles.main}>
         {/* <Header /> */}
@@ -290,8 +292,6 @@ const LoginPage = () => {
         </section>
       </div>
     </>
-  ) : (
-    "loading"
   );
 };
 

@@ -39,7 +39,7 @@ export default function Page() {
           params: filters, // Pass the filters directly to params
         }
       );
-      setData(response.data);
+      setData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }

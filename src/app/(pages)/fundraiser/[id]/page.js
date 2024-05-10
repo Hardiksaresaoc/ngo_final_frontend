@@ -40,7 +40,7 @@ export default function page({ params }) {
   const [startValue, setStartValue] = useState(0);
 
   const [Isfundraiser, setIsfundraiser] = useState();
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [percentage, setpercentage] = useState();
 
   const handleTabChange = (tabName) => {
@@ -70,7 +70,6 @@ export default function page({ params }) {
   };
   useEffect(() => {
     const fetchData = async () => {
-      setloading(true);
       try {
         const config = {
           headers: {
@@ -81,12 +80,14 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        setFundraiser(response.data);
-        setIsfundraiser(true);
-        setloading(false);
-        // Cleanup function on unmount
+        if (response.status === 200) {
+          setFundraiser(response?.data?.data);
+          setIsfundraiser(true);
+          setloading(false);
+        }
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
+
         setloading(false);
       }
     };
@@ -165,7 +166,7 @@ export default function page({ params }) {
   const strokeDashoffset =
     ((100 - calculateGoalPercentage()) / 100) * pathLength;
 
-  return loading == true ? (
+  return loading ? (
     <Loading />
   ) : (
     // : Isfundraiser ? (
@@ -400,7 +401,7 @@ export default function page({ params }) {
             </p>
             <h3 className={styles.reason}>Money Raised For</h3>
             <p className={styles.aboutMe}>
-              {fundraiser?.fundraiserPage?.money_raised_for}{" "}
+              {fundraiser?.fundraiserPage?.money_raised_for}
             </p>
           </div>
         ) : (

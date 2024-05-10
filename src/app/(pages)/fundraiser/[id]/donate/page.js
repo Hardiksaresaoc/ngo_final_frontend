@@ -77,8 +77,8 @@ export default function page({ params }) {
         config
       );
 
-      setReference(response.data);
-      console.log(response);
+      setReference(response?.data?.data);
+      console.log(response?.data?.data);
       setsubmitted(true);
     } catch (error) {
       console.log(error.message);

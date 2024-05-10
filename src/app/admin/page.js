@@ -6,8 +6,7 @@ import Sidebar from "../../component/sidebar";
 import useAuth from "@/context/auth";
 import styles from "./admin.module.css";
 import Image from "next/image";
-import { MdDashboard } from "react-icons/md";
-import { FaDonate } from "react-icons/fa";
+import Loading from "../loading";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -16,38 +15,43 @@ export default function FundraiserPage() {
   const cookies = new Cookies();
   const [token, setToken] = useState();
   const [error, setError] = useState(null);
-  const [currentDate] = useState(new Date());
+  const [loading, setloading] = useState(true);
   useEffect(() => {
     const data = cookies.get("token");
-    setToken(data);
+    setToken(() => data);
   }, [cookies]);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        ///ngrok
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_serverAPI}/admin/adminDashboard`,
-          config
-        );
+      if (!token) {
+        return;
+      } else
+        try {
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
 
-        console.log(response.data);
-        setallData(response.data);
-      } catch (error) {
-        setError("Error fetching data. Please try again later.");
-        console.error("Error while getting data:", error);
-      }
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_serverAPI}/admin/adminDashboard`,
+            config
+          );
+          if (response.status === 200) {
+            console.log(response?.data?.data);
+            setallData(response?.data?.data);
+            setloading(false);
+          }
+        } catch (error) {
+          setError("Error fetching data. Please try again later.");
+          console.error("Error while getting data:", error);
+        }
     };
     fetchData();
   }, [token]);
 
-  return user ? (
+  return user && !loading ? (
     <>
       <section className={styles.section}>
         <Sidebar />
@@ -98,6 +102,6 @@ export default function FundraiserPage() {
       </section>
     </>
   ) : (
-    "loading"
+    <Loading />
   );
 }

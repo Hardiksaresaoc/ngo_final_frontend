@@ -36,7 +36,7 @@ export default function Page() {
           params: filters,
         }
       );
-      setData(response.data);
+      setData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
