@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 export default function page() {
   const cookies = new Cookies();
@@ -139,6 +140,7 @@ export default function page() {
         data: formData,
       });
       if (response.status == 201) {
+        setLoading(false);
         Swal.fire({
           title: "Added Succesfully",
           text: "Donation added!!",
@@ -168,321 +170,323 @@ export default function page() {
   };
   return (
     <>
-      {/* {console.log(token)} */}
-
       <section className={styles.mainFundraiser}>
         <Sidebar />
-        <div className={styles.rightSection}>
-          <div className={styles.rightpart}>
-            <h1 className={styles.bigText}>Fundraiser Information</h1>
-            <form className={styles.mainForm}>
-              <div className={styles.fundraiserDetail}>
-                <span>
+        {loading ? (
+          <Loading />
+        ) : (
+          <div className={styles.rightSection}>
+            <div className={styles.rightpart}>
+              <h1 className={styles.bigText}>Fundraiser Information</h1>
+              <form className={styles.mainForm}>
+                <div className={styles.fundraiserDetail}>
                   <span>
-                    Fundraiser E-mail
-                    <span className={styles.compulsory}>*</span>
-                  </span>
-                  <br />
-                  <input
-                    list="fundraiserPageList"
-                    type="text"
-                    name="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter fundraiser e-mail"
-                  />
-                  <datalist id="fundraiserPageList">
-                    {/* {fundraiserPages.map((page, index) => (
+                    <span>
+                      Fundraiser E-mail
+                      <span className={styles.compulsory}>*</span>
+                    </span>
+                    <br />
+                    <input
+                      list="fundraiserPageList"
+                      type="text"
+                      name="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter fundraiser e-mail"
+                    />
+                    <datalist id="fundraiserPageList">
+                      {/* {fundraiserPages.map((page, index) => (
                       <option key={index} value={page} />
                     ))}{" "} */}
-                  </datalist>
-                </span>
-                <span>
-                  <span>
-                    Amount <span className={styles.compulsory}>*</span>
-                  </span>
-                  <br />
-                  <input
-                    type="number"
-                    name="amount"
-                    min={1}
-                    pattern="[0-9]*"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    id="amount"
-                    placeholder="Enter donor amount"
-                    required
-                  />
-                  {errors.amount && (
-                    <p style={{ color: "red", marginTop: "5px" }}>
-                      {errors.amount}
-                    </p>
-                  )}
-                </span>
-              </div>
-              <h2>Personal Information</h2>
-              <div className={styles.personalDetail}>
-                <div className={styles.firstpersonalDetail}>
-                  <span>
-                    <span>
-                      First Name <span className={styles.compulsory}>*</span>
-                    </span>
-                    <br />
-                    <input
-                      type="text"
-                      value={formData.donor_name}
-                      onChange={handleChange}
-                      name="donor_name"
-                      id="donor_name"
-                      placeholder="Enter donor first name"
-                      required
-                    />
-                    {errors.firstName && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.firstName}
-                      </p>
-                    )}
-                  </span>
-                  <span>
-                    <span>Last Name</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      id="lastName"
-                      placeholder="Enter donor last name"
-                    />
+                    </datalist>
                   </span>
                   <span>
                     <span>
-                      Email <span className={styles.compulsory}>*</span>
+                      Amount <span className={styles.compulsory}>*</span>
                     </span>
                     <br />
                     <input
-                      type="email"
-                      value={formData.donor_email}
+                      type="number"
+                      name="amount"
+                      min={1}
+                      pattern="[0-9]*"
+                      value={formData.amount}
                       onChange={handleChange}
-                      name="donor_email"
-                      id="donor_email"
-                      placeholder="Enter donor e-mail"
+                      id="amount"
+                      placeholder="Enter donor amount"
                       required
                     />
-                    {errors.donor_email && (
+                    {errors.amount && (
                       <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.donor_email}
+                        {errors.amount}
                       </p>
                     )}
                   </span>
                 </div>
-                <div className={styles.secondpersonalDetail}>
-                  <span>
-                    <span>Address</span>
-                    <br />
-                    <input
-                      type="text"
-                      value={formData.donor_address}
-                      onChange={handleChange}
-                      name="donor_address"
-                      id="donor_address"
-                      placeholder="Enter donor address"
-                    />
-                  </span>
-                  <span>
-                    <span>City</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleChange}
-                      id="city"
-                      placeholder="Enter donor city"
-                    />
-                  </span>
-                  <span>
-                    <span>State</span>
-                    <br />
-                    <input
-                      type="text"
-                      value={formData.state}
-                      onChange={handleChange}
-                      name="state"
-                      id="state"
-                      placeholder="Enter donor state"
-                    />
-                  </span>
-                </div>
-                <div className={styles.thirdpersonalDetail}>
-                  <span>
-                    <span>Country</span>
-                    <br />
-                    <input
-                      type="text"
-                      value={formData.country}
-                      onChange={handleChange}
-                      name="country"
-                      id="country"
-                      placeholder="Enter donor country"
-                    />
-                  </span>
-                  <span>
-                    <span>Pincode</span>
-                    <br />
-                    <input
-                      type="text"
-                      value={formData.pincode}
-                      onChange={handleChange}
-                      name="pincode"
-                      id="pincode"
-                      placeholder="Enter donor pincode"
-                    />
-                  </span>
-                  <span>
+                <h2>Personal Information</h2>
+                <div className={styles.personalDetail}>
+                  <div className={styles.firstpersonalDetail}>
                     <span>
-                      Mobile Number <span className={styles.compulsory}>*</span>
+                      <span>
+                        First Name <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        value={formData.donor_name}
+                        onChange={handleChange}
+                        name="donor_name"
+                        id="donor_name"
+                        placeholder="Enter donor first name"
+                        required
+                      />
+                      {errors.firstName && (
+                        <p style={{ color: "red", marginTop: "5px" }}>
+                          {errors.firstName}
+                        </p>
+                      )}
                     </span>
-                    <br />
-                    <input
-                      type="text"
-                      onInput={(e) => {
-                        e.target.value = e.target.value
-                          .replace(/\D/g, "")
-                          .substring(0, 10);
-                      }}
-                      min={0}
-                      name="donor_phone"
-                      value={formData.donor_phone}
-                      onChange={handleChange}
-                      autoComplete="off"
-                      id="donor_phone"
-                      placeholder="Enter donor mobile no."
-                      maxLength="10"
-                      required
-                    />
-                    {errors.donor_phone && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.donor_phone}
-                      </p>
-                    )}
-                  </span>
-                </div>
-              </div>
-              <h2>Donation Information</h2>
-              <div className={styles.donationDetail}>
-                <div className={styles.firstdonationDetail}>
-                  <span>
-                    <span>PAN Number</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="pan"
-                      value={formData.pan}
-                      onChange={handleChange}
-                      id="pan"
-                      placeholder="Enter donor PAN number"
-                    />
-                  </span>
-                  <span>
                     <span>
-                      Offline Payment Method
-                      <span className={styles.compulsory}>*</span>
+                      <span>Last Name</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        id="lastName"
+                        placeholder="Enter donor last name"
+                      />
                     </span>
-                    <br />
-                    <input
-                      type="text"
-                      name="payment_type"
-                      value={formData.payment_type}
-                      onChange={handleChange}
-                      id="payment_type"
-                      placeholder="Choose donor payment method"
-                      required
-                    />
-                    {errors.payment_type && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.payment_type}
-                      </p>
-                    )}
-                  </span>
-                  <span>
-                    Reference number
-                    <input
-                      type="text"
-                      name="refrence_payment"
-                      value={formData.refrence_payment}
-                      onChange={handleChange}
-                      id="refrence_payment"
-                      placeholder="Enter donor Reference Number"
-                    />
-                  </span>
-                </div>
-                <div className={styles.seconddonationDetail}>
-                  <span className={styles.offlinePaymentDate}>
                     <span>
-                      Donation (Date)
-                      <span className={styles.compulsory}>*</span>
+                      <span>
+                        Email <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="email"
+                        value={formData.donor_email}
+                        onChange={handleChange}
+                        name="donor_email"
+                        id="donor_email"
+                        placeholder="Enter donor e-mail"
+                        required
+                      />
+                      {errors.donor_email && (
+                        <p style={{ color: "red", marginTop: "5px" }}>
+                          {errors.donor_email}
+                        </p>
+                      )}
                     </span>
-                    <br />
-                    <input
-                      type="date"
-                      name="donation_date"
-                      id="donation_date"
-                      value={formData.donation_date}
-                      onChange={handleChange}
-                      style={{ width: "170px", color: "#667085" }}
-                      className={styles.donation_date}
-                      required
-                    />
-                    {errors.donation_date && (
-                      <p style={{ color: "red", marginTop: "5px" }}>
-                        {errors.donation_date}
-                      </p>
-                    )}
-                  </span>
-                  <span>
-                    <span>Bank Name</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="donor_bankName"
-                      id="bankName"
-                      value={formData.donor_bankName}
-                      onChange={handleChange}
-                      placeholder="Enter donor bank name"
-                    />
-                  </span>
-                  <span>
-                    <span>Bank Branch Name</span>
-                    <br />
-                    <input
-                      type="text"
-                      name="donor_bankBranch"
-                      id="branchName"
-                      value={formData.donor_bankBranch}
-                      onChange={handleChange}
-                      placeholder="Enter donor branch name"
-                    />
-                  </span>
+                  </div>
+                  <div className={styles.secondpersonalDetail}>
+                    <span>
+                      <span>Address</span>
+                      <br />
+                      <input
+                        type="text"
+                        value={formData.donor_address}
+                        onChange={handleChange}
+                        name="donor_address"
+                        id="donor_address"
+                        placeholder="Enter donor address"
+                      />
+                    </span>
+                    <span>
+                      <span>City</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        id="city"
+                        placeholder="Enter donor city"
+                      />
+                    </span>
+                    <span>
+                      <span>State</span>
+                      <br />
+                      <input
+                        type="text"
+                        value={formData.state}
+                        onChange={handleChange}
+                        name="state"
+                        id="state"
+                        placeholder="Enter donor state"
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.thirdpersonalDetail}>
+                    <span>
+                      <span>Country</span>
+                      <br />
+                      <input
+                        type="text"
+                        value={formData.country}
+                        onChange={handleChange}
+                        name="country"
+                        id="country"
+                        placeholder="Enter donor country"
+                      />
+                    </span>
+                    <span>
+                      <span>Pincode</span>
+                      <br />
+                      <input
+                        type="text"
+                        value={formData.pincode}
+                        onChange={handleChange}
+                        name="pincode"
+                        id="pincode"
+                        placeholder="Enter donor pincode"
+                      />
+                    </span>
+                    <span>
+                      <span>
+                        Mobile Number{" "}
+                        <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .substring(0, 10);
+                        }}
+                        min={0}
+                        name="donor_phone"
+                        value={formData.donor_phone}
+                        onChange={handleChange}
+                        autoComplete="off"
+                        id="donor_phone"
+                        placeholder="Enter donor mobile no."
+                        maxLength="10"
+                        required
+                      />
+                      {errors.donor_phone && (
+                        <p style={{ color: "red", marginTop: "5px" }}>
+                          {errors.donor_phone}
+                        </p>
+                      )}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.formButton}>
-                <button
-                  type="reset"
-                  className={`${styles.fundButton} ${styles.donorButton}`}
-                  onClick={reset}
-                >
-                  Cancel
-                </button>
-                <button
-                  className={styles.fundButton}
-                  type="submit"
-                  onClick={handleSubmit}
-                >
-                  {loading ? "Loading..." : "Submit"}
-                </button>
-                {/* {Object.keys(errors).length > 0 && (
+                <h2>Donation Information</h2>
+                <div className={styles.donationDetail}>
+                  <div className={styles.firstdonationDetail}>
+                    <span>
+                      <span>PAN Number</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="pan"
+                        value={formData.pan}
+                        onChange={handleChange}
+                        id="pan"
+                        placeholder="Enter donor PAN number"
+                      />
+                    </span>
+                    <span>
+                      <span>
+                        Offline Payment Method
+                        <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        name="payment_type"
+                        value={formData.payment_type}
+                        onChange={handleChange}
+                        id="payment_type"
+                        placeholder="Choose donor payment method"
+                        required
+                      />
+                      {errors.payment_type && (
+                        <p style={{ color: "red", marginTop: "5px" }}>
+                          {errors.payment_type}
+                        </p>
+                      )}
+                    </span>
+                    <span>
+                      Reference number
+                      <input
+                        type="text"
+                        name="refrence_payment"
+                        value={formData.refrence_payment}
+                        onChange={handleChange}
+                        id="refrence_payment"
+                        placeholder="Enter donor Reference Number"
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.seconddonationDetail}>
+                    <span className={styles.offlinePaymentDate}>
+                      <span>
+                        Donation (Date)
+                        <span className={styles.compulsory}>*</span>
+                      </span>
+                      <br />
+                      <input
+                        type="date"
+                        name="donation_date"
+                        id="donation_date"
+                        value={formData.donation_date}
+                        onChange={handleChange}
+                        style={{ width: "170px", color: "#667085" }}
+                        className={styles.donation_date}
+                        required
+                      />
+                      {errors.donation_date && (
+                        <p style={{ color: "red", marginTop: "5px" }}>
+                          {errors.donation_date}
+                        </p>
+                      )}
+                    </span>
+                    <span>
+                      <span>Bank Name</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="donor_bankName"
+                        id="bankName"
+                        value={formData.donor_bankName}
+                        onChange={handleChange}
+                        placeholder="Enter donor bank name"
+                      />
+                    </span>
+                    <span>
+                      <span>Bank Branch Name</span>
+                      <br />
+                      <input
+                        type="text"
+                        name="donor_bankBranch"
+                        id="branchName"
+                        value={formData.donor_bankBranch}
+                        onChange={handleChange}
+                        placeholder="Enter donor branch name"
+                      />
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.formButton}>
+                  <button
+                    type="reset"
+                    className={`${styles.fundButton} ${styles.donorButton}`}
+                    onClick={reset}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className={styles.fundButton}
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    {loading ? "Loading..." : "Submit"}
+                  </button>
+                  {/* {Object.keys(errors).length > 0 && (
                   <div className={styles.errorMessages}>
                     {Object.values(errors).map((error, index) => (
                       <p key={index} style={{ color: "red" }}>
@@ -491,10 +495,11 @@ export default function page() {
                     ))}
                   </div>
                 )} */}
-              </div>
-            </form>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );

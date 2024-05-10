@@ -223,12 +223,12 @@ export default function Header() {
                         </Link>
                       </li>
                       <li data-value="option3" style={{ color: "red" }}>
-                        <span
+                        <a
                           onClick={(e) => handleLogout()}
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
-                        </span>
+                        </a>
                         <span>
                           <showAlert />
                         </span>

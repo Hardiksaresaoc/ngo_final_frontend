@@ -22,13 +22,14 @@ export default function Page() {
   const [pincode, setPincode] = useState("");
   const [token, setToken] = useState("");
   const [number, setNumber] = useState("");
-  const [dob, setDOB] = useState("");
+  const [dob, setDOB] = useState(null);
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
   const cookies = new Cookies();
   const [imagePreview, setImagePreview] = useState(""); // State to store image preview URL
   const fundraiserCtx = useContext(FundraiserContext);
   const [profileImage, setprofileImage] = useState(null);
+
   useEffect(() => {
     const data = cookies.get("token");
     setToken(data || "");
@@ -331,6 +332,7 @@ export default function Page() {
                       <br />
                       <input
                         type="date"
+                        value={fundraiserCtx?.DOB}
                         name="PANnumber"
                         id="DOB"
                         onChange={(e) => setDOB(e.target.value)}

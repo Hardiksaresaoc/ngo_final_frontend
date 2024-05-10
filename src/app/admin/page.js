@@ -102,6 +102,6 @@ export default function FundraiserPage() {
       </section>
     </>
   ) : (
-    <Loading />
+    ""
   );
 }
