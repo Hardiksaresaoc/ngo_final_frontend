@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import styles from "./fundraisersAdmin.module.css";
 import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
@@ -11,7 +11,6 @@ import Loading from "@/app/loading";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [popupActive, setpopupActive] = useState(false);
   const [fundraisers, setFundraisers] = useState([]);
   const [error, setError] = useState(null);
@@ -78,7 +77,7 @@ export default function FundraiserPage() {
   }, [selectedFundraiser]);
 
   useEffect(() => {
-    const token = cookies.token;
+    const token = Cookies.token;
     const headers = {
       Authorization: `Bearer ${token}`,
     };

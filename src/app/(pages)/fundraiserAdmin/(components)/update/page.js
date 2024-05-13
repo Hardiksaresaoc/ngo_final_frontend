@@ -5,7 +5,7 @@ import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import styles from "./update.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 
 export default function Update() {
@@ -13,12 +13,11 @@ export default function Update() {
   const fundraiserCtx = useContext(FundraiserContext);
 
   const [token, setToken] = useState(null);
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   const [target_amount, setTargetAmount] = useState();
   const [resolution, setResolution] = useState("");

@@ -2,14 +2,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
+
 const useAuth = (allowedRoles) => {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const token = cookies.get("token");
+    const token = Cookies.get("token");
 
     if (!token) {
       router.replace("/login");

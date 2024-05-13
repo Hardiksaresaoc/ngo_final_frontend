@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,11 +19,10 @@ const LoginPage = () => {
   const [loggedin, setLoggedin] = useState(false);
 
   const router = useRouter();
-  const [cookies, setCookie] = useCookies(["token"]);
 
   useEffect(() => {
     console.log("login");
-    const token = cookies.token;
+    const token = Cookies.get("token");
     if (token) {
       handleLoginSuccess(token);
       setLoggedin(true);
@@ -61,7 +60,6 @@ const LoginPage = () => {
         },
       };
       const { data } = await axios.post(
-        //processENV
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/login`,
         { email, password },
         config
@@ -78,7 +76,7 @@ const LoginPage = () => {
           loginError: "email or password error",
         });
       } else {
-        setCookie("token", data?.data?.token);
+        Cookies.set("token", data?.data?.token);
         handleLoginSuccess(data?.data?.token);
       }
     } catch (error) {
@@ -89,7 +87,6 @@ const LoginPage = () => {
         icon: "failed",
         timer: 1500,
         confirmButtonColor: "#000080",
-
         confirmButtonText: "Close",
       });
       if (error.response && error.response.status === 401) {
@@ -101,7 +98,6 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
-
   const handleBlur = (field) => (e) => {
     const { value } = e.target;
     if (!value.trim()) {

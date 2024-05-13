@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import useAuth from "@/context/auth";
 import styles from "./profile.module.css";
 import Link from "next/link";
@@ -25,16 +25,15 @@ export default function Page() {
   const [dob, setDOB] = useState(null);
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
-  const cookies = new Cookies();
   const [imagePreview, setImagePreview] = useState(""); // State to store image preview URL
   const fundraiserCtx = useContext(FundraiserContext);
   const [profileImage, setprofileImage] = useState(null);
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data || "");
-    cookies.set("token", data || "");
-  }, []);
+    // cookies.set("token", data || "");
+  }, [Cookies]);
   useEffect(() => {
     console.log("ctx", fundraiserCtx);
     const profile = fundraiserCtx?.profileImage;
@@ -332,7 +331,7 @@ export default function Page() {
                       <br />
                       <input
                         type="date"
-                        value={fundraiserCtx?.DOB}
+                        // value={fundraiserCtx?.DOB}
                         name="PANnumber"
                         id="DOB"
                         onChange={(e) => setDOB(e.target.value)}

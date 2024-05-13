@@ -1,18 +1,17 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import axios from "axios";
 export const FundraiserContext = createContext([]);
 
 export default function FundraiserContextData({ children }) {
   const [fundraiser, setFundraiser] = useState({});
   const [token, setToken] = useState(null);
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   useEffect(() => {
     const fetchData = async () => {

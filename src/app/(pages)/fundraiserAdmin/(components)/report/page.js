@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import styles from "./report.module.css";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Swal from "sweetalert2";
 
@@ -17,13 +17,13 @@ export default function Page() {
     payment_option: null,
     payment_status: null,
   });
-  const cookies = new Cookies();
+
   const fundraiserCtx = useContext(FundraiserContext);
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   useEffect(() => {
     fetchData();

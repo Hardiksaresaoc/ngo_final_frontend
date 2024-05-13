@@ -4,13 +4,12 @@ import Sidebar from "@/component/sidebar";
 import styles from "./adddonation.module.css";
 // import "./styles.css";
 import { useContext, useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "@/app/loading";
 
 export default function page() {
-  const cookies = new Cookies();
   const [token, settoken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -61,9 +60,9 @@ export default function page() {
   //   const fundraisers = fundraiserctx.fundraisers;
   // }, []);
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     settoken(data);
-  }, [cookies]);
+  }, [Cookies]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "lastName") {

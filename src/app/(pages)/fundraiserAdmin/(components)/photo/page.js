@@ -5,7 +5,7 @@ import styles from "./photo.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Image from "next/image";
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { FaRegTrashAlt } from "react-icons/fa";
 import useAuth from "@/context/auth";
@@ -13,7 +13,6 @@ import Loading from "@/app/loading";
 
 export default function Page() {
   const fundraiserCtx = useContext(FundraiserContext);
-  const cookies = new Cookies();
   const [token, setToken] = useState();
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -26,9 +25,9 @@ export default function Page() {
   };
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, []);
 
   useEffect(() => {
     if (fundraiserCtx && fundraiserCtx.fundraiser_page) {

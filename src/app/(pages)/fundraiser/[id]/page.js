@@ -94,7 +94,6 @@ export default function page({ params }) {
 
     fetchData();
   }, []);
-  console.log("fnd", fundraiser);
   useEffect(() => {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;

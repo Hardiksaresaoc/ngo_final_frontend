@@ -4,13 +4,12 @@ import { useRouter } from "next/navigation"; // Changed from "next/navigation" t
 import useAuth from "@/context/auth";
 import axios from "axios"; // Added axios import
 import Sidebar from "../../../component/sidebar";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 
 const GeneratePage = () => {
-  const cookies = new Cookies();
   const router = useRouter();
   const { user } = useAuth(["ADMIN"]);
 
@@ -27,9 +26,9 @@ const GeneratePage = () => {
   const [mobileNumberError, setMobileNumberError] = useState("");
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data || ""); // Set token to an empty string if data is undefined
-    cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
+    // cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
   }, []);
 
   const handleSubmit = async (e) => {
