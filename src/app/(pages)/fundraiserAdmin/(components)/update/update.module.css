@@ -197,6 +197,18 @@
   border: none;
   outline: none;
   cursor: pointer;
+  font-family: "Roboto";
+  font-weight: 600;
   border-radius: 4px;
   margin-top: 28px;
+}
+.mainCol span,
+.thirdCol span {
+  display: flex;
+  justify-content: space-between;
+}
+.mainCol span span,
+.thirdCol span span {
+  color: #9f9595;
+  font-weight: 400;
 }

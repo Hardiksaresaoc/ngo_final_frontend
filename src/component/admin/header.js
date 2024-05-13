@@ -20,13 +20,13 @@ export default function Header() {
     setisopen(!isopen);
   };
   useEffect(() => {
-    if (Cookies.token) {
-      const decodedToken = jwtDecode(Cookies.token);
+    if (Cookies.get("token")) {
+      const decodedToken = jwtDecode(Cookies.get("token"));
       setUser(decodedToken);
     } else {
       setUser(null);
     }
-  }, [Cookies.token]);
+  }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
     Swal.fire({
@@ -37,10 +37,7 @@ export default function Header() {
     });
     setTimeout(() => {
       try {
-        console.log("hello1");
         Cookies.remove("token");
-
-        console.log("hello2");
         router.replace("/login");
         Swal.close();
       } catch (error) {

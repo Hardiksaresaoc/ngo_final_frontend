@@ -77,8 +77,8 @@ export default function page({ params }) {
         config
       );
 
-      setReference(response?.data?.data);
-      console.log(response?.data?.data);
+      setReference(response.data.data);
+      console.log(response.data.data);
       setsubmitted(true);
     } catch (error) {
       console.log(error.message);
@@ -232,7 +232,7 @@ export default function page({ params }) {
                         className={styles.country}
                         name="Country"
                         value={donor_country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) => setdonor_country(e.target.value)}
                         placeholder="Enter your country"
                       />
                     </div>

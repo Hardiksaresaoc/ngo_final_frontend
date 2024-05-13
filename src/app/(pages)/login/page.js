@@ -59,7 +59,7 @@ const LoginPage = () => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/login`,
         { email, password },
         config
@@ -71,13 +71,13 @@ const LoginPage = () => {
         confirmButtonText: "Close",
         confirmButtonColor: "#000080",
       });
-      if (!data || !data?.data?.token) {
+      if (!response || !response.data.token) {
         setErrors({
           loginError: "email or password error",
         });
       } else {
-        Cookies.set("token", data?.data?.token);
-        handleLoginSuccess(data?.data?.token);
+        Cookies.set("token", response.data.token);
+        handleLoginSuccess(response.data.token);
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);

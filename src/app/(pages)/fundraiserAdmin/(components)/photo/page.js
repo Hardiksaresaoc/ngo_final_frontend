@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import styles from "./photo.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
@@ -17,11 +17,24 @@ export default function Page() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const { user } = useAuth("FUNDRAISER");
+  const [previewURL, setPreviewURL] = useState("");
+  const fileInputRef = useRef(null);
+
   const [loading, setLoading] = useState(true);
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const file = e.target.files[0];
+    setSelectedFile(file);
     setIsSubmitDisabled(false);
+
+    // Generate preview URL
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewURL(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   useEffect(() => {
@@ -51,7 +64,17 @@ export default function Page() {
         }
       );
 
-      console.log("File uploaded successfully:", response?.data?.data);
+      // Reset selected file and preview after successful upload
+      setSelectedFile(null);
+      setPreviewURL("");
+      setIsSubmitDisabled(true);
+
+      Swal.fire({
+        title: "Done!!",
+        text: "File uploaded Successfully",
+        icon: "success",
+        confirmButtonText: "Close",
+      });
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -136,23 +159,39 @@ export default function Page() {
               ))}
             </div>
             <div className={styles.upload}>
-              <input type="file" onChange={handleFileChange} />
-              <button
-                type="button"
-                onClick={handleFileUpload}
-                disabled={isSubmitDisabled}
-                style={
-                  isSubmitDisabled
-                    ? {
-                        backgroundColor: "grey",
-                        color: "white",
-                        borderColor: "white",
-                      }
-                    : {}
-                }
-              >
-                Upload File
-              </button>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                style={{ display: "none" }}
+                ref={fileInputRef}
+              />
+              <button onClick={() => fileInputRef.current.click()}>
+Upload File              </button>
+              {previewURL && (
+                <img
+                  src={previewURL}
+                  alt="Preview"
+                  style={{ maxWidth: "200px" }}
+                />
+              )}
+              {selectedFile && (
+                <button
+                  type="button"
+                  onClick={handleFileUpload}
+                  disabled={isSubmitDisabled}
+                  style={
+                    isSubmitDisabled
+                      ? {
+                          backgroundColor: "grey",
+                          color: "white",
+                          borderColor: "white",
+                        }
+                      : {}
+                  }
+                >
+                  Upload File
+                </button>
+              )}
             </div>
           </div>
         </section>

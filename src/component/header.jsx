@@ -29,7 +29,7 @@ export default function Header() {
     } else {
       setUser(null);
     }
-  }, [Cookies.token]);
+  }, [Cookies.get("token")]);
   const handleLogout = () => {
     setLoading(true);
 
@@ -37,7 +37,7 @@ export default function Header() {
       title: "Logging you Out",
       text: "Please Wait",
       icon: "info",
-      showCancelButton: "false",
+      showConfirmButton: false,
     });
 
     setTimeout(() => {
@@ -50,7 +50,7 @@ export default function Header() {
 
       Swal.close();
       setLoading(false);
-    }, 5000);
+    }, 2000);
   };
   console.log(user);
 
@@ -60,7 +60,6 @@ export default function Header() {
     <header className={styles.head}>
       <div className={styles.logo}>
         <Link href={"/"}>
-          {" "}
           <Image
             priority
             alt="SOH"

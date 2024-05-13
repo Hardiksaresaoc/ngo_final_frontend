@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/app/loading";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -8,5 +9,5 @@ export default function Page() {
   useEffect(() => {
     router.replace("/fundraiserAdmin/dashboard");
   }, []);
-  return null;
+  return <Loading/>;
 }

@@ -77,7 +77,7 @@ export default function FundraiserPage() {
   }, [selectedFundraiser]);
 
   useEffect(() => {
-    const token = Cookies.token;
+    const token = Cookies.get("token");
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -99,7 +99,7 @@ export default function FundraiserPage() {
           config
         );
         setLoading(false);
-        setFundraisers(response?.data?.data);
+        setFundraisers(response.data);
 
         console.log(response);
         // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state
@@ -295,7 +295,7 @@ export default function FundraiserPage() {
                       <th className={styles.tableHead}>Edit</th>
                     </tr>
                   </thead>
-                  {fundraisers.length >= 0 ? (
+                  {fundraisers?.length >= 0 ? (
                     <tbody className={styles.tableBody}>
                       {fundraisers?.map((fundraiser) => (
                         <tr
@@ -344,7 +344,7 @@ export default function FundraiserPage() {
                                     response?.status == 200
                                   ) {
                                     const statusMessage =
-                                      response?.data?.status === 0
+                                      response.data.status === 0
                                         ? "inactivated"
                                         : "activated";
                                     const title = `Changed to ${statusMessage}`;

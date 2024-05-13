@@ -27,12 +27,12 @@ export default function FundraiserContextData({ children }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser`,
           config
         );
-        if (response.status === 200) {
-          // console.log(response.data)
+        if (response.status == 200) {
+          console.log("ctx", response.data);
           setFundraiser((oldState) => {
             return {
               ...oldState,
-              ...response?.data?.data,
+              ...response.data,
             };
           });
         } else {

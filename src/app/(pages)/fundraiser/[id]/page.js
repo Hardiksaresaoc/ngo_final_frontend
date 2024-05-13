@@ -80,8 +80,9 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
+        console.log("NEW", response);
         if (response.status === 200) {
-          setFundraiser(response?.data?.data);
+          setFundraiser(response.data);
           setIsfundraiser(true);
           setloading(false);
         }

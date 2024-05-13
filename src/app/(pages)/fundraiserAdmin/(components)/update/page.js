@@ -100,7 +100,9 @@ export default function Update() {
                   />
                 </label>
                 <label htmlFor="MyResolution">
-                  About My Resolution *<br />
+                  <span>
+                    About My Resolution * <span>Max 350 Characters</span>
+                  </span>
                   <textarea
                     spellcheck="false"
                     value={resolution}
@@ -114,7 +116,9 @@ export default function Update() {
               </div>
               <div className={styles.secondCol}>
                 <label htmlFor="MyStory" className={styles.aboutMe}>
-                  My Story *<br />
+                  <span>
+                    My Story * <span>Max 500 Characters</span>
+                  </span>
                   <textarea
                     name="MyStory"
                     spellcheck="false"
@@ -129,7 +133,9 @@ export default function Update() {
             </div>
             <div className={styles.thirdCol}>
               <label htmlFor="MoneyRaised">
-                Money Raised For *<br />
+                <span>
+                  Money Raised For * <span>Max 500 Characters</span>
+                </span>
                 <textarea
                   spellcheck="false"
                   name="MoneyRaised"
