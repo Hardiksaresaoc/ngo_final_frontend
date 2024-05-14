@@ -71,13 +71,13 @@ const LoginPage = () => {
         confirmButtonText: "Close",
         confirmButtonColor: "#000080",
       });
-      if (!response || !response.data.token) {
+      if (!response || !response.data.data.token) {
         setErrors({
           loginError: "email or password error",
         });
       } else {
-        Cookies.set("token", response.data.token);
-        handleLoginSuccess(response.data.token);
+        Cookies.set("token", response.data.data.token);
+        handleLoginSuccess(response.data.data.token);
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);

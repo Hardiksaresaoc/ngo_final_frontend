@@ -7,6 +7,7 @@ import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 export default function Update() {
   const { user } = useAuth("FUNDRAISER");
@@ -109,9 +110,15 @@ export default function Update() {
                     name="MyResolution"
                     className={styles.MyStory}
                     cols="30"
+                    maxLength={350}
                     rows="10"
                     onChange={(e) => setResolution(e.target.value)}
                   ></textarea>
+                  {resolution.length == 350 && (
+                    <p style={{ color: "red", fontWeight: "normal" }}>
+                      Max characters reached to 350
+                    </p>
+                  )}
                 </label>
               </div>
               <div className={styles.secondCol}>
@@ -124,10 +131,16 @@ export default function Update() {
                     spellcheck="false"
                     value={story}
                     className={styles.MyStory}
+                    maxLength={500}
                     cols="30"
                     rows="16"
                     onChange={(e) => setMyStory(e.target.value)}
                   ></textarea>
+                  {story.length == 500 && (
+                    <p style={{ color: "red", fontWeight: "normal" }}>
+                      Max characters reached to 500
+                    </p>
+                  )}
                 </label>
               </div>
             </div>
@@ -142,9 +155,15 @@ export default function Update() {
                   value={money_raised_for}
                   className={styles.MoneyRaised}
                   cols="30"
+                  maxLength={500}
                   rows="5"
                   onChange={(e) => setRaisedFor(e.target.value)}
                 ></textarea>
+                {money_raised_for.length == 500 && (
+                  <p style={{ color: "red", fontWeight: "normal" }}>
+                    Max characters reached to 500
+                  </p>
+                )}
               </label>
             </div>
             <div className={styles.submitButton}>
@@ -157,6 +176,6 @@ export default function Update() {
       </aside>
     </>
   ) : (
-    "null"
+    <Loading />
   );
 }

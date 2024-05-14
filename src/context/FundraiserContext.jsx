@@ -16,7 +16,6 @@ export default function FundraiserContextData({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        ///ngrok
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -32,7 +31,7 @@ export default function FundraiserContextData({ children }) {
           setFundraiser((oldState) => {
             return {
               ...oldState,
-              ...response.data,
+              ...response.data.data,
             };
           });
         } else {
