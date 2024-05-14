@@ -99,7 +99,7 @@ export default function FundraiserPage() {
           config
         );
         setLoading(false);
-        setFundraisers(response.data);
+        setFundraisers(response.data.data);
 
         console.log(response);
         // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state

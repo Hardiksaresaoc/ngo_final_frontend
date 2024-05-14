@@ -39,8 +39,8 @@ export default function FundraiserPage() {
         );
 
         if (response.status === 200) {
-          console.log(response.data);
-          setAllData(response.data);
+          console.log(response.data.data);
+          setAllData(response.data.data);
           setLoading(false);
         }
       } catch (error) {

@@ -19,7 +19,7 @@ export default function Page() {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [pincode, setPincode] = useState("");
+  const [pincode, setPincode] = useState(null);
   const [token, setToken] = useState("");
   const [number, setNumber] = useState("");
   const [dob, setDOB] = useState(null);
@@ -51,6 +51,7 @@ export default function Page() {
           Authorization: `Bearer ${token}`,
         },
       };
+
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
         {

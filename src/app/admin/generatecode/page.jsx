@@ -69,8 +69,8 @@ const GeneratePage = () => {
         console.log(`1`, response);
         console.log(`2`, response.data);
         console.log(`3`, response.data.data);
-        console.log(`4`, response.data.status);
-        if (response.data.status == 201) {
+        console.log(`4`, response.data.statusCode);
+        if (response.data.statusCode == 201) {
           console.log("success", config);
           await axios
             .post(

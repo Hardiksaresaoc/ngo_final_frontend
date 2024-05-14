@@ -4,13 +4,14 @@ import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.css"; // Assuming this imports your custom styles
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 
 import Loading from "@/app/loading";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
+import { FundraiserContext } from "@/context/FundraiserContext";
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -18,9 +19,11 @@ export default function Header() {
   const pathname = usePathname();
   const [isopen, setisopen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const fundraiserCtx = useContext(FundraiserContext);
   const toggle = () => {
     setisopen(!isopen);
   };
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -188,8 +191,9 @@ export default function Header() {
                 onClick={toggle}
                 className={styles.profilebutton}
               >
+                {console.log("profilerequire", fundraiserCtx)}
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${user?.profileImage}`}
+                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.profileImage}`}
                   width="40"
                   height="40"
                   alt="profile"
