@@ -80,8 +80,9 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
+        console.log("NEW", response);
         if (response.status === 200) {
-          setFundraiser(response?.data?.data);
+          setFundraiser(response.data);
           setIsfundraiser(true);
           setloading(false);
         }
@@ -94,7 +95,6 @@ export default function page({ params }) {
 
     fetchData();
   }, []);
-  console.log("fnd", fundraiser);
   useEffect(() => {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;

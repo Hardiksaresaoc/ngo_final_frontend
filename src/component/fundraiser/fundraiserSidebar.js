@@ -6,14 +6,22 @@ import { MdDashboard } from "react-icons/md";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSolidReport } from "react-icons/bi";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import Loading from "@/app/loading";
 
 export default function AsideBar() {
+  const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   return (
     <>
       <div className={styles.leftAside}>
         <div className={styles.container}>
-          <Link href="/fundraiserAdmin/dashboard">
+          <Link
+            onClick={() => {
+              setLoading(true);
+            }}
+            href="/fundraiserAdmin/dashboard"
+          >
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/dashboard" ? styles.active : ""
@@ -22,7 +30,12 @@ export default function AsideBar() {
               <MdDashboard /> Dashboard
             </p>
           </Link>
-          <Link href="/fundraiserAdmin/update">
+          <Link
+            onClick={() => {
+              setLoading(true);
+            }}
+            href="/fundraiserAdmin/update"
+          >
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/update" ? styles.active : ""
@@ -32,7 +45,12 @@ export default function AsideBar() {
               Fundraiser
             </p>
           </Link>
-          <Link href="/fundraiserAdmin/photo">
+          <Link
+            onClick={() => {
+              setLoading(true);
+            }}
+            href="/fundraiserAdmin/photo"
+          >
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/photo" ? styles.active : ""
@@ -42,7 +60,12 @@ export default function AsideBar() {
               Photos
             </p>
           </Link>
-          <Link href="report">
+          <Link
+            onClick={() => {
+              setLoading(true);
+            }}
+            href="report"
+          >
             <p
               className={`tabButton ${
                 pathname === "/fundraiserAdmin/report" ? styles.active : ""

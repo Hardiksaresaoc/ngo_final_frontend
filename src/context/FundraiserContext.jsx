@@ -1,18 +1,17 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import axios from "axios";
 export const FundraiserContext = createContext([]);
 
 export default function FundraiserContextData({ children }) {
   const [fundraiser, setFundraiser] = useState({});
   const [token, setToken] = useState(null);
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,12 +27,12 @@ export default function FundraiserContextData({ children }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser`,
           config
         );
-        if (response.status === 200) {
-          // console.log(response.data)
+        if (response.status == 200) {
+          console.log("ctx", response.data);
           setFundraiser((oldState) => {
             return {
               ...oldState,
-              ...response?.data?.data,
+              ...response.data,
             };
           });
         } else {

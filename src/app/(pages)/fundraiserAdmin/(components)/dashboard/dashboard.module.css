@@ -1,30 +1,77 @@
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-section {
+.section {
   width: 100%;
-} */
-
+}
+.main {
+  width: 100%;
+  height: 548px;
+  display: flex;
+  flex-direction: row;
+  background-image: url(/images/background-bigSize.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  border: 1px solid #fff;
+  border-bottom: none;
+}
+.leftSection {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 80px;
+  align-items: center;
+  text-align: justify;
+  color: #fff;
+}
+.content {
+  width: 593px;
+  height: 232px;
+  margin-left: 80px;
+}
+.content h1 {
+  font-family: "Helvetica", Sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #e9f7f0;
+  letter-spacing: 2px;
+}
+.content p {
+  font-family: "Helvetica", Sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+.rightSection {
+  width: 50%;
+}
+.imgArea {
+  margin-right: 60px;
+}
+.imgArea img {
+  width: 100%;
+  height: 548px;
+  object-fit: contain;
+}
 .lowerPart {
   width: 100%;
-  height: 50px;
+  height: 69px;
   background-color: #04045f;
   color: #fff;
   position: absolute;
-  top: 453px;
+  top: 480px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
   align-items: center;
   opacity: 0.75;
   border: 1px solid #fff;
   border-top: none;
 }
 .lowerPart p {
+  font-family: "Inter", sans-serif;
   display: flex;
-  justify-content: flex-end;
-  margin-right: 20px;
+  justify-content: end;
+  margin-right: 60px;
+  font-size: 28px;
 }
 .lowerPart p a {
   text-decoration: none;
@@ -39,7 +86,7 @@ section {
   flex-direction: row;
 }
 .leftAside {
-  width: 20%;
+  width: 25%;
 }
 .container {
   display: flex;
@@ -52,21 +99,25 @@ section {
   width: 100%;
 }
 .container p {
-  padding: 15px 10px;
-  color: #000180;
+  font-family: "Roboto", sans-serif;
+  padding: 24px 40px;
+  color: #000080;
   width: 100%;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  font-size: 20px;
+  gap: 20px;
 }
 .container p a {
   text-decoration: none;
 }
 .container p:hover {
-  background-color: #f8f8f8;
+  background-color: #0000801a;
 }
 .active {
-  background-color: #f8f8f8;
+  background-color: #0000801a;
 }
 .asideIcon {
   margin-right: 10px;
@@ -77,6 +128,7 @@ section {
 }
 .rightAside {
   width: 75%;
+  background-color: #f8f8f8;
 }
 .upperPortion {
   background-color: #fd89001a;
@@ -100,7 +152,15 @@ section {
   bottom: 35px;
 }
 .totalRaise {
-  border: 2px solid #0000ff;
+  /* border: 3px solid #0000ff; */
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: linear-gradient(to right, white, white),
+    linear-gradient(to bottom, #000080, #9f959520);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  /* border-image: linear-gradient(180deg, #000080 0%, #9F959520 80%);
+    border-image-slice: 1; */
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -114,18 +174,41 @@ section {
 }
 .totalRaise .amtMoney,
 .no-donor {
-  margin: 10px 0 0 26px;
-  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  margin: 20px 0 0 60px;
+  font-size: 28px;
+  font-weight: 700;
 }
 .totalDonors {
-  border: 2px solid #008000;
+  /* border: 3px solid #008000; */
+  border: 3px solid transparent;
+  border-radius: 16px;
+  background: linear-gradient(to right, white, white),
+    linear-gradient(to bottom, #0fa900, #9f959520);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  /* border-image: linear-gradient(180deg, #0FA900 0%, #9F959520 80%);
+    border-image-slice: 1; */
+  min-width: 279px;
   padding: 15px 30px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
   background-color: #fff;
 }
+.totalDonors .no-donor {
+  font-weight: 700;
+  margin: 20px 0 0 60px;
+  font-size: 28px;
+}
 .totalRaise p,
 .totalDonors p {
-  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #171a1f;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

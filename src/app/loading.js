@@ -1,4 +1,6 @@
 "use client";
+import Footer from "@/component/footer";
+import Header from "@/component/header";
 import { Center } from "@chakra-ui/react";
 import { ThreeDots } from "react-loader-spinner";
 
@@ -14,10 +16,10 @@ export default function Loading() {
           justifyContent: "center",
         }}
       >
-        <section class="dots-container">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
+        <section className="dots-container">
+          <div className="dot"></div>
+          <div className="dot"></div>
+          <div className="dot"></div>
         </section>
       </div>
     </>

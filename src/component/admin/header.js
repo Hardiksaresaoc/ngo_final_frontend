@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import styles from "../header.module.css"; // Assuming this imports your custom styles
 
@@ -11,7 +11,6 @@ import Image from "next/image";
 import Swal from "sweetalert2";
 
 export default function Header() {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
@@ -21,36 +20,30 @@ export default function Header() {
     setisopen(!isopen);
   };
   useEffect(() => {
-    if (cookies.token) {
-      const decodedToken = jwtDecode(cookies.token);
+    if (Cookies.get("token")) {
+      const decodedToken = jwtDecode(Cookies.get("token"));
       setUser(decodedToken);
     } else {
       setUser(null);
     }
-  }, [cookies.token]);
+  }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
     Swal.fire({
       title: "Logging you Out",
       text: "Please Wait",
       icon: "info",
+      showConfirmButton: false,
     });
-
-    try {
-      removeCookie("token");
-      router.replace("/login");
-    } catch (error) {}
-    removeCookie("token");
-    Swal.fire({
-      title: "Success",
-      text: "Login Successfully!!",
-      icon: "success",
-      confirmButtonText: "Close",
-      timer: 1500,
-      confirmButtonColor: "#000080",
-    });
-    router.replace("/login");
-    Swal.close();
+    setTimeout(() => {
+      try {
+        Cookies.remove("token");
+        router.replace("/login");
+        Swal.close();
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
   };
   console.log(user);
   return (

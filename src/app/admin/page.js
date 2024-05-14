@@ -1,52 +1,52 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import Sidebar from "../../component/sidebar";
 import useAuth from "@/context/auth";
 import styles from "./admin.module.css";
 import Image from "next/image";
-import Loading from "../loading";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
-  const [allData, setallData] = useState([]);
+  const [allData, setAllData] = useState([]);
 
-  const cookies = new Cookies();
   const [token, setToken] = useState();
   const [error, setError] = useState(null);
-  const [loading, setloading] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const data = cookies.get("token");
-    setToken(() => data);
-  }, [cookies]);
+    const data = Cookies.get("token");
+    setToken(data || "");
+  }, [Cookies]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (!token) {
         return;
-      } else
-        try {
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          };
+      }
 
-          const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_serverAPI}/admin/adminDashboard`,
-            config
-          );
-          if (response.status === 200) {
-            console.log(response?.data?.data);
-            setallData(response?.data?.data);
-            setloading(false);
-          }
-        } catch (error) {
-          setError("Error fetching data. Please try again later.");
-          console.error("Error while getting data:", error);
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_serverAPI}/admin/adminDashboard`,
+          config
+        );
+
+        if (response.status === 200) {
+          console.log(response.data);
+          setAllData(response.data);
+          setLoading(false);
         }
+      } catch (error) {
+        setError("Error fetching data. Please try again later.");
+        console.error("Error while getting data:", error);
+      }
     };
     fetchData();
   }, [token]);
@@ -102,6 +102,6 @@ export default function FundraiserPage() {
       </section>
     </>
   ) : (
-    <Loading />
+    ""
   );
 }

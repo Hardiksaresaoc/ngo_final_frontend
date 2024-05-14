@@ -81,7 +81,7 @@
 .mainClass .contributers .goal .subGoal .completeGoal {
   font-size: 46px;
   font-weight: 400;
-  font-family: Helvetica, Arial;
+  font-family: Helvetica;
 }
 .mainClass .contributers .goal .subGoal .totalGoal {
   color: #000080;
@@ -223,6 +223,7 @@
 .mainAside .leftAside .reason {
   font-weight: 700;
   font-size: 28px;
+  font-family: "Roboto";
   line-height: 32px;
   color: #484848;
   margin: 28px 0 16px 0;
@@ -318,7 +319,7 @@
   color: #000080;
 }
 .subGoal .percentage {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 46px;
   font-weight: 400;
 }
@@ -326,6 +327,7 @@
 .subGoal .totalGoal {
   color: #000080;
   font-weight: 500;
+  font-family: Helvetica;
   font-size: 48px;
 }
 /* clipboard */

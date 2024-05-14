@@ -3,16 +3,14 @@ import { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import styles from "./dashboard.module.css";
 import AsideBar from "@/component/fundraiser/fundraiserSidebar";
 import useAuth from "@/context/auth";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Loading from "@/app/loading";
-import { FaCoins } from "react-icons/fa";
 
 export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
 
   const fundraiserCtx = useContext(FundraiserContext);
-  console.log("data", fundraiserCtx.fundraiser_page);
   return user ? (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
@@ -26,8 +24,7 @@ export default function Dashboard() {
             <div className={styles.donors}>
               <div className={styles.totalRaise}>
                 <p>
-                  {/* <i className={` fa-regular fa-coins`}></i> */}
-                  <FaCoins />
+                  <i className={` fa-solid fa-coins`}></i>
                   Total Amount Raised
                 </p>
                 <p className={styles.amtMoney}>

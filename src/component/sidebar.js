@@ -37,7 +37,7 @@ export default function Sidebar() {
           <TbPasswordFingerprint
             color={`${pathname === "/admin/generatecode" ? "white" : "black"}`}
           />
-          Credentials
+          Generate Fundraiser
         </p>
       </Link>
       <Link href="/admin/fundraisers">
@@ -50,7 +50,7 @@ export default function Sidebar() {
             color={`${pathname === "/admin/fundraisers" ? "white" : "black"}`}
           />
           {/* <i className={`fa-regular fa-coins}`}></i> */}
-          Fundraiser
+          All Fundraiser
         </p>
       </Link>
       <Link href="/admin/adddonation">

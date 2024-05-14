@@ -2,18 +2,17 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
-import { useCookies } from "react-cookie";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.css"; // Assuming this imports your custom styles
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 
-import showAlert from "@/component/alert";
 import Loading from "@/app/loading";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+
 export default function Header() {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [user, setUser] = useState(null);
   const router = useRouter();
   const pathname = usePathname();
@@ -23,30 +22,35 @@ export default function Header() {
     setisopen(!isopen);
   };
   useEffect(() => {
-    if (cookies.token) {
-      const decodedToken = jwtDecode(cookies.token);
+    const token = Cookies.get("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
       setUser(decodedToken);
     } else {
       setUser(null);
     }
-  }, [cookies.token]);
-
-  const handleLogout = (e) => {
+  }, [Cookies.get("token")]);
+  const handleLogout = () => {
     setLoading(true);
+
     Swal.fire({
       title: "Logging you Out",
       text: "Please Wait",
       icon: "info",
+      showConfirmButton: false,
     });
 
-    try {
-      removeCookie("token");
-      router.replace("/login");
-    } catch (error) {}
-    removeCookie("token");
-    router.replace("/login");
-    Swal.close();
-    setLoading(false);
+    setTimeout(() => {
+      try {
+        Cookies.remove("token");
+        router.replace("/login");
+      } catch (error) {
+        console.error("Error logging out:", error);
+      }
+
+      Swal.close();
+      setLoading(false);
+    }, 2000);
   };
   console.log(user);
 
@@ -56,7 +60,6 @@ export default function Header() {
     <header className={styles.head}>
       <div className={styles.logo}>
         <Link href={"/"}>
-          {" "}
           <Image
             priority
             alt="SOH"
@@ -223,12 +226,12 @@ export default function Header() {
                         </Link>
                       </li>
                       <li data-value="option3" style={{ color: "red" }}>
-                        <span
+                        <a
                           onClick={(e) => handleLogout()}
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Log out
-                        </span>
+                        </a>
                         <span>
                           <showAlert />
                         </span>

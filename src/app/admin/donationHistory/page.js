@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import styles from "./donationHistory.module.css";
 import Sidebar from "@/component/sidebar";
@@ -15,12 +15,11 @@ export default function Page() {
     payment_option: null,
     payment_status: null,
   });
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   useEffect(() => {
     fetchData();

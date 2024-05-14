@@ -5,7 +5,7 @@ import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import styles from "./update.module.css";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 
 export default function Update() {
@@ -13,12 +13,11 @@ export default function Update() {
   const fundraiserCtx = useContext(FundraiserContext);
 
   const [token, setToken] = useState(null);
-  const cookies = new Cookies();
 
   useEffect(() => {
-    const data = cookies.get("token");
+    const data = Cookies.get("token");
     setToken(data);
-  }, [cookies]);
+  }, [Cookies]);
 
   const [target_amount, setTargetAmount] = useState();
   const [resolution, setResolution] = useState("");
@@ -101,7 +100,9 @@ export default function Update() {
                   />
                 </label>
                 <label htmlFor="MyResolution">
-                  About My Resolution *<br />
+                  <span>
+                    About My Resolution * <span>Max 350 Characters</span>
+                  </span>
                   <textarea
                     spellcheck="false"
                     value={resolution}
@@ -115,7 +116,9 @@ export default function Update() {
               </div>
               <div className={styles.secondCol}>
                 <label htmlFor="MyStory" className={styles.aboutMe}>
-                  My Story *<br />
+                  <span>
+                    My Story * <span>Max 500 Characters</span>
+                  </span>
                   <textarea
                     name="MyStory"
                     spellcheck="false"
@@ -130,7 +133,9 @@ export default function Update() {
             </div>
             <div className={styles.thirdCol}>
               <label htmlFor="MoneyRaised">
-                Money Raised For *<br />
+                <span>
+                  Money Raised For * <span>Max 500 Characters</span>
+                </span>
                 <textarea
                   spellcheck="false"
                   name="MoneyRaised"

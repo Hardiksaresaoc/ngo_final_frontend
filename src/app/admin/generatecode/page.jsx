@@ -4,13 +4,12 @@ import { useRouter } from "next/navigation"; // Changed from "next/navigation" t
 import useAuth from "@/context/auth";
 import axios from "axios"; // Added axios import
 import Sidebar from "../../../component/sidebar";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 
 const GeneratePage = () => {
-  const cookies = new Cookies();
   const router = useRouter();
   const { user } = useAuth(["ADMIN"]);
 
@@ -27,10 +26,10 @@ const GeneratePage = () => {
   const [mobileNumberError, setMobileNumberError] = useState("");
 
   useEffect(() => {
-    const data = cookies.get("token");
-    setToken(data || ""); // Set token to an empty string if data is undefined
-    cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
-  }, []);
+    const data = Cookies.get("token");
+    setToken(data || "");
+    // cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
+  }, [Cookies]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,52 +62,52 @@ const GeneratePage = () => {
           {
             email,
             firstName,
-            mobile_number, // Changed from mobile_number to mobile_number
+            mobile_number,
           },
           config
         );
-
+        console.log(`1`, response);
+        console.log(`2`, response.data);
+        console.log(`3`, response.data.data);
+        console.log(`4`, response.data.status);
         if (response.data.status == 201) {
           console.log("success", config);
-          await axios.post(
-            `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
-            { email },
-            config
-          );
-          Swal.fire({
-            title: "Page created",
-            text: "check Email for more details!!",
-            icon: "success",
-            confirmButtonColor: "#000080",
+          await axios
+            .post(
+              `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
+              { email },
+              config
+            )
+            .then(
+              Swal.fire({
+                title: "Page created",
+                text: "check Email for more details!!",
+                icon: "success",
+                confirmButtonColor: "#000080",
 
-            confirmButtonText: "Close",
-          });
+                confirmButtonText: "Close",
+              })
+            )
+            .finally(reset());
         }
+      } catch (err) {
         if (
-          response.status !== 200 ||
-          response.status !== 201 ||
-          response.status == 404
+          response.data.status !== 200 ||
+          response.data.status !== 201 ||
+          response.data.status == 404
         ) {
-          // const errorMsg = ;
           Swal.fire({
-            title: "Opps!",
-            text: response?.data?.data?.message,
+            title: "can not create!",
+            text: response.data.message || "oops",
             icon: "failed",
             confirmButtonColor: "#000080",
-
-            confirmButtonText: "Close",
           });
-          throw new Error("Failed to generate.");
         }
-
-        router.push("/success");
-      } catch (err) {
-        console.log("Something went wrong.");
       } finally {
         setLoading(false);
       }
     } else {
-      setLoading(false); // Reset loading state if form is invalid
+      setLoading(false);
     }
   };
 
