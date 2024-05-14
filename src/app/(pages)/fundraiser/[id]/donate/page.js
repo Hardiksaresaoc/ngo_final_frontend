@@ -51,12 +51,12 @@ export default function page({ params }) {
       donor_pin: donor_pin,
     };
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    if (!formData.donor_name) newErrors.donor_name = "Please enter donor name.";
+    if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
     if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
 
     if (!formData.donor_email)
-      newErrors.donor_email = "Please enter donor donor_email.";
+      newErrors.donor_email = "Please enter Your email.";
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -72,7 +72,7 @@ export default function page({ params }) {
       formData["amount"] = Number(formData["amount"]);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${params.id}/donate`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/donate/${params.id}`,
         formData,
         config
       );
@@ -82,7 +82,7 @@ export default function page({ params }) {
       setsubmitted(true);
     } catch (error) {
       console.log(error.message);
-      showAlert({
+      Swal.fire({
         title: "error while adding",
         text: "try again",
         icon: "failed",
@@ -171,14 +171,17 @@ export default function page({ params }) {
                     <div className={styles.donationdetails}>
                       <label htmlFor="tel">Mobile Number</label>
                       <input
-                        type="number"
+                        type="text"
                         className={styles.mobilenumber}
                         name="tel"
-                        max={10}
                         value={donor_phone}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => {
+                          const inputValue = e.target.value.replace(/\D/g, "");
+                          if (inputValue.length <= 10) {
+                            setPhoneNumber(inputValue);
+                          }
+                        }}
                         placeholder="Enter your mobile no."
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                       />
                       {errors.donor_phone && (
                         <span style={{ color: "red" }} className={styles.error}>
