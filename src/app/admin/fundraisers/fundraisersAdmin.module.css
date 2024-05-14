@@ -100,6 +100,9 @@
   text-align: left;
   border: 1px solid #e4e1e1;
 }
+.td a {
+  cursor: pointer;
+}
 .tableRow,
 .tableHead {
   border: 1px solid #e4e1e1;
