@@ -21,7 +21,6 @@ const LoginPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("login");
     const token = Cookies.get("token");
     if (token) {
       handleLoginSuccess(token);
@@ -64,18 +63,19 @@ const LoginPage = () => {
         { email, password },
         config
       );
-      Swal.fire({
-        title: "Success",
-        text: "Login Successfully!!",
-        icon: "success",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+
       if (!response || !response.data.data.token) {
         setErrors({
           loginError: "email or password error",
         });
       } else {
+        Swal.fire({
+          title: "Success",
+          text: "Login Successfully!!",
+          icon: "success",
+          confirmButtonText: "Close",
+          confirmButtonColor: "#000080",
+        });
         Cookies.set("token", response.data.data.token);
         handleLoginSuccess(response.data.data.token);
       }
@@ -147,13 +147,9 @@ const LoginPage = () => {
     router.push(redirectPath);
   };
 
-  return loggedin ? (
-    <Loading />
-  ) : (
+  return (
     <>
       <div className={styles.main}>
-        {/* <Header /> */}
-
         <section className={styles.mainSection}>
           <div className={styles.leftSection}>
             <form className={styles.mainForm} onSubmit={submithandler}>

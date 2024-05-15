@@ -3,8 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
-  console.log(amount, name, reference, id);
-  useEffect(() => {
+   useEffect(() => {
     const loadRazorpayScript = async () => {
       try {
         const script = document.createElement("script");
@@ -12,19 +11,16 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
         script.async = true;
         document.body.appendChild(script);
       } catch (error) {
-        console.error("Error loading Razorpay script:", error);
-      }
+       }
     };
 
     const fetchOrderDetails = async () => {
       try {
-        console.log({ reference });
-        const response = await axios.post(
+         const response = await axios.post(
           `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
-        // console.log(response.data.response);
-        return response?.data?.data?.id;
+         return response?.data?.data?.id;
       } catch (error) {
         Swal.fire({
           title: "Something went Wrong",
@@ -39,13 +35,11 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
     };
 
     const initiatePayment = async () => {
-      console.log({ amount, name });
-      try {
+       try {
         await loadRazorpayScript();
         const orderDetails = await fetchOrderDetails();
 
-        console.log(orderDetails + "h");
-        amount = String(amount) + "00";
+         amount = String(amount) + "00";
         var options = {
           key: "rzp_test_b3XerWcrISxnCT", // Enter the Key ID generated from the Dashboard
           amount: parseInt(amount), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise

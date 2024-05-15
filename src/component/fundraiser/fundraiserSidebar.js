@@ -7,13 +7,11 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSolidReport } from "react-icons/bi";
 import Swal from "sweetalert2";
 import { useState } from "react";
-import Loading from "@/app/loading";
 
 export default function AsideBar() {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
   return (
-    
     <>
       <div className={styles.leftAside}>
         <div className={styles.container}>
@@ -21,11 +19,11 @@ export default function AsideBar() {
             onClick={() => {
               setLoading(true);
             }}
-            href="/fundraiserAdmin/dashboard"
+            href="/fundraiserAdmin"
           >
             <p
               className={`tabButton ${
-                pathname === "/fundraiserAdmin/dashboard" ? styles.active : ""
+                pathname === "/fundraiserAdmin" ? styles.active : ""
               }`}
             >
               <MdDashboard /> Dashboard

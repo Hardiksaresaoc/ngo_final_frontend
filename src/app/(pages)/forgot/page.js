@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import axios from "axios"; // Add Axios import
+import axios from "axios"; 
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import styles from "./forgot.module.css";
@@ -21,7 +21,7 @@ const DefaultResetPassword = () => {
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/forgot-password`,
         { email }
       );
-      console.log(response?.data?.data);
+
       setLoading(false);
       Swal.fire({
         title: "OTP generate Successfully",
@@ -49,7 +49,7 @@ const DefaultResetPassword = () => {
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/reset-password`,
         { otp, newPassword }
       );
-      console.log(response?.data?.data);
+
       setLoading(false);
       alert("Password reset complete! Login now");
       router.replace("/login");

@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 const GeneratePage = () => {
   const router = useRouter();
@@ -16,11 +17,9 @@ const GeneratePage = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [mobile_number, setMobileNumber] = useState(""); // Changed from setmobile_number to setMobileNumber
+  const [loading, setLoading] = useState(true);
+  const [mobile_number, setMobileNumber] = useState("");
 
-  // State variables for blur and error messages
   const [emailError, setEmailError] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [mobileNumberError, setMobileNumberError] = useState("");
@@ -28,7 +27,7 @@ const GeneratePage = () => {
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
-    // cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
+    setLoading(false);
   }, [Cookies]);
 
   const handleSubmit = async (e) => {
@@ -66,12 +65,8 @@ const GeneratePage = () => {
           },
           config
         );
-        console.log(`1`, response);
-        console.log(`2`, response.data);
-        console.log(`3`, response.data.data);
-        console.log(`4`, response.data.statusCode);
+
         if (response.data.statusCode == 201) {
-          console.log("success", config);
           await axios
             .post(
               `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
@@ -89,6 +84,7 @@ const GeneratePage = () => {
               })
             )
             .finally(reset());
+          setLoading(false);
         }
       } catch (err) {
         if (
@@ -146,93 +142,98 @@ const GeneratePage = () => {
     setEmail("");
     setFirstName("");
     setMobileNumber("");
-    setError(null);
   };
 
-  return (
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <section className={styles.section}>
-      <Sidebar />
-      <div className={styles.rightSection}>
-        <div className={styles.rightsubSection}>
-          <h1>Generate Credentials</h1>
-          <div className={styles.rightsectionForm}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <span>
-                <span>E-mail </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => handleBlur("email", email)}
-                  placeholder="Enter Fundraiser's e-mail"
-                />
-                {emailError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {emailError}
-                  </p>
-                )}
-              </span>
-              <span>
-                <span>Name </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="text"
-                  value={firstName}
-                  name="fullName"
-                  id="fullName"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  onBlur={() => handleBlur("firstName", firstName)}
-                  placeholder="Enter Fundraiser's full name"
-                />
-                {firstNameError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {firstNameError}
-                  </p>
-                )}
-              </span>
-              <span>
-                <span>Mobile Number </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="text"
-                  name="mobileNumber"
-                  id="mobileNumber"
-                  value={mobile_number}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  onBlur={() => handleBlur("mobileNumber", mobile_number)}
-                  placeholder="Enter Fundraiser's mobile no."
-                  pattern="[0-9]{10}"
-                  maxLength="10"
-                />
-                {mobileNumberError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {mobileNumberError}
-                  </p>
-                )}
-              </span>
+      <Sidebar />{" "}
+      {user && !loading ? (
+        <div className={styles.rightSection}>
+          <div className={styles.rightsubSection}>
+            <h1>Generate Credentials</h1>
+            <div className={styles.rightsectionForm}>
+              <form className={styles.form} onSubmit={handleSubmit}>
+                <span>
+                  <span>E-mail </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => handleBlur("email", email)}
+                    placeholder="Enter Fundraiser's e-mail"
+                  />
+                  {emailError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {emailError}
+                    </p>
+                  )}
+                </span>
+                <span>
+                  <span>Name </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="text"
+                    value={firstName}
+                    name="fullName"
+                    id="fullName"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    onBlur={() => handleBlur("firstName", firstName)}
+                    placeholder="Enter Fundraiser's full name"
+                  />
+                  {firstNameError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {firstNameError}
+                    </p>
+                  )}
+                </span>
+                <span>
+                  <span>Mobile Number </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="text"
+                    name="mobileNumber"
+                    id="mobileNumber"
+                    value={mobile_number}
+                    onChange={(e) => setMobileNumber(e.target.value)}
+                    onBlur={() => handleBlur("mobileNumber", mobile_number)}
+                    placeholder="Enter Fundraiser's mobile no."
+                    pattern="[0-9]{10}"
+                    maxLength="10"
+                  />
+                  {mobileNumberError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {mobileNumberError}
+                    </p>
+                  )}
+                </span>
 
-              <div className={styles.rightsectionBtn}>
-                <button
-                  type="reset"
-                  onClick={reset}
-                  className={`${styles.cancelBtn} ${styles.filled}`}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className={styles.cancelBtn}>
-                  Generate
-                </button>
-              </div>
-            </form>
+                <div className={styles.rightsectionBtn}>
+                  <button
+                    type="reset"
+                    onClick={reset}
+                    className={`${styles.cancelBtn} ${styles.filled}`}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className={styles.cancelBtn}>
+                    {loading ? "Generating" : "Generate"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
     </section>
   );
 };

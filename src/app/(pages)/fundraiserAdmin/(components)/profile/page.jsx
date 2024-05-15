@@ -25,7 +25,7 @@ export default function Page() {
   const [dob, setDOB] = useState(null);
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
-  const [imagePreview, setImagePreview] = useState(""); // State to store image preview URL
+  const [imagePreview, setImagePreview] = useState("");
   const fundraiserCtx = useContext(FundraiserContext);
   const [profileImage, setprofileImage] = useState(null);
 
@@ -35,10 +35,8 @@ export default function Page() {
     // cookies.set("token", data || "");
   }, [Cookies]);
   useEffect(() => {
-    console.log("ctx", fundraiserCtx);
     const profile = fundraiserCtx?.profileImage;
     setprofileImage(profile);
-    // setFundraiserData(fundraiserCtx);
   }, [fundraiserCtx]);
 
   const handleUpdate = async (e) => {
@@ -77,9 +75,7 @@ export default function Page() {
         confirmButtonColor: "#000080",
         confirmButtonColor: "#000080",
       });
-      console.log(response);
     } catch (err) {
-      console.log(err.message || "Something went wrong.");
       Swal.fire({
         title: "Error",
         text: "Try Again!!",
@@ -89,8 +85,6 @@ export default function Page() {
     }
   };
   const handleImageUpload = async (e) => {
-    console.log("Event:", e); // Log the entire event object for debugging
-
     if (e.target && e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const formData = new FormData();
@@ -120,7 +114,6 @@ export default function Page() {
 
         const imageUrl = response?.data?.data?.imageUrl;
         setImagePreview(imageUrl);
-        console.log("Image uploaded:", imageUrl);
       } catch (err) {
         Swal.fire({
           title: "Opps",
@@ -129,10 +122,8 @@ export default function Page() {
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });
-        console.log(err.message || "Something went wrong.");
       }
     } else {
-      console.log("No file selected.");
     }
   };
 
@@ -245,10 +236,6 @@ export default function Page() {
                         name="email"
                         disabled
                         value={fundraiserCtx?.email}
-                        // onChange={(e) => setEmail(e.target.value)}
-                        // id="email"
-                        // placeholder="Enter your e-mail"
-                        // required
                       />
                     </span>
                   </div>
@@ -332,7 +319,6 @@ export default function Page() {
                       <br />
                       <input
                         type="date"
-                        // value={fundraiserCtx?.DOB}
                         name="PANnumber"
                         id="DOB"
                         onChange={(e) => setDOB(e.target.value)}
@@ -390,7 +376,7 @@ export default function Page() {
                   accept="image/*"
                   type="file"
                   id="imgInp"
-                  onChange={(e) => handleImageUpload(e)} // Call handleImageUpload with the event object
+                  onChange={(e) => handleImageUpload(e)}
                 />
 
                 <button

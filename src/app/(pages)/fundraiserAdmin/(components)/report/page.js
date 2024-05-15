@@ -36,7 +36,7 @@ export default function Page() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          params: filters, // Pass the filters directly to params
+          params: filters,  
         }
       );
       setData(response?.data?.data);
@@ -71,8 +71,7 @@ export default function Page() {
     fetchData();
   };
 
-  console.log(data);
-
+ 
   const handleDownload = async () => {
     try {
       const requestOptions = {

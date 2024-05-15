@@ -1,17 +1,18 @@
 "use client";
 import Sidebar from "@/component/sidebar";
-// export default GeneratePage;
 import styles from "./adddonation.module.css";
-// import "./styles.css";
 import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import useAuth from "@/context/auth";
 
 export default function page() {
+  const user = useAuth(["ADMIN"]);
   const [token, settoken] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     email: "",
     amount: "",
@@ -55,13 +56,11 @@ export default function page() {
       donor_bankBranch: "",
     });
   };
-  // useEffect(() => {
-  //   const fundraiserctx = useContext(FundraiserContextData);
-  //   const fundraisers = fundraiserctx.fundraisers;
-  // }, []);
+
   useEffect(() => {
     const data = Cookies.get("token");
     settoken(data);
+    setLoading(false);
   }, [Cookies]);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,12 +81,6 @@ export default function page() {
 
   const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
-    // showAlert({
-    //   title: "hey",
-    //   text: "new",
-    //   icon: "success",
-    //   confirmButtonText: "cool",
-    // });
     setLoading(true);
     e.preventDefault();
 
@@ -133,7 +126,6 @@ export default function page() {
       formData["amount"] = Number(formData["amount"]);
       const response = await axios({
         method: "post",
-        //processENV
         url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/addOfflineDonation`,
         headers: config.headers,
         data: formData,
@@ -147,10 +139,8 @@ export default function page() {
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });
-        console.log("success");
         reset();
         setLoading(false);
-        console.log("API response:", response?.data?.data);
       }
       setLoading(false);
       setErrors({});
@@ -167,13 +157,14 @@ export default function page() {
       setLoading(false);
     }
   };
-  return (
+
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <>
       <section className={styles.mainFundraiser}>
         <Sidebar />
-        {loading ? (
-          <Loading />
-        ) : (
+        {!loading && user ? (
           <div className={styles.rightSection}>
             <div className={styles.rightpart}>
               <h1 className={styles.bigText}>Fundraiser Information</h1>
@@ -485,19 +476,12 @@ export default function page() {
                   >
                     {loading ? "Loading..." : "Submit"}
                   </button>
-                  {/* {Object.keys(errors).length > 0 && (
-                  <div className={styles.errorMessages}>
-                    {Object.values(errors).map((error, index) => (
-                      <p key={index} style={{ color: "red" }}>
-                        {error}
-                      </p>
-                    ))}
-                  </div>
-                )} */}
                 </div>
               </form>
             </div>
           </div>
+        ) : (
+          <Loading />
         )}
       </section>
     </>

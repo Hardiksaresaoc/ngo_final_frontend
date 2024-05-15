@@ -27,16 +27,14 @@ export default function FundraiserContextData({ children }) {
           config
         );
         if (response.status == 200) {
-          console.log("ctx", response.data);
-          setFundraiser((oldState) => {
+           setFundraiser((oldState) => {
             return {
               ...oldState,
               ...response.data.data,
             };
           });
         } else {
-          console.log("Request failed with status:", response.status);
-        }
+         }
       } catch (error) {
         console.error("API error:", error);
       }

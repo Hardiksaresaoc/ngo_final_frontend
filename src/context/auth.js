@@ -20,8 +20,7 @@ const useAuth = (allowedRoles) => {
 
     if (!decodedToken || !decodedToken.role) {
       router.replace("/login");
-      console.log("redirecting");
-      return;
+       return;
     }
 
     if (
@@ -34,8 +33,7 @@ const useAuth = (allowedRoles) => {
     }
 
     setUser(decodedToken);
-    console.log("valid");
-  }, []);
+   }, []);
 
   return { user };
 };
