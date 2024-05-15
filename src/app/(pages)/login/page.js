@@ -8,14 +8,14 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
 import Swal from "sweetalert2";
-import Loading from "@/app/loading";
+
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
+  const [rememberMe, setRememberMe] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
 
   const router = useRouter();
@@ -77,7 +77,11 @@ const LoginPage = () => {
           confirmButtonColor: "#000080",
         });
         Cookies.set("token", response.data.data.token);
-        handleLoginSuccess(response.data.data.token);
+        rememberMe
+          ? Cookies.set("refreshToken", response.data.data.refreshToken)
+          : null;
+
+        handleLoginSuccess(response.data.data.token)  ;
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);
@@ -234,6 +238,9 @@ const LoginPage = () => {
                         type="checkbox"
                         className={styles.rememberme}
                         id="rememberme"
+                        onClick={() => {
+                          setRememberMe(true);
+                        }}
                         name="rememberme"
                       />
                       Remember me

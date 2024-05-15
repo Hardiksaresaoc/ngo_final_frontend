@@ -56,7 +56,7 @@ export default function FundraiserPage() {
     <>
       <section className={styles.section}>
         <Sidebar />
-        {user && !loading ? (
+        {user && !loading && allData ? (
           <div className={styles.rightwrapper}>
             <div className={styles.rightmain}>
               <div className={styles.mainbox}>

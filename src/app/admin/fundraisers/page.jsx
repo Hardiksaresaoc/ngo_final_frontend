@@ -103,7 +103,7 @@ export default function FundraiserPage() {
         Swal.fire({
           title: "Oops",
           text: "Something went Wrong!!",
-          icon: "success",
+          icon: "failed",
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });

@@ -43,6 +43,7 @@ export default function Header() {
     setTimeout(() => {
       try {
         Cookies.remove("token");
+        Cookies.remove("refreshToken");
         router.replace("/login");
         Swal.close();
       } catch (error) {}
