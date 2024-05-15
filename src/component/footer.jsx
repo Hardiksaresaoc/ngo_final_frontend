@@ -9,27 +9,42 @@ export default function Footer() {
         <div className={styles.aboutUs}>
           <h3>About Us</h3>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/our-story/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Our Story
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/vision-mission/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Vision & Mission
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/team-2/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Team
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/legal-status/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Legal Status
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/our-faqs/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> OUR FAQs
             </Link>
           </p>
@@ -37,23 +52,35 @@ export default function Footer() {
         <div className={styles.donate}>
           <h3>Donate</h3>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://eazypay.icicibank.com/eazypayLink?P1=bsIifrs+TIpdJsIeVKK9Dw=="
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Online Donation
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/donate-now/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Bank Transfer
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href="https://supportourheroes.in/donate-now/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Write a Cheque /
               Demand Draft
             </Link>
           </p>
           <p className={styles.aboutCompany}>
-            <Link href="#" className={styles.aboutUsLink}>
+            <Link
+              href=" https://supportourheroes.in/tax-exemption-donation-faqs/"
+              className={styles.aboutUsLink}
+            >
               <i className={`fa-regular  fa-circle-dot }`}></i> Donate for Tax
               Benefits
             </Link>
@@ -82,7 +109,7 @@ export default function Footer() {
           (5)(vi) of Income Tax
         </p>
         <div className={styles.socialmedia}>
-          <Link href="#">
+          <Link href="https://www.facebook.com/support.our.heroes.initiative/">
             <Image
               src="/images/facebook().png"
               alt="facebook"
@@ -91,7 +118,7 @@ export default function Footer() {
               className={styles.socialmediaImage}
             />
           </Link>
-          <Link href="#">
+          <Link href="https://twitter.com/heroes_support">
             <Image
               src="/images/twitter().png"
               alt="twitter"
@@ -100,7 +127,7 @@ export default function Footer() {
               className={styles.socialmediaImage}
             />
           </Link>
-          <Link href="#">
+          <Link href="https://www.youtube.com/channel/UC6K5yueYHK1bpvFbTuY5YGQ">
             <Image
               src="/images/youtube().png"
               alt="youtube"
@@ -109,7 +136,7 @@ export default function Footer() {
               className={styles.socialmediaImage}
             />
           </Link>
-          <Link href="#">
+          <Link href="https://www.linkedin.com/in/support-our-heroes-16a526120/">
             <Image
               src="/images/linkedin().png"
               alt="linkedin"

@@ -67,8 +67,7 @@ export default function Page() {
     fetchData();
   };
 
-  console.log(data);
-
+ 
   const handleDownload = async () => {
     try {
       const requestOptions = {

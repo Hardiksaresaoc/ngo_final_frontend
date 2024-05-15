@@ -64,8 +64,7 @@ export default function Update() {
 
         confirmButtonText: "Close",
       });
-      console.log(res?.data?.data);
-    } catch (error) {
+     } catch (error) {
       console.error("Error submitting form:", error);
       Swal.fire({
         title: "Ooops!!",

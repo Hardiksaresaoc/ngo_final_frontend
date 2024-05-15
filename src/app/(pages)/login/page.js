@@ -21,8 +21,7 @@ const LoginPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("login");
-    const token = Cookies.get("token");
+     const token = Cookies.get("token");
     if (token) {
       handleLoginSuccess(token);
       setLoggedin(true);

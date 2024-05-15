@@ -103,7 +103,7 @@ export default function Page() {
         confirmButtonText: "Close",
       });
       const updatedGallery = [...fundraiserCtx.fundraiser_page.gallery];
-      updatedGallery.splice(index, 1); // Remove image at the specified index
+      updatedGallery.splice(index, 1); // Remove image at specified index
       const updatedFundraiserPage = {
         ...fundraiserCtx.fundraiser_page,
         gallery: updatedGallery,
@@ -166,7 +166,8 @@ export default function Page() {
                 ref={fileInputRef}
               />
               <button onClick={() => fileInputRef.current.click()}>
-Upload File              </button>
+                Upload File{" "}
+              </button>
               {previewURL && (
                 <img
                   src={previewURL}

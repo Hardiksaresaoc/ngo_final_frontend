@@ -41,12 +41,10 @@ export default function Header() {
         router.replace("/login");
         Swal.close();
       } catch (error) {
-        console.log(error);
-      }
+       }
     }, 2000);
   };
-  console.log(user);
-  return (
+   return (
     <header className={styles.head}>
       <div className={styles.logo}>
         <Image

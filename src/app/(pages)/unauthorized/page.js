@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
-  const [count, setCount] = useState(10); // Initial countdown value
+  const [count, setCount] = useState(10);
 
   useEffect(() => {
     const countdownInterval = setInterval(() => {
@@ -41,4 +41,3 @@ export default function Page() {
     </div>
   );
 }
-

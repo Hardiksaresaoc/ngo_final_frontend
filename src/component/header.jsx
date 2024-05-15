@@ -55,8 +55,7 @@ export default function Header() {
       setLoading(false);
     }, 2000);
   };
-  console.log(user);
-
+ 
   return loading ? (
     <Loading />
   ) : (
@@ -191,8 +190,7 @@ export default function Header() {
                 onClick={toggle}
                 className={styles.profilebutton}
               >
-                {console.log("profilerequire", fundraiserCtx)}
-                <Image
+                 <Image
                   src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.profileImage}`}
                   width="40"
                   height="40"

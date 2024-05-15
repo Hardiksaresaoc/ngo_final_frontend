@@ -20,8 +20,7 @@ export default function RootLayout({ children }) {
             <Header />
             {/* {children} */}
             {!children ? <Loading /> : children}
-            {/* {console.log(children)} */}
-            <Footer />
+             <Footer />
           </body>
         </FundraiserContextData>
       </html>

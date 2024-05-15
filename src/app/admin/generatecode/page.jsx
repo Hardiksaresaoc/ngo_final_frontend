@@ -17,10 +17,8 @@ const GeneratePage = () => {
   const [firstName, setFirstName] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [mobile_number, setMobileNumber] = useState(""); // Changed from setmobile_number to setMobileNumber
+  const [mobile_number, setMobileNumber] = useState("");
 
-  // State variables for blur and error messages
   const [emailError, setEmailError] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [mobileNumberError, setMobileNumberError] = useState("");
@@ -28,7 +26,6 @@ const GeneratePage = () => {
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
-    // cookies.set("token", data || "", { path: "/" }); // Set the token in cookies
   }, [Cookies]);
 
   const handleSubmit = async (e) => {
@@ -66,12 +63,8 @@ const GeneratePage = () => {
           },
           config
         );
-        console.log(`1`, response);
-        console.log(`2`, response.data);
-        console.log(`3`, response.data.data);
-        console.log(`4`, response.data.statusCode);
+
         if (response.data.statusCode == 201) {
-          console.log("success", config);
           await axios
             .post(
               `${process.env.NEXT_PUBLIC_serverAPI}/admin/createPage`,
@@ -89,6 +82,7 @@ const GeneratePage = () => {
               })
             )
             .finally(reset());
+          setLoading(false);
         }
       } catch (err) {
         if (
@@ -146,7 +140,6 @@ const GeneratePage = () => {
     setEmail("");
     setFirstName("");
     setMobileNumber("");
-    setError(null);
   };
 
   return (
@@ -226,7 +219,7 @@ const GeneratePage = () => {
                   Cancel
                 </button>
                 <button type="submit" className={styles.cancelBtn}>
-                  Generate
+                  {loading ? "Generating" : Generate}
                 </button>
               </div>
             </form>

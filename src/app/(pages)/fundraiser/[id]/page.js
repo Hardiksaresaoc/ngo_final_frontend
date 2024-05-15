@@ -12,25 +12,14 @@ import {
 } from "react-share";
 import { PiHandHeartDuotone } from "react-icons/pi";
 import { BiDonateHeart } from "react-icons/bi";
-import { TiTick } from "react-icons/ti";
 
-import {
-  FaFacebook,
-  FaLinkedin,
-  FaRegCopy,
-  FaTwitter,
-  FaWhatsapp,
-} from "react-icons/fa";
-import Link from "next/link";
+import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { CiShare2 } from "react-icons/ci";
 import "react-circular-progressbar/dist/styles.css";
 import Notfundraiser from "@/component/nofundraiser";
 import Loading from "@/app/loading";
-
-// function capitalizeFirstLetter(string) {
-//   return string.charAt(0).toUpperCase() + string.slice(1);
-// }
+import Link from "next/link";
 
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState([]);
@@ -59,6 +48,8 @@ export default function page({ params }) {
   const closePopup = () => {
     setShowPopup(false);
   };
+
+  //handles copy to clipboard on share button
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -68,6 +59,7 @@ export default function page({ params }) {
       console.error("Error copying to clipboard:", error);
     }
   };
+  //takes data when page load
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,7 +72,6 @@ export default function page({ params }) {
           `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${fundraiserID}`,
           config
         );
-        console.log("NEW", response.data.data);
         if (response.status === 200) {
           setFundraiser(response.data.data);
           setIsfundraiser(true);
@@ -95,6 +86,7 @@ export default function page({ params }) {
 
     fetchData();
   }, []);
+  //converts data into percentage which is displayed and also used in progressbar
   useEffect(() => {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;
@@ -168,9 +160,7 @@ export default function page({ params }) {
 
   return loading ? (
     <Loading />
-  ) : (
-    // : Isfundraiser ? (
-
+  ) : Isfundraiser ? (
     <>
       <main className={styles.mainClass}>
         <div className={styles.imgArea}>
@@ -303,24 +293,6 @@ export default function page({ params }) {
                           </svg>
                         </span>
                       </button>
-                      {/*                       
-                      <div className={styles.clipboard}>
-                        <a
-                          style={{
-                            height: "100%",
-                            width: "100%",
-                            fontSize: "2em",
-                          }}
-                          onClick={(e) => {
-                            e.preventDefault(); // Prevent default button behavior
-                            if (!copied) {
-                              handleCopy();
-                            }
-                          }}
-                        >
-                          {copied ? <TiTick /> : <FaRegCopy />}
-                        </a>
-                      </div> */}
                     </div>
                   </div>
                 )}
@@ -329,7 +301,7 @@ export default function page({ params }) {
                     type="button"
                     className={styles.mainbtn}
                     onClick={() => handleShare(window.location.href)}
-                    style={{ marginBottom: "20px" }} // Adjust margin bottom to create space for the toggle
+                    style={{ marginBottom: "20px" }}
                   >
                     <CiShare2 />
                     Share
@@ -450,5 +422,7 @@ export default function page({ params }) {
         </div>
       </aside>
     </>
+  ) : (
+    <Notfundraiser />
   );
 }

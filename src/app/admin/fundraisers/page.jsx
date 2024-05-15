@@ -46,8 +46,7 @@ export default function FundraiserPage() {
         confirmButtonColor: "#000080",
       });
 
-      console.log("Update successful:", response?.data?.data);
-      setShowPopup(false);
+       setShowPopup(false);
     } catch (error) {
       Swal.fire({
         title: "Opps",
@@ -82,8 +81,7 @@ export default function FundraiserPage() {
       Authorization: `Bearer ${token}`,
     };
     setheader(headers);
-    console.log("f", fundraisers);
-
+ 
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -101,9 +99,7 @@ export default function FundraiserPage() {
         setLoading(false);
         setFundraisers(response.data.data);
 
-        console.log(response);
-        // setFundraisers((e)=>console.log(e[0].status)) // Set the response data to the state
-      } catch (error) {
+       } catch (error) {
         setLoading(false);
         Swal.fire({
           title: "Oops",
@@ -325,8 +321,7 @@ export default function FundraiserPage() {
                                 type="checkbox"
                                 onChange={async () => {
                                   const updatedStatus = !fundraiser.status;
-                                  console.log(updatedStatus);
-                                  setFundraisers((prevFundraisers) =>
+                                   setFundraisers((prevFundraisers) =>
                                     prevFundraisers.map((item) =>
                                       item.id === fundraiser.id
                                         ? { ...item, status: updatedStatus }
@@ -338,8 +333,7 @@ export default function FundraiserPage() {
                                     url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
                                     headers: header,
                                   });
-                                  console.log("new", response.data?.status);
-                                  if (
+                                   if (
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {

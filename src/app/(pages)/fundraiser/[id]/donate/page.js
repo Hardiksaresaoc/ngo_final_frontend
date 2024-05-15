@@ -17,9 +17,8 @@ export default function page({ params }) {
   const [donor_pin, setdonor_pin] = useState("");
 
   const [donor_Comments, setdonor_Comments] = useState("");
-  // const [donor_pin, setdonor_pin] = useState("");
   const [submitted, setsubmitted] = useState(false);
-  const [reference, setReference] = useState({}); // Initialize fundraiser as an empty object
+  const [reference, setReference] = useState({});
   const [errors, setErrors] = useState({});
   const reset = () => {
     setDonationAmount("");
@@ -61,7 +60,6 @@ export default function page({ params }) {
       setErrors(newErrors);
       return;
     }
-    console.log(formData);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -78,10 +76,8 @@ export default function page({ params }) {
       );
 
       setReference(response.data.data);
-      console.log(response.data.data);
       setsubmitted(true);
     } catch (error) {
-      console.log(error.message);
       Swal.fire({
         title: "error while adding",
         text: "try again",

@@ -1,9 +1,7 @@
 "use client";
 import Sidebar from "@/component/sidebar";
-// export default GeneratePage;
-import styles from "./adddonation.module.css";
-// import "./styles.css";
-import { useContext, useEffect, useState } from "react";
+ import styles from "./adddonation.module.css";
+ import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -55,10 +53,7 @@ export default function page() {
       donor_bankBranch: "",
     });
   };
-  // useEffect(() => {
-  //   const fundraiserctx = useContext(FundraiserContextData);
-  //   const fundraisers = fundraiserctx.fundraisers;
-  // }, []);
+   
   useEffect(() => {
     const data = Cookies.get("token");
     settoken(data);
@@ -82,12 +77,7 @@ export default function page() {
 
   const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
-    // showAlert({
-    //   title: "hey",
-    //   text: "new",
-    //   icon: "success",
-    //   confirmButtonText: "cool",
-    // });
+     
     setLoading(true);
     e.preventDefault();
 
@@ -133,7 +123,6 @@ export default function page() {
       formData["amount"] = Number(formData["amount"]);
       const response = await axios({
         method: "post",
-        //processENV
         url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/addOfflineDonation`,
         headers: config.headers,
         data: formData,
@@ -147,11 +136,9 @@ export default function page() {
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });
-        console.log("success");
-        reset();
+         reset();
         setLoading(false);
-        console.log("API response:", response?.data?.data);
-      }
+       }
       setLoading(false);
       setErrors({});
     } catch (error) {
