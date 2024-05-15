@@ -120,82 +120,86 @@ export default function Page() {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  return (
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <>
       <TopHeader link={fundraiserCtx.fundraiser_page?.id} />
       <aside className={styles.aside}>
         <AsideBar />
-
-        <section className={styles.photowrapper}>
-          <div className={styles.imgwrapper}>
-            <div className={styles.imgcount}>
-              <p>
-                {" "}
-                Photos ({fundraiserCtx?.fundraiser_page?.gallery?.length || 0})
-              </p>
-            </div>
-            <div className={styles.row}>
-              {fundraiserCtx?.fundraiser_page?.gallery?.map((image, index) => (
-                <div key={index} className={styles.galleryImage}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
-                    alt={`Image ${index}`}
-                    className={styles.galleryImg}
-                    height="230"
-                    width="300"
-                  />
-                  <a
-                    type="button"
-                    onClick={() => handleDeleteImage(index, image)}
-                    className={styles.delete}
-                  >
-                    <FaRegTrashAlt />
-                  </a>
-                </div>
-              ))}
-            </div>
-            <div className={styles.upload}>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                style={{ display: "none" }}
-                ref={fileInputRef}
-              />
-              <button onClick={() => fileInputRef.current.click()}>
-                Upload File{" "}
-              </button>
-              {previewURL && (
-                <img
-                  src={previewURL}
-                  alt="Preview"
-                  style={{ maxWidth: "200px" }}
+        {!loading ? (
+          <section className={styles.photowrapper}>
+            <div className={styles.imgwrapper}>
+              <div className={styles.imgcount}>
+                <p>
+                  {" "}
+                  Photos ({fundraiserCtx?.fundraiser_page?.gallery?.length || 0}
+                  )
+                </p>
+              </div>
+              <div className={styles.row}>
+                {fundraiserCtx?.fundraiser_page?.gallery?.map(
+                  (image, index) => (
+                    <div key={index} className={styles.galleryImage}>
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                        alt={`Image ${index}`}
+                        className={styles.galleryImg}
+                        height="230"
+                        width="300"
+                      />
+                      <a
+                        type="button"
+                        onClick={() => handleDeleteImage(index, image)}
+                        className={styles.delete}
+                      >
+                        <FaRegTrashAlt />
+                      </a>
+                    </div>
+                  )
+                )}
+              </div>
+              <div className={styles.upload}>
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
                 />
-              )}
-              {selectedFile && (
-                <button
-                  type="button"
-                  onClick={handleFileUpload}
-                  disabled={isSubmitDisabled}
-                  style={
-                    isSubmitDisabled
-                      ? {
-                          backgroundColor: "grey",
-                          color: "white",
-                          borderColor: "white",
-                        }
-                      : {}
-                  }
-                >
-                  Upload File
+                <button onClick={() => fileInputRef.current.click()}>
+                  Upload File{" "}
                 </button>
-              )}
+                {previewURL && (
+                  <img
+                    src={previewURL}
+                    alt="Preview"
+                    style={{ maxWidth: "200px" }}
+                  />
+                )}
+                {selectedFile && (
+                  <button
+                    type="button"
+                    onClick={handleFileUpload}
+                    disabled={isSubmitDisabled}
+                    style={
+                      isSubmitDisabled
+                        ? {
+                            backgroundColor: "grey",
+                            color: "white",
+                            borderColor: "white",
+                          }
+                        : {}
+                    }
+                  >
+                    Upload File
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <Loading />
+        )}
       </aside>
     </>
   );

@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 const GeneratePage = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const GeneratePage = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [token, setToken] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [mobile_number, setMobileNumber] = useState("");
 
   const [emailError, setEmailError] = useState("");
@@ -26,6 +27,7 @@ const GeneratePage = () => {
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
+    setLoading(false);
   }, [Cookies]);
 
   const handleSubmit = async (e) => {
@@ -142,90 +144,96 @@ const GeneratePage = () => {
     setMobileNumber("");
   };
 
-  return (
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <section className={styles.section}>
-      <Sidebar />
-      <div className={styles.rightSection}>
-        <div className={styles.rightsubSection}>
-          <h1>Generate Credentials</h1>
-          <div className={styles.rightsectionForm}>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <span>
-                <span>E-mail </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => handleBlur("email", email)}
-                  placeholder="Enter Fundraiser's e-mail"
-                />
-                {emailError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {emailError}
-                  </p>
-                )}
-              </span>
-              <span>
-                <span>Name </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="text"
-                  value={firstName}
-                  name="fullName"
-                  id="fullName"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  onBlur={() => handleBlur("firstName", firstName)}
-                  placeholder="Enter Fundraiser's full name"
-                />
-                {firstNameError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {firstNameError}
-                  </p>
-                )}
-              </span>
-              <span>
-                <span>Mobile Number </span>
-                <span className={styles.compulsory}>*</span>
-                <br />
-                <input
-                  type="text"
-                  name="mobileNumber"
-                  id="mobileNumber"
-                  value={mobile_number}
-                  onChange={(e) => setMobileNumber(e.target.value)}
-                  onBlur={() => handleBlur("mobileNumber", mobile_number)}
-                  placeholder="Enter Fundraiser's mobile no."
-                  pattern="[0-9]{10}"
-                  maxLength="10"
-                />
-                {mobileNumberError && (
-                  <p style={{ color: "red" }} className={styles.error}>
-                    {mobileNumberError}
-                  </p>
-                )}
-              </span>
+      <Sidebar />{" "}
+      {user && !loading ? (
+        <div className={styles.rightSection}>
+          <div className={styles.rightsubSection}>
+            <h1>Generate Credentials</h1>
+            <div className={styles.rightsectionForm}>
+              <form className={styles.form} onSubmit={handleSubmit}>
+                <span>
+                  <span>E-mail </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => handleBlur("email", email)}
+                    placeholder="Enter Fundraiser's e-mail"
+                  />
+                  {emailError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {emailError}
+                    </p>
+                  )}
+                </span>
+                <span>
+                  <span>Name </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="text"
+                    value={firstName}
+                    name="fullName"
+                    id="fullName"
+                    onChange={(e) => setFirstName(e.target.value)}
+                    onBlur={() => handleBlur("firstName", firstName)}
+                    placeholder="Enter Fundraiser's full name"
+                  />
+                  {firstNameError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {firstNameError}
+                    </p>
+                  )}
+                </span>
+                <span>
+                  <span>Mobile Number </span>
+                  <span className={styles.compulsory}>*</span>
+                  <br />
+                  <input
+                    type="text"
+                    name="mobileNumber"
+                    id="mobileNumber"
+                    value={mobile_number}
+                    onChange={(e) => setMobileNumber(e.target.value)}
+                    onBlur={() => handleBlur("mobileNumber", mobile_number)}
+                    placeholder="Enter Fundraiser's mobile no."
+                    pattern="[0-9]{10}"
+                    maxLength="10"
+                  />
+                  {mobileNumberError && (
+                    <p style={{ color: "red" }} className={styles.error}>
+                      {mobileNumberError}
+                    </p>
+                  )}
+                </span>
 
-              <div className={styles.rightsectionBtn}>
-                <button
-                  type="reset"
-                  onClick={reset}
-                  className={`${styles.cancelBtn} ${styles.filled}`}
-                >
-                  Cancel
-                </button>
-                <button type="submit" className={styles.cancelBtn}>
-                  {loading ? "Generating" : Generate}
-                </button>
-              </div>
-            </form>
+                <div className={styles.rightsectionBtn}>
+                  <button
+                    type="reset"
+                    onClick={reset}
+                    className={`${styles.cancelBtn} ${styles.filled}`}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className={styles.cancelBtn}>
+                    {loading ? "Generating" : "Generate"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Loading />
+      )}
     </section>
   );
 };

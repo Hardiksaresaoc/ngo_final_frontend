@@ -7,10 +7,10 @@
 
   box-sizing: border-box;
 }
-/* body {
-  height: 100vh;
-  width: 100%;
-} */
+
+body {
+  min-height: 100vh;
+}
 .dots-container {
   display: flex;
   align-items: center;

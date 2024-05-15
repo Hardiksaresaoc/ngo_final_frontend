@@ -46,7 +46,7 @@ export default function FundraiserPage() {
         confirmButtonColor: "#000080",
       });
 
-       setShowPopup(false);
+      setShowPopup(false);
     } catch (error) {
       Swal.fire({
         title: "Opps",
@@ -81,7 +81,7 @@ export default function FundraiserPage() {
       Authorization: `Bearer ${token}`,
     };
     setheader(headers);
- 
+
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -98,8 +98,7 @@ export default function FundraiserPage() {
         );
         setLoading(false);
         setFundraisers(response.data.data);
-
-       } catch (error) {
+      } catch (error) {
         setLoading(false);
         Swal.fire({
           title: "Oops",
@@ -115,7 +114,9 @@ export default function FundraiserPage() {
     fetchData();
   }, []);
 
-  return (
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <>
       {showPopup && (
         <div className={`${styles.popup} ${styles.popupOpen}`}>
@@ -268,14 +269,14 @@ export default function FundraiserPage() {
           </div>
         </div>
       )}
-      {user ? (
-        <>
-          <section
-            className={`${
-              showPopup == true ? styles.stopScroll : styles.section
-            }`}
-          >
-            <Sidebar />
+      <>
+        <section
+          className={`${
+            showPopup == true ? styles.stopScroll : styles.section
+          }`}
+        >
+          <Sidebar />{" "}
+          {user && !loading ? (
             <div className={styles.rightSection}>
               <div className={styles.rightsubSection}>
                 <h1>Fundraiser</h1>
@@ -321,7 +322,7 @@ export default function FundraiserPage() {
                                 type="checkbox"
                                 onChange={async () => {
                                   const updatedStatus = !fundraiser.status;
-                                   setFundraisers((prevFundraisers) =>
+                                  setFundraisers((prevFundraisers) =>
                                     prevFundraisers.map((item) =>
                                       item.id === fundraiser.id
                                         ? { ...item, status: updatedStatus }
@@ -333,7 +334,7 @@ export default function FundraiserPage() {
                                     url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,
                                     headers: header,
                                   });
-                                   if (
+                                  if (
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {
@@ -380,11 +381,11 @@ export default function FundraiserPage() {
                 </table>
               </div>
             </div>
-          </section>
-        </>
-      ) : (
-        <Loading />
-      )}
+          ) : (
+            <Loading />
+          )}
+        </section>
+      </>
     </>
   );
 }

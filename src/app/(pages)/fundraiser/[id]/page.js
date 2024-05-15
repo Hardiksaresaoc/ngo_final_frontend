@@ -40,7 +40,7 @@ export default function page({ params }) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = (url) => {
-    const message = ` ${fundraiser.resolution} ${url}`;
+    const message = ` ${fundraiser?.fundraiserPage?.resolution} ${url}`;
     setShareURL(message);
     setShowPopup(true);
   };

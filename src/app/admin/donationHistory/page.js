@@ -5,8 +5,12 @@ import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import styles from "./donationHistory.module.css";
 import Sidebar from "@/component/sidebar";
+import useAuth from "@/context/auth";
+import Loading from "@/app/loading";
 export default function Page() {
+  const user = useAuth(["ADMIN"]);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState();
   const [filters, setFilters] = useState({
     from_date: null,
@@ -22,7 +26,7 @@ export default function Page() {
   }, [Cookies]);
 
   useEffect(() => {
-    fetchData();
+    token && fetchData();
   }, [token]);
   const fetchData = async () => {
     try {
@@ -36,7 +40,9 @@ export default function Page() {
         }
       );
       setData(response?.data?.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching data:", error);
     }
   };
@@ -67,7 +73,6 @@ export default function Page() {
     fetchData();
   };
 
- 
   const handleDownload = async () => {
     try {
       const requestOptions = {
@@ -112,132 +117,139 @@ export default function Page() {
       });
     }
   };
-  return (
+
+  return !user && loading ? (
+    <Loading />
+  ) : (
     <>
       <section className={styles.section}>
         <Sidebar />
-        <div className={styles.rightsection}>
-          <h1>Donation Report</h1>
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.upperForm}>
-              <span>
-                <span>From Date</span>
-                <br />
-                <input
-                  type="date"
-                  name="from_date"
-                  id="from_date"
-                  value={filters.from_date}
-                  onChange={handleInputChange}
-                />
-              </span>
-              <span>
-                <span>To Date</span>
-                <br />
-                <input
-                  type="date"
-                  name="to_date"
-                  id="to_date"
-                  value={filters.to_date}
-                  onChange={handleInputChange}
-                />
-              </span>
-              <span>
-                <span>Donation Id</span>
-                <br />
-                <input
-                  type="text"
-                  name="donation_id"
-                  id="donation_id"
-                  value={filters.donation_id}
-                  onChange={handleInputChange}
-                />
-              </span>
-              <span>
-                <label htmlFor="payment_option">Payment Options</label>
-                <br />
-                <input
-                  list="payment_optionList"
-                  name="payment_option"
-                  id="payment_option"
-                  value={filters.payment_option}
-                  onChange={handleInputChange}
-                />
-                <datalist id="payment_optionList">
-                  <option value="Online" />
-                  <option value="Offline" />
-                </datalist>
-              </span>
-            </div>
-            <div className={styles.lowerForm}>
-              <p>
-                <label htmlFor="payment_status">Payment Status</label>
-                <br />
-                <input
-                  list="payment_statusList"
-                  name="payment_status"
-                  id="payment_status"
-                  value={filters.payment_status}
-                  onChange={handleInputChange}
-                />
-                <datalist id="payment_statusList">
-                  <option value="Success" />
-                  <option value="Failed" />
-                  <option value="Pending" />
-                </datalist>
-              </p>
+        {user && !loading ? (
+          <div className={styles.rightsection}>
+            <h1>Donation Report</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.upperForm}>
+                <span>
+                  <span>From Date</span>
+                  <br />
+                  <input
+                    type="date"
+                    name="from_date"
+                    id="from_date"
+                    value={filters.from_date}
+                    onChange={handleInputChange}
+                  />
+                </span>
+                <span>
+                  <span>To Date</span>
+                  <br />
+                  <input
+                    type="date"
+                    name="to_date"
+                    id="to_date"
+                    value={filters.to_date}
+                    onChange={handleInputChange}
+                  />
+                </span>
+                <span>
+                  <span>Donation Id</span>
+                  <br />
+                  <input
+                    type="text"
+                    name="donation_id"
+                    id="donation_id"
+                    value={filters.donation_id}
+                    onChange={handleInputChange}
+                  />
+                </span>
+                <span>
+                  <label htmlFor="payment_option">Payment Options</label>
+                  <br />
+                  <input
+                    list="payment_optionList"
+                    name="payment_option"
+                    id="payment_option"
+                    value={filters.payment_option}
+                    onChange={handleInputChange}
+                  />
+                  <datalist id="payment_optionList">
+                    <option value="Online" />
+                    <option value="Offline" />
+                  </datalist>
+                </span>
+              </div>
+              <div className={styles.lowerForm}>
+                <p>
+                  <label htmlFor="payment_status">Payment Status</label>
+                  <br />
+                  <input
+                    list="payment_statusList"
+                    name="payment_status"
+                    id="payment_status"
+                    value={filters.payment_status}
+                    onChange={handleInputChange}
+                  />
+                  <datalist id="payment_statusList">
+                    <option value="Success" />
+                    <option value="Failed" />
+                    <option value="Pending" />
+                  </datalist>
+                </p>
 
-              <button type="submit" className={styles.formsearchButton}>
-                <i className={`fa-solid fa-magnifying-glass`}></i>
-                Search
-              </button>
-            </div>
-          </form>
+                <button type="submit" className={styles.formsearchButton}>
+                  <i className={`fa-solid fa-magnifying-glass`}></i>
+                  Search
+                </button>
+              </div>
+            </form>
 
-          <button
-            type="button"
-            onClick={handleDownload}
-            className={styles.downloadExcel}
-          >
-            <i className={`fa-solid fa-file-excel`}></i> Download Excel
-          </button>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Donation Id</th>
-                <th>Donation Date</th>
-                <th>Donor Details</th>
-                <th>Fundraiser Details</th>
-                <th>Amount</th>
-                <th>Payment Option</th>
-                <th>Payment Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data?.map((item) => (
-                <tr key={item.donation_id_frontend}>
-                  <td>{item.donation_id_frontend}</td>
-                  <td>{formatDate(item.donation_date)} </td>
-                  <td>
-                    {item.donor_name}
-                    <br />
-                    {item.donor_email}
-                    <br />
-                    {item.donor_phone}
-                  </td>
-                  <td>
-                    {item.fundraiser?.firstName}
-                    <br />
-                    {item.fundraiser?.email}
-                  </td>
-                  <td>{item.amount}</td>
-                  <td>{item.payment_type}</td>
-                  <td>{item.payment_status}</td>
+            <button
+              type="button"
+              onClick={handleDownload}
+              className={styles.downloadExcel}
+            >
+              <i className={`fa-solid fa-file-excel`}></i> Download Excel
+            </button>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Donation Id</th>
+                  <th>Donation Date</th>
+                  <th>Donor Details</th>
+                  <th>Fundraiser Details</th>
+                  <th>Amount</th>
+                  <th>Payment Option</th>
+                  <th>Payment Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {data?.map((item) => (
+                  <tr key={item.donation_id_frontend}>
+                    <td>{item.donation_id_frontend}</td>
+                    <td>{formatDate(item.donation_date)} </td>
+                    <td>
+                      {item.donor_name}
+                      <br />
+                      {item.donor_email}
+                      <br />
+                      {item.donor_phone}
+                    </td>
+                    <td>
+                      {item.fundraiser?.firstName}
+                      <br />
+                      {item.fundraiser?.email}
+                    </td>
+                    <td>{item.amount}</td>
+                    <td>{item.payment_type}</td>
+                    <td>{item.payment_status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <Loading />
+        )}
       </section>
     </>
   );

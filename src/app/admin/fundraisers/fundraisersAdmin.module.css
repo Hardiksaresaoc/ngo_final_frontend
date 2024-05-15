@@ -1,6 +1,5 @@
 .popup {
   width: 100%;
-  /* position: absolute; */
   overflow: hidden;
   background-color: rgb(128, 128, 128, 0.276);
   z-index: 999;
@@ -28,7 +27,7 @@
 /* Input and textarea styles */
 .popupfundraiserDetail input,
 .popupfundraiserDetail textarea {
-  width: calc(100% - 24px); /* Adjusted width to accommodate padding */
+  width: calc(100% - 24px);
   padding: 8px 12px;
   border-radius: 8px;
   margin-top: 6px;
@@ -65,10 +64,7 @@
   height: 80px;
   border-radius: 8px;
 }
-/* 
-.popup-open {
-  overflow: hidden;
-} */
+
 .section {
   width: 100%;
   display: flex;

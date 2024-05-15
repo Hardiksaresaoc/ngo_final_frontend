@@ -19,8 +19,11 @@ export default function RootLayout({ children }) {
           <body className={inter.className}>
             <Header />
             {/* {children} */}
-            {!children ? <Loading /> : children}
-             <Footer />
+            <div style={{minHeight:"70vh"}}>
+              {!children ? <Loading /> : children}
+              {/* {console.log(children)} */}
+            </div>
+            <Footer />
           </body>
         </FundraiserContextData>
       </html>

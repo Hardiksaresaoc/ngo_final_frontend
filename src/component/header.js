@@ -23,7 +23,7 @@ export default function Header() {
   const toggle = () => {
     setisopen(!isopen);
   };
-
+  console.log(fundraiserCtx);
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -33,29 +33,22 @@ export default function Header() {
       setUser(null);
     }
   }, [Cookies.get("token")]);
-  const handleLogout = () => {
-    setLoading(true);
-
+  const handleLogout = (e) => {
     Swal.fire({
       title: "Logging you Out",
       text: "Please Wait",
       icon: "info",
       showConfirmButton: false,
     });
-
     setTimeout(() => {
       try {
         Cookies.remove("token");
         router.replace("/login");
-      } catch (error) {
-        console.error("Error logging out:", error);
-      }
-
-      Swal.close();
-      setLoading(false);
+        Swal.close();
+      } catch (error) {}
     }, 2000);
   };
- 
+
   return loading ? (
     <Loading />
   ) : (
@@ -190,7 +183,7 @@ export default function Header() {
                 onClick={toggle}
                 className={styles.profilebutton}
               >
-                 <Image
+                <Image
                   src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.profileImage}`}
                   width="40"
                   height="40"
@@ -213,7 +206,7 @@ export default function Header() {
                     <ul className={`${styles["dropdown-options"]}`}>
                       <li data-value="option1">
                         <Link
-                          href="/fundraiserAdmin/dashboard"
+                          href="/fundraiserAdmin"
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           Dashboard
