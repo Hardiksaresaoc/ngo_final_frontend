@@ -76,12 +76,15 @@ const LoginPage = () => {
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });
-        Cookies.set("token", response.data.data.token);
+        const expiryDate = new Date();
+        expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
+        console.log(expiryDate);
+        Cookies.set("token", response.data.data.token, { expires: expiryDate });
         rememberMe
           ? Cookies.set("refreshToken", response.data.data.refreshToken)
           : null;
 
-        handleLoginSuccess(response.data.data.token)  ;
+        handleLoginSuccess(response.data.data.token);
       }
     } catch (error) {
       console.error("An error occurred while logging in:", error);
