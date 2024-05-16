@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const useAuth = (allowedRoles) => {
   const router = useRouter();
@@ -20,7 +21,6 @@ const useAuth = (allowedRoles) => {
 
     if (!decodedToken || !decodedToken.role) {
       router.replace("/login");
-      console.log("redirecting");
       return;
     }
 
@@ -72,11 +72,24 @@ const useAuth = (allowedRoles) => {
             `${process.env.NEXT_PUBLIC_serverAPI}/auth/refreshtoken`,
             config
           );
-          console.log("Response data:", response.data);
-          Cookies.set("token", response.data.data.token);
+          const expiryDate = new Date();
+          expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
+          Cookies.set("token", response.data.data.token, {
+            expires: expiryDate,
+          });
         }
       } catch (error) {
-        console.log("Error:", error);
+        Swal.fire({
+          title: "Login Required",
+          text: "Please Login",
+          icon: "error",
+          confirmButtonColor: "#000080",
+          confirmButtonText: "Close",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push("/login");
+          }
+        });
       }
     };
 

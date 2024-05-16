@@ -78,7 +78,6 @@ const LoginPage = () => {
         });
         const expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
-        console.log(expiryDate);
         Cookies.set("token", response.data.data.token, { expires: expiryDate });
         rememberMe
           ? Cookies.set("refreshToken", response.data.data.refreshToken)
