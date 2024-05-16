@@ -38,13 +38,13 @@ export default function Header() {
     setTimeout(() => {
       try {
         Cookies.remove("token");
+        Cookies.remove("refreshToken");
         router.replace("/login");
         Swal.close();
-      } catch (error) {
-       }
+      } catch (error) {}
     }, 2000);
   };
-   return (
+  return (
     <header className={styles.head}>
       <div className={styles.logo}>
         <Image

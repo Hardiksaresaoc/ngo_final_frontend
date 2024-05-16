@@ -18,10 +18,8 @@ export default function RootLayout({ children }) {
         <FundraiserContextData>
           <body className={inter.className}>
             <Header />
-            {/* {children} */}
             <div style={{minHeight:"70vh"}}>
               {!children ? <Loading /> : children}
-              {/* {console.log(children)} */}
             </div>
             <Footer />
           </body>
