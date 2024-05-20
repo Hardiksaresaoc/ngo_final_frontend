@@ -1,17 +1,16 @@
 "use client";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@nextui-org/react";
-import { usePathname } from "next/navigation";
-import styles from "./header.module.css"; // Assuming this imports your custom styles
-import { useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
+import styles from "./header.module.css"; // Assuming this imports your custom styles
 
 import Loading from "@/app/loading";
-import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 export default function Header() {
   const [user, setUser] = useState(null);

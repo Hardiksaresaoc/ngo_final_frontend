@@ -1,14 +1,15 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import Loading from "@/app/loading";
+import { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
+import useAuth from "@/context/auth";
+import { FundraiserContext } from "@/context/FundraiserContext";
 import axios from "axios";
 import Cookies from "js-cookie";
-import useAuth from "@/context/auth";
-import styles from "./profile.module.css";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { FundraiserContext } from "@/context/FundraiserContext";
-import Loading from "@/app/loading";
+import styles from "./profile.module.css";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -167,6 +168,7 @@ export default function Page() {
 
   return user ? (
     <>
+      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
       <section className={styles.mainSection}>
         <div className={styles.leftSection}>
           <a

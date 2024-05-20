@@ -6,6 +6,7 @@ import useAuth from "@/context/auth";
 import { useContext } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Loading from "@/app/loading";
+import Image from "next/image";
 
 export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
@@ -25,19 +26,25 @@ export default function Dashboard() {
               <div className={styles.donors}>
                 <div className={styles.totalRaise}>
                   <p>
-                    <i className={` fa-solid fa-coins`}></i>
+                    <img src="/images/Frame 269.png"></img>
                     Total Amount Raised
                   </p>
-                  <p className={styles.amtMoney}>
+                  <p
+                    className={styles.amtMoney}
+                    style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
+                  >
                     &#8377; {fundraiserCtx.total_amount_raised}
                   </p>
                 </div>
                 <div className={styles.totalDonors}>
                   <p>
-                    <i className={`fa-solid fa-hand-holding-heart`}></i>
+                    <img src="/images/Frame 268.png"></img>
                     No. of Donors
                   </p>
-                  <p className={`${styles["no-donor"]}`}>
+                  <p
+                    className={`${styles["no-donor"]}`}
+                    style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
+                  >
                     {fundraiserCtx.total_donations}
                   </p>
                 </div>

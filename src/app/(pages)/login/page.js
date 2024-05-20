@@ -80,7 +80,9 @@ const LoginPage = () => {
         expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
         Cookies.set("token", response.data.data.token, { expires: expiryDate });
         rememberMe
-          ? Cookies.set("refreshToken", response.data.data.refreshToken)
+          ? Cookies.set("refreshToken", response.data.data.refreshToken, {
+              expires: 7,
+            })
           : null;
 
         handleLoginSuccess(response.data.data.token);

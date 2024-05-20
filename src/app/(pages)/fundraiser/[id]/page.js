@@ -1,25 +1,25 @@
 "use client";
 
 import axios from "axios";
-import styles from "./fundraiser.module.css";
-import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { BiDonateHeart } from "react-icons/bi";
+import { PiHandHeartDuotone } from "react-icons/pi";
 import {
   FacebookShareButton,
   LinkedinShareButton,
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
-import { PiHandHeartDuotone } from "react-icons/pi";
-import { BiDonateHeart } from "react-icons/bi";
+import styles from "./fundraiser.module.css";
 
+import Loading from "@/app/loading";
+import Notfundraiser from "@/component/nofundraiser";
+import Link from "next/link";
+import "react-circular-progressbar/dist/styles.css";
+import { CiShare2 } from "react-icons/ci";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { CiShare2 } from "react-icons/ci";
-import "react-circular-progressbar/dist/styles.css";
-import Notfundraiser from "@/component/nofundraiser";
-import Loading from "@/app/loading";
-import Link from "next/link";
 
 export default function page({ params }) {
   const [fundraiser, setFundraiser] = useState([]);
