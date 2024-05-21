@@ -36,7 +36,7 @@ export default function Page() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          params: filters,  
+          params: filters,
         }
       );
       setData(response?.data?.data);
@@ -71,7 +71,6 @@ export default function Page() {
     fetchData();
   };
 
- 
   const handleDownload = async () => {
     try {
       const requestOptions = {
@@ -105,7 +104,7 @@ export default function Page() {
   };
   return (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
+      <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
       <aside className={styles.aside}>
         <AsideBar />
 
@@ -113,7 +112,7 @@ export default function Page() {
           <h1>Donation Report</h1>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.upperForm}>
-              <span>
+              <span className={styles.fromDate}>
                 <span>From Date</span>
                 <br />
                 <input
@@ -124,7 +123,7 @@ export default function Page() {
                   onChange={handleInputChange}
                 />
               </span>
-              <span>
+              <span className={styles.toDate}>
                 <span>To Date</span>
                 <br />
                 <input
@@ -147,37 +146,37 @@ export default function Page() {
                 />
               </span>
               <span>
-                <label htmlFor="payment_option">Payment Options</label>
+                <label htmlFor="payment_option">Payment Option</label>
                 <br />
-                <input
-                  list="payment_optionList"
-                  name="payment_option"
+                <select
                   id="payment_option"
-                  value={filters.payment_option}
+                  name="payment_option"
                   onChange={handleInputChange}
-                />
-                <datalist id="payment_optionList">
-                  <option value="Online" />
-                  <option value="Offline" />
-                </datalist>
+                >
+                  <option value="" hidden>
+                    Select Method
+                  </option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                </select>
               </span>
             </div>
             <div className={styles.lowerForm}>
               <p>
                 <label htmlFor="payment_status">Payment Status</label>
                 <br />
-                <input
-                  list="payment_statusList"
-                  name="payment_status"
+                <select
                   id="payment_status"
-                  value={filters.payment_status}
+                  name="payment_status"
                   onChange={handleInputChange}
-                />
-                <datalist id="payment_statusList">
-                  <option value="Success" />
-                  <option value="Failed" />
-                  <option value="Pending" />
-                </datalist>
+                >
+                  <option value="" hidden>
+                    Select Status
+                  </option>
+                  <option value="success">Success</option>
+                  <option value="failed">Failed</option>
+                  <option value="pending">Pending</option>
+                </select>
               </p>
 
               <button type="submit" className={styles.formsearchButton}>

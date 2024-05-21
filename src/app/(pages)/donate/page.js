@@ -1,10 +1,9 @@
 "use client";
+import MakePaymentComponent from "@/component/makePaymentComponent";
 import axios from "axios";
 import { useState } from "react";
-import MakePaymentComponent from "@/component/makePaymentComponent";
-import styles from "./donate.module.css";
-import showAlert from "@/component/alert";
 import Swal from "sweetalert2";
+import styles from "../fundraiser/[id]/donate/donate.module.css";
 export default function page({ params }) {
   const [amount, setDonationAmount] = useState();
   const [donor_phone, setPhoneNumber] = useState();
@@ -70,7 +69,7 @@ export default function page({ params }) {
       formData["amount"] = Number(formData["amount"]);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/donate/${params.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/donate`,
         formData,
         config
       );

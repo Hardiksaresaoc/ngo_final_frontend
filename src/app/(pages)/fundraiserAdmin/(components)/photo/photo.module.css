@@ -77,14 +77,14 @@
 }
 
 .photowrapper {
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
   margin-right: 1.5rem;
 }
 
 .photowrapper .row {
   overflow: hidden;
   display: grid;
-  margin-left: 1.5em;
+  margin-left: 0.6em;
   grid-template-rows: 230px 230px 230px;
   grid-row-gap: 25px;
   row-gap: 25px;
@@ -105,9 +105,24 @@
 }
 
 .upload {
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3em;
+}
+
+.uploadAndText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.previewPhoto {
+  margin-right: 14px;
+  font-weight: 600;
+  font-size: 1em;
+  width: 11.1em;
+  height: 2.75em;
+}
+
+.previewPhoto span {
+  margin-left: 0.8em;
 }

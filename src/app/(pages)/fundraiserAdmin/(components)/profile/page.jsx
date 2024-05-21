@@ -23,6 +23,7 @@ export default function Page() {
   const [pincode, setPincode] = useState(null);
   const [token, setToken] = useState("");
   const [number, setNumber] = useState("");
+  const [image, setImage] = useState();
   const [dob, setDOB] = useState(null);
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
@@ -36,9 +37,9 @@ export default function Page() {
     // cookies.set("token", data || "");
   }, [Cookies]);
   useEffect(() => {
-    const profile = fundraiserCtx?.profileImage;
+    const profile = fundraiserCtx.fundraiser?.profileImage;
     setprofileImage(profile);
-  }, [fundraiserCtx]);
+  }, [fundraiserCtx.fundraiser]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -79,7 +80,7 @@ export default function Page() {
     } catch (err) {
       Swal.fire({
         title: "Error",
-        text: "Try Again!!",
+        text: `${err.response.data.message}`,
         icon: "error",
         confirmButtonText: "Close",
       });
@@ -90,7 +91,14 @@ export default function Page() {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
+      setImage(formData);
+      setImagePreview(file);
+      setprofileImage(image);
+    }
+  };
 
+  const handleSubmitImageUpload = async () => {
+    if (image) {
       try {
         const config = {
           headers: {
@@ -101,7 +109,7 @@ export default function Page() {
 
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/upload`,
-          formData,
+          image,
           config
         );
         Swal.fire({
@@ -114,17 +122,17 @@ export default function Page() {
         });
 
         const imageUrl = response?.data?.data?.imageUrl;
-        setImagePreview(imageUrl);
+        fundraiserCtx.fetchData();
+        window.location.reload();
       } catch (err) {
         Swal.fire({
           title: "Opps",
-          text: "something went wrong!!",
+          text: `${err.response.data.message}`,
           icon: "error",
           confirmButtonText: "Close",
           confirmButtonColor: "#000080",
         });
       }
-    } else {
     }
   };
 
@@ -168,7 +176,7 @@ export default function Page() {
 
   return user ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
+      <TopHeader link={`${fundraiserCtx.fundraiser?.fundraiser_page?.id}`} />
       <section className={styles.mainSection}>
         <div className={styles.leftSection}>
           <a
@@ -237,7 +245,7 @@ export default function Page() {
                         type="email"
                         name="email"
                         disabled
-                        value={fundraiserCtx?.email}
+                        value={fundraiserCtx?.fundraiser?.email}
                       />
                     </span>
                   </div>
@@ -306,7 +314,7 @@ export default function Page() {
                         type="number"
                         name="mobileNumber"
                         id="mobileNumber"
-                        value={fundraiserCtx?.mobile_number}
+                        value={fundraiserCtx?.fundraiser?.mobile_number}
                         placeholder="Enter your mobile no."
                         maxLength="10"
                         onChange={(e) => setNumber(e.target.value)}
@@ -366,11 +374,12 @@ export default function Page() {
                   src={
                     profileImage
                       ? `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
-                      : "/images/profile.jpeg"
+                      : URL.createObjectURL(imagePreview)
                   }
                   alt="your image"
                   width={225}
                   height={225}
+                  style={{ borderRadius: "50%", marginBottom: "1em" }}
                 />
 
                 <br />
@@ -383,7 +392,7 @@ export default function Page() {
 
                 <button
                   type="submit"
-                  onClick={handleImageUpload}
+                  onClick={handleSubmitImageUpload}
                   className={styles.fundButton}
                 >
                   submit

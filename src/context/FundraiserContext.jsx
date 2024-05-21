@@ -13,40 +13,40 @@ export default function FundraiserContextData({ children }) {
     setToken(data);
   }, [Cookies]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser`,
-          config
-        );
-        if (response.status == 200) {
-           setFundraiser((oldState) => {
-            return {
-              ...oldState,
-              ...response.data.data,
-            };
-          });
-        } else {
-         }
-      } catch (error) {
-        console.error("API error:", error);
+  const fetchData = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser`,
+        config
+      );
+      if (response.status == 200) {
+        setFundraiser((oldState) => {
+          return {
+            ...oldState,
+            ...response.data.data,
+          };
+        });
+      } else {
       }
-    };
+    } catch (error) {
+      console.error("API error:", error);
+    }
+  };
 
+  useEffect(() => {
     if (token) {
       fetchData();
     }
   }, [token]);
 
   return (
-    <FundraiserContext.Provider value={fundraiser}>
+    <FundraiserContext.Provider value={{ fundraiser, fetchData }}>
       {children}
     </FundraiserContext.Provider>
   );

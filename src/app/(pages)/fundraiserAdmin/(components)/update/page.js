@@ -26,15 +26,15 @@ export default function Update() {
   const [money_raised_for, setRaisedFor] = useState("");
 
   useEffect(() => {
-    if (fundraiserCtx.fundraiser_page) {
+    if (fundraiserCtx?.fundraiser?.fundraiser_page) {
       const { target_amount, resolution, story, money_raised_for } =
-        fundraiserCtx.fundraiser_page;
+        fundraiserCtx?.fundraiser?.fundraiser_page;
       setTargetAmount(parseInt(target_amount));
       setResolution(resolution || "");
       setMyStory(story || "");
       setRaisedFor(money_raised_for || "");
     }
-  }, [fundraiserCtx.fundraiser_page]);
+  }, [fundraiserCtx?.fundraiser?.fundraiser_page]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ export default function Update() {
         },
       };
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx?.fundraiser.fundraiser_page?.id}`,
         data,
         config
       );
@@ -64,7 +64,7 @@ export default function Update() {
 
         confirmButtonText: "Close",
       });
-     } catch (error) {
+    } catch (error) {
       console.error("Error submitting form:", error);
       Swal.fire({
         title: "Ooops!!",
@@ -78,7 +78,7 @@ export default function Update() {
 
   return user ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
+      <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
       <aside className={styles.aside}>
         <AsideBar />
 
@@ -115,7 +115,7 @@ export default function Update() {
                   ></textarea>
                   {resolution.length == 350 && (
                     <p style={{ color: "red", fontWeight: "normal" }}>
-                      Max characters reached to 350
+                      Characters reached to 350
                     </p>
                   )}
                 </label>
@@ -137,7 +137,7 @@ export default function Update() {
                   ></textarea>
                   {story.length == 500 && (
                     <p style={{ color: "red", fontWeight: "normal" }}>
-                      Max characters reached to 500
+                      Characters reached to 500
                     </p>
                   )}
                 </label>
@@ -160,7 +160,7 @@ export default function Update() {
                 ></textarea>
                 {money_raised_for.length == 500 && (
                   <p style={{ color: "red", fontWeight: "normal" }}>
-                    Max characters reached to 500
+                    Characters reached to 500
                   </p>
                 )}
               </label>

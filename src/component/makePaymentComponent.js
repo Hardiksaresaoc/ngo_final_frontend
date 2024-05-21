@@ -1,31 +1,32 @@
 "use client";
 import axios from "axios";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
-   useEffect(() => {
+  useEffect(() => {
     const loadRazorpayScript = async () => {
       try {
         const script = document.createElement("script");
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
         script.async = true;
         document.body.appendChild(script);
-      } catch (error) {
-       }
+      } catch (error) {}
     };
 
     const fetchOrderDetails = async () => {
       try {
-         const response = await axios.post(
+        const response = await axios.post(
           `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
-         return response?.data?.data?.id;
+        console.log(response.data, "h");
+        return response?.data?.data?.id;
       } catch (error) {
         Swal.fire({
           title: "Something went Wrong",
           text: "please try again!",
-          icon: "failed",
+          icon: "error",
           confirmButtonText: "okay",
         });
 
@@ -35,14 +36,13 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
     };
 
     const initiatePayment = async () => {
-       try {
+      try {
         await loadRazorpayScript();
         const orderDetails = await fetchOrderDetails();
 
-         amount = String(amount) + "00";
         var options = {
           key: "rzp_test_b3XerWcrISxnCT", // Enter the Key ID generated from the Dashboard
-          amount: parseInt(amount), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          amount: parseInt(amount * 100), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
           currency: "INR",
           name: "Support Our Heroes",
           description: "Test Transaction",

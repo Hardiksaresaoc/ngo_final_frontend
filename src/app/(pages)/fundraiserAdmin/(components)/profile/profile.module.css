@@ -92,7 +92,7 @@ input#DOB {
   justify-content: flex-end;
   padding: 0 16px;
 }
-.formButton .fundButton {
+.fundButton {
   padding: 10px 20px;
   height: 45px;
   min-width: 95px;
@@ -103,6 +103,7 @@ input#DOB {
   font-size: 16px;
   cursor: pointer;
 }
+
 .formButton .fundButton.donorButton {
   background-color: #fff;
   color: #505050;

@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
-import axios from "axios"; 
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import styles from "./forgot.module.css";
+import Image from "next/image";
 const DefaultResetPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpGen, setOtpGen] = useState(false);
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const router = useRouter();
@@ -17,21 +19,35 @@ const DefaultResetPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.get(
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      console.log(email);
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/forgot-password`,
-        { email }
+        { email },
+        config
       );
 
       setLoading(false);
       Swal.fire({
         title: "OTP generate Successfully",
-        text: "check your mail for otp!",
+        text: `${response.data.message}`,
         icon: "success",
         confirmButtonText: "okay",
       });
 
       setOtpGen(true);
     } catch (error) {
+      Swal.fire({
+        title: "Try Again after 15 minutes ",
+        text: `${error.response.data.message}`,
+        icon: "error",
+        confirmButtonText: "okay",
+      });
       console.error("Error sending OTP:", error);
       setLoading(false);
     }
@@ -51,7 +67,12 @@ const DefaultResetPassword = () => {
       );
 
       setLoading(false);
-      alert("Password reset complete! Login now");
+      Swal.fire({
+        title: "Password Reset Successfully",
+        text: "Login with your new password",
+        icon: "success",
+        confirmButtonText: "okay",
+      });
       router.replace("/login");
     } catch (error) {
       console.error("Error resetting password:", error);
@@ -65,65 +86,154 @@ const DefaultResetPassword = () => {
       <div className={styles.main}>
         {otpGen ? (
           <div className={styles.main}>
-            <form className={styles["reset-password"]} onSubmit={resetpassword}>
-              <h1>Forgot Password</h1>
-              <p>Enter OTP and your new password.</p>
-              <div>
-                <label htmlFor="otp">OTP:</label>
-                <input
-                  type="text"
-                  name="otp"
-                  id="otp"
-                  placeholder="OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  required
-                />
+            <section className={styles.mainSection}>
+              <div className={styles.leftSection}>
+                <form className={styles.mainForm} onSubmit={resetpassword}>
+                  <div className={styles.formImg}>
+                    <Image
+                      src="/images/ProjectForm.png"
+                      className={styles.w100}
+                      alt="Indian Flag Tricolor"
+                      height="120"
+                      width="366"
+                    />
+                  </div>
+                  <div className={styles.lowerForm}>
+                    <h2 className={styles.formTag}>Reset Password</h2>
+                    <div className={styles.formInput}>
+                      <div className={styles.inputInside}>
+                        <label htmlFor="otp" className={styles.filled}>
+                          OTP
+                        </label>
+
+                        <div className={styles.inputIcon}>
+                          <i
+                            className={` fa-solid fas fa-envelope  ${styles.formIcon}`}
+                          ></i>
+                        </div>
+                        <input
+                          className={styles.inputField}
+                          name="otp"
+                          id="otp"
+                          onChange={(e) => setOtp(e.target.value)}
+                          // onBlur={handleBlur("email")}
+                          type="text"
+                          value={otp}
+                          placeholder="Enter your OTP"
+                          required
+                        />
+                      </div>
+
+                      <div className={styles.inputInside}>
+                        <label htmlFor="password" className={styles.filled}>
+                          Password
+                        </label>
+                        <div className={styles.inputIcon}>
+                          <i className={`fas fa-key ${styles.keyIcon}`}></i>
+
+                          <i
+                            className={`fas ${
+                              showPassword ? "fa-eye" : "fa-eye-slash"
+                            } ${styles.eyeIcon} ${styles.formIcon}`}
+                            onClick={() =>
+                              setShowPassword(
+                                (prevShowPassword) => !prevShowPassword
+                              )
+                            }
+                            aria-hidden="true"
+                          ></i>
+                          <input
+                            name="password"
+                            className={styles.inputField}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            // onBlur={handleBlur("password")}
+                            type={showPassword ? "text" : "password"}
+                            value={newPassword}
+                            placeholder="Enter your password"
+                            id="password"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.submit}>
+                      <button type="submit" className={styles.buttonSubmit}>
+                        {loading ? "loading" : "Reset Password"}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
-              <div>
-                <label htmlFor="password">Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                />
+              <div className={styles.rightSection}>
+                <div className={styles.comment}>
+                  <h1 className={styles.coreValue}>
+                    Empower Fundraising Heroes: Your
+                    <br />
+                    Appeal Sparks Change!
+                  </h1>
+                </div>
               </div>
-              <button type="submit" className={styles["reset-pwd"]}>
-                {!loading ? "Submit" : "Sending..."}
-              </button>
-            </form>
+            </section>
           </div>
         ) : (
-          <form className={styles["reset-password"]} onSubmit={handleForgot}>
-            <h1>Forgot Password</h1>
-            <p>
-              Trouble While login??
-              <br />
-              <span style={{ fontWeight: 600 }}>
-                {" "}
-                here We are to help You out
-              </span>
-            </p>
-            <div>
-              <label htmlFor="email">Email address:</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className={styles["reset-pwd"]}>
-              {!loading ? "Get secure link" : "Sending..."}
-            </button>
-          </form>
+          <div className={styles.main}>
+            <section className={styles.mainSection}>
+              <div className={styles.leftSection}>
+                <form className={styles.mainForm} onSubmit={handleForgot}>
+                  <div className={styles.formImg}>
+                    <Image
+                      src="/images/ProjectForm.png"
+                      className={styles.w100}
+                      alt="Indian Flag Tricolor"
+                      height="120"
+                      width="366"
+                    />
+                  </div>
+                  <div className={styles.lowerForm}>
+                    <h2 className={styles.formTag}>Forgot Password</h2>
+                    <div className={styles.formInput}>
+                      <div className={styles.inputInside}>
+                        <label htmlFor="email" className={styles.filled}>
+                          Email
+                        </label>
+                        <div className={styles.inputIcon}>
+                          <i
+                            className={` fa-solid fas fa-envelope  ${styles.formIcon}`}
+                          ></i>
+                        </div>
+                        <input
+                          className={styles.inputField}
+                          name="email"
+                          onChange={(e) => setEmail(e.target.value)}
+                          type="email"
+                          value={email}
+                          placeholder="Enter your email"
+                          required
+                          id="email"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={styles.submit}>
+                      <button type="submit" className={styles.buttonSubmit}>
+                        {loading ? "loading" : "Forgot Password"}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div className={styles.rightSection}>
+                <div className={styles.comment}>
+                  <h1 className={styles.coreValue}>
+                    Empower Fundraising Heroes: Your
+                    <br />
+                    Appeal Sparks Change!
+                  </h1>
+                </div>
+              </div>
+            </section>
+          </div>
         )}
       </div>
     </>

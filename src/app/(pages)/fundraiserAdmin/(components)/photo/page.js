@@ -21,7 +21,7 @@ export default function Page() {
   const fileInputRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
-
+  console.log("hehehhe", fundraiserCtx.fundraiser);
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
@@ -43,10 +43,10 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    if (fundraiserCtx && fundraiserCtx.fundraiser_page) {
+    if (fundraiserCtx.fundraiser && fundraiserCtx.fundraiser.fundraiser_page) {
       setLoading(false);
     }
-  }, [fundraiserCtx]);
+  }, [fundraiserCtx.fundraiser]);
 
   const handleFileUpload = async () => {
     try {
@@ -54,7 +54,7 @@ export default function Page() {
       formData.append("file", selectedFile);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser.fundraiser_page?.id}`,
         formData,
         {
           headers: {
@@ -75,13 +75,20 @@ export default function Page() {
         icon: "success",
         confirmButtonText: "Close",
       });
+      fundraiserCtx.fetchData();
     } catch (error) {
       console.error("Error uploading file:", error);
+      Swal.fire({
+        title: "Error",
+        text: `Only .png, .jpeg and .jpg files are allowed`,
+        icon: "error",
+        confirmButtonText: "Close",
+      });
     }
   };
   useEffect(() => {
-    fundraiserCtx;
-  }, [fundraiserCtx]);
+    fundraiserCtx.fundraiser;
+  }, [fundraiserCtx.fundraiser]);
 
   const config = {
     headers: {
@@ -92,23 +99,20 @@ export default function Page() {
 
   const handleDeleteImage = async (index, image) => {
     try {
-      await axios.delete(
+      const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
         config
       );
-      Swal.fire({
-        title: "Deleted Succesfully",
-        text: "Done!!",
-        icon: "success",
-        confirmButtonText: "Close",
-      });
-      const updatedGallery = [...fundraiserCtx.fundraiser_page.gallery];
-      updatedGallery.splice(index, 1); // Remove image at specified index
-      const updatedFundraiserPage = {
-        ...fundraiserCtx.fundraiser_page,
-        gallery: updatedGallery,
-      };
-      fundraiserCtx.updateFundraiserPage(updatedFundraiserPage);
+      console.log(response.status == 200);
+      if (response.status == 200 || response.status == 201) {
+        Swal.fire({
+          title: "Deleted Succesfully",
+          text: "Done!!",
+          icon: "success",
+          confirmButtonText: "Close",
+        });
+        fundraiserCtx.fetchData();
+      }
     } catch (error) {
       Swal.fire({
         title: "Ooops!!!",
@@ -124,21 +128,65 @@ export default function Page() {
     <Loading />
   ) : (
     <>
-      <TopHeader link={fundraiserCtx.fundraiser_page?.id} />
+      <TopHeader link={fundraiserCtx.fundraiser.fundraiser_page?.id} />
       <aside className={styles.aside}>
         <AsideBar />
         {!loading ? (
           <section className={styles.photowrapper}>
             <div className={styles.imgwrapper}>
               <div className={styles.imgcount}>
-                <p>
-                  {" "}
-                  Photos ({fundraiserCtx?.fundraiser_page?.gallery?.length || 0}
-                  )
-                </p>
+                <div className={styles.uploadAndText}>
+                  <p>
+                    {" "}
+                    Photos (
+                    {fundraiserCtx?.fundraiser?.fundraiser_page?.gallery
+                      ?.length || 0}
+                    )
+                  </p>
+                  <div className={styles.upload}>
+                    <input
+                      type="file"
+                      onChange={handleFileChange}
+                      style={{ display: "none" }}
+                      ref={fileInputRef}
+                    />
+                    <button
+                      onClick={() => fileInputRef.current.click()}
+                      className={styles.previewPhoto}
+                    >
+                      <img src="/images/uploadPreview.png" />
+                      <span>Preview Photo</span>{" "}
+                    </button>
+                    {previewURL && (
+                      <img
+                        src={previewURL}
+                        alt="Preview"
+                        style={{ maxWidth: "200px" }}
+                      />
+                    )}
+                    {selectedFile && (
+                      <button
+                        type="button"
+                        onClick={handleFileUpload}
+                        disabled={isSubmitDisabled}
+                        style={
+                          isSubmitDisabled
+                            ? {
+                                backgroundColor: "grey",
+                                color: "white",
+                                borderColor: "white",
+                              }
+                            : {}
+                        }
+                      >
+                        Upload Photo
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className={styles.row}>
-                {fundraiserCtx?.fundraiser_page?.gallery?.map(
+                {fundraiserCtx.fundraiser?.fundraiser_page?.gallery?.map(
                   (image, index) => (
                     <div key={index} className={styles.galleryImage}>
                       <Image
@@ -157,42 +205,6 @@ export default function Page() {
                       </a>
                     </div>
                   )
-                )}
-              </div>
-              <div className={styles.upload}>
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  style={{ display: "none" }}
-                  ref={fileInputRef}
-                />
-                <button onClick={() => fileInputRef.current.click()}>
-                  Upload File{" "}
-                </button>
-                {previewURL && (
-                  <img
-                    src={previewURL}
-                    alt="Preview"
-                    style={{ maxWidth: "200px" }}
-                  />
-                )}
-                {selectedFile && (
-                  <button
-                    type="button"
-                    onClick={handleFileUpload}
-                    disabled={isSubmitDisabled}
-                    style={
-                      isSubmitDisabled
-                        ? {
-                            backgroundColor: "grey",
-                            color: "white",
-                            borderColor: "white",
-                          }
-                        : {}
-                    }
-                  >
-                    Upload File
-                  </button>
                 )}
               </div>
             </div>

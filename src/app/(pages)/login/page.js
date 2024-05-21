@@ -48,6 +48,7 @@ const LoginPage = () => {
   };
 
   const submithandler = async (e) => {
+    Cookies.remove("refreshToken");
     setLoading(true);
     e.preventDefault();
     if (!validateForm()) return;
@@ -91,7 +92,7 @@ const LoginPage = () => {
       console.error("An error occurred while logging in:", error);
       Swal.fire({
         title: "Opps!!",
-        text: "Something Went Wrong, try again",
+        text: `${error.response.data.message}`,
         icon: "failed",
         timer: 1500,
         confirmButtonColor: "#000080",

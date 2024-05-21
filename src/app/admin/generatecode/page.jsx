@@ -88,13 +88,13 @@ const GeneratePage = () => {
         }
       } catch (err) {
         if (
-          response.data.status !== 200 ||
-          response.data.status !== 201 ||
-          response.data.status == 404
+          err.response.data.statusCode !== 200 ||
+          err.response.data.statusCode !== 201 ||
+          err.response.data.statusCode == 404
         ) {
           Swal.fire({
             title: "can not create!",
-            text: response.data.message || "oops",
+            text: err.response.data.message || "oops",
             icon: "failed",
             confirmButtonColor: "#000080",
           });

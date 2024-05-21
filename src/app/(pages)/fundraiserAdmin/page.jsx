@@ -12,12 +12,12 @@ export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
 
   const fundraiserCtx = useContext(FundraiserContext);
-  return user ? (
+  return user && fundraiserCtx ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser_page?.id}`} />
+      <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
       <aside className={styles.aside}>
         <AsideBar />
-        {fundraiserCtx ? (
+        {fundraiserCtx.fundraiser ? (
           <div className={styles.rightAside}>
             <div className={styles.upperPortion}>
               <h2>Welcome to your Support our Heroes Account!</h2>
@@ -33,7 +33,7 @@ export default function Dashboard() {
                     className={styles.amtMoney}
                     style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
                   >
-                    &#8377; {fundraiserCtx.total_amount_raised}
+                    &#8377; {fundraiserCtx.fundraiser.total_amount_raised}
                   </p>
                 </div>
                 <div className={styles.totalDonors}>
@@ -45,7 +45,7 @@ export default function Dashboard() {
                     className={`${styles["no-donor"]}`}
                     style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
                   >
-                    {fundraiserCtx.total_donations}
+                    {fundraiserCtx.fundraiser.total_donations}
                   </p>
                 </div>
               </div>

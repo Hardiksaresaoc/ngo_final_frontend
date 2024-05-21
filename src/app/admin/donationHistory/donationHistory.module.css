@@ -156,3 +156,35 @@
   outline: none;
   margin-left: 5px;
 }
+
+.form select {
+  border: 1px solid #d9d9d9;
+  outline: none;
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: white;
+  width: 15.1em;
+}
+.fromDate [type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background-image: url("/images/solar_calendar-outline.png");
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+}
+
+.toDate [type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background-image: url("/images/solar_calendar-outline (1).png");
+  width: 20px;
+  height: 20px;
+  border-width: thin;
+}

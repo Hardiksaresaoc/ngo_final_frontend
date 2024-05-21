@@ -22,7 +22,6 @@ export default function Header() {
   const toggle = () => {
     setisopen(!isopen);
   };
-  console.log(fundraiserCtx);
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
@@ -184,7 +183,7 @@ export default function Header() {
                 className={styles.profilebutton}
               >
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.profileImage}`}
+                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`}
                   width="40"
                   height="40"
                   alt="profile"
@@ -242,7 +241,7 @@ export default function Header() {
             <Link href="/login">
               <Button className={styles.innerBtn}>Log in</Button>
             </Link>
-            <Link href="https://supportourheroes.in/donate-now/">
+            <Link href="/donate">
               <Button className={`${styles.innerBtn} ${styles.filled}`}>
                 Donate
               </Button>
