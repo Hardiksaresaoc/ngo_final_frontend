@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
         <FundraiserContextData>
           <body className={inter.className}>
             <Header />
-            <div style={{minHeight:"70vh"}}>
+            <div style={{ minHeight: "70vh" }}>
               {!children ? <Loading /> : children}
             </div>
             <Footer />

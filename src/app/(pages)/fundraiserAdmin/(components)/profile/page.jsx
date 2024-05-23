@@ -71,7 +71,7 @@ export default function Page() {
       );
       Swal.fire({
         title: "Updated",
-        text: "Updated  Succesfully!!",
+        text: "Updated  Successfully!!",
         icon: "success",
         confirmButtonText: "Close",
         confirmButtonColor: "#000080",
@@ -100,6 +100,13 @@ export default function Page() {
   const handleSubmitImageUpload = async () => {
     if (image) {
       try {
+        Swal.fire({
+          title: "Uploading",
+          text: "Please wait...",
+          icon: "info",
+          showConfirmButton: false,
+        });
+
         const config = {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -113,17 +120,19 @@ export default function Page() {
           config
         );
         Swal.fire({
-          title: "upload complete ",
-          text: "added!!",
+          title: "Updated",
+          text: "Updated  Successfully!!",
           icon: "success",
           confirmButtonColor: "#000080",
 
           confirmButtonText: "Close",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const imageUrl = response?.data?.data?.imageUrl;
+            fundraiserCtx.fetchData();
+            window.location.reload();
+          }
         });
-
-        const imageUrl = response?.data?.data?.imageUrl;
-        fundraiserCtx.fetchData();
-        window.location.reload();
       } catch (err) {
         Swal.fire({
           title: "Opps",

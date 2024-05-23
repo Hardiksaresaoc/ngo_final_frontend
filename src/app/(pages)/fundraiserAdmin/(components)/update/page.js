@@ -39,6 +39,13 @@ export default function Update() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      Swal.fire({
+        title: "Updating",
+        text: "Please wait...",
+        icon: "info",
+        showConfirmButton: false,
+      });
+
       const data = {
         target_amount: parseInt(target_amount),
         resolution,

@@ -193,6 +193,7 @@ export default function Page() {
           >
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
+
           <table className={styles.table}>
             <thead>
               <tr>

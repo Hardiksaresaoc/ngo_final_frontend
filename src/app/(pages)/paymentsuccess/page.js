@@ -16,7 +16,7 @@ export default function NavigationEvents({ params }) {
         confirmButtonColor: "#000080",
       }).then((result) => {
         if (result.isConfirmed) {
-          router.replace(`/donate   `);
+          router.replace(`/donate`);
         }
       });
     };

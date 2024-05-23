@@ -95,6 +95,10 @@
   justify-content: space-around;
 }
 
+.row {
+  margin-bottom: 7%;
+}
+
 .photowrapper .row .col button {
   display: flex;
   float: right;

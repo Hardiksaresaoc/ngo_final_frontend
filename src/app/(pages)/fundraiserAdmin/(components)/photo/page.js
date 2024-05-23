@@ -30,6 +30,17 @@ export default function Page() {
     // Generate preview URL
     const reader = new FileReader();
     reader.onloadend = () => {
+      Swal.fire({
+        html: "<img src='" + reader.result + "' style='width:150px;'>",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Upload",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handleFileUpload(file);
+        }
+      });
       setPreviewURL(reader.result);
     };
     if (file) {
@@ -48,10 +59,17 @@ export default function Page() {
     }
   }, [fundraiserCtx.fundraiser]);
 
-  const handleFileUpload = async () => {
+  const handleFileUpload = async (file) => {
     try {
       const formData = new FormData();
-      formData.append("file", selectedFile);
+      formData.append("file", file);
+
+      Swal.fire({
+        title: "Uploading",
+        text: "Please wait...",
+        icon: "info",
+        showConfirmButton: false,
+      });
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/upload/${fundraiserCtx.fundraiser.fundraiser_page?.id}`,
@@ -68,6 +86,7 @@ export default function Page() {
       setSelectedFile(null);
       setPreviewURL("");
       setIsSubmitDisabled(true);
+      Swal.close();
 
       Swal.fire({
         title: "Done!!",
@@ -99,6 +118,13 @@ export default function Page() {
 
   const handleDeleteImage = async (index, image) => {
     try {
+      Swal.fire({
+        title: "Deleting",
+        text: "Please wait...",
+        icon: "info",
+        showConfirmButton: false,
+      });
+
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
         config
@@ -145,6 +171,7 @@ export default function Page() {
                   </p>
                   <div className={styles.upload}>
                     <input
+                      accept="image/jpg,image/jpeg,image/png"
                       type="file"
                       onChange={handleFileChange}
                       style={{ display: "none" }}
@@ -155,33 +182,8 @@ export default function Page() {
                       className={styles.previewPhoto}
                     >
                       <img src="/images/uploadPreview.png" />
-                      <span>Preview Photo</span>{" "}
+                      <span>Upload Photo</span>{" "}
                     </button>
-                    {previewURL && (
-                      <img
-                        src={previewURL}
-                        alt="Preview"
-                        style={{ maxWidth: "200px" }}
-                      />
-                    )}
-                    {selectedFile && (
-                      <button
-                        type="button"
-                        onClick={handleFileUpload}
-                        disabled={isSubmitDisabled}
-                        style={
-                          isSubmitDisabled
-                            ? {
-                                backgroundColor: "grey",
-                                color: "white",
-                                borderColor: "white",
-                              }
-                            : {}
-                        }
-                      >
-                        Upload Photo
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>

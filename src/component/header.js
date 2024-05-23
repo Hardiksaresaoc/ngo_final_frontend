@@ -19,18 +19,23 @@ export default function Header() {
   const [isopen, setisopen] = useState(false);
   const [loading, setLoading] = useState(false);
   const fundraiserCtx = useContext(FundraiserContext);
+  const [profileImage, setProfileImage] = useState("");
+
   const toggle = () => {
     setisopen(!isopen);
   };
+
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
+      setProfileImage(decodedToken.profileImage);
     } else {
       setUser(null);
     }
   }, [Cookies.get("token")]);
+
   const handleLogout = (e) => {
     Swal.fire({
       title: "Logging you Out",
@@ -38,6 +43,7 @@ export default function Header() {
       icon: "info",
       showConfirmButton: false,
     });
+
     setTimeout(() => {
       try {
         Cookies.remove("token");
@@ -183,7 +189,11 @@ export default function Header() {
                 className={styles.profilebutton}
               >
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`}
+                  src={
+                    `${fundraiserCtx?.fundraiser?.profileImage}` == "undefined"
+                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}`
+                      : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`
+                  }
                   width="40"
                   height="40"
                   alt="profile"
