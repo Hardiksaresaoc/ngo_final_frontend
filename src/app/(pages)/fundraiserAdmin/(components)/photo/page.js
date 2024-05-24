@@ -31,7 +31,7 @@ export default function Page() {
       Swal.fire({
         html: "<img src='" + reader.result + "' style='width:150px;'>",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#000080",
         cancelButtonColor: "#d33",
         confirmButtonText: "Upload",
       }).then((result) => {

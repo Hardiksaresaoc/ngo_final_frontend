@@ -48,6 +48,12 @@ const LoginPage = () => {
   };
 
   const submithandler = async (e) => {
+    Swal.fire({
+      title: "Logging In",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
     Cookies.remove("refreshToken");
     setLoading(true);
     e.preventDefault();

@@ -149,6 +149,10 @@
   display: flex;
   justify-content: center;
 }
+
+.comment {
+  margin-bottom: 10%;
+}
 .mainSection .rightSection .comment {
   height: 627px;
   width: 100%;

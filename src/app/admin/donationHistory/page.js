@@ -41,6 +41,7 @@ export default function Page() {
       );
       setData(response?.data?.data);
       setLoading(false);
+      Swal.close();
     } catch (error) {
       setLoading(false);
       console.error("Error fetching data:", error);
@@ -75,6 +76,13 @@ export default function Page() {
 
   const handleDownload = async () => {
     try {
+      Swal.fire({
+        title: "Downloading",
+        text: "Please wait...",
+        icon: "info",
+        showConfirmButton: false,
+      });
+
       const requestOptions = {
         method: "GET",
         headers: {
