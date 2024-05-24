@@ -20,8 +20,7 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
           `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
-        console.log(response.data, "h");
-        return response?.data?.data?.id;
+         return response?.data?.data?.id;
       } catch (error) {
         Swal.fire({
           title: "Something went Wrong",

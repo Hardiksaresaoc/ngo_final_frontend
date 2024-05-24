@@ -6,8 +6,7 @@ import Swal from "sweetalert2";
 export default function NavigationEvents({ params }) {
   const router = useRouter();
   useEffect(() => {
-    // Function to trigger Swal.fire on component mount
-    const showSwal = () => {
+     const showSwal = () => {
       Swal.fire({
         title: "Donated Successfully",
         text: "Thanks for your donation!",
