@@ -117,6 +117,13 @@ export default function page() {
     }
 
     try {
+      Swal.fire({
+        title: "Adding donation",
+        text: "Please wait...",
+        icon: "info",
+        showConfirmButton: false,
+      });
+
       const config = {
         headers: {
           "Content-Type": "application/json",

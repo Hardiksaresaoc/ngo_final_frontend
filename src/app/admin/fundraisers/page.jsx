@@ -39,8 +39,8 @@ export default function FundraiserPage() {
       );
       setLoading(false);
       Swal.fire({
-        title: "Complate",
-        text: "added Complate!!",
+        title: "Updated",
+        text: "Fundraiser Page updated successfully",
         icon: "success",
         confirmButtonText: "Close",
         confirmButtonColor: "#000080",
@@ -329,6 +329,13 @@ export default function FundraiserPage() {
                                         : item
                                     )
                                   );
+                                  Swal.fire({
+                                    title: "Updating",
+                                    text: "Please wait...",
+                                    icon: "info",
+                                    showConfirmButton: false,
+                                  });
+
                                   const response = await axios({
                                     method: "put",
                                     url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiser/status/${fundraiser.fundraiser_id}`,

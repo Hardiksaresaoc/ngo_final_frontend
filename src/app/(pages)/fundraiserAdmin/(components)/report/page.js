@@ -26,9 +26,16 @@ export default function Page() {
   }, [Cookies]);
 
   useEffect(() => {
-    fetchData();
+    token && fetchData();
   }, [token]);
   const fetchData = async () => {
+    Swal.fire({
+      title: "Searching",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
+
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
@@ -40,6 +47,7 @@ export default function Page() {
         }
       );
       setData(response?.data?.data);
+      Swal.close();
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -72,6 +80,13 @@ export default function Page() {
   };
 
   const handleDownload = async () => {
+    Swal.fire({
+      title: "Downloading",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
+
     try {
       const requestOptions = {
         method: "GET",
@@ -90,6 +105,7 @@ export default function Page() {
       a.download = "DonationData.xlsx";
       a.click();
       URL.revokeObjectURL(downloadUrl);
+      Swal.close();
     } catch (error) {
       console.error("Error downloading file:", error);
       Swal.fire({

@@ -93,7 +93,7 @@ const GeneratePage = () => {
           err.response.data.statusCode == 404
         ) {
           Swal.fire({
-            title: "can not create!",
+            title: "Fundraiser already exists!",
             text: err.response.data.message || "oops",
             icon: "failed",
             confirmButtonColor: "#000080",

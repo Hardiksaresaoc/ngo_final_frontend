@@ -10,8 +10,8 @@ export default function FundraiserContextData({ children }) {
 
   useEffect(() => {
     const data = Cookies.get("token");
-    setToken(data);
-  }, [Cookies]);
+    setToken(() => data);
+  }, [Cookies.get("token")]);
 
   const fetchData = async () => {
     try {

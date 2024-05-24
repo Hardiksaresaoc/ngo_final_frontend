@@ -58,6 +58,8 @@ const useAuth = (allowedRoles) => {
 
   useEffect(() => {
     const refreshToken = Cookies.get("refreshToken");
+    console.log(refreshToken, "hhh");
+
     const token = Cookies.get("token");
     const fetchData = async () => {
       try {
