@@ -51,11 +51,19 @@ export default function page({ params }) {
     };
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
     if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
-    if (!formData.donor_phone)
+    if (!formData.donor_phone) {
       newErrors.donor_phone = "Please enter phone number.";
+    } else if (formData.donor_phone?.length < 10) {
+      newErrors.donor_phone = "Please enter valid phone number";
+    }
+    const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-    if (!formData.donor_email)
-      newErrors.donor_email = "Please enter Your email.";
+    if (!formData.donor_email) {
+      newErrors.donor_email = "Please enter your email.";
+    } else if (!emailPattern.test(formData.donor_email)) {
+      newErrors.donor_email = "Please enter a valid email address.";
+    }
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -80,7 +88,7 @@ export default function page({ params }) {
     } catch (error) {
       Swal.fire({
         title: "error while adding",
-        text: `${error.response.data.message}`,
+        text: `Please enter valid inputs `,
         icon: "failed",
         confirmButtonText: "Close",
       });
@@ -118,6 +126,7 @@ export default function page({ params }) {
                         onChange={(e) => setDonationAmount(e.target.value)}
                         min="0"
                       />
+                      <br />
                       {errors.amount && (
                         <span style={{ color: "red" }} className={styles.error}>
                           {errors.amount}
@@ -151,6 +160,7 @@ export default function page({ params }) {
                         type="donor_email"
                         className={styles.donor_email}
                         value={donor_email}
+                        pattern="^[w-.]+@([w-]+.)+[w-]{2,4}$"
                         onChange={(e) => setdonor_email(e.target.value)}
                         name="donor_email"
                         placeholder="Enter your e-mail"
@@ -242,7 +252,13 @@ export default function page({ params }) {
                         className={styles.pincode}
                         name="Pincode"
                         value={donor_pin}
-                        onChange={(e) => setdonor_pin(e.target.value)}
+                        // onChange={(e) => setdonor_pin(e.target.value)}
+                        onChange={(e) => {
+                          const inputValue = e.target.value.replace(/\D/g, "");
+                          if (inputValue.length <= 6) {
+                            setdonor_pin(inputValue);
+                          }
+                        }}
                         placeholder="Enter your pincode"
                       />
                     </div>
