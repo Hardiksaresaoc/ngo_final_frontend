@@ -1,0 +1,323 @@
+.mainPage {
+    width: 100%;
+}
+.pageTagline {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 142px;
+}
+.tagline {
+    max-width: 1156px;
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 52px;
+    color: #000080;
+    text-align: center;
+}
+.mainClass {
+    width: 100%;
+    display: flex;
+    padding: 0 60px;
+    gap: 28px;
+}
+.leftSection {
+    box-shadow: 0px 2px 8px 0px #00000026;
+    padding: 0 20px;
+    max-height: 1449px;
+    /* position: sticky;
+    top: 0; */
+}
+.leftSection h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #Fd8900;
+    border-bottom: 1px solid #E0E0E0;
+    margin: 20px;
+}
+.registerDetails {
+    padding: 20px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.companyDetails {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #000000;
+}
+.companyData {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 36px;
+    color: #000080;
+}
+.amountSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 20px;
+}
+.amountSection label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color: #000080;
+}
+.amount {
+    max-width: 467px;
+    border: none;
+    outline: none;
+
+    width: 100%;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    background-color: #F7F8F8;
+    color: #000000;
+}
+.amountOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 20px 40px 20px;
+}
+.operation {
+    display: flex;
+    gap: 12px;
+}
+.operation label {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: #000000;
+}
+.formSection h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #Fd8900;
+    border-bottom: 1px solid #E0E0E0;
+    margin: 20px;
+}
+.userName {
+    display: flex;
+    gap: 21px;
+    padding: 20px;
+}
+.name {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.name input {
+    min-width: 223px;
+    min-height: 48px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #F7F8F8;
+    border: none;
+    outline: none;
+}
+.name label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color: #000080;
+}
+.email , .pNumber , .gCerti , .panNo , .address {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    padding-top: 0;
+}
+.email label , .pNumber label , .panNo label , .address label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color: #000080;
+}
+.email input , .pNumber input , .panNo input , .address input {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 4px;
+    background-color: #F7F8F8;
+    border: none;
+    outline: none;
+}
+.gCerti p {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    color: #000080;
+}
+.chooseOption {
+    display: flex;
+    gap: 20px;
+}
+.formRadio {
+    display: flex;
+    gap: 8px;
+}
+.formRadio label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    color: #000000;
+}
+.donationBtn {
+    width: 100%;
+    padding: 20px 20px;
+}
+.donateBtn {
+    width: 100%;
+    padding: 11px 48px;
+    border-radius: 4px;
+    background-color: #000080;
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.paymentIcons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    padding: 40px 20px;
+}
+.icons {
+    display: flex;
+    gap: 36px;
+}
+.rightSection {
+    box-shadow: 0px 2px 8px 0px #00000026;
+    padding: 0 20px;
+}
+.ytVideo {
+    padding: 40px;
+}
+.benefits {
+    display: flex;
+    justify-content: center;
+    gap: 21px;
+}
+.benefitOptions {
+    padding: 11px 12px;
+    background-color: #294A82;
+    color: #ffffff;
+    border-radius: 24px;
+    border: none;
+    outline: none;
+    font-family:"Roboto", sans-serif;
+    font-size: 20px;
+    font-family: 600;
+    line-height: 23px;
+    text-align: center;
+    color: #ffffff;
+}
+.benefitOptions.green {
+    background-color: #58C064;
+}
+.benefitOptions.orange {
+    background-color: #FD8900;
+} 
+.benefitOptions.red {
+    background-color: #EB3732;
+} 
+.content {
+    padding: 40px 20px;
+}
+.content p {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 36px;
+    color: #303030;
+    text-align: justify;
+}
+.content .middleTag {
+    padding: 20px 0;
+}
+.ourHeroes {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #FD8900;
+    margin: 0 20px;
+    border-bottom: 1px solid #E0E0E0;
+}
+.supportHeroesContent {
+    padding: 20px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.supportHeroesContent p{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 36px;
+    color: #303030;
+}
+.boldText {
+    font-weight: bold;
+}
+.ourTeams {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    color: #FD8900;
+    border-bottom: 1px solid #E0E0E0;
+    margin:  0px 20px 20px;
+}
+.sliderTag {
+    padding: 40px 20px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 36px;
+    color: #303030;
+}
+.viewAllPage {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #000080;
+    font-family: "Roboto", sans-serif;
+    text-align: center;
+    padding: 20px 0 40px 0;
+}
+.mainSection {
+    width: 100%;
+    padding-top: 40px;
+}
+.mainSection h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: #171A1F;
+}
+.mainSection p {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 36px;
+    color: #000080;
+    padding-top: 20px;
+    text-align: center;
+}
+.socialMedia {
+    padding: 20px 0 40px;
+    display: flex;
+    justify-content: center;
+}
