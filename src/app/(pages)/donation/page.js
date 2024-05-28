@@ -93,7 +93,7 @@ export default function page() {
       </div>
       <div className={styles.rightSection}>
         <div className={styles.ytVideo}>
-        <video width="705" height="380" controls>
+        <video width="705" height="380" controls className={styles.videoPortion}>
           <source src="" type="video/mp4"/>
           <source src="" type="video/ogg"/>
               Your browser does not support HTML video.
@@ -130,12 +130,35 @@ export default function page() {
         </div>
         <h2 className={styles.ourTeams}>Meet the heartbeat of the organization (Our Team)</h2>
         <div className={styles.sliders}>
-
+          <div className={styles.teamMember}>
+          <img src="/images/vinod-neb.png" alt="phonepay" width="173" height="220"/>
+          <div className={styles.teamMemberDetails}>
+            <h3 className={styles.memberDetails}>Late Wg. Cdr. Vinod Nebb (Retd)<br></br> Vir Chakra & Bar (VrC)</h3>
+            <h4 className={styles.memberDetails}>(patron)</h4>
+          </div>
+          {/* className={`${styles.benefitOptions} ${styles.green}`} */}
+          </div>
+          <div className={styles.teamMember}>
+          <img src="/images/RDSharma.png" alt="phonepay" width="173" height="220"/>
+          <div className={styles.teamMemberDetails}>
+          <h3 className={styles.memberDetails}>Lt. Col. R.D. Sharma (Retd.)</h3>
+          <h4 className={`${styles.memberDetails} ${styles.patron}`}>(patron)</h4></div>
+          </div>
+          <div className={styles.teamMember}>
+          <img src="/images/JSDhillon.png" alt="phonepay" width="173" height="220"/>
+          <div className={styles.teamMemberDetails}>
+          <h3 className={styles.memberDetails}>Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)</h3>
+          <h4 className={`${styles.memberDetails} ${styles.patrons}`}>(patron)</h4></div>
+          </div>
         </div>
         <p className={styles.sliderTag}>"Support Our Heroes (SOH)" is run by decorated Ex-Defence Officers of all three services (Army, Navy & Air Force).</p>
         <h2 className={styles.ourTeams}>Letters of Appreciation</h2>
         <div className={styles.sliders}>
-
+          <div className={styles.LOA}>
+          <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
+          <img src="/images/andhra.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
+          <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
+          </div>
         </div>
         <a href="#" className={styles.viewAllPage}>View All</a>
       </div>
@@ -144,7 +167,10 @@ export default function page() {
       <h2>“Join us in empowering our heroes and their families—your donation can make a world of difference.”</h2>
       <p>“Spread the word! Each share is a whisper of gratitude for our heroes.”</p>
       <div className={styles.socialMedia}>
-      <img src="/images/socialMedia.png" alt="phonepay" width="258" height="40"/>
+      <a href="#"><img src="/images/facebook().png" alt="phonepay" width="40" height="40"/></a>
+      <a href="#"><img src="/images/twitter().png" alt="phonepay" width="40" height="40"/></a>
+      <a href="#"><img src="/images/youtube().png" alt="phonepay" width="40" height="40"/></a>
+      <a href="#"><img src="/images/linkedin().png" alt="phonepay" width="40" height="40"/></a>
       </div>
     </section>
   </main>
