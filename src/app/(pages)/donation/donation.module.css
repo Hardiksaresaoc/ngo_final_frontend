@@ -122,7 +122,7 @@
 }
 .name input {
     min-width: 223px;
-    min-height: 48px;
+    padding: 12px 20px;
     width: 100%;
     border-radius: 4px;
     background-color: #F7F8F8;
@@ -149,6 +149,7 @@
     color: #000080;
 }
 .email input , .pNumber input , .panNo input , .address input {
+    padding: 12px 20px;
     width: 100%;
     min-height: 48px;
     border-radius: 4px;
@@ -370,6 +371,7 @@
     gap: 10px;
 }
 
+
 @media only screen and (max-width: 767px) {
 .pageTagline {
     padding: 60px 16px;
@@ -401,7 +403,7 @@
     font-size: 18px;
 }
 .name input {
-    min-width: 160px;
+    min-width: 100px;
 }
 .paymentIcons {
     padding-top: 20px;
