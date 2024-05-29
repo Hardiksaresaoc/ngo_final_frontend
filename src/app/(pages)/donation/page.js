@@ -1,5 +1,11 @@
-import { Label } from "flowbite-react";
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+ 
+// import required modules
+import { Pagination, Navigation } from 'swiper/modules'
 import styles from "./donation.module.css";
+import {Swiper,SwiperSlide} from "swiper";
 export default function page() {
   return <>
   <main className={styles.mainPage}>
@@ -158,9 +164,30 @@ export default function page() {
         <h2 className={styles.ourTeams}>Letters of Appreciation</h2>
         <div className={styles.sliders}>
           <div className={styles.LOA}>
-          <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
+          <Swiper
+        slidesPerView={1}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Pagination, Navigation]}
+        className="mySwiper"
+      >
+        <SwiperSlide>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+        <SwiperSlide>Slide 4</SwiperSlide>
+        <SwiperSlide>Slide 5</SwiperSlide>
+        <SwiperSlide>Slide 6</SwiperSlide>
+        <SwiperSlide>Slide 7</SwiperSlide>
+        <SwiperSlide>Slide 8</SwiperSlide>
+        <SwiperSlide>Slide 9</SwiperSlide>
+      </Swiper>
+          {/* <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
           <img src="/images/andhra.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
-          <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
+          <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/> */}
           </div>
         </div>
         <a href="#" className={styles.viewAllPage}>View All</a>
