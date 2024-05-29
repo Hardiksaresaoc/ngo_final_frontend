@@ -100,10 +100,12 @@ export default function page() {
         </video>
         </div>
         <div className={styles.benefits}>
-          <button type="button" className={styles.benefitOptions}>100% Transparency</button>
-          <button type="button" className={`${styles.benefitOptions} ${styles.green}`}>Assured</button>
-          <button type="button" className={`${styles.benefitOptions} ${styles.orange}`}>Ex-soldiers</button>
-          <button type="button" className={`${styles.benefitOptions} ${styles.red}`}>Tax-benefit</button>
+          <ul className={styles.unorderList}>
+            <li className={styles.benefitOptions}>100% Transparency</li>
+            <li className={`${styles.benefitOptions} ${styles.green}`}>Assured</li>
+            <li className={`${styles.benefitOptions} ${styles.orange}`}>Ex-soldiers</li>
+            <li className={`${styles.benefitOptions} ${styles.red}`}>Tax-benefit</li>
+          </ul>
         </div>
         <div className={styles.content}>
           <p>“It was a chance encounter in May 2016 with retired Army men, war-disabled soldiers and war-widows at Jantar Mantar. There was a 70+ years old retired Sepoy who had a large family to support with his meagre pension. Both of his sons worked as daily labourers with no predictable income to feed their kids.</p>
@@ -167,10 +169,10 @@ export default function page() {
       <h2>“Join us in empowering our heroes and their families—your donation can make a world of difference.”</h2>
       <p>“Spread the word! Each share is a whisper of gratitude for our heroes.”</p>
       <div className={styles.socialMedia}>
-      <a href="#"><img src="/images/facebook().png" alt="phonepay" width="40" height="40"/></a>
-      <a href="#"><img src="/images/twitter().png" alt="phonepay" width="40" height="40"/></a>
-      <a href="#"><img src="/images/youtube().png" alt="phonepay" width="40" height="40"/></a>
-      <a href="#"><img src="/images/linkedin().png" alt="phonepay" width="40" height="40"/></a>
+      <a href="#"><img src="/images/facebook().png" alt="facebook" width="40" height="40"/></a>
+      <a href="#"><img src="/images/twitter().png" alt="twitter" width="40" height="40"/></a>
+      <a href="#"><img src="/images/youtube().png" alt="youtube" width="40" height="40"/></a>
+      <a href="#"><img src="/images/linkedin().png" alt="linkedin" width="40" height="40"/></a>
       </div>
     </section>
   </main>
