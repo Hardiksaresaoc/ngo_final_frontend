@@ -214,6 +214,8 @@
 }
 .ytVideo {
     padding: 40px;
+    display: flex;
+    justify-content: center;
 }
 .videoPortion {
     width: 100%;
@@ -417,6 +419,7 @@
 .leftSection {
     padding: 0 16px;
     position: inherit;
+    max-height: fit-content;
 }
 .leftSection h2 {
     margin-bottom: 0;
