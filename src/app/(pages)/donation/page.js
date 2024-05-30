@@ -1,11 +1,5 @@
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
- 
-// import required modules
-import { Pagination, Navigation } from 'swiper/modules'
+import { Label } from "flowbite-react";
 import styles from "./donation.module.css";
-import {Swiper,SwiperSlide} from "swiper";
 export default function page() {
   return <>
   <main className={styles.mainPage}>
@@ -164,30 +158,22 @@ export default function page() {
         <h2 className={styles.ourTeams}>Letters of Appreciation</h2>
         <div className={styles.sliders}>
           <div className={styles.LOA}>
-          <Swiper
-        slidesPerView={1}
-        spaceBetween={30}
-        loop={true}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
-        modules={[Pagination, Navigation]}
-        className="mySwiper"
-      >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
           {/* <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
           <img src="/images/andhra.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
           <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/> */}
+              <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="assam.png" alt=""/></div>
+          <div class="swiper-slide"><img src="andhra.png" alt=""/></div>
+          <div class="swiper-slide"><img src="easternNaval.png" alt=""/></div>
+          <div class="swiper-slide"><img src="assam.png" alt=""/></div>
+          <div class="swiper-slide"><img src="andhra.png" alt=""/></div>
+          <div class="swiper-slide"><img src="easternNaval.png" alt=""/></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
           </div>
         </div>
         <a href="#" className={styles.viewAllPage}>View All</a>
@@ -204,5 +190,45 @@ export default function page() {
       </div>
     </section>
   </main>
+  {/* <script>
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 3,
+          slidesPerGroup: 3,
+          spaceBetween: 30,
+          loop: true,
+          autoplay: {{
+        delay: 2000,
+        disableOnInteraction: false,
+      }},
+          pagination: {{
+            el: ".swiper-pagination",
+            clickable: true,
+          }},
+          navigation: {{
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          }},
+          breakpoints: {{
+        320: {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          spaceBetween: 20,
+        },    
+        640: {
+          slidesPerView: 2,
+          slidesPerGroup: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+      }},
+        });
+        </script> */}
   </>;
 }
