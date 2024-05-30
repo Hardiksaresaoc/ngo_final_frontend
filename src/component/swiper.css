@@ -1,16 +1,23 @@
-/* .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.swiper {
+    max-width: 743px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-} */
+.swiperSlide {
+    max-width: 205px;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    max-width: 240px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }

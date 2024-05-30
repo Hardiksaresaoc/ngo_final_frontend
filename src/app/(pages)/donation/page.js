@@ -177,11 +177,6 @@ export default function page() {
           </div>
           <div className={styles.rightSection}>
             <div className={styles.ytVideo}>
-              {/* <video width="705" height="380" controls className={styles.videoPortion}>
-          <source src="" type="video/mp4"/>
-          <source src="" type="video/ogg"/>
-              Your browser does not support HTML video.
-        </video> */}
               <iframe
                 width="705"
                 height="380"

@@ -1,28 +1,45 @@
 "use client";
 import React from "react";
-import "./swiper.css";
-import { Swiper, SwiperSlide } from "swiper/react";
+ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import "./swiper.css"
 import { Navigation } from "swiper/modules";
 
 let sliderConfig = {
   navigation: true,
   slidesPerView: 3,
+  slidesPerGroup: 3,
   allowTouchMove: true,
   loop: true,
-  spaceBetween: 12,
+  spaceBetween: 10,
   navigation: {
     nextEl: ".custom-arrow-next-artical",
     prevEl: ".custom-arrow-prev-artical",
   },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      spaceBetween: 10,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+  }
 };
 const MySwiper = ({ image }) => {
   return (
     <Swiper {...sliderConfig} modules={[Navigation]}>
       {image.map((image, index) => (
         <SwiperSlide key={index}>
+          
           <img src={image} alt={`Slide ${index + 1}`} />
         </SwiperSlide>
       ))}
