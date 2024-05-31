@@ -11,6 +11,7 @@ export default function page({ params }) {
   const [donor_name, setName] = useState("");
   const [pan, setPan] = useState("");
   const [address, setAddress] = useState("");
+  cd;
   const [donor_state, setdonor_state] = useState("");
   const [donor_country, setdonor_country] = useState("");
   const [donor_pin, setdonor_pin] = useState("");
@@ -80,7 +81,7 @@ export default function page({ params }) {
       Swal.fire({
         title: "error while adding",
         text: `${error.response.data.message}`,
-        icon: "failed",
+        icon: "error",
         confirmButtonText: "Close",
       });
       setsubmitted(false);

@@ -41,7 +41,7 @@ export default function page({ params }) {
     const formData = {
       amount: amount,
       donor_phone: donor_phone,
-      donor_name: donor_name,
+      donor_firstName: donor_name,
       donor_email: donor_email,
       pan: pan,
       address: address,
@@ -50,7 +50,8 @@ export default function page({ params }) {
       donor_pin: donor_pin,
     };
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
+    if (!formData.donor_firstName)
+      newErrors.donor_name = "Please enter your name.";
     if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
 

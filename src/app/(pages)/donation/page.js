@@ -15,7 +15,10 @@ export default function page({ params }) {
   const [donor_state, setdonor_state] = useState("");
   const [donor_country, setdonor_country] = useState("");
   const [donor_pin, setdonor_pin] = useState("");
-  const [form, setForm] = useState({ name: "", number: "", amount: 0 });
+  const [form, setForm] = useState({
+    donor_phone: "",
+    txnid: "TXN" + Date.now(),
+  });
   const [hash, setHash] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
 
@@ -46,9 +49,8 @@ export default function page({ params }) {
         ...form,
       })
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.data);
         setHash(res.data.data.hash);
-        setTransactionId(res.data.data.transactionId);
       })
       .catch((error) => {
         console.error(error);
@@ -64,34 +66,22 @@ export default function page({ params }) {
   };
 
   const handleSubmit = async (e) => {
+    console.log(form);
     getHash();
-    setToggle(2);
-
     e.preventDefault();
     const newErrors = {};
 
-    const formData = {
-      amount: amount,
-      donor_phone: donor_phone,
-      donor_name: donor_name,
-      donor_email: donor_email,
-      pan: pan,
-      donor_address: address,
-      donor_state: donor_state,
-      donor_country: donor_country,
-      donor_pin: donor_pin,
-    };
-    // if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    // if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
-    // if (!formData.donor_phone)
-    //   newErrors.donor_phone = "Please enter phone number.";
+    if (!form?.amount) newErrors.amount = "Please enter donation amount.";
+    if (!form?.donor_firstName)
+      newErrors.donor_firstName = "Please enter your name.";
+    if (!form?.donor_phone)
+      newErrors.donor_phone = "Please enter phone number.";
 
-    // if (!formData.donor_email)
-    //   newErrors.donor_email = "Please enter Your email.";
-    // if (Object.keys(newErrors).length > 0) {
-    //   setErrors(newErrors);
-    //   return;
-    // }
+    if (!form?.donor_email) newErrors.donor_email = "Please enter Your email.";
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -99,15 +89,15 @@ export default function page({ params }) {
       },
     };
     try {
-      // formData["amount"] = Number(formData["amount"]);
+      form["amount"] = Number(form["amount"]);
 
-      // const response = await axios.post(
-      //   `${process.env.NEXT_PUBLIC_serverAPI}/donate`,
-      //   form,
-      //   config
-      // );
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_serverAPI}/donate`,
+        form,
+        config
+      );
 
-      // setReference(response.data.data);
+      setReference(response.data.data);
       setsubmitted(true);
     } catch (error) {
       // Swal.fire({
@@ -116,7 +106,6 @@ export default function page({ params }) {
       //   icon: "failed",
       //   confirmButtonText: "Close",
       // });
-      setsubmitted(false);
     }
   };
 
@@ -146,7 +135,7 @@ export default function page({ params }) {
                         className={styles.number}
                         name="amount"
                         placeholder="Enter your donation amount"
-                        value={amount}
+                        value={form?.amount}
                         onChange={handleChange}
                         min="0"
                       />
@@ -163,8 +152,8 @@ export default function page({ params }) {
                       <input
                         type="text"
                         className={styles.username}
-                        name="name"
-                        value={donor_name}
+                        name="donor_firstName"
+                        value={form?.donor_name}
                         onChange={handleChange}
                         placeholder="Enter your first name"
                         maxLength="20"
@@ -182,7 +171,7 @@ export default function page({ params }) {
                       <input
                         type="donor_email"
                         className={styles.donor_email}
-                        value={donor_email}
+                        value={form?.donor_email}
                         onChange={handleChange}
                         name="donor_email"
                         placeholder="Enter your e-mail"
@@ -201,8 +190,8 @@ export default function page({ params }) {
                       <input
                         type="text"
                         className={styles.mobilenumber}
-                        name="number"
-                        value={donor_phone}
+                        name="donor_phone"
+                        value={form?.donor_phone}
                         onChange={handleChange}
                         placeholder="Enter your mobile no."
                       />
@@ -218,7 +207,7 @@ export default function page({ params }) {
                         type="text"
                         className={styles.pannumber}
                         name="Pannumber"
-                        value={pan}
+                        value={form?.pan}
                         onChange={handleChange}
                         placeholder="Enter your PAN number"
                         required
@@ -233,7 +222,7 @@ export default function page({ params }) {
                         type="text"
                         className={styles.address}
                         name="Address"
-                        value={address}
+                        value={form?.address}
                         onChange={handleChange}
                         placeholder="Enter your address"
                       />
@@ -318,12 +307,7 @@ export default function page({ params }) {
           </div>
         </>
       ) : (
-        <PayUPaymentPage
-          setToggle={setToggle}
-          form={form}
-          hash={hash}
-          transactionId={transactionId}
-        />
+        <PayUPaymentPage form={form} hash={hash} transactionId={form?.txnid} />
       )}
     </>
   );
