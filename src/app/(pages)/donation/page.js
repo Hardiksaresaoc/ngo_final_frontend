@@ -1,5 +1,8 @@
-import MySwiper from "@/component/MySwiper";
+'use client'
+import MySwiper, { MySwiperTeamMember, OneSwiper } from "@/component/MySwiper";
 import styles from "./donation.module.css";
+import { useState } from "react";
+import axios from "axios";
 
 export default function page() {
   const images = [
@@ -10,26 +13,56 @@ export default function page() {
     "/images/easternNaval.png",
     "/images/easternNaval.png",
   ];
-  const teamMembers = [
+  const teamData = [
     {
-      name: "Late Wg. Cdr. Vinod Nebb (Retd) Vir Chakra & Bar (VrC)",
-      role: "(patron)",
-      imgSrc: "/images/VinodNebb.png",
+      src: "/images/vinod-neb.png",
+      name: "Late Wg. Cdr. Vinod Nebb (Retd)",
+      award: " Vir Chakra & Bar (VrC)",
     },
     {
+      src: "/images/RDSharma.png",
       name: "Lt. Col. R.D. Sharma (Retd.)",
-      role: "(patron)",
-      imgSrc: "/images/RDSharma.png",
+      award: "",
     },
     {
+      src: "/images/JSDhillon.png",
       name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
-      role: "(patron)",
-      imgSrc: "/images/JSDhillon.png",
+      award: " ",
     },
   ];
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [amount, setAmount] = useState(1250); // Default amount
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      panNumber,
+      address,
+      amount: amount,
+    };
+
+    try {
+      const response = await axios.post("api/pay", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <main className={styles.mainPage}>
+        <div className={styles.upperPortion}>
         <div className={styles.pageTagline}>
           <p className={styles.tagline}>
             “In our nation, there's always a soldier sacrificing his own comfort
@@ -37,6 +70,35 @@ export default function page() {
             showing them they're not alone.”
           </p>
         </div>
+        <div className={styles.upperRight}>
+        <div className={styles.ytVideo}>
+              <iframe
+                width="693"
+                height="330"
+                src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className={styles.benefits}>
+              <ul className={styles.unorderList}>
+                <li className={styles.benefitOptions}>100% Transparency</li>
+                <li className={`${styles.benefitOptions} ${styles.green}`}>
+                  Assured
+                </li>
+                <li className={`${styles.benefitOptions} ${styles.orange}`}>
+                  Ex-soldiers
+                </li>
+                <li className={`${styles.benefitOptions} ${styles.red}`}>
+                  Tax-benefit
+                </li>
+              </ul>
+            </div>
+            </div>
+            </div>
 
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
@@ -63,7 +125,6 @@ export default function page() {
               <div className={styles.amountSection}>
                 <label htmlFor="amount">Amount*</label>
                 <input
-                  readOnly
                   type="text"
                   className={styles.amount}
                   name="Amount"
@@ -72,35 +133,25 @@ export default function page() {
               </div>
               <div className={styles.amountOptions}>
                 <div className={styles.operation}>
-                  <input readOnly type="radio" id="PITHU" name="fav_language" />
+                  <input type="radio" id="PITHU" name="fav_language" />
                   <label htmlFor="amount">
-                    ₹1,250 to provide 1 month ration (Project PITHU)
+                  Donate any amount
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input readOnly type="radio" id="SEHAT" name="fav_language" />
+                  <input type="radio" id="SEHAT" name="fav_language" />
                   <label htmlFor="amount">
-                    ₹2,000 for 1 month medical care (Project SEHAT)
+                  ₹2,500 for 1 month school fees (Project SAKSHAM)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input
-                    readOnly
-                    type="radio"
-                    id="SAKSHAM"
-                    name="fav_language"
-                  />
+                  <input type="radio" id="SAKSHAM" name="fav_language" />
                   <label htmlFor="amount">
-                    ₹2,500 for 1 month school fees (Project SAKSHAM)
+                  ₹2,000 for 1 month medical care (Project SEHAT)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input
-                    readOnly
-                    type="radio"
-                    id="anyAmount"
-                    name="fav_language"
-                  />
+                  <input type="radio" id="anyAmount" name="fav_language" />
                   <label htmlFor="amount">Donate any amount</label>
                 </div>
               </div>
@@ -108,46 +159,46 @@ export default function page() {
               <div className={styles.userName}>
                 <div className={styles.name}>
                   <label htmlFor="amount">First Name*</label>
-                  <input readOnly type="text" id="amount" name="fName" />
+                  <input type="text" id="amount" name="fName" />
                 </div>
                 <div className={styles.name}>
                   <label htmlFor="amount">Last Name</label>
-                  <input readOnly type="text" id="amount" name="lName" />
+                  <input type="text" id="amount" name="lName" />
                 </div>
               </div>
               <div className={styles.email}>
                 <label htmlFor="amount">Email</label>
-                <input readOnly type="email" id="amount" name="e-mail" />
+                <input type="email" id="amount" name="e-mail" />
               </div>
               <div className={styles.pNumber}>
                 <label htmlFor="amount">Phone Number</label>
-                <input readOnly type="number" id="amount" name="Phone-Number" />
+                <input type="number" id="amount" name="Phone-Number" />
               </div>
               <div className={styles.gCerti}>
                 <p>Do you want 80G Certificate?</p>
                 <div className={styles.chooseOption}>
                   <div className={styles.formRadio}>
-                    <input readOnly type="radio" id="no" name="fav_language" />
+                    <input type="radio" id="no" name="fav_language" />
                     <label htmlFor="no">No</label>
                   </div>
                   <div className={styles.formRadio}>
-                    <input readOnly type="radio" id="yes" name="fav_language" />
+                    <input type="radio" id="yes" name="fav_language" />
                     <label htmlFor="yes">Yes</label>
                   </div>
                 </div>
               </div>
               <div className={styles.panNo}>
                 <label htmlFor="amount">PAN No.*</label>
-                <input readOnly type="text" id="amount" name="PAN-No" />
+                <input type="text" id="amount" name="PAN-No" />
               </div>
               <div className={styles.address}>
                 <label htmlFor="amount">Address*</label>
-                <input readOnly type="text" id="amount" name="Address" />
+                <input type="text" id="amount" name="Address" />
               </div>
               <div className={styles.donationBtn}>
                 <button
                   type="submit"
-                  value="Donate"
+                  onSubmit={handleSubmit}
                   className={styles.donateBtn}
                 >
                   Donate &#8377; 1,250
@@ -192,37 +243,6 @@ export default function page() {
             </div>
           </div>
           <div className={styles.rightSection}>
-            <div className={styles.ytVideo}>
-              {/* <video width="705" height="380" controls className={styles.videoPortion}>
-          <source src="" type="video/mp4"/>
-          <source src="" type="video/ogg"/>
-              Your browser does not support HTML video.
-        </video> */}
-              <iframe
-                width="705"
-                height="380"
-                src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className={styles.benefits}>
-              <ul className={styles.unorderList}>
-                <li className={styles.benefitOptions}>100% Transparency</li>
-                <li className={`${styles.benefitOptions} ${styles.green}`}>
-                  Assured
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.orange}`}>
-                  Ex-soldiers
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.red}`}>
-                  Tax-benefit
-                </li>
-              </ul>
-            </div>
             <div className={styles.content}>
               <p>
                 “It was a chance encounter in May 2016 with retired Army men,
@@ -310,7 +330,9 @@ export default function page() {
                 existing Government/Defence Schemes.
               </p>
             </div>
-            <div className={styles.carousals}></div>
+            <div className={styles.carousals}>
+              <OneSwiper styles={styles} OneImage={images} />
+            </div>
             <div className={styles.supportHeroesContent}>
               <p>
                 We review every case expeditiously and try to offer meaningful
@@ -330,55 +352,7 @@ export default function page() {
               Meet the heartbeat of the organization (Our Team)
             </h2>
             <div className={styles.sliders}>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/vinod-neb.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Late Wg. Cdr. Vinod Nebb (Retd)<br></br> Vir Chakra & Bar
-                    (VrC)
-                  </h3>
-                  <h4 className={styles.memberDetails}>(patron)</h4>
-                </div>
-                {/* className={`${styles.benefitOptions} ${styles.green}`} */}
-              </div>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/RDSharma.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Lt. Col. R.D. Sharma (Retd.)
-                  </h3>
-                  <h4 className={`${styles.memberDetails} ${styles.patron}`}>
-                    (patron)
-                  </h4>
-                </div>
-              </div>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/JSDhillon.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)
-                  </h3>
-                  <h4 className={`${styles.memberDetails} ${styles.patrons}`}>
-                    (patron)
-                  </h4>
-                </div>
-              </div>
+              <MySwiperTeamMember styles={styles} teamData={teamData} />
             </div>
             <p className={styles.sliderTag}>
               "Support Our Heroes (SOH)" is run by decorated Ex-Defence Officers
@@ -388,9 +362,6 @@ export default function page() {
             <div className={styles.sliders}>
               <div className={styles.LOA}>
                 <MySwiper image={images} />
-                {/* <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
-          <img src="/images/andhra.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
-          <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/> */}
               </div>
             </div>
             <a href="#" className={styles.viewAllPage}>
