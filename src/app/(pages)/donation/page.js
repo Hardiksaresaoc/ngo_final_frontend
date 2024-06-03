@@ -1,4 +1,4 @@
-import MySwiper from "@/component/MySwiper";
+import MySwiper, { MySwiperTeamMember } from "@/component/MySwiper";
 import styles from "./donation.module.css";
 
 export default function page() {
@@ -9,6 +9,23 @@ export default function page() {
     "/images/easternNaval.png",
     "/images/easternNaval.png",
     "/images/easternNaval.png",
+  ];
+  const teamData = [
+    {
+      src: "/images/vinod-neb.png",
+      name: "Late Wg. Cdr. Vinod Nebb (Retd)",
+      award: " Vir Chakra & Bar (VrC)",
+    },
+    {
+      src: "/images/RDSharma.png",
+      name: "Lt. Col. R.D. Sharma (Retd.)",
+      award: "",
+    },
+    {
+      src: "/images/JSDhillon.png",
+      name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
+      award: " ",
+    },
   ];
 
   return (
@@ -180,7 +197,7 @@ export default function page() {
               {/* <video width="705" height="380" controls className={styles.videoPortion}>
           <source src="" type="video/mp4"/>
           <source src="" type="video/ogg"/>
-              Your browser does not support HTML video.
+              Your browser does n00ot support HTML video.
         </video> */}
               <iframe
                 width="705"
@@ -314,54 +331,7 @@ export default function page() {
               Meet the heartbeat of the organization (Our Team)
             </h2>
             <div className={styles.sliders}>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/vinod-neb.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Late Wg. Cdr. Vinod Nebb (Retd)<br></br> Vir Chakra & Bar
-                    (VrC)
-                  </h3>
-                  <h4 className={styles.memberDetails}>(patron)</h4>
-                </div>
-                {/* className={`${styles.benefitOptions} ${styles.green}`} */}
-              </div>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/RDSharma.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Lt. Col. R.D. Sharma (Retd.)
-                  </h3>
-                  <h4 className={`${styles.memberDetails} ${styles.patron}`}>
-                    (patron)
-                  </h4>
-                </div>
-              </div>
-              <div className={styles.teamMember}>
-                <img
-                  src="/images/JSDhillon.png"
-                  alt="phonepay"
-                  width="173"
-                  height="220"
-                />
-                <div className={styles.teamMemberDetails}>
-                  <h3 className={styles.memberDetails}>
-                    Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)
-                  </h3>
-                  <h4 className={`${styles.memberDetails} ${styles.patrons}`}>
-                    (patron)
-                  </h4>
-                </div>
-              </div>
+              <MySwiperTeamMember styles={styles} teamData={teamData} />
             </div>
             <p className={styles.sliderTag}>
               "Support Our Heroes (SOH)" is run by decorated Ex-Defence Officers
@@ -371,9 +341,6 @@ export default function page() {
             <div className={styles.sliders}>
               <div className={styles.LOA}>
                 <MySwiper image={images} />
-                {/* <img src="/images/assam.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
-          <img src="/images/andhra.png" alt="phonepay" width="205" height="280" className={styles.letters}/>
-          <img src="/images/easternNaval.png" alt="phonepay" width="205" height="280" className={styles.letters}/> */}
               </div>
             </div>
             <a href="#" className={styles.viewAllPage}>
