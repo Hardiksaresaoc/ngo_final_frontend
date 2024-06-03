@@ -404,12 +404,13 @@
     flex-direction: column;
     padding: 60px 16px;
     gap: 0;
+    padding-bottom: 40px;
   }
   .ytVideo {
     padding: 0 40px;
   }
   .pageTagline {
-    padding: 0 16px 60px;
+    padding: 0 16px 40px;
     width: 100%;
   }
   .tagline {

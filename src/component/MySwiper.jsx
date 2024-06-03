@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "./swiper.css";
-import { Navigation, Pagination } from "swiper/modules";
+import { Autoplay,Navigation, Pagination } from "swiper/modules";
 
 const MySwiper = ({ image }) => {
   let sliderConfig = {
@@ -13,7 +13,11 @@ const MySwiper = ({ image }) => {
     slidesPerView: 3,
     slidesPerGroup: 3,
     allowTouchMove: true,
-    loop: true,
+    loop: true,     autoplay:{
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    
     navigation: {
       nextEl: ".custom-arrow-next-artical",
       prevEl: ".custom-arrow-prev-artical",
@@ -35,7 +39,7 @@ const MySwiper = ({ image }) => {
     <Swiper
       className="sw"
       {...sliderConfig}
-      modules={[Navigation]}
+      modules={[Autoplay,Navigation]}
       style={{ display: "flex", justifyContent: "space-between" }}
     >
       {image.map((image, index) => (
@@ -57,7 +61,10 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
     slidesPerGroup: 3,
     allowTouchMove: true,
     loop: true,
-
+    autoplay:{
+      delay: 2500,
+      disableOnInteraction: false,
+    },
     navigation: {
       nextEl: ".custom-arrow-next-artical",
       prevEl: ".custom-arrow-prev-artical",
@@ -79,7 +86,7 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
     },
   };
   return (
-    <Swiper {...sliderConfig} className="teamMember" modules={[Navigation]}>
+    <Swiper {...sliderConfig} className="teamMember" modules={[Autoplay,Navigation]}>
       {teamData.map((team, index) => (
         <SwiperSlide key={index}>
           <div className={styles.teamMember}>
@@ -114,7 +121,10 @@ export const OneSwiper = ({ OneImage }) => {
     slidesPerView: 1,
     slidesPerGroup: 1,
     allowTouchMove: true,
-    loop: true,
+    loop: true, autoplay:{
+      delay: 2500,
+      disableOnInteraction: false,
+    },
     pagination: {
       clickable: true,
       el: ".swiper-pagination",
@@ -141,7 +151,7 @@ export const OneSwiper = ({ OneImage }) => {
     },
   };
   return (
-    <Swiper {...onesliderConfig} modules={[Navigation, Pagination]}>
+    <Swiper {...onesliderConfig} modules={[Navigation,Autoplay, Pagination]}>
       {OneImage.map((image, index) => (
         <SwiperSlide
           style={{ display: "flex", justifyContent: "center" }}

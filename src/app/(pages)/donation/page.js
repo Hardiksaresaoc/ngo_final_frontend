@@ -1,5 +1,8 @@
+'use client'
 import MySwiper, { MySwiperTeamMember, OneSwiper } from "@/component/MySwiper";
 import styles from "./donation.module.css";
+import { useState } from "react";
+import axios from "axios";
 
 export default function page() {
   const images = [
