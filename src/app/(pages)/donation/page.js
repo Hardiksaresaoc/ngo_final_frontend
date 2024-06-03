@@ -14,6 +14,7 @@ export default function page() {
   return (
     <>
       <main className={styles.mainPage}>
+        <div className={styles.upperPortion}>
         <div className={styles.pageTagline}>
           <p className={styles.tagline}>
             “In our nation, there's always a soldier sacrificing his own comfort
@@ -21,6 +22,35 @@ export default function page() {
             showing them they're not alone.”
           </p>
         </div>
+        <div className={styles.upperRight}>
+        <div className={styles.ytVideo}>
+              <iframe
+                width="693"
+                height="330"
+                src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className={styles.benefits}>
+              <ul className={styles.unorderList}>
+                <li className={styles.benefitOptions}>100% Transparency</li>
+                <li className={`${styles.benefitOptions} ${styles.green}`}>
+                  Assured
+                </li>
+                <li className={`${styles.benefitOptions} ${styles.orange}`}>
+                  Ex-soldiers
+                </li>
+                <li className={`${styles.benefitOptions} ${styles.red}`}>
+                  Tax-benefit
+                </li>
+              </ul>
+            </div>
+            </div>
+            </div>
 
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
@@ -58,13 +88,13 @@ export default function page() {
                 <div className={styles.operation}>
                   <input readOnly type="radio" id="PITHU" name="fav_language" />
                   <label htmlFor="amount">
-                    ₹1,250 to provide 1 month ration (Project PITHU)
+                  Donate any amount
                   </label>
                 </div>
                 <div className={styles.operation}>
                   <input readOnly type="radio" id="SEHAT" name="fav_language" />
                   <label htmlFor="amount">
-                    ₹2,000 for 1 month medical care (Project SEHAT)
+                  ₹2,500 for 1 month school fees (Project SAKSHAM)
                   </label>
                 </div>
                 <div className={styles.operation}>
@@ -75,7 +105,7 @@ export default function page() {
                     name="fav_language"
                   />
                   <label htmlFor="amount">
-                    ₹2,500 for 1 month school fees (Project SAKSHAM)
+                  ₹2,000 for 1 month medical care (Project SEHAT)
                   </label>
                 </div>
                 <div className={styles.operation}>
@@ -85,7 +115,7 @@ export default function page() {
                     id="anyAmount"
                     name="fav_language"
                   />
-                  <label htmlFor="amount">Donate any amount</label>
+                  <label htmlFor="amount">₹1,250 to provide 1 month ration (Project PITHU)</label>
                 </div>
               </div>
               <h2>Personal Info</h2>
@@ -176,32 +206,6 @@ export default function page() {
             </div>
           </div>
           <div className={styles.rightSection}>
-            <div className={styles.ytVideo}>
-              <iframe
-                width="705"
-                height="380"
-                src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className={styles.benefits}>
-              <ul className={styles.unorderList}>
-                <li className={styles.benefitOptions}>100% Transparency</li>
-                <li className={`${styles.benefitOptions} ${styles.green}`}>
-                  Assured
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.orange}`}>
-                  Ex-soldiers
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.red}`}>
-                  Tax-benefit
-                </li>
-              </ul>
-            </div>
             <div className={styles.content}>
               <p>
                 “It was a chance encounter in May 2016 with retired Army men,

@@ -5,14 +5,16 @@
   width: 100%;
   background-color: #f9f9f9;
 }
-.pageTagline {
-  width: 100%;
+.upperPortion {
   display: flex;
-  justify-content: center;
-  padding: 40px 142px;
+  padding: 60px 80px 40px;
+  gap: 80px;
+}
+.pageTagline {
+  width: 50%;
+  display: flex;
 }
 .tagline {
-  max-width: 1156px;
   width: 100%;
   font-family: "Roboto", sans-serif;
   font-size: 32px;
@@ -20,6 +22,18 @@
   line-height: 52px;
   color: #000080;
   text-align: center;
+}
+.upperRight {
+  display: flex;
+  flex-direction: column;
+}
+.ytVideo {
+  width: 100%;
+   display: flex;
+  justify-content: center;
+}
+.videoPortion {
+  width: 100%;
 }
 .mainClass {
   width: 100%;
@@ -223,17 +237,10 @@
   background-color: #ffffff;
   overflow: hidden;
 }
-.ytVideo {
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-}
-.videoPortion {
-  width: 100%;
-}
 .benefits {
   display: flex;
   justify-content: center;
+  padding-top: 40px;
 }
 .unorderList {
   display: flex;
@@ -393,8 +400,17 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .pageTagline {
+  .upperPortion {
+    flex-direction: column;
     padding: 60px 16px;
+    gap: 0;
+  }
+  .ytVideo {
+    padding: 0 40px;
+  }
+  .pageTagline {
+    padding: 0 16px 60px;
+    width: 100%;
   }
   .tagline {
     max-width: 380px;

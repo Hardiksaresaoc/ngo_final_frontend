@@ -28,8 +28,8 @@
 }
 .pageSection .message .successMessage {
     background-color: #F6F6F6;
-    border: 2px solid #408F25;
-    padding: 10px 16px;
+    border: 2px solid #FD3838;
+    padding: 10px 62px;
     min-height: 128px;
 }
 .successMessage h2 {
@@ -77,8 +77,8 @@
     font-weight: 500;
     color: #303030;
 }
-.tableColumn.green {
-    color: #408F25;
+.tableColumn.red {
+    color: #FD3838;
 }
 .tableLink {
     color: #303030;
@@ -118,7 +118,8 @@
     }
     .pageSection .message .successMessage {
         padding: 35px 16px 10px;
-    }
+        margin-left: -11px;
+        }
     .successMessage h2 {
         padding: 0px;
     }

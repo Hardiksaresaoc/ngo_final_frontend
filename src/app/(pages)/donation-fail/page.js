@@ -1,4 +1,4 @@
-import styles from "./thank.module.css"
+import styles from "./donationFail.module.css"
 export default function page() {
     return (
         <>
@@ -7,10 +7,10 @@ export default function page() {
                     <h1>Donation Details</h1>
                     <div className={styles.message}>
                         <div className={styles.successIcon}>
-                            <img src="/images/Success-Icon.png" alt="Success Icon" width="70" height="70" className={styles.successImg} />
+                            <img src="/images/FailedIcon.png" alt="Success Icon" width="70" height="70" className={styles.successImg} />
                         </div>
                         <div className={styles.successMessage}>
-                            <h2>Thank you for your generous contribution! Your donation will directly support our heroes in need. Together, we can ensure they receive the timely help they deserve. If you have opted for 80G certificate, it will be sent to you within 48 hours.</h2>
+                            <h2>We’re sorry, your donation failed to process. Please try again shortly, or contact us at (inquiry.soh@gmail.com) if the problem persists. </h2>
                         </div>
                     </div>
                     <div className={styles.successTable}>
@@ -18,7 +18,7 @@ export default function page() {
                             <tbody className={styles.tableBody}>
                             <tr className={styles.tableRow}>
                                 <th className={styles.tableHead}>Transaction Status</th>
-                                <td className={`${styles.tableColumn} ${styles.green}`}>Success</td>
+                                <td className={`${styles.tableColumn} ${styles.red}`}>Failed</td>
                             </tr>
                             <tr className={styles.tableRow}>
                                 <th className={styles.tableHead}>Transaction Reference Number</th>
