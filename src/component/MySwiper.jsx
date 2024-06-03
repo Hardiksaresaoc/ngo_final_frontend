@@ -34,4 +34,31 @@ const MySwiper = ({ image }) => {
   );
 };
 
+export const MySwiperTeam = ({ component }) => {
+  const teamMembers = [
+    {
+      name: "Late Wg. Cdr. Vinod Nebb (Retd) Vir Chakra & Bar (VrC)",
+      role: "(patron)",
+      imgSrc: "/images/VinodNebb.png",
+    },
+    {
+      name: "Lt. Col. R.D. Sharma (Retd.)",
+      role: "(patron)",
+      imgSrc: "/images/RDSharma.png",
+    },
+    {
+      name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
+      role: "(patron)",
+      imgSrc: "/images/JSDhillon.png",
+    },
+  ];
+  return (
+    <Swiper {...sliderConfig} modules={[Navigation]}>
+      {/* Add more SwiperSlide components as needed */}
+      <div className={`custom-arrow-next-artical swiper-button-next `}></div>
+      <div className={`custom-arrow-prev-artical swiper-button-prev`}></div>
+    </Swiper>
+  );
+};
+
 export default MySwiper;

@@ -10,7 +10,23 @@ export default function page() {
     "/images/easternNaval.png",
     "/images/easternNaval.png",
   ];
-
+  const teamMembers = [
+    {
+      name: "Late Wg. Cdr. Vinod Nebb (Retd) Vir Chakra & Bar (VrC)",
+      role: "(patron)",
+      imgSrc: "/images/VinodNebb.png",
+    },
+    {
+      name: "Lt. Col. R.D. Sharma (Retd.)",
+      role: "(patron)",
+      imgSrc: "/images/RDSharma.png",
+    },
+    {
+      name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
+      role: "(patron)",
+      imgSrc: "/images/JSDhillon.png",
+    },
+  ];
   return (
     <>
       <main className={styles.mainPage}>
@@ -321,6 +337,7 @@ export default function page() {
                   width="173"
                   height="220"
                 />
+
                 <div className={styles.teamMemberDetails}>
                   <h3 className={styles.memberDetails}>
                     Late Wg. Cdr. Vinod Nebb (Retd)<br></br> Vir Chakra & Bar
