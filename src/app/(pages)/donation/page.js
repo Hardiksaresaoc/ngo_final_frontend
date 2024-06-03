@@ -1,4 +1,4 @@
-import MySwiper, { MySwiperTeamMember } from "@/component/MySwiper";
+import MySwiper, { MySwiperTeamMember, OneSwiper } from "@/component/MySwiper";
 import styles from "./donation.module.css";
 
 export default function page() {
@@ -27,6 +27,34 @@ export default function page() {
       award: " ",
     },
   ];
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [panNumber, setPanNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [amount, setAmount] = useState(1250); // Default amount
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      panNumber,
+      address,
+      amount: amount,
+    };
+
+    try {
+      const response = await axios.post("api/pay", data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <>
@@ -64,7 +92,6 @@ export default function page() {
               <div className={styles.amountSection}>
                 <label htmlFor="amount">Amount*</label>
                 <input
-                  readOnly
                   type="text"
                   className={styles.amount}
                   name="Amount"
@@ -73,35 +100,25 @@ export default function page() {
               </div>
               <div className={styles.amountOptions}>
                 <div className={styles.operation}>
-                  <input readOnly type="radio" id="PITHU" name="fav_language" />
+                  <input type="radio" id="PITHU" name="fav_language" />
                   <label htmlFor="amount">
                     ₹1,250 to provide 1 month ration (Project PITHU)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input readOnly type="radio" id="SEHAT" name="fav_language" />
+                  <input type="radio" id="SEHAT" name="fav_language" />
                   <label htmlFor="amount">
                     ₹2,000 for 1 month medical care (Project SEHAT)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input
-                    readOnly
-                    type="radio"
-                    id="SAKSHAM"
-                    name="fav_language"
-                  />
+                  <input type="radio" id="SAKSHAM" name="fav_language" />
                   <label htmlFor="amount">
                     ₹2,500 for 1 month school fees (Project SAKSHAM)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input
-                    readOnly
-                    type="radio"
-                    id="anyAmount"
-                    name="fav_language"
-                  />
+                  <input type="radio" id="anyAmount" name="fav_language" />
                   <label htmlFor="amount">Donate any amount</label>
                 </div>
               </div>
@@ -109,46 +126,46 @@ export default function page() {
               <div className={styles.userName}>
                 <div className={styles.name}>
                   <label htmlFor="amount">First Name*</label>
-                  <input readOnly type="text" id="amount" name="fName" />
+                  <input type="text" id="amount" name="fName" />
                 </div>
                 <div className={styles.name}>
                   <label htmlFor="amount">Last Name</label>
-                  <input readOnly type="text" id="amount" name="lName" />
+                  <input type="text" id="amount" name="lName" />
                 </div>
               </div>
               <div className={styles.email}>
                 <label htmlFor="amount">Email</label>
-                <input readOnly type="email" id="amount" name="e-mail" />
+                <input type="email" id="amount" name="e-mail" />
               </div>
               <div className={styles.pNumber}>
                 <label htmlFor="amount">Phone Number</label>
-                <input readOnly type="number" id="amount" name="Phone-Number" />
+                <input type="number" id="amount" name="Phone-Number" />
               </div>
               <div className={styles.gCerti}>
                 <p>Do you want 80G Certificate?</p>
                 <div className={styles.chooseOption}>
                   <div className={styles.formRadio}>
-                    <input readOnly type="radio" id="no" name="fav_language" />
+                    <input type="radio" id="no" name="fav_language" />
                     <label htmlFor="no">No</label>
                   </div>
                   <div className={styles.formRadio}>
-                    <input readOnly type="radio" id="yes" name="fav_language" />
+                    <input type="radio" id="yes" name="fav_language" />
                     <label htmlFor="yes">Yes</label>
                   </div>
                 </div>
               </div>
               <div className={styles.panNo}>
                 <label htmlFor="amount">PAN No.*</label>
-                <input readOnly type="text" id="amount" name="PAN-No" />
+                <input type="text" id="amount" name="PAN-No" />
               </div>
               <div className={styles.address}>
                 <label htmlFor="amount">Address*</label>
-                <input readOnly type="text" id="amount" name="Address" />
+                <input type="text" id="amount" name="Address" />
               </div>
               <div className={styles.donationBtn}>
                 <button
                   type="submit"
-                  value="Donate"
+                  onSubmit={handleSubmit}
                   className={styles.donateBtn}
                 >
                   Donate &#8377; 1,250
@@ -306,7 +323,9 @@ export default function page() {
                 existing Government/Defence Schemes.
               </p>
             </div>
-            <div className={styles.carousals}></div>
+            <div className={styles.carousals}>
+              <OneSwiper styles={styles} OneImage={images} />
+            </div>
             <div className={styles.supportHeroesContent}>
               <p>
                 We review every case expeditiously and try to offer meaningful
