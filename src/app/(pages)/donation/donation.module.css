@@ -44,7 +44,7 @@
 .leftSection {
   box-shadow: 0px 2px 8px 0px #00000026;
   padding: 0 20px;
-  max-height: 1430px;
+  max-height: 1490px;
   position: sticky;
   top: 0;
   background-color: #ffffff;
@@ -111,11 +111,27 @@
   display: flex;
   gap: 12px;
 }
+.operation.checkbox {
+  padding-left: 32px;
+}
 .operation label {
   font-size: 18px;
   font-weight: 400;
   line-height: 22px;
   color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.optionNotice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #000000;
+  font-style: italic;
 }
 .formSection h2 {
   font-size: 24px;
@@ -149,6 +165,45 @@
   font-weight: 600;
   line-height: 19px;
   color: #000080;
+}
+.amountSelect {
+  display: flex;
+  gap: 4px;
+}
+.amountSelect.filled {
+  padding-left: 11px;
+}
+.minusButton {
+  width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: #A4A4A4;
+  color: #ffffff;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.minusButton.plusButton {
+  background-color: #000080;
+}
+.numberButton {
+  width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #000080;
+  border: 0.5px solid #000080;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .email,
 .pNumber,
@@ -271,7 +326,7 @@
   background-color: #eb3732;
 }
 .content {
-  padding: 40px 20px;
+  padding: 20px 0;
 }
 .content p {
   font-size: 20px;
@@ -279,6 +334,16 @@
   line-height: 36px;
   color: #303030;
   text-align: justify;
+}
+.summaryImage {
+  width: 540px;
+  height: 359px;
+  padding-top: 20px;
+}
+.summaryImage.projectImage {
+  width: 540px;
+  height: 359px;
+  padding: 0 40px 0 0;
 }
 .content .middleTag {
   padding: 20px 0;
@@ -319,6 +384,7 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+  /* margin-left: 30px; */
 }
 .teamMember {
   max-width: 173px;
@@ -361,7 +427,7 @@
   color: #000080;
   font-family: "Roboto", sans-serif;
   text-align: center;
-  padding: 20px 0 40px 0;
+  padding: 0 0 40px 0;
 }
 .LOA {
   display: flex;
@@ -399,7 +465,7 @@
   gap: 10px;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and  (max-width: 320px) {
   .upperPortion {
     flex-direction: column;
     padding: 60px 16px;
@@ -436,6 +502,7 @@
   }
   .leftSection h2 {
     margin-bottom: 0;
+    margin-top: 0;
   }
   .companyDetails {
     font-size: 18px;
@@ -454,6 +521,163 @@
   }
   .unorderList {
     flex-direction: column;
+  }
+  .summaryImage {
+    width: 240px;
+    height: 164px;
+  }
+  .summaryImage.projectImage {
+    width: 240px;
+    height: 164px;
+  }
+  .sliders {
+    flex-direction: column;
+  }
+  .LOA {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 400px) {
+  .upperPortion {
+    flex-direction: column;
+    padding: 60px 16px;
+    gap: 0;
+    padding-bottom: 40px;
+  }
+  .ytVideo {
+    padding: 0 40px;
+  }
+  .pageTagline {
+    padding: 0 16px 40px;
+    width: 100%;
+  }
+  .tagline {
+    max-width: 380px;
+    width: 100%;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .upperRight {
+    width: 100%;
+  }
+  .mainClass {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    gap: 28px;
+  }
+  .leftSection {
+    padding: 0 16px;
+    position: inherit;
+    max-height: fit-content;
+  }
+  .leftSection h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+
+  }
+  .companyDetails {
+    font-size: 18px;
+  }
+  .companyData {
+    font-size: 18px;
+  }
+  .name input {
+    min-width: 100px;
+  }
+  .paymentIcons {
+    padding-top: 20px;
+  }
+  .videoPortion {
+    height: 300px;
+  }
+  .unorderList {
+    flex-direction: column;
+  }
+  .summaryImage {
+    width: 300px;
+    height: 164px;
+  }
+  .summaryImage.projectImage {
+    width: 300px;
+    height: 164px;
+  }
+  .sliders {
+    flex-direction: column;
+  }
+  .LOA {
+    flex-direction: column;
+  }
+}
+
+
+
+@media only screen and (min-width: 401px) and (max-width: 767px) {
+  .upperPortion {
+    flex-direction: column;
+    padding: 60px 16px;
+    gap: 0;
+    padding-bottom: 40px;
+  }
+  .ytVideo {
+    padding: 0 40px;
+  }
+  .pageTagline {
+    padding: 0 16px 40px;
+    width: 100%;
+  }
+  .tagline {
+    max-width: 380px;
+    width: 100%;
+    font-size: 24px;
+    line-height: 36px;
+  }
+  .upperRight {
+    width: 100%;
+  }
+  .mainClass {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    gap: 28px;
+  }
+  .leftSection {
+    padding: 0 16px;
+    position: inherit;
+    max-height: fit-content;
+  }
+  .leftSection h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  .companyDetails {
+    font-size: 18px;
+  }
+  .companyData {
+    font-size: 18px;
+  }
+  .name input {
+    min-width: 100px;
+  }
+  .paymentIcons {
+    padding-top: 20px;
+  }
+  .videoPortion {
+    height: 300px;
+  }
+  .unorderList {
+    flex-direction: column;
+  }
+  .summaryImage {
+    width: 340px;
+    height: 164px;
+  }
+  .summaryImage.projectImage {
+    width: 340px;
+    height: 164px;
   }
   .sliders {
     flex-direction: column;

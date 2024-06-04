@@ -63,15 +63,15 @@ export default function page() {
     <>
       <main className={styles.mainPage}>
         <div className={styles.upperPortion}>
-        <div className={styles.pageTagline}>
-          <p className={styles.tagline}>
-            “In our nation, there's always a soldier sacrificing his own comfort
-            for our peace. Now, it's our turn to shower them with love and
-            showing them they're not alone.”
-          </p>
-        </div>
-        <div className={styles.upperRight}>
-        <div className={styles.ytVideo}>
+          <div className={styles.pageTagline}>
+            <p className={styles.tagline}>
+              “In our nation, there's always a soldier sacrificing his own comfort
+              for our peace. Now, it's our turn to shower them with love and
+              showing them they're not alone.”
+            </p>
+          </div>
+          <div className={styles.upperRight}>
+            <div className={styles.ytVideo}>
               <iframe
                 width="693"
                 height="330"
@@ -97,8 +97,8 @@ export default function page() {
                 </li>
               </ul>
             </div>
-            </div>
-            </div>
+          </div>
+        </div>
 
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
@@ -135,25 +135,61 @@ export default function page() {
                 <div className={styles.operation}>
                   <input type="radio" id="PITHU" name="fav_language" />
                   <label htmlFor="amount">
-                  Donate any amount
+                    Donate any amount
                   </label>
                 </div>
                 <div className={styles.operation}>
                   <input type="radio" id="SEHAT" name="fav_language" />
                   <label htmlFor="amount">
-                  ₹2,500 for 1 month school fees (Project SAKSHAM)
+                    Donate for projects of SOH <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.8 5.6H7.2V4H8.8M8.8 12H7.2V7.2H8.8M8 0C6.94943 0 5.90914 0.206926 4.93853 0.608964C3.96793 1.011 3.08601 1.60028 2.34315 2.34315C0.842855 3.84344 0 5.87827 0 8C0 10.1217 0.842855 12.1566 2.34315 13.6569C3.08601 14.3997 3.96793 14.989 4.93853 15.391C5.90914 15.7931 6.94943 16 8 16C10.1217 16 12.1566 15.1571 13.6569 13.6569C15.1571 12.1566 16 10.1217 16 8C16 6.94943 15.7931 5.90914 15.391 4.93853C14.989 3.96793 14.3997 3.08601 13.6569 2.34315C12.914 1.60028 12.0321 1.011 11.0615 0.608964C10.0909 0.206926 9.05058 0 8 0Z" fill="#A4A4A4" />
+                    </svg>
                   </label>
                 </div>
-                <div className={styles.operation}>
-                  <input type="radio" id="SAKSHAM" name="fav_language" />
+                <div className={`${styles.operation} ${styles.checkbox}`}>
+                  <input type="checkbox" id="SAKSHAM" name="fav_language" />
                   <label htmlFor="amount">
-                  ₹2,000 for 1 month medical care (Project SEHAT)
+                    ₹2,500 for school fees
+                    <div className={`${styles.amountSelect} ${styles.filled}`}>
+                    <button className={styles.minusButton}>
+                      -
+                    </button>
+                    <input type="text" className={styles.numberButton}/>
+                    <button className={`${styles.minusButton} ${styles.plusButton}`}>
+                      +
+                    </button></div>
                   </label>
                 </div>
-                <div className={styles.operation}>
-                  <input type="radio" id="anyAmount" name="fav_language" />
-                  <label htmlFor="amount">Donate any amount</label>
+                <div className={`${styles.operation} ${styles.checkbox}`}>
+                  <input type="checkbox" id="anyAmount" name="fav_language" />
+                  <label htmlFor="amount">₹2,000 for medical care
+                  <div className={styles.amountSelect}>
+                    <button className={styles.minusButton}>
+                      -
+                    </button>
+                    <input type="text" className={styles.numberButton}/>
+                    <button className={`${styles.minusButton} ${styles.plusButton}`}>
+                      +
+                    </button></div>
+                  </label>
                 </div>
+                <div className={`${styles.operation} ${styles.checkbox}`}>
+                  <input type="checkbox" id="anyAmount" name="fav_language" />
+                  <label htmlFor="amount">₹1,250 to provide ration
+                  <div className={styles.amountSelect}>
+                    <button className={styles.minusButton}>
+                      -
+                    </button>
+                    <input type="text" className={styles.numberButton}/>
+                    <button className={`${styles.minusButton} ${styles.plusButton}`}>
+                      +
+                    </button></div>
+                  </label>
+                </div>
+                <p className={styles.optionNotice}><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.8 6.1H7.2V4.5H8.8M8.8 12.5H7.2V7.7H8.8M8 0.5C6.94942 0.5 5.90914 0.706926 4.93853 1.10896C3.96793 1.511 3.08601 2.10028 2.34315 2.84315C0.842855 4.34344 0 6.37827 0 8.5C0 10.6217 0.842855 12.6566 2.34315 14.1569C3.08601 14.8997 3.96793 15.489 4.93853 15.891C5.90914 16.2931 6.94942 16.5 8 16.5C10.1217 16.5 12.1566 15.6571 13.6569 14.1569C15.1571 12.6566 16 10.6217 16 8.5C16 7.44942 15.7931 6.40914 15.391 5.43853C14.989 4.46793 14.3997 3.58601 13.6569 2.84315C12.914 2.10028 12.0321 1.511 11.0615 1.10896C10.0909 0.706926 9.05058 0.5 8 0.5Z" fill="#A4A4A4" />
+                </svg>
+                  These amounts are for the monthly donation per beneficiary.</p>
               </div>
               <h2>Personal Info</h2>
               <div className={styles.userName}>
@@ -251,17 +287,38 @@ export default function page() {
                 with his meagre pension. Both of his sons worked as daily
                 labourers with no predictable income to feed their kids.
               </p>
+              <img
+                src="/images/summary(1).png"
+                alt=""
+                width="540"
+                height="359"
+                className={styles.summaryImage}
+              />
               <p className={styles.middleTag}>
                 This hit home as we had also experienced this lack of money at
                 one point in our life after our father retired from the Army
                 after 28 years of service.
               </p>
-              <p>
+              <img
+                src="/images/summary(2).png"
+                alt=""
+                width="540"
+                height="359"
+                className={styles.summaryImage}
+              />
+              <p className={styles.middleTag}>
                 We saw a lot of enthusiasm on social media about our soldiers
                 but not enough tangible action to change their lives
                 meaningfully. That's when Support Our Heroes (SOH) was born with
                 an aim to "serve those who fought for us"
               </p>
+              <img
+                src="/images/summary(3).png"
+                alt=""
+                width="540"
+                height="359"
+                className={styles.summaryImage}
+              />
             </div>
             <h2 className={styles.ourHeroes}>About Support Our Heroes</h2>
             <div className={styles.supportHeroesContent}>
@@ -293,6 +350,13 @@ export default function page() {
                 like North-East, Ladakh, Uttarakhand, Telangana etc. (90
                 soldiers/widows are being supported every month).
               </p>
+              <img
+                src="/images/projectpithu.png"
+                alt="Project Pithu"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
               <p>
                 <span className={styles.boldText}>(b) Project SEHAT</span> aims
                 to pay health-related costs like monthly medicines, medical
@@ -300,23 +364,51 @@ export default function page() {
                 non-pensioners/their widows (20 soldiers/widows are being
                 supported every month).
               </p>
+              <img
+                src="/images/projectsehat.png"
+                alt="Project Sehat"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
               <p>
                 <span className={styles.boldText}>(c) Project SAKSHAM</span>{" "}
                 aims to support children’s education (15 children of
                 needy/disabled soldiers are being supported every month).
               </p>
+              <img
+                src="/images/projectsaksham.png"
+                alt="Project Saksham"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
               <p>
                 <span className={styles.boldText}>(d) Project SASHAKT</span>{" "}
                 aims to financially empower and provide livelihood opportunities
                 to the widows of Ex-servicemen/needy veterans and their
                 dependents (no monthly cases so far).
               </p>
+              <img
+                src="/images/projectsashakt.png"
+                alt="Project Sashakt"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
               <p>
                 <span className={styles.boldText}>(e) Project INSANIYAT</span>{" "}
                 aims to provide humanitarian assistance to Soldiers & their
                 families as well as downtrodden people in the society (no
                 monthly cases so far).
               </p>
+              <img
+                src="/images/projectinsaniyat.png"
+                alt="Project Insaniyat"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
               <p>
                 <span className={styles.boldText}>
                   (f) Wing Commander Vinod Nebb Memorial Scholarship:
@@ -329,6 +421,13 @@ export default function page() {
                 poor economic background and are not getting any benefit of
                 existing Government/Defence Schemes.
               </p>
+              <img
+                src="/images/cadetscholarship.png"
+                alt="Cadet Scholarship"
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
             </div>
             <div className={styles.carousals}>
               <OneSwiper styles={styles} OneImage={images} />
@@ -347,6 +446,13 @@ export default function page() {
                 children of disabled Ex-soldiers & martyred soldiers and trains
                 war widows to achieve self-sustainability.
               </p>
+              <img
+                src="/images/summary(4).png"
+                alt=""
+                width="540"
+                height="359"
+                className={`${styles.summaryImage} ${styles.projectImage}`}
+              />
             </div>
             <h2 className={styles.ourTeams}>
               Meet the heartbeat of the organization (Our Team)

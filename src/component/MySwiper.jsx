@@ -9,11 +9,13 @@ import { Autoplay,Navigation, Pagination } from "swiper/modules";
 
 const MySwiper = ({ image }) => {
   let sliderConfig = {
+    spaceBetween: 10,
     navigation: true,
     slidesPerView: 3,
     slidesPerGroup: 3,
     allowTouchMove: true,
-    loop: true,     autoplay:{
+    loop: true,    
+     autoplay:{
       delay: 2500,
       disableOnInteraction: false,
     },
@@ -122,7 +124,8 @@ export const OneSwiper = ({ OneImage }) => {
     slidesPerView: 1,
     slidesPerGroup: 1,
     allowTouchMove: true,
-    loop: true, autoplay:{
+    loop: true,
+     autoplay:{
       delay: 2500,
       disableOnInteraction: false,
     },
