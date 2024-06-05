@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import MySwiper, { MySwiperTeamMember, OneSwiper } from "@/component/MySwiper";
 import styles from "./donation.module.css";
 import { useState } from "react";
 import axios from "axios";
 
-export default function page() {
+export default function Page() {
   const images = [
     "/images/andhra.png",
     "/images/assam.png",
@@ -30,29 +30,30 @@ export default function page() {
       award: " ",
     },
   ];
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [panNumber, setPanNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [amount, setAmount] = useState(1250); // Default amount
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    panNumber: "",
+    address: "",
+    amount: 0,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "amount" ? parseInt(value, 10) || 0 : value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      panNumber,
-      address,
-      amount: amount,
-    };
-
     try {
-      const response = await axios.post("api/pay", data);
+      const response = await axios.post("api/pay", formData);
       console.log(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -63,21 +64,20 @@ export default function page() {
     <>
       <main className={styles.mainPage}>
         <div className={styles.upperPortion}>
-        <div className={styles.pageTagline}>
-          <p className={styles.tagline}>
-            “In our nation, there's always a soldier sacrificing his own comfort
-            for our peace. Now, it's our turn to shower them with love and
-            showing them they're not alone.”
-          </p>
-        </div>
-        <div className={styles.upperRight}>
-        <div className={styles.ytVideo}>
+          <div className={styles.pageTagline}>
+            <p className={styles.tagline}>
+              “In our nation, there's always a soldier sacrificing his own
+              comfort for our peace. Now, it's our turn to shower them with love
+              and showing them they're not alone.”
+            </p>
+          </div>
+          <div className={styles.upperRight}>
+            <div className={styles.ytVideo}>
               <iframe
                 width="693"
                 height="330"
                 src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
                 title="YouTube video player"
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
@@ -97,8 +97,8 @@ export default function page() {
                 </li>
               </ul>
             </div>
-            </div>
-            </div>
+          </div>
+        </div>
 
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
@@ -121,87 +121,119 @@ export default function page() {
                 <span className={styles.companyData}>AASTS5940FE20218</span>
               </p>
             </div>
-            <form className={styles.formSection}>
+            <form className={styles.formSection} onSubmit={handleSubmit}>
               <div className={styles.amountSection}>
                 <label htmlFor="amount">Amount*</label>
                 <input
                   type="text"
                   className={styles.amount}
-                  name="Amount"
-                  value="&#8377; 1,250"
+                  name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}
+                  placeholder="Enter amount"
                 />
               </div>
               <div className={styles.amountOptions}>
                 <div className={styles.operation}>
-                  <input type="radio" id="PITHU" name="fav_language" />
-                  <label htmlFor="amount">
-                  Donate any amount
+                  <input type="radio" id="PITHU" name="donationType" />
+                  <label htmlFor="PITHU">Donate any amount</label>
+                </div>
+                <div className={styles.operation}>
+                  <input type="radio" id="SEHAT" name="donationType" />
+                  <label htmlFor="SEHAT">
+                    ₹2,500 for 1 month school fees (Project SAKSHAM)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input type="radio" id="SEHAT" name="fav_language" />
-                  <label htmlFor="amount">
-                  ₹2,500 for 1 month school fees (Project SAKSHAM)
+                  <input type="radio" id="SAKSHAM" name="donationType" />
+                  <label htmlFor="SAKSHAM">
+                    ₹2,000 for 1 month medical care (Project SEHAT)
                   </label>
                 </div>
                 <div className={styles.operation}>
-                  <input type="radio" id="SAKSHAM" name="fav_language" />
-                  <label htmlFor="amount">
-                  ₹2,000 for 1 month medical care (Project SEHAT)
-                  </label>
-                </div>
-                <div className={styles.operation}>
-                  <input type="radio" id="anyAmount" name="fav_language" />
-                  <label htmlFor="amount">Donate any amount</label>
+                  <input type="radio" id="anyAmount" name="donationType" />
+                  <label htmlFor="anyAmount">Donate any amount</label>
                 </div>
               </div>
               <h2>Personal Info</h2>
               <div className={styles.userName}>
                 <div className={styles.name}>
-                  <label htmlFor="amount">First Name*</label>
-                  <input type="text" id="amount" name="fName" />
+                  <label htmlFor="firstName">First Name*</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className={styles.name}>
-                  <label htmlFor="amount">Last Name</label>
-                  <input type="text" id="amount" name="lName" />
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className={styles.email}>
-                <label htmlFor="amount">Email</label>
-                <input type="email" id="amount" name="e-mail" />
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
               </div>
               <div className={styles.pNumber}>
-                <label htmlFor="amount">Phone Number</label>
-                <input type="number" id="amount" name="Phone-Number" />
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  type="number"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                />
               </div>
               <div className={styles.gCerti}>
                 <p>Do you want 80G Certificate?</p>
                 <div className={styles.chooseOption}>
                   <div className={styles.formRadio}>
-                    <input type="radio" id="no" name="fav_language" />
+                    <input type="radio" id="no" name="certificate" />
                     <label htmlFor="no">No</label>
                   </div>
                   <div className={styles.formRadio}>
-                    <input type="radio" id="yes" name="fav_language" />
+                    <input type="radio" id="yes" name="certificate" />
                     <label htmlFor="yes">Yes</label>
                   </div>
                 </div>
               </div>
               <div className={styles.panNo}>
-                <label htmlFor="amount">PAN No.*</label>
-                <input type="text" id="amount" name="PAN-No" />
+                <label htmlFor="panNumber">PAN No.*</label>
+                <input
+                  type="text"
+                  id="panNumber"
+                  name="panNumber"
+                  value={formData.panNumber}
+                  onChange={handleChange}
+                />
               </div>
               <div className={styles.address}>
-                <label htmlFor="amount">Address*</label>
-                <input type="text" id="amount" name="Address" />
+                <label htmlFor="address">Address*</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
               </div>
               <div className={styles.donationBtn}>
-                <button
-                  type="submit"
-                  onSubmit={handleSubmit}
-                  className={styles.donateBtn}
-                >
-                  Donate &#8377; 1,250
+                <button type="submit" className={styles.donateBtn}>
+                  Donate ₹ {formData.amount}
                 </button>
               </div>
             </form>

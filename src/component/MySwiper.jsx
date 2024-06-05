@@ -31,7 +31,7 @@ const MySwiper = ({ image }) => {
         slidesPerView: 2,
       },
       1024: {
-        slidesPerGroup: ,
+        slidesPerGroup: 1,
         slidesPerView: 3,
       },
     },
