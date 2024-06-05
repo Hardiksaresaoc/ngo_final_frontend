@@ -86,10 +86,8 @@
   background-color: #fff;
   color: #505050;
 }
-.mainFundraiser .rightSection .rightpart .mainForm input#paymentdate {
-  width: 170px;
-  color: #667085;
-}
+ 
+
 .mainFundraiser .rightSection .rightpart .mainForm .compulsory {
   color: #ff0000;
 }

@@ -34,27 +34,7 @@ const useAuth = (allowedRoles) => {
     }
 
     setUser(decodedToken);
-    console.log("valid");
   }, []);
-  // useEffect(() => {
-  //   const refreshToken = Cookies.get("refreshToken");
-  //   const token = Cookies.get("token");
-  //   try {
-  //     if (refreshToken && !token) {
-  //       const config = {
-  //         headers: {
-  //           refreshToken: refreshToken,
-  //           "Content-Type": "application/json",
-  //         },
-  //       };
-  //       const response = axios
-  //         .get(`${process.env.NEXT_PUBLIC_serverAPI}/auth/refreshtoken`, config)
-  //         .then(console.log("ress", response.data));
-  //     }
-  //   } catch (error) {
-  //     console.log("error");
-  //   }
-  // }, [router, Cookies]);
 
   useEffect(() => {
     const refreshToken = Cookies.get("refreshToken");
@@ -96,7 +76,7 @@ const useAuth = (allowedRoles) => {
     };
 
     fetchData();
-  }, [router]);
+  }, [router, Cookies.get("token")]);
 
   return { user };
 };

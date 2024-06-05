@@ -432,10 +432,17 @@ export default function page() {
                         id="donation_date"
                         value={formData.donation_date}
                         onChange={handleChange}
-                        style={{ width: "170px", color: "#667085" }}
                         className={styles.donation_date}
                         required
+                        style={{
+                          width: "170px",
+                          color: "#667085",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        max={new Date().toISOString().split("T")[0]}
                       />
+
                       {errors.donation_date && (
                         <p style={{ color: "red", marginTop: "5px" }}>
                           {errors.donation_date}

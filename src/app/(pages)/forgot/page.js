@@ -25,7 +25,6 @@ const DefaultResetPassword = () => {
         },
       };
 
-      console.log(email);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_serverAPI}/auth/forgot-password`,
         { email },
@@ -116,7 +115,6 @@ const DefaultResetPassword = () => {
                           name="otp"
                           id="otp"
                           onChange={(e) => setOtp(e.target.value)}
-                          // onBlur={handleBlur("email")}
                           type="text"
                           value={otp}
                           placeholder="Enter your OTP"
@@ -146,7 +144,6 @@ const DefaultResetPassword = () => {
                             name="password"
                             className={styles.inputField}
                             onChange={(e) => setNewPassword(e.target.value)}
-                            // onBlur={handleBlur("password")}
                             type={showPassword ? "text" : "password"}
                             value={newPassword}
                             placeholder="Enter your password"

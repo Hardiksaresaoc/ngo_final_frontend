@@ -125,12 +125,12 @@ export default function page({ params }) {
 
       const innerCircleElement = progressBar.querySelector(".inner-circle");
       if (innerCircleElement) {
-        innerCircleElement.style.backgroundColor = "white"; // Replace with desired color
+        innerCircleElement.style.backgroundColor = "white";
       }
 
       progressBar.style.background = `conic-gradient(#0FA900 ${
         newValue * 3.6
-      }deg, #D2F2CF 0deg)`; // Replace colors
+      }deg, #D2F2CF 0deg)`;
     }, speed);
 
     return () => clearInterval(progressInterval);
@@ -153,7 +153,7 @@ export default function page({ params }) {
     }
   };
 
-  const pathLength = 1152; // Total strokeDasharray length for the progress bar
+  const pathLength = 1152;
 
   const strokeDashoffset =
     ((100 - calculateGoalPercentage()) / 100) * pathLength;

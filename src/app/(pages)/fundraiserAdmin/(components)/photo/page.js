@@ -21,14 +21,12 @@ export default function Page() {
   const fileInputRef = useRef(null);
 
   const [loading, setLoading] = useState(true);
-  console.log("hehehhe", fundraiserCtx.fundraiser);
-  const handleFileChange = (e) => {
+   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
     setIsSubmitDisabled(false);
 
-    // Generate preview URL
-    const reader = new FileReader();
+     const reader = new FileReader();
     reader.onloadend = () => {
       Swal.fire({
         html: "<img src='" + reader.result + "' style='width:150px;'>",
@@ -129,8 +127,7 @@ export default function Page() {
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
         config
       );
-      console.log(response.status == 200);
-      if (response.status == 200 || response.status == 201) {
+       if (response.status == 200 || response.status == 201) {
         Swal.fire({
           title: "Deleted Succesfully",
           text: "Done!!",
