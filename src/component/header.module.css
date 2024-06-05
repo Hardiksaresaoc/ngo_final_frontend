@@ -100,7 +100,7 @@
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  width: 237.8px;
   box-shadow: 0px 8px 16px 0px #00000033;
   z-index: 1;
 }
@@ -119,10 +119,19 @@
   .dropdownLi
   .dropdown
   .dropdown-content
+  .dropdownProject:last-child{
+  border:none;
+}
+.head
+  .headerNav
+  .headerUL
+  .dropdownLi
+  .dropdown
+  .dropdown-content
   .dropdownProject {
   float: none;
   color: #272525;
-  padding: 12px 16px;
+  padding: 0.9em 1em;
   text-decoration: none;
   display: block;
   text-align: left;
