@@ -40,7 +40,7 @@ export default function page({ params }) {
     const formData = {
       amount: amount,
       donor_phone: donor_phone,
-      donor_name: donor_name,
+      donor_first_name: donor_name,
       donor_email: donor_email,
       pan: pan,
       donor_address: address,

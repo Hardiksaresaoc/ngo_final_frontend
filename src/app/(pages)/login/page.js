@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -48,16 +49,17 @@ const LoginPage = () => {
   };
 
   const submithandler = async (e) => {
+    Cookies.remove("refreshToken");
+
+    setLoading(true);
+    e.preventDefault();
+    if (!validateForm()) return;
     Swal.fire({
       title: "Logging In",
       text: "Please wait...",
       icon: "info",
       showConfirmButton: false,
     });
-    Cookies.remove("refreshToken");
-    setLoading(true);
-    e.preventDefault();
-    if (!validateForm()) return;
 
     try {
       const config = {
@@ -162,7 +164,7 @@ const LoginPage = () => {
     router.push(redirectPath);
   };
 
-  return (
+  return !loggedin ? (
     <>
       <div className={styles.main}>
         <section className={styles.mainSection}>
@@ -302,6 +304,8 @@ const LoginPage = () => {
         </section>
       </div>
     </>
+  ) : (
+    <Loading />
   );
 };
 

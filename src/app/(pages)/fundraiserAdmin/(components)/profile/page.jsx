@@ -13,6 +13,8 @@ import styles from "./profile.module.css";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
+  const fundraiserCtx = useContext(FundraiserContext);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,24 +22,37 @@ export default function Page() {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [pincode, setPincode] = useState(null);
+  const [pincode, setPincode] = useState("");
   const [token, setToken] = useState("");
   const [number, setNumber] = useState("");
   const [image, setImage] = useState();
-  const [dob, setDOB] = useState(null);
+  const [dob, setDOB] = useState("");
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
   const [imagePreview, setImagePreview] = useState("");
-  const fundraiserCtx = useContext(FundraiserContext);
-  const [profileImage, setprofileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
 
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
-   }, [Cookies]);
+  }, []);
+
   useEffect(() => {
-    const profile = fundraiserCtx.fundraiser?.profileImage;
-    setprofileImage(profile);
+    const fundraiser = fundraiserCtx.fundraiser;
+    if (fundraiser) {
+      setFirstName(fundraiser.firstName || "");
+      setLastName(fundraiser.lastName || "");
+      setEmail(fundraiser.email || "");
+      setAddress(fundraiser.address || "");
+      setState(fundraiser.state || "");
+      setCity(fundraiser.city || "");
+      setCountry(fundraiser.country || "");
+      setPincode(fundraiser.pincode || "");
+      setNumber(fundraiser.mobile_number || "");
+      setDOB(fundraiser.dob || "");
+      setPan(fundraiser.pan || "");
+      setProfileImage(fundraiser.profileImage || null);
+    }
   }, [fundraiserCtx.fundraiser]);
 
   const handleUpdate = async (e) => {
@@ -50,22 +65,26 @@ export default function Page() {
           Authorization: `Bearer ${token}`,
         },
       };
+      const formData = {
+        firstName,
+        lastName,
+        email,
+        address,
+        state,
+        city,
+        country,
+        pincode,
+        number,
+        dob,
+        pan,
+      };
+      const filteredFormData = Object.fromEntries(
+        Object.entries(formData).filter(([_, v]) => v)
+      );
 
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
-        {
-          firstName,
-          lastName,
-          email,
-          address,
-          state,
-          city,
-          country,
-          pincode,
-          number,
-          dob,
-          pan,
-        },
+        { filteredFormData },
         config
       );
       Swal.fire({
@@ -73,7 +92,6 @@ export default function Page() {
         text: "Updated  Successfully!!",
         icon: "success",
         confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
         confirmButtonColor: "#000080",
       });
     } catch (err) {
@@ -85,14 +103,14 @@ export default function Page() {
       });
     }
   };
+
   const handleImageUpload = async (e) => {
     if (e.target && e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("file", file);
       setImage(formData);
-      setImagePreview(file);
-      setprofileImage(image);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
@@ -123,11 +141,9 @@ export default function Page() {
           text: "Updated  Successfully!!",
           icon: "success",
           confirmButtonColor: "#000080",
-
           confirmButtonText: "Close",
         }).then((result) => {
           if (result.isConfirmed) {
-            const imageUrl = response?.data?.data?.imageUrl;
             fundraiserCtx.fetchData();
             window.location.reload();
           }
@@ -145,17 +161,17 @@ export default function Page() {
   };
 
   const reset = () => {
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setAddress("");
-    setState("");
-    setCity("");
-    setCountry("");
-    setPincode("");
-    setNumber("");
-    setDOB("");
-    setPan("");
+    setFirstName(fundraiserCtx.fundraiser?.firstName || "");
+    setLastName(fundraiserCtx.fundraiser?.lastName || "");
+    setEmail(fundraiserCtx.fundraiser?.email || "");
+    setAddress(fundraiserCtx.fundraiser?.address || "");
+    setState(fundraiserCtx.fundraiser?.state || "");
+    setCity(fundraiserCtx.fundraiser?.city || "");
+    setCountry(fundraiserCtx.fundraiser?.country || "");
+    setPincode(fundraiserCtx.fundraiser?.pincode || "");
+    setNumber(fundraiserCtx.fundraiser?.mobile_number || "");
+    setDOB(fundraiserCtx.fundraiser?.dob || "");
+    setPan(fundraiserCtx.fundraiser?.pan || "");
   };
 
   useEffect(() => {
@@ -242,6 +258,7 @@ export default function Page() {
                         type="text"
                         name="lastName"
                         id="lastName"
+                        value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Enter your last name"
                       />
@@ -249,12 +266,7 @@ export default function Page() {
                     <span>
                       <span>Email</span>
                       <br />
-                      <input
-                        type="email"
-                        name="email"
-                        disabled
-                        value={fundraiserCtx?.fundraiser?.email}
-                      />
+                      <input type="email" name="email" value={email} disabled />
                     </span>
                   </div>
                   <div className={styles.secondpersonalDetail}>
@@ -264,6 +276,7 @@ export default function Page() {
                       <input
                         type="text"
                         name="address"
+                        value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         id="address"
                         placeholder="Enter your address"
@@ -276,6 +289,7 @@ export default function Page() {
                         type="text"
                         name="city"
                         id="city"
+                        value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder="Enter your city"
                       />
@@ -286,6 +300,7 @@ export default function Page() {
                       <input
                         type="text"
                         name="state"
+                        value={state}
                         onChange={(e) => setState(e.target.value)}
                         id="state"
                         placeholder="Enter your state"
@@ -300,6 +315,7 @@ export default function Page() {
                         type="text"
                         name="country"
                         id="country"
+                        value={country}
                         onChange={(e) => setCountry(e.target.value)}
                         placeholder="Enter your country"
                       />
@@ -311,6 +327,12 @@ export default function Page() {
                         type="text"
                         name="pincode"
                         id="pincode"
+                        value={pincode}
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .substring(0, 6);
+                        }}
                         onChange={(e) => setPincode(e.target.value)}
                         placeholder="Enter your pincode"
                       />
@@ -319,14 +341,18 @@ export default function Page() {
                       <span>Mobile Number</span>
                       <br />
                       <input
-                        type="number"
+                        type="text"
                         name="mobileNumber"
                         id="mobileNumber"
-                        value={fundraiserCtx?.fundraiser?.mobile_number}
+                        value={number}
                         placeholder="Enter your mobile no."
                         maxLength="10"
                         onChange={(e) => setNumber(e.target.value)}
-                        pattern="[1-9]{1}[0-9]{9}]"
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .substring(0, 10);
+                        }}
                         required
                       />
                     </span>
@@ -337,10 +363,11 @@ export default function Page() {
                       <br />
                       <input
                         type="date"
-                        name="PANnumber"
+                        name="dob"
                         id="DOB"
+                        value={dob}
                         onChange={(e) => setDOB(e.target.value)}
-                        placeholder="Enter your PAN number"
+                        placeholder="Enter your DOB"
                       />
                     </span>
                     <span>
@@ -348,9 +375,10 @@ export default function Page() {
                       <br />
                       <input
                         type="text"
-                        onChange={(e) => setPan(e.target.value)}
                         name="PANnumber"
                         id="PANnumber"
+                        value={pan}
+                        onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"
                       />
                     </span>
@@ -382,7 +410,7 @@ export default function Page() {
                   src={
                     profileImage
                       ? `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
-                      : URL.createObjectURL(imagePreview)
+                      : imagePreview
                   }
                   alt="your image"
                   width={225}
@@ -403,7 +431,7 @@ export default function Page() {
                   onClick={handleSubmitImageUpload}
                   className={styles.fundButton}
                 >
-                  submit
+                  Submit
                 </button>
               </div>
             )}

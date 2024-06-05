@@ -31,13 +31,6 @@ export default function Page() {
     token && fetchData();
   }, [token]);
   const fetchData = async () => {
-    Swal.fire({
-      title: "Searching",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
-
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
@@ -78,6 +71,13 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    Swal.fire({
+      title: "Searching",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
+
     fetchData();
   };
 
@@ -120,6 +120,8 @@ export default function Page() {
       });
     }
   };
+  const renderField = (field) => (field ? field : "--");
+
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
@@ -156,6 +158,9 @@ export default function Page() {
                 <span>Donation Id</span>
                 <br />
                 <input
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "");
+                  }}
                   type="text"
                   name="donation_id"
                   id="donation_id"
@@ -238,16 +243,16 @@ export default function Page() {
                     <td>{item.donation_id_frontend}</td>
                     <td>{formatDate(item.donation_date)} </td>
                     <td>
-                      {item.donor_name}
+                      {item.donor_first_name}
                       <br />
                       {item.donor_email}
                       <br />
                       {item.donor_phone}
                     </td>
 
-                    <td>{item.amount ? item.amount : "--"}</td>
-                    <td>{item.pan ? item.pan : "--"}</td>
-                    <td>{item.donor_address ? item.donor_address : "--"}</td>
+                    <td>{renderField(item.amount)}</td>
+                    <td>{renderField(item.pan)}</td>
+                    <td>{renderField(item.donor_address)}</td>
                     <td>{item.payment_type ? item.payment_type : "--"}</td>
                     <td>
                       {item.payment_status ? (
@@ -262,14 +267,12 @@ export default function Page() {
                         "--"
                       )}
                     </td>
-                    <td>{item.donor_city ? item.donor_city : "--"}</td>
-                    <td>{item.donor_state ? item.donor_state : "--"}</td>
-                    <td>{item.donor_country ? item.donor_country : "--"}</td>
-                    <td>{item.donor_pincode ? item.donor_pincode : "--"}</td>
-                    <td>{item.donor_bankName ? item.donor_bankName : "--"}</td>
-                    <td>
-                      {item.donor_bankBranch ? item.donor_bankBranch : "--"}
-                    </td>
+                    <td>{renderField(item.donor_city)}</td>
+                    <td>{renderField(item.donor_state)}</td>
+                    <td>{renderField(item.donor_country)}</td>
+                    <td>{renderField(item.donor_pincode)}</td>
+                    <td>{renderField(item.donor_bank_name)}</td>
+                    <td>{renderField(item.donor_bank_branch)}</td>
                   </tr>
                 ))}
               </tbody>
