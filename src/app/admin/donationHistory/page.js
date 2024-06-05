@@ -71,6 +71,12 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    Swal.fire({
+      title: "Searching",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
     fetchData();
   };
 

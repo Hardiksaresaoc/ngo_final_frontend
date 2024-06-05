@@ -41,7 +41,7 @@ export default function page({ params }) {
     const formData = {
       amount: amount,
       donor_phone: donor_phone,
-      donor_name: donor_name,
+      donor_first_name: donor_name,
       donor_email: donor_email,
       pan: pan,
       address: address,
@@ -70,7 +70,7 @@ export default function page({ params }) {
       formData["amount"] = Number(formData["amount"]);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/donate/${params.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/donate/fundraiser-page/${params.id}`,
         formData,
         config
       );

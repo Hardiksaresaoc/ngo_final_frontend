@@ -266,9 +266,11 @@ export default function Page() {
                     <td>{item.donor_state ? item.donor_state : "--"}</td>
                     <td>{item.donor_country ? item.donor_country : "--"}</td>
                     <td>{item.donor_pincode ? item.donor_pincode : "--"}</td>
-                    <td>{item.donor_bankName ? item.donor_bankName : "--"}</td>
                     <td>
-                      {item.donor_bankBranch ? item.donor_bankBranch : "--"}
+                      {item.donor_bank_name ? item.donor_bank_name : "--"}
+                    </td>
+                    <td>
+                      {item.donor_bank_branch ? item.donor_bank_branch : "--"}
                     </td>
                   </tr>
                 ))}

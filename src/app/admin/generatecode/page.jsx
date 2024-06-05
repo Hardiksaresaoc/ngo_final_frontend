@@ -75,8 +75,8 @@ const GeneratePage = () => {
             )
             .then(
               Swal.fire({
-                title: "Page created",
-                text: "check Email for more details!!",
+                title: "Fundraiser Credentials generated successfully",
+                text: "Credentials Emailed to Fundraiser",
                 icon: "success",
                 confirmButtonColor: "#000080",
 
@@ -93,9 +93,9 @@ const GeneratePage = () => {
           err.response.data.statusCode == 404
         ) {
           Swal.fire({
-            title: "Fundraiser already exists!",
+            title: "Fundraiser already exists",
             text: err.response.data.message || "oops",
-            icon: "failed",
+            icon: "info",
             confirmButtonColor: "#000080",
           });
         }

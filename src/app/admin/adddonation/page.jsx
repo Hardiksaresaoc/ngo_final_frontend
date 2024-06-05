@@ -16,14 +16,12 @@ export default function page() {
   const [formData, setFormData] = useState({
     email: "",
     amount: "",
-    donor_name: "",
-    // merge fname and lname
+    donor_first_name: "",
+    donor_last_name: "",
     donor_email: "",
     donor_phone: "",
     payment_type: "",
     donation_date: "",
-    //
-    lastName: "",
     donor_address: "",
     city: "",
     state: "",
@@ -31,15 +29,16 @@ export default function page() {
     pincode: "",
     pan: "",
     refrence_payment: "",
-    donor_bankName: "",
-    donor_bankBranch: "",
+    donor_bank_name: "",
+    donor_bank_branch: "",
   });
 
   const reset = () => {
     setFormData({
       email: "",
       amount: "",
-      donor_name: "",
+      donor_first_name: "",
+      donor_last_name: "",
       donor_email: "",
       donor_phone: "",
       payment_type: "",
@@ -52,8 +51,8 @@ export default function page() {
       pincode: "",
       pan: "",
       refrence_payment: "",
-      donor_bankName: "",
-      donor_bankBranch: "",
+      donor_bank_name: "",
+      donor_bank_branch: "",
     });
   };
 
@@ -178,10 +177,7 @@ export default function page() {
               <form className={styles.mainForm}>
                 <div className={styles.fundraiserDetail}>
                   <span>
-                    <span>
-                      Fundraiser E-mail
-                      <span className={styles.compulsory}>*</span>
-                    </span>
+                    <span>Fundraiser E-mail</span>
                     <br />
                     <input
                       list="fundraiserPageList"
@@ -456,7 +452,7 @@ export default function page() {
                         type="text"
                         name="donor_bankName"
                         id="bankName"
-                        value={formData.donor_bankName}
+                        value={formData.donor_bank_name}
                         onChange={handleChange}
                         placeholder="Enter donor bank name"
                       />
