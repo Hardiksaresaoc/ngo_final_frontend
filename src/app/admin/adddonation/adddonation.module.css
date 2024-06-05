@@ -86,7 +86,6 @@
   background-color: #fff;
   color: #505050;
 }
- 
 
 .mainFundraiser .rightSection .rightpart .mainForm .compulsory {
   color: #ff0000;
@@ -106,4 +105,17 @@ datalist#fundraiserPageList {
 
 datalist#fundraiserPageList option {
   padding: 5px 10px;
+}
+.donationDetail select {
+  border: 1px solid #d9d9d9;
+  outline: none;
+  color: #505050;
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: white;
+  width: 15.1em;
 }
