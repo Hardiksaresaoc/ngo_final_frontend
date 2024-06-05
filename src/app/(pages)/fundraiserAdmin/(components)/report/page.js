@@ -120,6 +120,8 @@ export default function Page() {
       });
     }
   };
+  const renderField = (field) => (field ? field : "--");
+
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
@@ -245,9 +247,9 @@ export default function Page() {
                       {item.donor_phone}
                     </td>
 
-                    <td>{item.amount ? item.amount : "--"}</td>
-                    <td>{item.pan ? item.pan : "--"}</td>
-                    <td>{item.donor_address ? item.donor_address : "--"}</td>
+                    <td>{renderField(item.amount)}</td>
+                    <td>{renderField(item.pan)}</td>
+                    <td>{renderField(item.donor_address)}</td>
                     <td>{item.payment_type ? item.payment_type : "--"}</td>
                     <td>
                       {item.payment_status ? (
@@ -262,16 +264,12 @@ export default function Page() {
                         "--"
                       )}
                     </td>
-                    <td>{item.donor_city ? item.donor_city : "--"}</td>
-                    <td>{item.donor_state ? item.donor_state : "--"}</td>
-                    <td>{item.donor_country ? item.donor_country : "--"}</td>
-                    <td>{item.donor_pincode ? item.donor_pincode : "--"}</td>
-                    <td>
-                      {item.donor_bank_name ? item.donor_bank_name : "--"}
-                    </td>
-                    <td>
-                      {item.donor_bank_branch ? item.donor_bank_branch : "--"}
-                    </td>
+                    <td>{renderField(item.donor_city)}</td>
+                    <td>{renderField(item.donor_state)}</td>
+                    <td>{renderField(item.donor_country)}</td>
+                    <td>{renderField(item.donor_pincode)}</td>
+                    <td>{renderField(item.donor_bank_name)}</td>
+                    <td>{renderField(item.donor_bank_branch)}</td>
                   </tr>
                 ))}
               </tbody>

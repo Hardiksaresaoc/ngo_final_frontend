@@ -14,13 +14,12 @@ export default function page() {
   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    email: "",
     amount: "",
     donor_first_name: "",
     donor_last_name: "",
     donor_email: "",
     donor_phone: "",
-    payment_type: "",
+    payment_method: "",
     donation_date: "",
     donor_address: "",
     city: "",
@@ -35,13 +34,12 @@ export default function page() {
 
   const reset = () => {
     setFormData({
-      email: "",
       amount: "",
       donor_first_name: "",
       donor_last_name: "",
       donor_email: "",
       donor_phone: "",
-      payment_type: "",
+      payment_method: "",
       donation_date: "",
       lastName: "",
       donor_address: "",
@@ -93,7 +91,7 @@ export default function page() {
     if (!formData.amount) {
       newErrors.amount = "Amount is required";
     }
-    if (!formData.donor_name) {
+    if (!formData.donor_first_name) {
       newErrors.firstName = "First Name is required";
     }
     if (!formData.donor_email || !isEmailValid(formData.donor_email)) {
@@ -105,8 +103,8 @@ export default function page() {
     if (!formData.donation_date) {
       newErrors.donation_date = "Donation Date is required";
     }
-    if (!formData.payment_type) {
-      newErrors.payment_type = "Donation type is required";
+    if (!formData.payment_method) {
+      newErrors.payment_method = "Donation type is required";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -227,9 +225,12 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        value={formData.donor_name}
+                        value={formData.donor_first_name}
                         onChange={handleChange}
-                        name="donor_name"
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/\d/g, "");
+                        }}
+                        name="donor_first_name"
                         id="donor_name"
                         placeholder="Enter donor first name"
                         required
@@ -245,8 +246,11 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        name="lastName"
-                        value={formData.lastName}
+                        name="donor_last_name"
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/\d/g, "");
+                        }}
+                        value={formData.donor_last_name}
                         onChange={handleChange}
                         id="lastName"
                         placeholder="Enter donor last name"
@@ -331,6 +335,11 @@ export default function page() {
                         type="text"
                         value={formData.pincode}
                         onChange={handleChange}
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .substring(0, 6);
+                        }}
                         name="pincode"
                         id="pincode"
                         placeholder="Enter donor pincode"
@@ -378,6 +387,7 @@ export default function page() {
                         name="pan"
                         value={formData.pan}
                         onChange={handleChange}
+                        pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
                         id="pan"
                         placeholder="Enter donor PAN number"
                       />
@@ -388,18 +398,26 @@ export default function page() {
                         <span className={styles.compulsory}>*</span>
                       </span>
                       <br />
-                      <input
-                        type="text"
-                        name="payment_type"
-                        value={formData.payment_type}
+                      <select
+                        id="payment_method"
+                        name="payment_method"
+                        value={formData.payment_method}
                         onChange={handleChange}
-                        id="payment_type"
-                        placeholder="Choose donor payment method"
                         required
-                      />
-                      {errors.payment_type && (
+                      >
+                        <option value="" hidden>
+                          Select Method
+                        </option>
+                        <option value="Cash">Cash</option>
+                        <option value="Direct Bank Transfer">
+                          Direct Bank Transfer
+                        </option>
+                        <option value="Cheque/DD">Cheque/DD</option>
+                      </select>
+
+                      {errors.payment_method && (
                         <p style={{ color: "red", marginTop: "5px" }}>
-                          {errors.payment_type}
+                          {errors.payment_method}
                         </p>
                       )}
                     </span>
@@ -450,7 +468,7 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        name="donor_bankName"
+                        name="donor_bank_name"
                         id="bankName"
                         value={formData.donor_bank_name}
                         onChange={handleChange}

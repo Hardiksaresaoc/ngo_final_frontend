@@ -180,6 +180,9 @@ const GeneratePage = () => {
                   <br />
                   <input
                     type="text"
+                    onInput={(e) => {
+                          e.target.value = e.target.value.replace(/\d/g, "");
+                        }}
                     value={firstName}
                     name="fullName"
                     id="fullName"
