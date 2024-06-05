@@ -6,28 +6,53 @@ import axios from "axios";
 
 export default function page() {
   const images = [
-    "/images/andhra.png",
-    "/images/assam.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
+    "/images/ChiefMinisterOfAssam.jpeg",
+    "/images/GovernorOfAndhraPradesh.jpeg",
+    "/images/EasternNavalCommand.jpeg",
+    "/images/EasternAirCommand.jpeg",
+    "/images/ArmyEducationalCorps.jpeg",
+    "/images/SainikWelfareAndhraPradesh.jpeg",
+
   ];
   const teamData = [
     {
       src: "/images/vinod-neb.png",
       name: "Late Wg. Cdr. Vinod Nebb (Retd)",
       award: " Vir Chakra & Bar (VrC)",
+      patron:"patron"
     },
     {
       src: "/images/RDSharma.png",
       name: "Lt. Col. R.D. Sharma (Retd.)",
       award: "",
+      patron:"patron"
+
     },
     {
       src: "/images/JSDhillon.png",
       name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
       award: " ",
+      patron:"patron"
+
+    },{
+      src: "/images/RanjeetShukla.png",
+      name: "Mr. Ranjeet Shukla",
+      award: " ",
+      patron:"Co-founder"
+
+    },{
+      src: "/images/GauravShukla.png",
+      name: "Mr. Gaurav Shukla",
+      award: " ",
+      patron:"Co-founder"
+
+    },
+    {
+      src: "/images/GavirKumar.png",
+      name: "Cdr. (IN) Gavi Kumar (Retd)",
+      award: "Head of PR &",
+      patron:"Communications"
+
     },
   ];
   const [firstName, setFirstName] = useState("");
@@ -62,6 +87,7 @@ export default function page() {
   return (
     <>
       <main className={styles.mainPage}>
+        <div className="container">
         <div className={styles.upperPortion}>
           <div className={styles.pageTagline}>
             <p className={styles.tagline}>
@@ -99,7 +125,7 @@ export default function page() {
             </div>
           </div>
         </div>
-
+        </div>
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
             <h2>Registration Details</h2>
@@ -191,7 +217,7 @@ export default function page() {
                 </svg>
                   These amounts are for the monthly donation per beneficiary.</p>
               </div>
-              <h2>Personal Info</h2>
+              <h2 className={styles.personalInfo}>Personal Info</h2>
               <div className={styles.userName}>
                 <div className={styles.name}>
                   <label htmlFor="amount">First Name*</label>

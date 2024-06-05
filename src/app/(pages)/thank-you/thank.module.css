@@ -51,7 +51,7 @@
     padding: 40px;
 }
 .pageTable {
-    min-width: 1395px;
+    width: 100%;
     border-collapse: collapse;
 }
 .tableBody {
