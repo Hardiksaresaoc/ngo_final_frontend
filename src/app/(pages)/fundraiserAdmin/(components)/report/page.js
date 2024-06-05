@@ -158,6 +158,9 @@ export default function Page() {
                 <span>Donation Id</span>
                 <br />
                 <input
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "");
+                  }}
                   type="text"
                   name="donation_id"
                   id="donation_id"
