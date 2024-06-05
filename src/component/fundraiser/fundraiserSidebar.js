@@ -114,9 +114,9 @@ export const TopHeader = ({ link }) => {
                   .writeText(`http://localhost:3000/fundraiser/${link}`)
                   .then(
                     Swal.fire({
-                      title: "Coppied!",
-                      text: "Coppied to ClipBoard!!",
-                      icon: "success  ",
+                      title: "Fundraiser Page Link",
+                      text: "Copied to ClipBoard",
+                      icon: "info",
                       confirmButtonText: "Close",
                       confirmButtonColor: "#000080",
                     })

@@ -34,7 +34,7 @@ export default function Page() {
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
-   }, [Cookies]);
+  }, [Cookies]);
   useEffect(() => {
     const profile = fundraiserCtx.fundraiser?.profileImage;
     setprofileImage(profile);

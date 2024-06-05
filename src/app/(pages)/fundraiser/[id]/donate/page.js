@@ -50,7 +50,8 @@ export default function page({ params }) {
       donor_pin: donor_pin,
     };
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
+    if (!formData.donor_first_name)
+      newErrors.donor_first_name = "Please enter your name.";
     if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
 

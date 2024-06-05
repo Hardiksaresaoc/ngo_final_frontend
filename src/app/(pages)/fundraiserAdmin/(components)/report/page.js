@@ -31,13 +31,6 @@ export default function Page() {
     token && fetchData();
   }, [token]);
   const fetchData = async () => {
-    Swal.fire({
-      title: "Searching",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
-
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
@@ -78,6 +71,13 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    Swal.fire({
+      title: "Searching",
+      text: "Please wait...",
+      icon: "info",
+      showConfirmButton: false,
+    });
+
     fetchData();
   };
 
@@ -240,7 +240,7 @@ export default function Page() {
                     <td>{item.donation_id_frontend}</td>
                     <td>{formatDate(item.donation_date)} </td>
                     <td>
-                      {item.donor_name}
+                      {item.donor_first_name}
                       <br />
                       {item.donor_email}
                       <br />
