@@ -9,6 +9,7 @@ import useAuth from "@/context/auth";
 import Loading from "@/app/loading";
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdCancel, MdTimer } from "react-icons/md";
+import { renderField, showSwal } from "@/validation";
 export default function Page() {
   const user = useAuth(["ADMIN"]);
   const [data, setData] = useState([]);
@@ -73,23 +74,12 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    Swal.fire({
-      title: "Searching",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
-    fetchData();
+    showSwal("info", "Searching...", "Please wait...", () => fetchData());
   };
 
   const handleDownload = async () => {
     try {
-      Swal.fire({
-        title: "Downloading",
-        text: "Please wait...",
-        icon: "info",
-        showConfirmButton: false,
-      });
+      showSwal("info", "Downloading...", "Please wait...", null, false);
 
       const requestOptions = {
         method: "GET",
@@ -123,17 +113,9 @@ export default function Page() {
       Swal.close();
     } catch (error) {
       console.error("Error downloading file:", error);
-      Swal.fire({
-        title: "Opps!",
-        text: "something went wrong!!",
-        icon: "error",
-        confirmButtonColor: "#000080",
-
-        confirmButtonText: "Close",
-      });
+      showSwal("error", "Oops", "something went wrong");
     }
   };
-  const renderField = (field) => (field ? field : "--");
 
   return !user && loading ? (
     <Loading />
@@ -190,9 +172,7 @@ export default function Page() {
                     name="payment_option"
                     onChange={handleInputChange}
                   >
-                    <option value="" hidden>
-                      Select Method
-                    </option>
+                    <option value="">Not selected</option>
                     <option value="online">Online</option>
                     <option value="offline">Offline</option>
                   </select>
@@ -207,9 +187,7 @@ export default function Page() {
                     name="payment_status"
                     onChange={handleInputChange}
                   >
-                    <option value="" hidden>
-                      Select Status
-                    </option>
+                    <option value="">Not selected</option>
                     <option value="success">Success</option>
                     <option value="failed">Failed</option>
                     <option value="pending">Pending</option>

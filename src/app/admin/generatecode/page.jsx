@@ -1,17 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Changed from "next/navigation" to "next/router"
 import useAuth from "@/context/auth";
 import axios from "axios"; // Added axios import
 import Sidebar from "../../../component/sidebar";
 import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
-import Link from "next/link";
-import Swal from "sweetalert2";
+
 import Loading from "@/app/loading";
+import { handleblur, showSwal } from "@/validation";
 
 const GeneratePage = () => {
-  const router = useRouter();
   const { user } = useAuth(["ADMIN"]);
 
   const [email, setEmail] = useState("");
@@ -74,14 +72,11 @@ const GeneratePage = () => {
               config
             )
             .then(
-              Swal.fire({
-                title: "Fundraiser Credentials generated successfully",
-                text: "Credentials Emailed to Fundraiser",
-                icon: "success",
-                confirmButtonColor: "#000080",
-
-                confirmButtonText: "Close",
-              })
+              showSwal(
+                "success",
+                "Fundraiser Page Created",
+                "credentials sent to fundraiser email"
+              )
             )
             .finally(reset());
           setLoading(false);
@@ -92,49 +87,17 @@ const GeneratePage = () => {
           err.response.data.statusCode !== 201 ||
           err.response.data.statusCode == 404
         ) {
-          Swal.fire({
-            title: "Fundraiser already exists",
-            text: err.response.data.message || "oops",
-            icon: "info",
-            confirmButtonColor: "#000080",
-          });
+          showSwal(
+            "alert",
+            "wait!",
+            err.response.data.message || "Fundraiser already exist"
+          );
         }
       } finally {
         setLoading(false);
       }
     } else {
       setLoading(false);
-    }
-  };
-
-  // Handle blur events for input fields
-  const handleBlur = (field, value) => {
-    switch (field) {
-      case "email":
-        if (!value) {
-          setEmailError("Email is required.");
-        } else {
-          setEmailError("");
-        }
-        break;
-      case "firstName":
-        if (!value) {
-          setFirstNameError("Name is required.");
-        } else {
-          setFirstNameError("");
-        }
-        break;
-      case "mobileNumber":
-        if (!value) {
-          setMobileNumberError("Mobile number is required.");
-        } else if (!/^\d{10}$/.test(value)) {
-          setMobileNumberError("Mobile number must be 10 digits.");
-        } else {
-          setMobileNumberError("");
-        }
-        break;
-      default:
-        break;
     }
   };
 
@@ -165,7 +128,7 @@ const GeneratePage = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => handleBlur("email", email)}
+                    onBlur={() => handleblur("email", email)}
                     placeholder="Enter Fundraiser's e-mail"
                   />
                   {emailError && (
@@ -181,13 +144,13 @@ const GeneratePage = () => {
                   <input
                     type="text"
                     onInput={(e) => {
-                          e.target.value = e.target.value.replace(/\d/g, "");
-                        }}
+                      e.target.value = e.target.value.replace(/\d/g, "");
+                    }}
                     value={firstName}
                     name="fullName"
                     id="fullName"
                     onChange={(e) => setFirstName(e.target.value)}
-                    onBlur={() => handleBlur("firstName", firstName)}
+                    onBlur={() => handleblur("firstName", firstName)}
                     placeholder="Enter Fundraiser's full name"
                   />
                   {firstNameError && (
@@ -206,7 +169,7 @@ const GeneratePage = () => {
                     id="mobileNumber"
                     value={mobile_number}
                     onChange={(e) => setMobileNumber(e.target.value)}
-                    onBlur={() => handleBlur("mobileNumber", mobile_number)}
+                    onBlur={() => handleblur("mobileNumber", mobile_number)}
                     placeholder="Enter Fundraiser's mobile no."
                     pattern="[0-9]{10}"
                     maxLength="10"

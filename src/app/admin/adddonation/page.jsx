@@ -1,19 +1,38 @@
 "use client";
 import Sidebar from "@/component/sidebar";
 import styles from "./adddonation.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
 import useAuth from "@/context/auth";
+import { addminAddDonationError, showSwal } from "@/validation";
+addminAddDonationError;
 
 export default function page() {
   const user = useAuth(["ADMIN"]);
   const [token, settoken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [formData, setFormData] = useState({
+  // const [formData, setFormData] = useState({
+  //   amount: "",
+  //   donor_first_name: "",
+  //   donor_last_name: "",
+  //   donor_email: "",
+  //   donor_phone: "",
+  //   payment_method: "",
+  //   donation_date: "",
+  //   donor_address: "",
+  //   city: "",
+  //   state: "",
+  //   country: "",
+  //   pincode: "",
+  //   pan: "",
+  //   refrence_payment: "",
+  //   donor_bank_name: "",
+  //   donor_bank_branch: "",
+  // });
+  const initialFormState = {
     amount: "",
     donor_first_name: "",
     donor_last_name: "",
@@ -30,29 +49,32 @@ export default function page() {
     refrence_payment: "",
     donor_bank_name: "",
     donor_bank_branch: "",
-  });
-
-  const reset = () => {
-    setFormData({
-      amount: "",
-      donor_first_name: "",
-      donor_last_name: "",
-      donor_email: "",
-      donor_phone: "",
-      payment_method: "",
-      donation_date: "",
-      lastName: "",
-      donor_address: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-      pan: "",
-      refrence_payment: "",
-      donor_bank_name: "",
-      donor_bank_branch: "",
-    });
   };
+  const [formData, setFormData] = useState(initialFormState);
+
+  const reset = () => setFormData(initialFormState);
+
+  // const reset = () => {
+  //   setFormData({
+  //     amount: "",
+  //     donor_first_name: "",
+  //     donor_last_name: "",
+  //     donor_email: "",
+  //     donor_phone: "",
+  //     payment_method: "",
+  //     donation_date: "",
+  //     lastName: "",
+  //     donor_address: "",
+  //     city: "",
+  //     state: "",
+  //     country: "",
+  //     pincode: "",
+  //     pan: "",
+  //     refrence_payment: "",
+  //     donor_bank_name: "",
+  //     donor_bank_branch: "",
+  //   });
+  // };
 
   useEffect(() => {
     const data = Cookies.get("token");
@@ -66,14 +88,20 @@ export default function page() {
       setFormData((prevData) => ({
         ...prevData,
         donor_name: `${prevData.donor_name} ${value}`,
-
         [name]: value, // Update last name separately
       }));
+    } else if (name === "amount") {
+      const parsedValue = parseFloat(value);
+      setFormData({
+        ...formData,
+        [name]: isNaN(parsedValue) ? "" : parsedValue, // Set to empty string if NaN
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   const [errors, setErrors] = useState({});
@@ -82,52 +110,32 @@ export default function page() {
     e.preventDefault();
 
     // Validation
-    const isEmailValid = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
+
+    const props = {
+      amount: formData.amount,
+      donation_date: formData.donation_date,
+      payment_method: formData.payment_method,
+      donor_first_name: formData.donor_first_name,
+      donor_email: formData.donor_email,
+      donor_phone: formData.donor_phone,
     };
-    const newErrors = {};
+    const validationErrors = addminAddDonationError(props);
+    setErrors(validationErrors);
 
-    if (!formData.amount) {
-      newErrors.amount = "Amount is required";
-    }
-    if (!formData.donor_first_name) {
-      newErrors.firstName = "First Name is required";
-    }
-    if (!formData.donor_email || !isEmailValid(formData.donor_email)) {
-      newErrors.donor_email = "email is required";
-    }
-    if (!formData.donor_phone) {
-      newErrors.donor_phone = "Mobile Number should be 10 digits";
-    }
-    if (!formData.donation_date) {
-      newErrors.donation_date = "Donation Date is required";
-    }
-    if (!formData.payment_method) {
-      newErrors.payment_method = "Donation type is required";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       setLoading(false);
       return;
     }
 
     try {
-      Swal.fire({
-        title: "Adding donation",
-        text: "Please wait...",
-        icon: "info",
-        showConfirmButton: false,
-      });
-
+      showSwal("info", "Adding donation...", "please wait...");
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      formData["amount"] = Number(formData["amount"]);
       const response = await axios({
         method: "post",
         url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/addOfflineDonation`,
@@ -136,26 +144,15 @@ export default function page() {
       });
       if (response.status == 201) {
         setLoading(false);
-        Swal.fire({
-          title: "Added Succesfully",
-          text: "Donation added!!",
-          icon: "success",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("success", "Added successfully", "Donation added!!");
+
         reset();
         setLoading(false);
       }
       setLoading(false);
       setErrors({});
     } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "Something went wrong!!",
-        icon: "error",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+      showSwal("error", "Error", "Something went wrong!!");
 
       console.error("API error:", error);
       setLoading(false);
@@ -198,16 +195,16 @@ export default function page() {
                     </span>
                     <br />
                     <input
-                      type="number"
+                      type="text"
                       name="amount"
                       min={1}
-                      pattern="[0-9]*"
                       value={formData.amount}
                       onChange={handleChange}
                       id="amount"
                       placeholder="Enter donor amount"
                       required
                     />
+
                     {errors.amount && (
                       <p style={{ color: "red", marginTop: "5px" }}>
                         {errors.amount}

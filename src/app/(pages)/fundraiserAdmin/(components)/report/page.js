@@ -8,6 +8,7 @@ import { FundraiserContext } from "@/context/FundraiserContext";
 import Swal from "sweetalert2";
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdCancel, MdTimer } from "react-icons/md";
+import { renderField } from "@/validation";
 
 export default function Page() {
   const [data, setData] = useState([]);
@@ -120,8 +121,7 @@ export default function Page() {
       });
     }
   };
-  const renderField = (field) => (field ? field : "--");
-
+ 
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />

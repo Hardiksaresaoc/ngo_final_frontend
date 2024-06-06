@@ -6,8 +6,8 @@ import styles from "./fundraisersAdmin.module.css";
 import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -37,25 +37,14 @@ export default function FundraiserPage() {
         formData,
         { headers: header }
       );
+
       setLoading(false);
-      Swal.fire({
-        title: "Updated",
-        text: "Fundraiser Page updated successfully",
-        icon: "success",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+      showSwal("success", "updated", "Fundraiser page updated successfully");
 
       setShowPopup(false);
     } catch (error) {
-      Swal.fire({
-        title: "Opps",
-        confirmButtonColor: "#000080",
+      showSwal("error", "oops", "Something went wrong");
 
-        text: "Something Went wrong!!",
-        icon: "success",
-        confirmButtonText: "Close",
-      });
       setLoading(false);
 
       console.error("Error updating fundraiser:", error);
@@ -100,13 +89,8 @@ export default function FundraiserPage() {
         setFundraisers(response.data.data);
       } catch (error) {
         setLoading(false);
-        Swal.fire({
-          title: "Oops",
-          text: "Something went Wrong!!",
-          icon: "failed",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("error", "oops", "Something went wrong");
+
         setError("Error fetching fundraisers. Please try again later.");
         console.error("Error fetching fundraisers:", error);
       }
@@ -329,12 +313,13 @@ export default function FundraiserPage() {
                                         : item
                                     )
                                   );
-                                  Swal.fire({
-                                    title: "Updating",
-                                    text: "Please wait...",
-                                    icon: "info",
-                                    showConfirmButton: false,
-                                  });
+                                  showSwal(
+                                    "info",
+                                    "Updating",
+                                    "Please wait",
+                                    null,
+                                    false
+                                  );
 
                                   const response = await axios({
                                     method: "put",
@@ -350,14 +335,7 @@ export default function FundraiserPage() {
                                         ? "inactivated"
                                         : "activated";
                                     const title = `Changed to ${statusMessage}`;
-
-                                    Swal.fire({
-                                      title: title,
-                                      text: statusMessage,
-                                      icon: "success",
-                                      confirmButtonText: "Close",
-                                      confirmButtonColor: "#000080",
-                                    });
+                                    showSwal("success", title, "success");
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}

@@ -2,8 +2,8 @@
 import MakePaymentComponent from "@/component/makePaymentComponent";
 import axios from "axios";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import styles from "../fundraiser/[id]/donate/donate.module.css";
+import { addDonateErrorSchema, showSwal } from "@/validation";
 export default function page({ params }) {
   const [amount, setDonationAmount] = useState();
   const [donor_phone, setPhoneNumber] = useState();
@@ -35,7 +35,6 @@ export default function page({ params }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = {};
 
     const formData = {
       amount: amount,
@@ -48,15 +47,24 @@ export default function page({ params }) {
       donor_country: donor_country,
       donor_pin: donor_pin,
     };
-    if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
-    if (!formData.donor_phone)
-      newErrors.donor_phone = "Please enter phone number.";
+    const props = {
+      amount: formData.amount,
+      donor_name: formData.donor_name,
+      donor_phone: formData.donor_phone,
+      donor_email: formData.donor_email,
+    };
+    const validationErrors = addDonateErrorSchema(props);
+    setErrors(validationErrors);
 
-    if (!formData.donor_email)
-      newErrors.donor_email = "Please enter Your email.";
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    // if (!formData.amount) newErrors.amount = "Please enter donation amount.";
+    // if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
+    // if (!formData.donor_phone)
+    //   newErrors.donor_phone = "Please enter phone number.";
+
+    // if (!formData.donor_email)
+    //   newErrors.donor_email = "Please enter Your email.";
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
     const config = {
@@ -77,12 +85,12 @@ export default function page({ params }) {
       setReference(response.data.data);
       setsubmitted(true);
     } catch (error) {
-      Swal.fire({
-        title: "error while adding",
-        text: `${error.response.data.message}`,
-        icon: "failed",
-        confirmButtonText: "Close",
-      });
+      showSwal(
+        "failed",
+        "Error while adding",
+        `${error.response.data.message}`
+      );
+
       setsubmitted(false);
     }
   };

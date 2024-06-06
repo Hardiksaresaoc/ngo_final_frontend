@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
@@ -249,12 +248,12 @@ export default function Header() {
         ) : (
           <>
             <Link href="/login">
-              <Button className={styles.innerBtn}>Log in</Button>
+              <button className={styles.innerBtn}>Log in</button>
             </Link>
             <Link href="/donate">
-              <Button className={`${styles.innerBtn} ${styles.filled}`}>
+              <button className={`${styles.innerBtn} ${styles.filled}`}>
                 Donate
-              </Button>
+              </button>
             </Link>
           </>
         )}

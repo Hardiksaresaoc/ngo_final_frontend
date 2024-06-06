@@ -2,9 +2,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
 import styles from "./forgot.module.css";
 import Image from "next/image";
+import { showSwal } from "@/validation";
 const DefaultResetPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,21 +32,20 @@ const DefaultResetPassword = () => {
       );
 
       setLoading(false);
-      Swal.fire({
-        title: "OTP generate Successfully",
-        text: `${response.data.message}`,
-        icon: "success",
-        confirmButtonText: "okay",
-      });
+      showSwal(
+        "success",
+        "OTP generate Successfully",
+        `${response.data.message}`
+      );
 
       setOtpGen(true);
     } catch (error) {
-      Swal.fire({
-        title: "Try Again after 15 minutes ",
-        text: `${error.response.data.message}`,
-        icon: "error",
-        confirmButtonText: "okay",
-      });
+      showSwal(
+        "error",
+        `Try again afer 15 minutes `,
+        `${error.response.data.message}`
+      );
+
       console.error("Error sending OTP:", error);
       setLoading(false);
     }
@@ -66,16 +65,16 @@ const DefaultResetPassword = () => {
       );
 
       setLoading(false);
-      Swal.fire({
-        title: "Password Reset Successfully",
-        text: "Login with your new password",
-        icon: "success",
-        confirmButtonText: "okay",
-      });
-      router.replace("/login");
+      showSwal(
+        "success",
+        "Password Reset Successfully",
+        "Login with your new password",
+        () => router.replace("/login")
+      );
     } catch (error) {
       console.error("Error resetting password:", error);
-      alert("Oops! Something went wrong.");
+
+      showSwal("error", "something went wrong", "Try again later");
       setLoading(false);
     }
   };
