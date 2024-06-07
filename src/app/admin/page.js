@@ -23,9 +23,6 @@ export default function FundraiserPage() {
     if (!token) {
       return;
     }
-    useEffect(() => {
-      fetchData();
-    }, [token]);
 
     try {
       const config = {
@@ -49,6 +46,9 @@ export default function FundraiserPage() {
       console.error("Error while getting data:", error);
     }
   };
+  useEffect(() => {
+    fetchData();
+  }, [token]);
 
   return !user && loading ? (
     <Loading />

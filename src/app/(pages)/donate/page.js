@@ -3,7 +3,7 @@ import MakePaymentComponent from "@/component/makePaymentComponent";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styles from "../fundraiser/[id]/donate/donate.module.css";
-import { addDonateErrorSchema, showSwal } from "@/validation";
+import { addDonatErrorSchema, showSwal } from "@/validation";
 import { Country, State, City } from "country-state-city";
 
 export default function Page({ params }) {
@@ -75,7 +75,7 @@ export default function Page({ params }) {
       donor_phone: formData.donor_phone,
       donor_email: formData.donor_email,
     };
-    const validationErrors = addDonateErrorSchema(props);
+    const validationErrors = addDonatErrorSchema(props);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -105,7 +105,7 @@ export default function Page({ params }) {
       showSwal(
         "failed",
         "Error while adding",
-        `${error.response.data.message}`
+        error.response ? error.response.data.message : "An error occurred."
       );
       setsubmitted(false);
     }
@@ -142,9 +142,9 @@ export default function Page({ params }) {
                         min="0"
                       />
                       {errors.amount && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.amount}
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>
@@ -163,9 +163,9 @@ export default function Page({ params }) {
                         required
                       />
                       {errors.donor_name && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.donor_name}
-                        </span>
+                        </p>
                       )}
                     </div>
                     <div className={styles.donationdetails}>
@@ -180,9 +180,9 @@ export default function Page({ params }) {
                         required
                       />
                       {errors.donor_email && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.donor_email}
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>
@@ -203,9 +203,9 @@ export default function Page({ params }) {
                         placeholder="Enter your mobile no."
                       />
                       {errors.donor_phone && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.donor_phone}
-                        </span>
+                        </p>
                       )}
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
@@ -234,6 +234,25 @@ export default function Page({ params }) {
                         placeholder="Enter your address"
                       />
                     </div>
+
+                    <div className={`${styles.donationdetails} ${styles.num}`}>
+                      <label htmlFor="country">Country</label>
+                      <select
+                        className={styles.country}
+                        name="Country"
+                        value={donor_country}
+                        onChange={(e) => setdonor_country(e.target.value)}
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.name} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className={styles.details}>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="state">State</label>
                       <select
@@ -247,24 +266,6 @@ export default function Page({ params }) {
                         {states.map((state) => (
                           <option key={state.name} value={state.isoCode}>
                             {state.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className={styles.details}>
-                    <div className={`${styles.donationdetails} ${styles.num}`}>
-                      <label htmlFor="country">Country</label>
-                      <select
-                        className={styles.country}
-                        name="Country"
-                        value={donor_country}
-                        onChange={(e) => setdonor_country(e.target.value)}
-                      >
-                        <option value="">Select Country</option>
-                        {countries.map((country) => (
-                          <option key={country.name} value={country.isoCode}>
-                            {country.name}
                           </option>
                         ))}
                       </select>
@@ -286,8 +287,9 @@ export default function Page({ params }) {
                       className={`${styles.donationdetails} ${styles.com} ${styles.num}`}
                     >
                       <label htmlFor="comment">Comment</label>
-                      <input
-                        type="text"
+                      <textarea
+                        rows={5}
+                        cols={30}
                         value={donor_Comments}
                         onChange={(e) => setdonor_Comments(e.target.value)}
                         className={styles.comment}

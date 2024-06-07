@@ -110,7 +110,9 @@ export default function Page({ params }) {
     } catch (error) {
       Swal.fire({
         title: "Error while adding",
-        text: `${error.response.data.message}`,
+        text: error.response
+          ? error.response.data.message
+          : "An error occurred.",
         icon: "error",
         confirmButtonText: "Close",
       });

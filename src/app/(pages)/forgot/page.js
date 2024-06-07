@@ -5,16 +5,21 @@ import { useRouter } from "next/navigation";
 import styles from "./forgot.module.css";
 import Image from "next/image";
 import { showSwal } from "@/validation";
+import { TbPasswordMobilePhone } from "react-icons/tb";
+
 const DefaultResetPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpGen, setOtpGen] = useState(false);
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const router = useRouter();
+
   const handleForgot = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,8 +47,8 @@ const DefaultResetPassword = () => {
     } catch (error) {
       showSwal(
         "error",
-        `Try again afer 15 minutes `,
-        `${error.response.data.message}`
+        `Try again later`,
+        error.response ? error.response.data.message : "An error occurred."
       );
 
       console.error("Error sending OTP:", error);
@@ -51,12 +56,22 @@ const DefaultResetPassword = () => {
     }
   };
 
-  const resetpassword = async (e) => {
+  const resetPassword = async (e) => {
     e.preventDefault();
     if (newPassword.length < 6) {
-      setError("Password must be at least 6 characters long.");
+      setPasswordError("Password must be at least 6 characters long.");
       return;
+    } else {
+      setPasswordError("");
     }
+
+    if (newPassword !== confirmPassword) {
+      setConfirmPasswordError("Password and Confirm Password must match.");
+      return;
+    } else {
+      setConfirmPasswordError("");
+    }
+
     setLoading(true);
     try {
       const response = await axios.post(
@@ -74,11 +89,10 @@ const DefaultResetPassword = () => {
     } catch (error) {
       console.error("Error resetting password:", error);
 
-      showSwal("error", "something went wrong", "Try again later");
+      showSwal("error", "Something went wrong", "Try again later");
       setLoading(false);
     }
   };
-
   return (
     <>
       <div className={styles.main}>
@@ -86,7 +100,7 @@ const DefaultResetPassword = () => {
           <div className={styles.main}>
             <section className={styles.mainSection}>
               <div className={styles.leftSection}>
-                <form className={styles.mainForm} onSubmit={resetpassword}>
+                <form className={styles.mainForm} onSubmit={resetPassword}>
                   <div className={styles.formImg}>
                     <Image
                       src="/images/ProjectForm.png"
@@ -103,17 +117,22 @@ const DefaultResetPassword = () => {
                         <label htmlFor="otp" className={styles.filled}>
                           OTP
                         </label>
-
                         <div className={styles.inputIcon}>
-                          <i
-                            className={` fa-solid fas fa-envelope  ${styles.formIcon}`}
-                          ></i>
+                          <i className={styles.keyIcon}>
+                            <TbPasswordMobilePhone />
+                          </i>
                         </div>
                         <input
                           className={styles.inputField}
                           name="otp"
                           id="otp"
-                          onChange={(e) => setOtp(e.target.value)}
+                          onChange={(e) => {
+                            const inputValue = e.target.value.replace(
+                              /[^a-zA-Z0-9]/g,
+                              ""
+                            ); // Remove any character that is not a letter or digit
+                            setOtp(inputValue);
+                          }}
                           type="text"
                           value={otp}
                           placeholder="Enter your OTP"
@@ -123,7 +142,7 @@ const DefaultResetPassword = () => {
 
                       <div className={styles.inputInside}>
                         <label htmlFor="password" className={styles.filled}>
-                          Password
+                          New Password
                         </label>
                         <div className={styles.inputIcon}>
                           <i className={`fas fa-key ${styles.keyIcon}`}></i>
@@ -139,17 +158,59 @@ const DefaultResetPassword = () => {
                             }
                             aria-hidden="true"
                           ></i>
-                          <input
-                            name="password"
-                            className={styles.inputField}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            type={showPassword ? "text" : "password"}
-                            value={newPassword}
-                            placeholder="Enter your password"
-                            id="password"
-                            required
-                          />
                         </div>
+                        <input
+                          name="password"
+                          className={styles.inputField}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          type={showPassword ? "text" : "password"}
+                          value={newPassword}
+                          placeholder="Enter your password"
+                          id="password"
+                          required
+                        />
+                        {passwordError && (
+                          <p className={styles.errorMessage}>{passwordError}</p>
+                        )}
+                      </div>
+
+                      <div className={styles.inputInside}>
+                        <label
+                          htmlFor="confirm-password"
+                          className={styles.filled}
+                        >
+                          Confirm New Password
+                        </label>
+                        <div className={styles.inputIcon}>
+                          <i className={`fas fa-key ${styles.keyIcon}`}></i>
+
+                          <i
+                            className={`fas ${
+                              showPassword ? "fa-eye" : "fa-eye-slash"
+                            } ${styles.eyeIcon} ${styles.formIcon}`}
+                            onClick={() =>
+                              setShowPassword(
+                                (prevShowPassword) => !prevShowPassword
+                              )
+                            }
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                        <input
+                          name="confirm-password"
+                          className={styles.inputField}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          type={showPassword ? "text" : "password"}
+                          value={ConfirmPassword}
+                          placeholder="Re-Enter New password"
+                          id="confirm-password"
+                          required
+                        />
+                        {confirmPasswordError && (
+                          <p className={styles.errorMessage}>
+                            {confirmPasswordError}
+                          </p>
+                        )}
                       </div>
                     </div>
 

@@ -100,7 +100,9 @@ const LoginPage = () => {
       console.error("An error occurred while logging in:", error);
       Swal.fire({
         title: "Opps!!",
-        text: `${error.response.data.message}`,
+        text: error.response
+          ? error.response.data.message
+          : "An error occurred.",
         icon: "failed",
         timer: 1500,
         confirmButtonColor: "#000080",

@@ -158,9 +158,7 @@ export default function Page() {
                   name="payment_option"
                   onChange={handleInputChange}
                 >
-                  <option value="" hidden>
-                    Select Method
-                  </option>
+                  <option value="">Select Method</option>
                   <option value="online">Online</option>
                   <option value="offline">Offline</option>
                 </select>
@@ -175,9 +173,7 @@ export default function Page() {
                   name="payment_status"
                   onChange={handleInputChange}
                 >
-                  <option value="" hidden>
-                    Select Status
-                  </option>
+                  <option value="">Select Status</option>
                   <option value="success">Success</option>
                   <option value="failed">Failed</option>
                   <option value="pending">Pending</option>

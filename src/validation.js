@@ -61,7 +61,7 @@ export const addDonatErrorSchema = (props) => {
       required: "Amount is required",
       minValue: {
         value: 0,
-        message: "Donation Amount can not be less than zero",
+        message: "Invalid amount",
       },
       notZero: "Donation Amount can not be zero",
     },
@@ -175,7 +175,7 @@ export const handleblur = (field, value) => {
   };
 
   const rules = validationRules[field];
-  if (!rules) return; // no rules
+  if (!rules) return;
 
   let error = "";
   if (rules.required && !value) {

@@ -45,13 +45,17 @@
 .mainFooter .lowerFooter .headline,
 .mainFooter .lowerFooter .headlinePolicy {
   display: flex;
+
   text-align: center;
   font-size: 20px;
   margin-bottom: 1.75em;
 }
+.headlinePolicy{
+font-weight: 700;
+}
 .mainFooter .lowerFooter .socialmedia .socialmediaImage {
   border-radius: 50%;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 .socialmedia {
   display: flex;
