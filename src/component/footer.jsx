@@ -45,7 +45,7 @@ export default function Footer() {
               href="https://supportourheroes.in/our-faqs/"
               className={styles.aboutUsLink}
             >
-              <i className={`fa-regular  fa-circle-dot }`}></i> OUR FAQs
+              <i className={`fa-regular  fa-circle-dot }`}></i> Our FAQs
             </Link>
           </p>
         </div>

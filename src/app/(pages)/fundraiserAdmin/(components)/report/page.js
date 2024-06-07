@@ -5,10 +5,10 @@ import styles from "./report.module.css";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import Cookies from "js-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
-import Swal from "sweetalert2";
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdCancel, MdTimer } from "react-icons/md";
 import { renderField } from "@/validation";
+import TableComponent from "@/component/table";
 
 export default function Page() {
   const [data, setData] = useState([]);
@@ -43,7 +43,6 @@ export default function Page() {
         }
       );
       setData(response?.data?.data);
-      Swal.close();
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -72,23 +71,13 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    Swal.fire({
-      title: "Searching",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
+    showSwal("info", "Searching", "Please wait...", null, false``);
 
     fetchData();
   };
 
   const handleDownload = async () => {
-    Swal.fire({
-      title: "Downloading",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
+    showSwal("info", "Downloading", "Please wait...", null, false);
 
     try {
       const requestOptions = {
@@ -108,20 +97,13 @@ export default function Page() {
       a.download = "DonationData.xlsx";
       a.click();
       URL.revokeObjectURL(downloadUrl);
-      Swal.close();
     } catch (error) {
       console.error("Error downloading file:", error);
-      Swal.fire({
-        title: "Opps!",
-        text: "something went wrong!!",
-        icon: "error",
-        confirmButtonColor: "#000080",
 
-        confirmButtonText: "Close",
-      });
+      showSwal("error", "Opps!", "something went wrong!!");
     }
   };
- 
+
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
@@ -216,7 +198,7 @@ export default function Page() {
           >
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
-
+          {/* < TableComponent/> */}
           <div className={styles.tableMain}>
             <table className={styles.table}>
               <thead>

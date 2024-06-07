@@ -1,12 +1,14 @@
 "use client";
 import MakePaymentComponent from "@/component/makePaymentComponent";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../fundraiser/[id]/donate/donate.module.css";
 import { addDonateErrorSchema, showSwal } from "@/validation";
-export default function page({ params }) {
-  const [amount, setDonationAmount] = useState();
-  const [donor_phone, setPhoneNumber] = useState();
+import { Country, State, City } from "country-state-city";
+
+export default function Page({ params }) {
+  const [amount, setDonationAmount] = useState("");
+  const [donor_phone, setPhoneNumber] = useState("");
   const [donor_email, setdonor_email] = useState("");
   const [donor_name, setName] = useState("");
   const [pan, setPan] = useState("");
@@ -14,11 +16,30 @@ export default function page({ params }) {
   const [donor_state, setdonor_state] = useState("");
   const [donor_country, setdonor_country] = useState("");
   const [donor_pin, setdonor_pin] = useState("");
-
   const [donor_Comments, setdonor_Comments] = useState("");
   const [submitted, setsubmitted] = useState(false);
   const [reference, setReference] = useState({});
   const [errors, setErrors] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries());
+  }, []);
+
+  useEffect(() => {
+    if (donor_country) {
+      setStates(State.getStatesOfCountry(donor_country));
+    }
+  }, [donor_country]);
+
+  useEffect(() => {
+    if (donor_state) {
+      setCities(City.getCitiesOfState(donor_country, donor_state));
+    }
+  }, [donor_state, donor_country]);
+
   const reset = () => {
     setDonationAmount("");
     setPhoneNumber("");
@@ -33,48 +54,44 @@ export default function page({ params }) {
     setsubmitted(false);
     setErrors({});
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
-      amount: amount,
-      donor_phone: donor_phone,
+      amount,
+      donor_phone,
       donor_first_name: donor_name,
-      donor_email: donor_email,
-      pan: pan,
+      donor_email,
+      pan,
       donor_address: address,
-      donor_state: donor_state,
-      donor_country: donor_country,
-      donor_pin: donor_pin,
+      donor_state,
+      donor_country,
+      donor_pin,
     };
     const props = {
       amount: formData.amount,
-      donor_name: formData.donor_name,
+      donor_name: formData.donor_first_name,
       donor_phone: formData.donor_phone,
       donor_email: formData.donor_email,
     };
     const validationErrors = addDonateErrorSchema(props);
     setErrors(validationErrors);
 
-    // if (!formData.amount) newErrors.amount = "Please enter donation amount.";
-    // if (!formData.donor_name) newErrors.donor_name = "Please enter your name.";
-    // if (!formData.donor_phone)
-    //   newErrors.donor_phone = "Please enter phone number.";
-
-    // if (!formData.donor_email)
-    //   newErrors.donor_email = "Please enter Your email.";
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     const config = {
       headers: {
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "true",
       },
     };
+
     try {
-      formData["amount"] = Number(formData["amount"]);
+      formData.amount = Number(formData.amount);
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_serverAPI}/donate`,
@@ -90,7 +107,6 @@ export default function page({ params }) {
         "Error while adding",
         `${error.response.data.message}`
       );
-
       setsubmitted(false);
     }
   };
@@ -220,27 +236,38 @@ export default function page({ params }) {
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="state">State</label>
-                      <input
-                        type="text"
+                      <select
                         className={styles.state}
+                        name="State"
                         value={donor_state}
                         onChange={(e) => setdonor_state(e.target.value)}
-                        name="State"
-                        placeholder="Enter your state"
-                      />
+                        disabled={!donor_country}
+                      >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                          <option key={state.name} value={state.isoCode}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div className={styles.details}>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="country">Country</label>
-                      <input
-                        type="text"
+                      <select
                         className={styles.country}
                         name="Country"
                         value={donor_country}
                         onChange={(e) => setdonor_country(e.target.value)}
-                        placeholder="Enter your country"
-                      />
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.name} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="pincode">Pincode</label>
@@ -286,7 +313,7 @@ export default function page({ params }) {
                       className={`${styles.catBtn}  ${styles.donate}`}
                       name="button_name"
                       style={{ color: "#ffffff", backgroundColor: "#010080" }}
-                      onClick={(e) => handleSubmit(e)}
+                      onClick={handleSubmit}
                       aria-label="button_name"
                     >
                       Donate

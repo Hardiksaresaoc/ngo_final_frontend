@@ -1,13 +1,14 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MakePaymentComponent from "@/component/makePaymentComponent";
 import styles from "./donate.module.css";
-import showAlert from "@/component/alert";
 import Swal from "sweetalert2";
-export default function page({ params }) {
-  const [amount, setDonationAmount] = useState();
-  const [donor_phone, setPhoneNumber] = useState();
+import { Country, State, City } from "country-state-city";
+
+export default function Page({ params }) {
+  const [amount, setDonationAmount] = useState("");
+  const [donor_phone, setPhoneNumber] = useState("");
   const [donor_email, setdonor_email] = useState("");
   const [donor_name, setName] = useState("");
   const [pan, setPan] = useState("");
@@ -15,11 +16,35 @@ export default function page({ params }) {
   const [donor_state, setdonor_state] = useState("");
   const [donor_country, setdonor_country] = useState("");
   const [donor_pin, setdonor_pin] = useState("");
-
   const [donor_Comments, setdonor_Comments] = useState("");
   const [submitted, setsubmitted] = useState(false);
   const [reference, setReference] = useState({});
   const [errors, setErrors] = useState({});
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries());
+  }, []);
+
+  useEffect(() => {
+    if (donor_country) {
+      setStates(State.getStatesOfCountry(donor_country));
+    } else {
+      setStates([]);
+      setCities([]);
+    }
+  }, [donor_country]);
+
+  useEffect(() => {
+    if (donor_state) {
+      setCities(City.getCitiesOfState(donor_country, donor_state));
+    } else {
+      setCities([]);
+    }
+  }, [donor_state, donor_country]);
+
   const reset = () => {
     setDonationAmount("");
     setPhoneNumber("");
@@ -34,6 +59,7 @@ export default function page({ params }) {
     setsubmitted(false);
     setErrors({});
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
@@ -49,24 +75,27 @@ export default function page({ params }) {
       donor_country: donor_country,
       donor_pin: donor_pin,
     };
+
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
     if (!formData.donor_first_name)
       newErrors.donor_first_name = "Please enter your name.";
     if (!formData.donor_phone)
       newErrors.donor_phone = "Please enter phone number.";
-
     if (!formData.donor_email)
-      newErrors.donor_email = "Please enter Your email.";
+      newErrors.donor_email = "Please enter your email.";
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
+
     const config = {
       headers: {
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "true",
       },
     };
+
     try {
       formData["amount"] = Number(formData["amount"]);
 
@@ -80,9 +109,9 @@ export default function page({ params }) {
       setsubmitted(true);
     } catch (error) {
       Swal.fire({
-        title: "error while adding",
+        title: "Error while adding",
         text: `${error.response.data.message}`,
-        icon: "failed",
+        icon: "error",
         confirmButtonText: "Close",
       });
       setsubmitted(false);
@@ -140,16 +169,16 @@ export default function page({ params }) {
                         size="30"
                         required
                       />
-                      {errors.donor_name && (
+                      {errors.donor_first_name && (
                         <span style={{ color: "red" }} className={styles.error}>
-                          {errors.donor_name}
+                          {errors.donor_first_name}
                         </span>
                       )}
                     </div>
                     <div className={styles.donationdetails}>
                       <label htmlFor="e-mail">E-mail</label>
                       <input
-                        type="donor_email"
+                        type="email"
                         className={styles.donor_email}
                         value={donor_email}
                         onChange={(e) => setdonor_email(e.target.value)}
@@ -196,7 +225,7 @@ export default function page({ params }) {
                         onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"
                         required
-                        autoComplete=""
+                        autoComplete="off"
                       />
                     </div>
                   </div>
@@ -214,27 +243,38 @@ export default function page({ params }) {
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="state">State</label>
-                      <input
-                        type="text"
+                      <select
                         className={styles.state}
+                        name="State"
                         value={donor_state}
                         onChange={(e) => setdonor_state(e.target.value)}
-                        name="State"
-                        placeholder="Enter your state"
-                      />
+                        disabled={!donor_country}
+                      >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                          <option key={state.isoCode} value={state.isoCode}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div className={styles.details}>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="country">Country</label>
-                      <input
-                        type="text"
+                      <select
                         className={styles.country}
                         name="Country"
                         value={donor_country}
                         onChange={(e) => setdonor_country(e.target.value)}
-                        placeholder="Enter your country"
-                      />
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.isoCode} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="pincode">Pincode</label>

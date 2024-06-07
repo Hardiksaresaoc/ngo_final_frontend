@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { Country, State, City } from "country-state-city";
 import styles from "./profile.module.css";
 
 export default function Page() {
@@ -32,6 +33,10 @@ export default function Page() {
   const [imagePreview, setImagePreview] = useState("");
   const [profileImage, setProfileImage] = useState(null);
 
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
   useEffect(() => {
     const data = Cookies.get("token");
     setToken(data || "");
@@ -54,6 +59,22 @@ export default function Page() {
       setProfileImage(fundraiser.profileImage || null);
     }
   }, [fundraiserCtx.fundraiser]);
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries());
+  }, []);
+
+  useEffect(() => {
+    if (country) {
+      setStates(State.getStatesOfCountry(country));
+    }
+  }, [country]);
+
+  useEffect(() => {
+    if (state) {
+      setCities(City.getCitiesOfState(country, state));
+    }
+  }, [state, country]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -87,20 +108,10 @@ export default function Page() {
         { filteredFormData },
         config
       );
-      Swal.fire({
-        title: "Updated",
-        text: "Updated  Successfully!!",
-        icon: "success",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+
+      showSwal("success", "Updated", "Updated  Successfully!!");
     } catch (err) {
-      Swal.fire({
-        title: "Error",
-        text: `${err.response.data.message}`,
-        icon: "error",
-        confirmButtonText: "Close",
-      });
+      showSwal("error", "Error", `${err.response.data.message}`);
     }
   };
 
@@ -117,12 +128,7 @@ export default function Page() {
   const handleSubmitImageUpload = async () => {
     if (image) {
       try {
-        Swal.fire({
-          title: "Uploading",
-          text: "Please wait...",
-          icon: "info",
-          showConfirmButton: false,
-        });
+        showSwal("info", "Uploading", "Please wait...", null, false);
 
         const config = {
           headers: {
@@ -136,6 +142,7 @@ export default function Page() {
           image,
           config
         );
+
         Swal.fire({
           title: "Updated",
           text: "Updated  Successfully!!",
@@ -149,13 +156,7 @@ export default function Page() {
           }
         });
       } catch (err) {
-        Swal.fire({
-          title: "Opps",
-          text: `${err.response.data.message}`,
-          icon: "error",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("error", "Oops!", `${err.response.data.message}`);
       }
     }
   };
@@ -285,40 +286,57 @@ export default function Page() {
                     <span>
                       <span>City</span>
                       <br />
-                      <input
-                        type="text"
+                      <select
                         name="city"
                         id="city"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="Enter your city"
-                      />
+                        disabled={!state}
+                      >
+                        <option value="">Select City</option>
+                        {cities.map((city) => (
+                          <option key={city.name} value={city.name}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>State</span>
                       <br />
-                      <input
-                        type="text"
+                      <select
                         name="state"
+                        id="state"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        id="state"
-                        placeholder="Enter your state"
-                      />
+                        disabled={!country}
+                      >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                          <option key={state.name} value={state.name}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                   </div>
                   <div className={styles.thirdpersonalDetail}>
                     <span>
                       <span>Country</span>
                       <br />
-                      <input
-                        type="text"
+                      <select
                         name="country"
                         id="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Enter your country"
-                      />
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.name} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>Pincode</span>
