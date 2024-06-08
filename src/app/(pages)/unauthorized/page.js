@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export default function Unauthorized() {
   const router = useRouter();
   const [count, setCount] = useState(10);
 

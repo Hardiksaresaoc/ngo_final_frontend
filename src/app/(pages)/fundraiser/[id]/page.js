@@ -16,7 +16,6 @@ import styles from "./fundraiser.module.css";
 import Loading from "@/app/loading";
 import Notfundraiser from "@/component/nofundraiser";
 import Link from "next/link";
-import "react-circular-progressbar/dist/styles.css";
 import { CiShare2 } from "react-icons/ci";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";

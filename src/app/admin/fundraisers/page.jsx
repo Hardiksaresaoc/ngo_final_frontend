@@ -293,11 +293,11 @@ export default function FundraiserPage() {
                           </td>
                           <td className={styles.td}>
                             <a
+                              style={{ color: "rgb(0, 0, 238)" }}
                               href={`http://localhost:3000/fundraiser/${fundraiser?.fundraiser_page?.id}`}
                               target="_blank"
                             >
-                              http://localhost:3000/fundraiser/
-                              {fundraiser?.fundraiser_page?.id}
+                              /{fundraiser?.fundraiser_page?.id}
                             </a>
                           </td>
                           <td className={styles.td}>

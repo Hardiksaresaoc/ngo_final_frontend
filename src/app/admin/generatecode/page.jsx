@@ -1,15 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Changed from "next/navigation" to "next/router"
 import useAuth from "@/context/auth";
 import axios from "axios"; // Added axios import
 import Sidebar from "../../../component/sidebar";
 import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
-
+import Link from "next/link";
+import Swal from "sweetalert2";
 import Loading from "@/app/loading";
-import { handleblur, showSwal } from "@/validation";
+import { showSwal } from "@/validation";
+import { FundraiserContext } from "@/context/FundraiserContext";
 
 const GeneratePage = () => {
+  const router = useRouter();
   const { user } = useAuth(["ADMIN"]);
 
   const [email, setEmail] = useState("");
@@ -101,6 +105,37 @@ const GeneratePage = () => {
     }
   };
 
+  // Handle blur events for input fields
+  const handleBlur = (field, value) => {
+    switch (field) {
+      case "email":
+        if (!value) {
+          setEmailError("Email is required.");
+        } else {
+          setEmailError("");
+        }
+        break;
+      case "firstName":
+        if (!value) {
+          setFirstNameError("Name is required.");
+        } else {
+          setFirstNameError("");
+        }
+        break;
+      case "mobileNumber":
+        if (!value) {
+          setMobileNumberError("Mobile number is required.");
+        } else if (!/^\d{10}$/.test(value)) {
+          setMobileNumberError("Mobile number must be 10 digits.");
+        } else {
+          setMobileNumberError("");
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
   const reset = () => {
     setEmail("");
     setFirstName("");
@@ -128,7 +163,7 @@ const GeneratePage = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => handleblur("email", email)}
+                    onBlur={() => handleBlur("email", email)}
                     placeholder="Enter Fundraiser's e-mail"
                   />
                   {emailError && (
@@ -150,7 +185,7 @@ const GeneratePage = () => {
                     name="fullName"
                     id="fullName"
                     onChange={(e) => setFirstName(e.target.value)}
-                    onBlur={() => handleblur("firstName", firstName)}
+                    onBlur={() => handleBlur("firstName", firstName)}
                     placeholder="Enter Fundraiser's full name"
                   />
                   {firstNameError && (
@@ -169,7 +204,7 @@ const GeneratePage = () => {
                     id="mobileNumber"
                     value={mobile_number}
                     onChange={(e) => setMobileNumber(e.target.value)}
-                    onBlur={() => handleblur("mobileNumber", mobile_number)}
+                    onBlur={() => handleBlur("mobileNumber", mobile_number)}
                     placeholder="Enter Fundraiser's mobile no."
                     pattern="[0-9]{10}"
                     maxLength="10"

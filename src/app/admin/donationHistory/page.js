@@ -7,9 +7,9 @@ import styles from "./donationHistory.module.css";
 import Sidebar from "@/component/sidebar";
 import useAuth from "@/context/auth";
 import Loading from "@/app/loading";
-import { FaCircleCheck } from "react-icons/fa6";
-import { MdCancel, MdTimer } from "react-icons/md";
-import { renderField, showSwal } from "@/validation";
+import { showSwal } from "@/validation";
+import Table from "@/table";
+import Unauthorized from "@/app/(pages)/unauthorized/page";
 export default function Page() {
   const user = useAuth(["ADMIN"]);
   const [data, setData] = useState([]);
@@ -74,7 +74,8 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    showSwal("info", "Searching...", "Please wait...", () => fetchData());
+    showSwal("info", "Searching...", "Please wait...");
+    fetchData().then(() => Swal.close());
   };
 
   const handleDownload = async () => {
@@ -117,164 +118,101 @@ export default function Page() {
     }
   };
 
-  return !user && loading ? (
-    <Loading />
-  ) : (
+  return user ? (
     <>
       <section className={styles.section}>
         <Sidebar />
-        {user && !loading ? (
-          <div className={styles.rightsection}>
-            <h1>Donation Report</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.upperForm}>
-                <span className={styles.fromDate}>
-                  <span>From Date</span>
-                  <br />
-                  <input
-                    type="date"
-                    name="from_date"
-                    id="from_date"
-                    value={filters.from_date}
-                    onChange={handleInputChange}
-                  />
-                </span>
-                <span className={styles.toDate}>
-                  <span>To Date</span>
-                  <br />
-                  <input
-                    type="date"
-                    name="to_date"
-                    id="to_date"
-                    value={filters.to_date}
-                    onChange={handleInputChange}
-                  />
-                </span>
-                <span>
-                  <span>Donation Id</span>
-                  <br />
-                  <input
-                    onInput={(e) => {
-                      e.target.value = e.target.value.replace(/\D/g, "");
-                    }}
-                    type="text"
-                    name="donation_id"
-                    id="donation_id"
-                    value={filters.donation_id}
-                    onChange={handleInputChange}
-                  />
-                </span>
-                <span>
-                  <label htmlFor="payment_option">Payment Option</label>
-                  <br />
-                  <select
-                    id="payment_option"
-                    name="payment_option"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Not selected</option>
-                    <option value="online">Online</option>
-                    <option value="offline">Offline</option>
-                  </select>
-                </span>
-              </div>
-              <div className={styles.lowerForm}>
-                <p>
-                  <label htmlFor="payment_status">Payment Status</label>
-                  <br />
-                  <select
-                    id="payment_status"
-                    name="payment_status"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Not selected</option>
-                    <option value="success">Success</option>
-                    <option value="failed">Failed</option>
-                    <option value="pending">Pending</option>
-                  </select>{" "}
-                </p>
-
-                <button type="submit" className={styles.formsearchButton}>
-                  <i className={`fa-solid fa-magnifying-glass`}></i>
-                  Search
-                </button>
-              </div>
-            </form>
-
-            <button
-              type="button"
-              onClick={handleDownload}
-              className={styles.downloadExcel}
-            >
-              <i className={`fa-solid fa-file-excel`}></i> Download Excel
-            </button>
-            <div className={styles.tableMain}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Donation Id</th>
-                    <th>Donation Date</th>
-                    <th>Donor Details</th>
-                    <th>Fundraiser Details</th>
-                    <th>Amount</th>
-                    <th>Payment Type</th>
-                    <th>Payment Status</th>
-                    <th>Donor PAN</th>
-                    <th>Donor Address</th>
-                    <th>Donor City</th>
-                    <th>Donor State</th>
-                    <th>Donor Country</th>
-                    <th>Donor Pincode</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.map((item) => (
-                    <tr key={item.donation_id_frontend}>
-                      <td>{item.donation_id_frontend}</td>
-                      <td>{formatDate(item.donation_date)} </td>
-                      <td>
-                        {item.donor_first_name}
-                        <br />
-                        {item.donor_email}
-                        <br />
-                        {item.donor_phone}
-                      </td>
-                      <td>
-                        {item.fundraiser?.firstName}
-                        <br />
-                        {item.fundraiser?.email}
-                      </td>
-                      <td>{item.amount}</td>
-                      <td>{item.payment_type}</td>
-                      <td>
-                        {item.payment_status ? (
-                          item.payment_status == "success" ? (
-                            <FaCircleCheck color="#0FA900" />
-                          ) : item.payment_status == "failed" ? (
-                            <MdCancel color="red" />
-                          ) : (
-                            <MdTimer />
-                          )
-                        ) : (
-                          "--"
-                        )}
-                      </td>
-                      <td>{renderField(item.pan)}</td>
-                      <td>{renderField(item.donor_address)}</td>
-                      <td>{renderField(item.donor_city)}</td>
-                      <td>{renderField(item.donor_state)}</td>
-                      <td>{renderField(item.donor_country)}</td>
-                      <td>{renderField(item.donor_pincode)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        <div className={styles.rightsection}>
+          <h1>Donation Report</h1>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.upperForm}>
+              <span className={styles.fromDate}>
+                <span>From Date</span>
+                <br />
+                <input
+                  type="date"
+                  name="from_date"
+                  id="from_date"
+                  value={filters.from_date}
+                  onChange={handleInputChange}
+                />
+              </span>
+              <span className={styles.toDate}>
+                <span>To Date</span>
+                <br />
+                <input
+                  type="date"
+                  name="to_date"
+                  id="to_date"
+                  value={filters.to_date}
+                  onChange={handleInputChange}
+                />
+              </span>
+              <span>
+                <span>Donation Id</span>
+                <br />
+                <input
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "");
+                  }}
+                  type="text"
+                  name="donation_id"
+                  id="donation_id"
+                  value={filters.donation_id}
+                  onChange={handleInputChange}
+                />
+              </span>
+              <span>
+                <label htmlFor="payment_option">Payment Option</label>
+                <br />
+                <select
+                  id="payment_option"
+                  name="payment_option"
+                  onChange={handleInputChange}
+                >
+                  <option value="">Not selected</option>
+                  <option value="online">Online</option>
+                  <option value="offline">Offline</option>
+                </select>
+              </span>
             </div>
+            <div className={styles.lowerForm}>
+              <p>
+                <label htmlFor="payment_status">Payment Status</label>
+                <br />
+                <select
+                  id="payment_status"
+                  name="payment_status"
+                  onChange={handleInputChange}
+                >
+                  <option value="">Not selected</option>
+                  <option value="success">Success</option>
+                  <option value="failed">Failed</option>
+                  <option value="pending">Pending</option>
+                </select>{" "}
+              </p>
+
+              <button type="submit" className={styles.formsearchButton}>
+                <i className={`fa-solid fa-magnifying-glass`}></i>
+                Search
+              </button>
+            </div>
+          </form>
+
+          <button
+            type="button"
+            onClick={handleDownload}
+            className={styles.downloadExcel}
+          >
+            <i className={`fa-solid fa-file-excel`}></i> Download Excel
+          </button>
+          <div className={styles.tableMain}>
+            <Table data={data} formatDate={formatDate} styles={styles} />
           </div>
-        ) : (
-          <Loading />
-        )}
+        </div>
       </section>
     </>
+  ) : (
+    <Unauthorized />
   );
 }

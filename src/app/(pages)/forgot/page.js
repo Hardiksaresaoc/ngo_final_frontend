@@ -15,12 +15,14 @@ const DefaultResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [ConfirmPasswordError, setConfirmPasswordError] = useState("");
 
   const router = useRouter();
 
   const handleForgot = async (e) => {
+    showSwal("infor", "Please wait...", "", null, false);
     e.preventDefault();
     setLoading(true);
     try {
@@ -65,7 +67,7 @@ const DefaultResetPassword = () => {
       setPasswordError("");
     }
 
-    if (newPassword !== confirmPassword) {
+    if (newPassword !== ConfirmPassword) {
       setConfirmPasswordError("Password and Confirm Password must match.");
       return;
     } else {
@@ -115,7 +117,7 @@ const DefaultResetPassword = () => {
                     <div className={styles.formInput}>
                       <div className={styles.inputInside}>
                         <label htmlFor="otp" className={styles.filled}>
-                          OTP
+                          Enter OTP
                         </label>
                         <div className={styles.inputIcon}>
                           <i className={styles.keyIcon}>
@@ -170,7 +172,12 @@ const DefaultResetPassword = () => {
                           required
                         />
                         {passwordError && (
-                          <p className={styles.errorMessage}>{passwordError}</p>
+                          <p
+                            style={{ color: "red" }}
+                            className={styles.errorMessage}
+                          >
+                            {passwordError}
+                          </p>
                         )}
                       </div>
 
@@ -186,11 +193,12 @@ const DefaultResetPassword = () => {
 
                           <i
                             className={`fas ${
-                              showPassword ? "fa-eye" : "fa-eye-slash"
+                              showConfirmPassword ? "fa-eye" : "fa-eye-slash"
                             } ${styles.eyeIcon} ${styles.formIcon}`}
                             onClick={() =>
-                              setShowPassword(
-                                (prevShowPassword) => !prevShowPassword
+                              setShowConfirmPassword(
+                                (preshowConfirmPassword) =>
+                                  !preshowConfirmPassword
                               )
                             }
                             aria-hidden="true"
@@ -200,15 +208,18 @@ const DefaultResetPassword = () => {
                           name="confirm-password"
                           className={styles.inputField}
                           onChange={(e) => setConfirmPassword(e.target.value)}
-                          type={showPassword ? "text" : "password"}
+                          type={showConfirmPassword ? "text" : "password"}
                           value={ConfirmPassword}
                           placeholder="Re-Enter New password"
                           id="confirm-password"
                           required
                         />
-                        {confirmPasswordError && (
-                          <p className={styles.errorMessage}>
-                            {confirmPasswordError}
+                        {ConfirmPasswordError && (
+                          <p
+                            style={{ color: "red" }}
+                            className={styles.errorMessage}
+                          >
+                            {ConfirmPasswordError}
                           </p>
                         )}
                       </div>
