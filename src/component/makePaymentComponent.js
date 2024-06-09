@@ -1,4 +1,5 @@
 "use client";
+import { showSwal } from "@/validation";
 import axios from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -20,14 +21,9 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
           `http://localhost:3001/payment/checkout/${reference.reference}`,
           { amount }
         );
-         return response?.data?.data?.id;
+        return response?.data?.data?.id;
       } catch (error) {
-        Swal.fire({
-          title: "Something went Wrong",
-          text: "please try again!",
-          icon: "error",
-          confirmButtonText: "okay",
-        });
+        showSwal("error", "Something went wrong", "please try again");
 
         console.error("Error fetching order details:", error);
         throw new Error("Error fetching order details");

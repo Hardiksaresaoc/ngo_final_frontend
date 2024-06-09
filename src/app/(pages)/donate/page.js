@@ -22,7 +22,7 @@ export default function Page({ params }) {
   const [errors, setErrors] = useState({});
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [ , setCities] = useState([]);
 
   useEffect(() => {
     setCountries(Country.getAllCountries());
@@ -218,6 +218,7 @@ export default function Page({ params }) {
                         onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"
                         required
+                       maxLength={11}
                         autoComplete=""
                       />
                     </div>

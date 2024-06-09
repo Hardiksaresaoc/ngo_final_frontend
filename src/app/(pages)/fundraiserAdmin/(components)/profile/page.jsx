@@ -31,7 +31,7 @@ export default function Page() {
   const [pan, setPan] = useState("");
   const [showAccountDetails, setShowAccountDetails] = useState(true);
   const [imagePreview, setImagePreview] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
+  const [profileImage, setProfileImage] = useState();
 
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
@@ -56,7 +56,7 @@ export default function Page() {
       setNumber(fundraiser.mobile_number || "");
       setDOB(fundraiser.dob || "");
       setPan(fundraiser.pan || "");
-      setProfileImage(fundraiser.profileImage || null);
+      setProfileImage(fundraiser.profileImage || "/images/profile.jpeg");
     }
   }, [fundraiserCtx.fundraiser]);
 
@@ -381,6 +381,7 @@ export default function Page() {
                       <br />
                       <input
                         type="date"
+                        max={new Date().toISOString().split("T")[0]}
                         name="dob"
                         id="DOB"
                         value={dob}
@@ -397,6 +398,7 @@ export default function Page() {
                         id="PANnumber"
                         value={pan}
                         onChange={(e) => setPan(e.target.value)}
+                        maxLength={11}
                         placeholder="Enter your PAN number"
                       />
                     </span>

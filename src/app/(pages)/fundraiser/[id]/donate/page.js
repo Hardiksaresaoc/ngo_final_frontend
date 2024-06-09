@@ -5,6 +5,7 @@ import MakePaymentComponent from "@/component/makePaymentComponent";
 import styles from "./donate.module.css";
 import Swal from "sweetalert2";
 import { Country, State, City } from "country-state-city";
+import { panRegex } from "@/validation";
 
 export default function Page({ params }) {
   const [amount, setDonationAmount] = useState("");
@@ -108,14 +109,12 @@ export default function Page({ params }) {
       setReference(response.data.data);
       setsubmitted(true);
     } catch (error) {
-      Swal.fire({
-        title: "Error while adding",
-        text: error.response
-          ? error.response.data.message
-          : "An error occurred.",
-        icon: "error",
-        confirmButtonText: "Close",
-      });
+      showSwal(
+        "error",
+        "Error while adding",
+        `${error.response ? error.response.data.message : "An error occurred."}`
+      );
+
       setsubmitted(false);
     }
   };
@@ -223,6 +222,7 @@ export default function Page({ params }) {
                         type="text"
                         className={styles.pannumber}
                         name="Pannumber"
+                        maxLength={11}
                         value={pan}
                         onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"

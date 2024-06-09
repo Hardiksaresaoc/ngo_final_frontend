@@ -7,10 +7,12 @@ import { BiSolidReport } from "react-icons/bi";
 import { MdDashboard } from "react-icons/md";
 import Swal from "sweetalert2";
 import styles from "./fundraiserSidebar.module.css";
+import { showSwal } from "@/validation";
 
 export default function AsideBar() {
   const [loading, setLoading] = useState(false);
   const pathname = usePathname();
+
   return (
     <>
       <div className={styles.leftAside}>
@@ -113,17 +115,15 @@ export const TopHeader = ({ link }) => {
                 navigator.clipboard
                   .writeText(`http://localhost:3000/fundraiser/${link}`)
                   .then(
-                    Swal.fire({
-                      title: "Fundraiser Page Link",
-                      text: "Copied to ClipBoard",
-                      icon: "info",
-                      confirmButtonText: "Close",
-                      confirmButtonColor: "#000080",
-                    })
+                    showSwal(
+                      "success",
+                      "Fundraiser Page Link",
+                      "Copied to ClipBoard"
+                    )
                   );
               }}
             >
-              {link}
+              {link ? link : "------------------------"}
               <span
                 style={{ width: "fit-content" }}
                 className={styles.tooltiptext}

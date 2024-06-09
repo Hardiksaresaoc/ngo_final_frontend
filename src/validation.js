@@ -155,3 +155,10 @@ export const showSwal = (
   });
 };
 export const renderField = (field) => (field ? field : "--");
+
+export function showSwalWithTimer(icon, title, text, timer = 2000) {
+  showSwal(icon, title, text, "", false);
+  setTimeout(() => {
+    Swal.close();
+  }, timer);
+}

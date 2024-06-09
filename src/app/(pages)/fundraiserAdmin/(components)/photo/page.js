@@ -206,6 +206,7 @@
 //                   )
 //                 )}
 //               </div>
+
 //             </div>
 //           </section>
 //         ) : (
@@ -227,6 +228,7 @@ import Swal from "sweetalert2";
 import { FaRegTrashAlt } from "react-icons/fa";
 import useAuth from "@/context/auth";
 import Loading from "@/app/loading";
+import Modal from "react-modal";
 import { showSwal } from "@/validation";
 
 export default function Page() {
@@ -237,7 +239,8 @@ export default function Page() {
   const { user } = useAuth("FUNDRAISER");
   const [previewURL, setPreviewURL] = useState("");
   const fileInputRef = useRef(null);
-
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [imagesPerPage] = useState(10);
@@ -319,6 +322,7 @@ export default function Page() {
       setPreviewURL("");
       setIsSubmitDisabled(true);
       showSwal("success", "uploaded", "Image Uploaded Succesfully");
+      fundraiserCtx.fetchData();
 
       fetchGalleryImages(currentPage);
     } catch (error) {
@@ -333,6 +337,12 @@ export default function Page() {
   const handleDeleteImage = async (index, image) => {
     try {
       showSwal("info", "Deleting image", "Please wait...", null, false);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/${image}`,
@@ -352,6 +362,13 @@ export default function Page() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+  };
+  const openModal = (image) => {
+    setModalImage(image);
+    setModalIsOpen(true);
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return !user && loading ? (
@@ -401,6 +418,7 @@ export default function Page() {
                         className={styles.galleryImg}
                         height="230"
                         width="300"
+                        onClick={() => openModal(image)}
                       />
                       <a
                         type="button"
@@ -431,7 +449,25 @@ export default function Page() {
         ) : (
           <Loading />
         )}
-      </aside>
+      </aside>{" "}
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <div className={styles.modalContent}>
+          <img
+            src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${modalImage}`}
+            alt="Modal Image"
+            className={styles.modalImage}
+          />
+          <button onClick={closeModal} className={styles.closeModal}>
+            Close
+          </button>
+        </div>
+      </Modal>
+      {/* <ModalComponent
+        style={styles}
+        isOpen={modalIsOpen}
+        modalImage={modalImage}
+        closeModal={closeModal}
+      /> */}
     </>
   );
 }

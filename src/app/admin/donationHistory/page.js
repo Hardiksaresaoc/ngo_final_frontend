@@ -133,6 +133,7 @@ export default function Page() {
                   type="date"
                   name="from_date"
                   id="from_date"
+                  max={new Date().toISOString().split("T")[0]}
                   value={filters.from_date}
                   onChange={handleInputChange}
                 />
@@ -144,6 +145,7 @@ export default function Page() {
                   type="date"
                   name="to_date"
                   id="to_date"
+                  max={new Date().toISOString().split("T")[0]}
                   value={filters.to_date}
                   onChange={handleInputChange}
                 />

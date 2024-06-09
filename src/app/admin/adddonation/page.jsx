@@ -67,7 +67,10 @@ export default function page() {
   const handleStateChange = (e) => {
     const stateCode = e.target.value;
     const selectedState = states.find((state) => state.isoCode === stateCode);
-    const stateCities = City.getCitiesOfState(selectedState.isoCode);
+    const stateCities = City.getCitiesOfState(
+      selectedState.countryCode,
+      stateCode
+    );
     setCities(stateCities);
   };
 
@@ -101,7 +104,7 @@ export default function page() {
     const props = {
       amount: formData.amount,
       donation_date: formData.donation_date,
-      payment_method: formData.payment_mewthod,
+      payment_method: formData.payment_method,
       donor_first_name: formData.donor_first_name,
       donor_email: formData.donor_email,
       donor_phone: formData.donor_phone,
@@ -273,7 +276,7 @@ export default function page() {
                       />
                     </span>
                     <span>
-                      <span>City</span>
+                      <span>Country</span>
                       <br />
                       <select onChange={handleCountryChange}>
                         <option value="" hidden>
@@ -290,9 +293,7 @@ export default function page() {
                       <span>State</span>
                       <br />
                       <select onChange={handleStateChange}>
-                        <option value="" hidden>
-                          Select State
-                        </option>
+                        <option value="">Select State</option>
                         {states.map((state) => (
                           <option key={state.isoCode} value={state.isoCode}>
                             {state.name}
@@ -303,16 +304,20 @@ export default function page() {
                   </div>
                   <div className={styles.thirdpersonalDetail}>
                     <span>
-                      <span>Country</span>
+                      <span>City</span>
                       <br />
-                      <input
-                        type="text"
-                        value={formData.country}
-                        onChange={handleChange}
-                        name="country"
-                        id="country"
-                        placeholder="Enter donor country"
-                      />
+                      <select
+                        onChange={(e) =>
+                          setFormData({ ...formData, city: e.target.value })
+                        }
+                      >
+                        <option value="">Select City</option>
+                        {cities.map((city) => (
+                          <option key={city.isoCode} value={city.name}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>Pincode</span>
@@ -373,7 +378,7 @@ export default function page() {
                         name="pan"
                         value={formData.pan}
                         onChange={handleChange}
-                        pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                        maxLength={11}
                         id="pan"
                         placeholder="Enter donor PAN number"
                       />

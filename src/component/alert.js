@@ -14,6 +14,7 @@ const showAlertAndRedirect = ({
   confirmButtonText,
   redirect,
 }) => {
+  
   Swal.fire({
     title: { title },
     text: { text },

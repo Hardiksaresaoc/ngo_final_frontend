@@ -7,8 +7,10 @@ import Cookies from "js-cookie";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdCancel, MdTimer } from "react-icons/md";
-import { renderField } from "@/validation";
+import { renderField, showSwal } from "@/validation";
 import TableComponent from "@/component/table";
+import Swal from "sweetalert2";
+import { FundraiserTable } from "@/table";
 
 export default function Page() {
   const [data, setData] = useState([]);
@@ -50,11 +52,13 @@ export default function Page() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
     }));
   };
+
   function formatDate(dateString) {
     if (!dateString) {
       return "";
@@ -71,9 +75,10 @@ export default function Page() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    showSwal("info", "Searching", "Please wait...", null, false``);
+    showSwal("info", "Searching", "Please wait...", null, false);
 
     fetchData();
+    // Swal.close();
   };
 
   const handleDownload = async () => {
@@ -97,6 +102,7 @@ export default function Page() {
       a.download = "DonationData.xlsx";
       a.click();
       URL.revokeObjectURL(downloadUrl);
+      Swal.close();
     } catch (error) {
       console.error("Error downloading file:", error);
 
@@ -119,6 +125,7 @@ export default function Page() {
                 <br />
                 <input
                   type="date"
+                  max={new Date().toISOString().split("T")[0]}
                   name="from_date"
                   id="from_date"
                   value={filters.from_date}
@@ -132,6 +139,7 @@ export default function Page() {
                   type="date"
                   name="to_date"
                   id="to_date"
+                  max={new Date().toISOString().split("T")[0]}
                   value={filters.to_date}
                   onChange={handleInputChange}
                 />
@@ -195,67 +203,12 @@ export default function Page() {
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
           {/* < TableComponent/> */}
-          <div className={styles.tableMain}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Donation Id</th>
-                  <th>Donation Date</th>
-                  <th>Donor Details</th>
-                  <th>Amount</th>
-                  <th>Donor PAN</th>
-                  <th>Donor Address</th>
-                  <th>Payment Type</th>
-                  <th>Payment Status</th>
-                  <th>Donor City</th>
-                  <th>Donor State</th>
-                  <th>Donor Country</th>
-                  <th>Donor Pincode</th>
-                  <th>Donor Bank</th>
-                  <th>Donor Bank-branch</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data?.map((item) => (
-                  <tr key={item.donation_id_frontend}>
-                    <td>{item.donation_id_frontend}</td>
-                    <td>{formatDate(item.donation_date)} </td>
-                    <td>
-                      {item.donor_first_name}
-                      <br />
-                      {item.donor_email}
-                      <br />
-                      {item.donor_phone}
-                    </td>
-
-                    <td>{renderField(item.amount)}</td>
-                    <td>{renderField(item.pan)}</td>
-                    <td>{renderField(item.donor_address)}</td>
-                    <td>{item.payment_type ? item.payment_type : "--"}</td>
-                    <td>
-                      {item.payment_status ? (
-                        item.payment_status == "success" ? (
-                          <FaCircleCheck color="#0FA900" />
-                        ) : item.payment_status == "failed" ? (
-                          <MdCancel color="red" />
-                        ) : (
-                          <MdTimer />
-                        )
-                      ) : (
-                        "--"
-                      )}
-                    </td>
-                    <td>{renderField(item.donor_city)}</td>
-                    <td>{renderField(item.donor_state)}</td>
-                    <td>{renderField(item.donor_country)}</td>
-                    <td>{renderField(item.donor_pincode)}</td>
-                    <td>{renderField(item.donor_bank_name)}</td>
-                    <td>{renderField(item.donor_bank_branch)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          {data && Swal.close()}
+          <FundraiserTable
+            formatDate={formatDate}
+            styles={styles}
+            data={data}
+          />
         </div>
       </aside>
     </>

@@ -16,6 +16,7 @@ export default function FundraiserPage() {
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedFundraiser, setSelectedFundraiser] = useState(null);
+  const [amountError, setAmountError] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [header, setheader] = useState();
@@ -29,8 +30,17 @@ export default function FundraiserPage() {
   });
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
+
+    if (formData.target_amount <= 0) {
+      setAmountError("Amount must be greater than 0");
+      return;
+    } else {
+      setAmountError("");
+    }
+
+    setLoading(true);
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiserPage/updatePage/${selectedFundraiser.fundraiser_page?.id}`,
@@ -50,6 +60,7 @@ export default function FundraiserPage() {
       console.error("Error updating fundraiser:", error);
     }
   };
+
   useEffect(() => {
     if (selectedFundraiser) {
       setFormData({
@@ -159,13 +170,17 @@ export default function FundraiserPage() {
                   id="target_amount"
                   placeholder="Target Amount"
                   value={formData?.target_amount}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      target_amount: parseInt(e.target.value, 10),
-                    })
-                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setFormData({ ...formData, target_amount: value });
+                    setAmountError(
+                      value <= 0 ? "Amount must be greater than 0" : ""
+                    );
+                  }}
                 />
+                {amountError && (
+                  <span className={styles.error}>{amountError}</span>
+                )}
               </span>
             </div>
             <div className={styles.popupthirdfundraiserDetail}>
@@ -198,7 +213,7 @@ export default function FundraiserPage() {
                 className={styles.textarea}
                 name="story"
                 id="story"
-                spellcheck="false"
+                spellCheck="false"
                 cols="30"
                 rows="10"
                 placeholder="Enter my story.."
@@ -217,7 +232,7 @@ export default function FundraiserPage() {
                   name="money_raised_for"
                   id="money_raised_for"
                   cols="30"
-                  spellcheck="false"
+                  spellCheck="false"
                   rows="10"
                   placeholder="Enter money raised for.."
                   value={formData.money_raised_for}
@@ -245,7 +260,7 @@ export default function FundraiserPage() {
                 type="submit"
                 onClick={handleSubmit}
                 className={styles.popupfundbutton}
-                disable={loading}
+                disabled={loading}
               >
                 {loading ? "Loading..." : "Save"}
               </button>

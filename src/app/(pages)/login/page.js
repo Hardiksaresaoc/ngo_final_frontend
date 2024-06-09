@@ -9,6 +9,7 @@ import Link from "next/link";
 import styles from "./login.module.css";
 import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -54,12 +55,8 @@ const LoginPage = () => {
     setLoading(true);
     e.preventDefault();
     if (!validateForm()) return;
-    Swal.fire({
-      title: "Logging In",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
+
+    showSwal("info", "Logging In", "Please wait...");
 
     try {
       const config = {
@@ -78,13 +75,8 @@ const LoginPage = () => {
           loginError: "email or password error",
         });
       } else {
-        Swal.fire({
-          title: "Success",
-          text: "Login Successfully!!",
-          icon: "success",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("success", "Login successful", " ");
+
         const expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
         Cookies.set("token", response.data.data.token, { expires: expiryDate });
