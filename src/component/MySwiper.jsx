@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "./swiper.css";
-import { Autoplay,Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 const MySwiper = ({ image }) => {
   let sliderConfig = {
@@ -14,12 +14,11 @@ const MySwiper = ({ image }) => {
     slidesPerView: 3,
     slidesPerGroup: 3,
     allowTouchMove: true,
-    loop: true,    
-     autoplay:{
+    loop: true,
+    autoplay: {
       delay: 2500,
       disableOnInteraction: false,
     },
-    
     navigation: {
       nextEl: ".custom-arrow-next-artical",
       prevEl: ".custom-arrow-prev-artical",
@@ -38,25 +37,28 @@ const MySwiper = ({ image }) => {
       },
     },
   };
+
   return (
     <Swiper
       className="sw"
       {...sliderConfig}
-      modules={[Autoplay,Navigation]}
+      modules={[Autoplay, Navigation]}
       style={{ display: "flex", justifyContent: "space-between" }}
     >
-      {image.map((image, index) => (
-        <SwiperSlide key={index}>
-          <img src={image} alt={`Slide ${index + 1}`} />
-        </SwiperSlide>
-      ))}
+      {image &&
+        image.map((image, index) => (
+          <SwiperSlide key={index}>
+            <a href={image} target="_blank" rel="noopener noreferrer">
+              <img src={image} alt={`Slide ${index + 1}`} />
+            </a>
+          </SwiperSlide>
+        ))}
 
-      <div className={`custom-arrow-next-artical swiper-button-next `}></div>
-      <div className={`custom-arrow-prev-artical swiper-button-prev`}></div>
+      <div className="custom-arrow-next-artical swiper-button-next"></div>
+      <div className="custom-arrow-prev-artical swiper-button-prev"></div>
     </Swiper>
   );
 };
-
 export const MySwiperTeamMember = ({ styles, teamData }) => {
   let sliderConfig = {
     navigation: true,
@@ -64,7 +66,7 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
     slidesPerGroup: 3,
     allowTouchMove: true,
     loop: true,
-    autoplay:{
+    autoplay: {
       delay: 2500,
       disableOnInteraction: false,
     },
@@ -89,7 +91,11 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
     },
   };
   return (
-    <Swiper {...sliderConfig} className="teamMember" modules={[Autoplay,Navigation]}>
+    <Swiper
+      {...sliderConfig}
+      className="teamMember"
+      modules={[Autoplay, Navigation]}
+    >
       {teamData.map((team, index) => (
         <SwiperSlide key={index}>
           <div className={styles.teamMember}>
@@ -125,7 +131,7 @@ export const OneSwiper = ({ OneImage }) => {
     slidesPerGroup: 1,
     allowTouchMove: true,
     loop: true,
-     autoplay:{
+    autoplay: {
       delay: 2500,
       disableOnInteraction: false,
     },
@@ -155,13 +161,14 @@ export const OneSwiper = ({ OneImage }) => {
     },
   };
   return (
-    <Swiper {...onesliderConfig} modules={[Navigation,Autoplay, Pagination]}>
+    <Swiper {...onesliderConfig} modules={[Navigation, Autoplay, Pagination]}>
       {OneImage.map((image, index) => (
         <SwiperSlide
           style={{ display: "flex", justifyContent: "center" }}
           key={index}
         >
-          <img loading="eager"
+          <img
+            loading="eager"
             className="oneSwiperImage"
             src={image}
             alt={`Slide ${index + 1}`}

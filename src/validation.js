@@ -26,7 +26,7 @@ export const addminAddDonationError = (props) => {
     donor_phone: {
       required: "Mobile Number is required",
       validate: (value) => !value || value.length === 10,
-      errorMessage: "Mobile Number should be 10 digits",
+      errorMessage: "Mobile Number must be 10 digits",
     },
     donation_date: {
       required: "Donation Date is required",
@@ -76,7 +76,7 @@ export const addDonatErrorSchema = (props) => {
     donor_phone: {
       required: "Mobile Number is required",
       validate: (value) => !value || value.length === 10,
-      errorMessage: "Mobile Number should be 10 digits",
+      errorMessage: "Mobile Number must be 10 digits",
     },
   };
 

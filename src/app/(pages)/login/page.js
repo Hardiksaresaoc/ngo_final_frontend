@@ -95,7 +95,7 @@ const LoginPage = () => {
         text: error.response
           ? error.response.data.message
           : "An error occurred.",
-        icon: "failed",
+        icon: "error",
         timer: 1500,
         confirmButtonColor: "#000080",
         confirmButtonText: "Close",

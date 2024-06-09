@@ -109,7 +109,15 @@ export default function Page() {
       showSwal("error", "Opps!", "something went wrong!!");
     }
   };
-
+  const reset = () => {
+    setFilters({
+      from_date: null,
+      to_date: null,
+      donation_id: null,
+      payment_option: null,
+      payment_status: null,
+    });
+  };
   return (
     <>
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
@@ -118,7 +126,7 @@ export default function Page() {
 
         <div className={styles.rightAside}>
           <h1>Donation Report</h1>
-          <form className={styles.form} onSubmit={handleSubmit}>
+          <form className={styles.form}>
             <div className={styles.upperForm}>
               <span className={styles.fromDate}>
                 <span>From Date</span>
@@ -187,8 +195,19 @@ export default function Page() {
                   <option value="pending">Pending</option>
                 </select>
               </p>
-
-              <button type="submit" className={styles.formsearchButton}>
+              <button
+                onSubmit={reset}
+                type="submit"
+                className={styles.formsearchButton}
+              >
+                <i className={`fa-solid fa-magnifying-glass`}></i>
+                Reset
+              </button>
+              <button
+                type="submit"
+                onSubmit={handleSubmit}
+                className={styles.formsearchButton}
+              >
                 <i className={`fa-solid fa-magnifying-glass`}></i>
                 Search
               </button>
