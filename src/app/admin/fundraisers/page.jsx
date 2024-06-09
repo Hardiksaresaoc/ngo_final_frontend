@@ -6,8 +6,8 @@ import styles from "./fundraisersAdmin.module.css";
 import useAuth from "@/context/auth";
 import Sidebar from "@/component/sidebar";
 import { FaRegPenToSquare } from "react-icons/fa6";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -16,6 +16,7 @@ export default function FundraiserPage() {
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedFundraiser, setSelectedFundraiser] = useState(null);
+  const [amountError, setAmountError] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [header, setheader] = useState();
@@ -29,38 +30,37 @@ export default function FundraiserPage() {
   });
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
+
+    if (formData.target_amount <= 0) {
+      setAmountError("Amount must be greater than 0");
+      return;
+    } else {
+      setAmountError("");
+    }
+
+    setLoading(true);
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_serverAPI}/admin/fundraiserPage/updatePage/${selectedFundraiser.fundraiser_page?.id}`,
         formData,
         { headers: header }
       );
+
       setLoading(false);
-      Swal.fire({
-        title: "Updated",
-        text: "Fundraiser Page updated successfully",
-        icon: "success",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+      showSwal("success", "updated", "Fundraiser page updated successfully");
 
       setShowPopup(false);
     } catch (error) {
-      Swal.fire({
-        title: "Opps",
-        confirmButtonColor: "#000080",
+      showSwal("error", "oops", "Something went wrong");
 
-        text: "Something Went wrong!!",
-        icon: "success",
-        confirmButtonText: "Close",
-      });
       setLoading(false);
 
       console.error("Error updating fundraiser:", error);
     }
   };
+
   useEffect(() => {
     if (selectedFundraiser) {
       setFormData({
@@ -100,13 +100,8 @@ export default function FundraiserPage() {
         setFundraisers(response.data.data);
       } catch (error) {
         setLoading(false);
-        Swal.fire({
-          title: "Oops",
-          text: "Something went Wrong!!",
-          icon: "failed",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("error", "oops", "Something went wrong");
+
         setError("Error fetching fundraisers. Please try again later.");
         console.error("Error fetching fundraisers:", error);
       }
@@ -175,13 +170,17 @@ export default function FundraiserPage() {
                   id="target_amount"
                   placeholder="Target Amount"
                   value={formData?.target_amount}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      target_amount: parseInt(e.target.value, 10),
-                    })
-                  }
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    setFormData({ ...formData, target_amount: value });
+                    setAmountError(
+                      value <= 0 ? "Amount must be greater than 0" : ""
+                    );
+                  }}
                 />
+                {amountError && (
+                  <span className={styles.error}>{amountError}</span>
+                )}
               </span>
             </div>
             <div className={styles.popupthirdfundraiserDetail}>
@@ -214,7 +213,7 @@ export default function FundraiserPage() {
                 className={styles.textarea}
                 name="story"
                 id="story"
-                spellcheck="false"
+                spellCheck="false"
                 cols="30"
                 rows="10"
                 placeholder="Enter my story.."
@@ -233,7 +232,7 @@ export default function FundraiserPage() {
                   name="money_raised_for"
                   id="money_raised_for"
                   cols="30"
-                  spellcheck="false"
+                  spellCheck="false"
                   rows="10"
                   placeholder="Enter money raised for.."
                   value={formData.money_raised_for}
@@ -261,7 +260,7 @@ export default function FundraiserPage() {
                 type="submit"
                 onClick={handleSubmit}
                 className={styles.popupfundbutton}
-                disable={loading}
+                disabled={loading}
               >
                 {loading ? "Loading..." : "Save"}
               </button>
@@ -309,11 +308,11 @@ export default function FundraiserPage() {
                           </td>
                           <td className={styles.td}>
                             <a
+                              style={{ color: "rgb(0, 0, 238)" }}
                               href={`http://localhost:3000/fundraiser/${fundraiser?.fundraiser_page?.id}`}
                               target="_blank"
                             >
-                              http://localhost:3000/fundraiser/
-                              {fundraiser?.fundraiser_page?.id}
+                              /{fundraiser?.fundraiser_page?.id}
                             </a>
                           </td>
                           <td className={styles.td}>
@@ -329,12 +328,13 @@ export default function FundraiserPage() {
                                         : item
                                     )
                                   );
-                                  Swal.fire({
-                                    title: "Updating",
-                                    text: "Please wait...",
-                                    icon: "info",
-                                    showConfirmButton: false,
-                                  });
+                                  showSwal(
+                                    "info",
+                                    "Updating",
+                                    "Please wait",
+                                    null,
+                                    false
+                                  );
 
                                   const response = await axios({
                                     method: "put",
@@ -350,14 +350,7 @@ export default function FundraiserPage() {
                                         ? "inactivated"
                                         : "activated";
                                     const title = `Changed to ${statusMessage}`;
-
-                                    Swal.fire({
-                                      title: title,
-                                      text: statusMessage,
-                                      icon: "success",
-                                      confirmButtonText: "Close",
-                                      confirmButtonColor: "#000080",
-                                    });
+                                    showSwal("success", title, "success");
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}

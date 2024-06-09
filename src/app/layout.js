@@ -1,3 +1,5 @@
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
 import "./globals.css";
 
 export const metadata = {
@@ -8,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
-      <html>{children}</html>
+      <ErrorBoundary fallback={<Error />}>
+        <html>{children}</html>
+      </ErrorBoundary>
     </>
   );
 }

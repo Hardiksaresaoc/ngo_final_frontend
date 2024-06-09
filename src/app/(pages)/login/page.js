@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./login.module.css";
 import Swal from "sweetalert2";
+import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -48,16 +50,13 @@ const LoginPage = () => {
   };
 
   const submithandler = async (e) => {
-    Swal.fire({
-      title: "Logging In",
-      text: "Please wait...",
-      icon: "info",
-      showConfirmButton: false,
-    });
     Cookies.remove("refreshToken");
+
     setLoading(true);
     e.preventDefault();
     if (!validateForm()) return;
+
+    showSwal("info", "Logging In", "Please wait...");
 
     try {
       const config = {
@@ -76,13 +75,8 @@ const LoginPage = () => {
           loginError: "email or password error",
         });
       } else {
-        Swal.fire({
-          title: "Success",
-          text: "Login Successfully!!",
-          icon: "success",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("success", "Login successful", " ");
+
         const expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
         Cookies.set("token", response.data.data.token, { expires: expiryDate });
@@ -98,7 +92,9 @@ const LoginPage = () => {
       console.error("An error occurred while logging in:", error);
       Swal.fire({
         title: "Opps!!",
-        text: `${error.response.data.message}`,
+        text: error.response
+          ? error.response.data.message
+          : "An error occurred.",
         icon: "failed",
         timer: 1500,
         confirmButtonColor: "#000080",
@@ -162,7 +158,7 @@ const LoginPage = () => {
     router.push(redirectPath);
   };
 
-  return (
+  return !loggedin ? (
     <>
       <div className={styles.main}>
         <section className={styles.mainSection}>
@@ -302,6 +298,8 @@ const LoginPage = () => {
         </section>
       </div>
     </>
+  ) : (
+    <Loading />
   );
 };
 

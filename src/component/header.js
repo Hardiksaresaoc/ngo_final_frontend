@@ -1,9 +1,8 @@
 "use client";
-import { Button } from "@nextui-org/react";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { notFound, usePathname, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import styles from "./header.module.css"; // Assuming this imports your custom styles
 
@@ -11,6 +10,7 @@ import Loading from "@/app/loading";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import { showSwal } from "@/validation";
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -37,12 +37,7 @@ export default function Header() {
   }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
-    Swal.fire({
-      title: "Logging you Out",
-      text: "Please Wait",
-      icon: "info",
-      showConfirmButton: false,
-    });
+    showSwal("info", "Logging out", "Please wait...");
 
     setTimeout(() => {
       try {
@@ -191,7 +186,8 @@ export default function Header() {
                 <Image
                   src={
                     `${fundraiserCtx?.fundraiser?.profileImage}` == "undefined"
-                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}`
+                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}` ||
+                        "/images/profile.jpeg"
                       : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`
                   }
                   width="40"
@@ -249,12 +245,12 @@ export default function Header() {
         ) : (
           <>
             <Link href="/login">
-              <Button className={styles.innerBtn}>Log in</Button>
+              <button className={styles.innerBtn}>Log in</button>
             </Link>
             <Link href="/donate">
-              <Button className={`${styles.innerBtn} ${styles.filled}`}>
+              <button className={`${styles.innerBtn} ${styles.filled}`}>
                 Donate
-              </Button>
+              </button>
             </Link>
           </>
         )}

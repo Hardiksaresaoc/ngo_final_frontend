@@ -1,8 +1,11 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
   return (
     <footer className={styles.mainFooter}>
       <div className={styles.upperFooter}>
@@ -45,7 +48,7 @@ export default function Footer() {
               href="https://supportourheroes.in/our-faqs/"
               className={styles.aboutUsLink}
             >
-              <i className={`fa-regular  fa-circle-dot }`}></i> OUR FAQs
+              <i className={`fa-regular  fa-circle-dot }`}></i> Our FAQs
             </Link>
           </p>
         </div>
@@ -106,7 +109,7 @@ export default function Footer() {
         </p>
         <p className={styles.headlinePolicy}>
           All donations are permitted a 50% exemption from tax under section 80G
-          (5)(vi) of Income Tax
+          (5)(vi) of Income Tax   
         </p>
         <div className={styles.socialmedia}>
           <Link href="https://www.facebook.com/support.our.heroes.initiative/">
@@ -146,7 +149,9 @@ export default function Footer() {
             />
           </Link>
         </div>
-        <p className={styles.copyright}>Copyright © 2022 Support Our Heroes</p>
+        <p className={styles.copyright}>
+          Copyright ©{currentYear} Support Our Heroes
+        </p>
       </div>
     </footer>
   );

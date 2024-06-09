@@ -1,29 +1,27 @@
 "use client";
 import Sidebar from "@/component/sidebar";
 import styles from "./adddonation.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
 import useAuth from "@/context/auth";
+import { addminAddDonationError, showSwal } from "@/validation";
+import { Country, State, City } from "country-state-city";
 
 export default function page() {
   const user = useAuth(["ADMIN"]);
   const [token, settoken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [formData, setFormData] = useState({
-    email: "",
+  const initialFormState = {
     amount: "",
-    donor_name: "",
-    // merge fname and lname
+    donor_first_name: "",
+    donor_last_name: "",
     donor_email: "",
     donor_phone: "",
-    payment_type: "",
+    payment_method: "",
     donation_date: "",
-    //
-    lastName: "",
     donor_address: "",
     city: "",
     state: "",
@@ -31,52 +29,71 @@ export default function page() {
     pincode: "",
     pan: "",
     refrence_payment: "",
-    donor_bankName: "",
-    donor_bankBranch: "",
-  });
-
-  const reset = () => {
-    setFormData({
-      email: "",
-      amount: "",
-      donor_name: "",
-      donor_email: "",
-      donor_phone: "",
-      payment_type: "",
-      donation_date: "",
-      lastName: "",
-      donor_address: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-      pan: "",
-      refrence_payment: "",
-      donor_bankName: "",
-      donor_bankBranch: "",
-    });
+    donor_bank_name: "",
+    donor_bank_branch: "",
   };
+  const [formData, setFormData] = useState(initialFormState);
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  const reset = () => setFormData(initialFormState);
 
   useEffect(() => {
     const data = Cookies.get("token");
     settoken(data);
     setLoading(false);
   }, [Cookies]);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      const countriesData = await Country.getAllCountries();
+      setCountries(countriesData);
+    };
+
+    fetchCountries();
+  }, []);
+
+  const handleCountryChange = (e) => {
+    const countryCode = e.target.value;
+    const selectedCountry = countries.find(
+      (country) => country.isoCode === countryCode
+    );
+    const countryStates = State.getStatesOfCountry(selectedCountry.isoCode);
+    setStates(countryStates);
+    setCities([]);
+  };
+
+  const handleStateChange = (e) => {
+    const stateCode = e.target.value;
+    const selectedState = states.find((state) => state.isoCode === stateCode);
+    const stateCities = City.getCitiesOfState(
+      selectedState.countryCode,
+      stateCode
+    );
+    setCities(stateCities);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "lastName") {
-      // Merge last name with donor name
       setFormData((prevData) => ({
         ...prevData,
         donor_name: `${prevData.donor_name} ${value}`,
-
-        [name]: value, // Update last name separately
+        [name]: value,
       }));
+    } else if (name === "amount") {
+      const parsedValue = parseFloat(value);
+      setFormData({
+        ...formData,
+        [name]: isNaN(parsedValue) ? "" : parsedValue,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   const [errors, setErrors] = useState({});
@@ -84,53 +101,31 @@ export default function page() {
     setLoading(true);
     e.preventDefault();
 
-    // Validation
-    const isEmailValid = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
+    const props = {
+      amount: formData.amount,
+      donation_date: formData.donation_date,
+      payment_method: formData.payment_method,
+      donor_first_name: formData.donor_first_name,
+      donor_email: formData.donor_email,
+      donor_phone: formData.donor_phone,
     };
-    const newErrors = {};
+    const validationErrors = addminAddDonationError(props);
+    setErrors(validationErrors);
 
-    if (!formData.amount) {
-      newErrors.amount = "Amount is required";
-    }
-    if (!formData.donor_name) {
-      newErrors.firstName = "First Name is required";
-    }
-    if (!formData.donor_email || !isEmailValid(formData.donor_email)) {
-      newErrors.donor_email = "email is required";
-    }
-    if (!formData.donor_phone) {
-      newErrors.donor_phone = "Mobile Number should be 10 digits";
-    }
-    if (!formData.donation_date) {
-      newErrors.donation_date = "Donation Date is required";
-    }
-    if (!formData.payment_type) {
-      newErrors.payment_type = "Donation type is required";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       setLoading(false);
       return;
     }
 
     try {
-      Swal.fire({
-        title: "Adding donation",
-        text: "Please wait...",
-        icon: "info",
-        showConfirmButton: false,
-      });
-
+      showSwal("info", "Adding donation...", "please wait...");
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       };
-      formData["amount"] = Number(formData["amount"]);
       const response = await axios({
         method: "post",
         url: `${process.env.NEXT_PUBLIC_serverAPI}/admin/addOfflineDonation`,
@@ -139,27 +134,14 @@ export default function page() {
       });
       if (response.status == 201) {
         setLoading(false);
-        Swal.fire({
-          title: "Added Succesfully",
-          text: "Donation added!!",
-          icon: "success",
-          confirmButtonText: "Close",
-          confirmButtonColor: "#000080",
-        });
+        showSwal("success", "Added successfully", "Donation added!!");
         reset();
         setLoading(false);
       }
       setLoading(false);
       setErrors({});
     } catch (error) {
-      Swal.fire({
-        title: "Error!",
-        text: "Something went wrong!!",
-        icon: "error",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
-
+      showSwal("error", "Error", "Something went wrong!!");
       console.error("API error:", error);
       setLoading(false);
     }
@@ -178,10 +160,7 @@ export default function page() {
               <form className={styles.mainForm}>
                 <div className={styles.fundraiserDetail}>
                   <span>
-                    <span>
-                      Fundraiser E-mail
-                      <span className={styles.compulsory}>*</span>
-                    </span>
+                    <span>Fundraiser E-mail</span>
                     <br />
                     <input
                       list="fundraiserPageList"
@@ -204,16 +183,16 @@ export default function page() {
                     </span>
                     <br />
                     <input
-                      type="number"
+                      type="text"
                       name="amount"
                       min={1}
-                      pattern="[0-9]*"
                       value={formData.amount}
                       onChange={handleChange}
                       id="amount"
                       placeholder="Enter donor amount"
                       required
                     />
+
                     {errors.amount && (
                       <p style={{ color: "red", marginTop: "5px" }}>
                         {errors.amount}
@@ -231,9 +210,12 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        value={formData.donor_name}
+                        value={formData.donor_first_name}
                         onChange={handleChange}
-                        name="donor_name"
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/\d/g, "");
+                        }}
+                        name="donor_first_name"
                         id="donor_name"
                         placeholder="Enter donor first name"
                         required
@@ -249,8 +231,11 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        name="lastName"
-                        value={formData.lastName}
+                        name="donor_last_name"
+                        onInput={(e) => {
+                          e.target.value = e.target.value.replace(/\d/g, "");
+                        }}
+                        value={formData.donor_last_name}
                         onChange={handleChange}
                         id="lastName"
                         placeholder="Enter donor last name"
@@ -291,42 +276,48 @@ export default function page() {
                       />
                     </span>
                     <span>
-                      <span>City</span>
+                      <span>Country</span>
                       <br />
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                        id="city"
-                        placeholder="Enter donor city"
-                      />
+                      <select onChange={handleCountryChange}>
+                        <option value="" hidden>
+                          Select Country
+                        </option>
+                        {countries.map((country) => (
+                          <option key={country.isoCode} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>State</span>
                       <br />
-                      <input
-                        type="text"
-                        value={formData.state}
-                        onChange={handleChange}
-                        name="state"
-                        id="state"
-                        placeholder="Enter donor state"
-                      />
+                      <select onChange={handleStateChange}>
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                          <option key={state.isoCode} value={state.isoCode}>
+                            {state.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                   </div>
                   <div className={styles.thirdpersonalDetail}>
                     <span>
-                      <span>Country</span>
+                      <span>City</span>
                       <br />
-                      <input
-                        type="text"
-                        value={formData.country}
-                        onChange={handleChange}
-                        name="country"
-                        id="country"
-                        placeholder="Enter donor country"
-                      />
+                      <select
+                        onChange={(e) =>
+                          setFormData({ ...formData, city: e.target.value })
+                        }
+                      >
+                        <option value="">Select City</option>
+                        {cities.map((city) => (
+                          <option key={city.isoCode} value={city.name}>
+                            {city.name}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>Pincode</span>
@@ -335,6 +326,11 @@ export default function page() {
                         type="text"
                         value={formData.pincode}
                         onChange={handleChange}
+                        onInput={(e) => {
+                          e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .substring(0, 6);
+                        }}
                         name="pincode"
                         id="pincode"
                         placeholder="Enter donor pincode"
@@ -382,6 +378,7 @@ export default function page() {
                         name="pan"
                         value={formData.pan}
                         onChange={handleChange}
+                        maxLength={11}
                         id="pan"
                         placeholder="Enter donor PAN number"
                       />
@@ -392,18 +389,26 @@ export default function page() {
                         <span className={styles.compulsory}>*</span>
                       </span>
                       <br />
-                      <input
-                        type="text"
-                        name="payment_type"
-                        value={formData.payment_type}
+                      <select
+                        id="payment_method"
+                        name="payment_method"
+                        value={formData.payment_method}
                         onChange={handleChange}
-                        id="payment_type"
-                        placeholder="Choose donor payment method"
                         required
-                      />
-                      {errors.payment_type && (
+                      >
+                        <option value="" hidden>
+                          Select Method
+                        </option>
+                        <option value="Cash">Cash</option>
+                        <option value="Direct Bank Transfer">
+                          Direct Bank Transfer
+                        </option>
+                        <option value="Cheque/DD">Cheque/DD</option>
+                      </select>
+
+                      {errors.payment_method && (
                         <p style={{ color: "red", marginTop: "5px" }}>
-                          {errors.payment_type}
+                          {errors.payment_method}
                         </p>
                       )}
                     </span>
@@ -454,9 +459,9 @@ export default function page() {
                       <br />
                       <input
                         type="text"
-                        name="donor_bankName"
+                        name="donor_bank_name"
                         id="bankName"
-                        value={formData.donor_bankName}
+                        value={formData.donor_bank_name}
                         onChange={handleChange}
                         placeholder="Enter donor bank name"
                       />

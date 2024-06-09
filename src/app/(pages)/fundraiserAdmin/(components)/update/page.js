@@ -8,6 +8,7 @@ import useAuth from "@/context/auth";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
 
 export default function Update() {
   const { user } = useAuth("FUNDRAISER");
@@ -39,12 +40,7 @@ export default function Update() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      Swal.fire({
-        title: "Updating",
-        text: "Please wait...",
-        icon: "info",
-        showConfirmButton: false,
-      });
+      showSwal("info", "Updating", "Please wait...");
 
       const data = {
         target_amount: parseInt(target_amount),
@@ -63,23 +59,10 @@ export default function Update() {
         data,
         config
       );
-      Swal.fire({
-        title: "Done",
-        text: "Updated Sucessfully!!",
-        icon: "success",
-        confirmButtonColor: "#000080",
-
-        confirmButtonText: "Close",
-      });
+      showSwal("success", "Done", "Update Succesfully!!");
     } catch (error) {
       console.error("Error submitting form:", error);
-      Swal.fire({
-        title: "Ooops!!",
-        text: "something went wrong!!",
-        icon: "error",
-        confirmButtonText: "Close",
-        confirmButtonColor: "#000080",
-      });
+      showSwal("error", "Oops!", "Something went wrong");
     }
   };
 

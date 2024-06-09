@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { showSwal } from "@/validation";
 
 const useAuth = (allowedRoles) => {
   const router = useRouter();
@@ -38,7 +39,6 @@ const useAuth = (allowedRoles) => {
 
   useEffect(() => {
     const refreshToken = Cookies.get("refreshToken");
-    console.log(refreshToken, "hhh");
 
     const token = Cookies.get("token");
     const fetchData = async () => {
@@ -61,13 +61,7 @@ const useAuth = (allowedRoles) => {
           });
         }
       } catch (error) {
-        Swal.fire({
-          title: "Login Required",
-          text: "Please Login",
-          icon: "error",
-          confirmButtonColor: "#000080",
-          confirmButtonText: "Close",
-        }).then((result) => {
+        showSwal("error", "Login required", "Please Login").then((result) => {
           if (result.isConfirmed) {
             router.push("/login");
           }

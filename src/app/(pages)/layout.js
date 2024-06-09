@@ -15,15 +15,13 @@ export default function RootLayout({ children }) {
   return (
     <>
       <html>
-        <FundraiserContextData>
-          <body className={inter.className}>
-            <Header />
-            <div style={{ minHeight: "70vh" }}>
-              {!children ? <Loading /> : children}
-            </div>
-            <Footer />
-          </body>
-        </FundraiserContextData>
+        <body className={inter.className}>
+          <Header />
+          <div style={{ minHeight: "70vh" }}>
+            {!children ? <Loading /> : children}
+          </div>
+          <Footer />
+        </body>
       </html>
     </>
   );

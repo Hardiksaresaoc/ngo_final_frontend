@@ -16,12 +16,14 @@ import styles from "./fundraiser.module.css";
 import Loading from "@/app/loading";
 import Notfundraiser from "@/component/nofundraiser";
 import Link from "next/link";
-import "react-circular-progressbar/dist/styles.css";
 import { CiShare2 } from "react-icons/ci";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { Modal } from "@nextui-org/react";
 
 export default function page({ params }) {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState();
   const [fundraiser, setFundraiser] = useState([]);
   const fundraiserID = params.id;
   const [activeTab, setActiveTab] = useState("myStory");
@@ -30,11 +32,15 @@ export default function page({ params }) {
 
   const [Isfundraiser, setIsfundraiser] = useState();
   const [loading, setloading] = useState(true);
-  const [percentage, setpercentage] = useState();
+  const [percentage, setPercentage] = useState();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [imagesPerPage] = useState(6);
 
   const handleTabChange = (tabName) => {
     setActiveTab(tabName);
   };
+
   const [showPopup, setShowPopup] = useState(false);
   const [shareURL, setShareURL] = useState("");
   const [copied, setCopied] = useState(false);
@@ -49,7 +55,6 @@ export default function page({ params }) {
     setShowPopup(false);
   };
 
-  //handles copy to clipboard on share button
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -59,7 +64,7 @@ export default function page({ params }) {
       console.error("Error copying to clipboard:", error);
     }
   };
-  //takes data when page load
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -79,27 +84,27 @@ export default function page({ params }) {
         }
       } catch (error) {
         console.error("Error fetching fundraisers:", error);
-
         setloading(false);
       }
     };
 
     fetchData();
   }, []);
-  //converts data into percentage which is displayed and also used in progressbar
+
   useEffect(() => {
     const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;
 
     if (raisedAmount > 0 && targetAmount > 0) {
-      const percentage = Math.round((raisedAmount / targetAmount) * 100);
-      setpercentage(percentage);
+      const calculatedPercentage = Math.round(
+        (raisedAmount / targetAmount) * 100
+      );
+      setPercentage(Math.min(calculatedPercentage, 100));
     } else {
-      setpercentage(0); // or any default value you want to set
+      setPercentage(0);
     }
   }, [fundraiser]);
 
-  // Progress bar update logic
   useEffect(() => {
     const progressBar = progressBarRef.current;
     if (!progressBar) return;
@@ -136,28 +141,27 @@ export default function page({ params }) {
     return () => clearInterval(progressInterval);
   }, [percentage]);
 
-  const calculateGoalPercentage = () => {
-    const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
-    const targetAmount = fundraiser?.fundraiserPage?.target_amount;
+  // Pagination logic
+  const indexOfLastImage = currentPage * imagesPerPage;
+  const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+  const currentImages =
+    fundraiser?.fundraiserPage?.gallery?.slice(
+      indexOfFirstImage,
+      indexOfLastImage
+    ) || [];
 
-    if ((isNaN(raisedAmount) && isNaN(targetAmount)) || targetAmount <= 0) {
-      return "--";
-    }
+  const totalPages = Math.ceil(
+    (fundraiser?.fundraiserPage?.gallery?.length || 0) / imagesPerPage
+  );
 
-    const percentage = (raisedAmount / targetAmount) * 100;
-
-    if (percentage > 100) {
-      return "100%";
-    } else {
-      return `${Math.round(percentage)}%`;
-    }
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const openModal = (image) => {
+    setModalImage(image);
+    setModalIsOpen(true);
   };
-
-  const pathLength = 1152;
-
-  const strokeDashoffset =
-    ((100 - calculateGoalPercentage()) / 100) * pathLength;
-
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
   return loading ? (
     <Loading />
   ) : Isfundraiser ? (
@@ -193,7 +197,7 @@ export default function page({ params }) {
                 style={{
                   background: `conic-gradient(#0FA900 ${
                     startValue * 3.6
-                  }deg, $#D2F2CF 0deg)`,
+                  }deg, #D2F2CF 0deg)`,
                 }}
               />
             </div>
@@ -316,7 +320,7 @@ export default function page({ params }) {
                 >
                   <button
                     type="submit"
-                    className={`${styles.mainbtn} ${styles.filled}`} // Combine the CSS classes
+                    className={`${styles.mainbtn} ${styles.filled}`}
                   >
                     <BiDonateHeart />
                     Contribute
@@ -346,7 +350,6 @@ export default function page({ params }) {
       <article className={styles.article}>
         <button
           type="button"
-          // className={styles.userStory active"
           className={`${styles.userStory} ${
             activeTab === "myStory" ? `${styles.active}` : ""
           }`}
@@ -356,7 +359,6 @@ export default function page({ params }) {
         </button>
         <button
           type="button"
-          // className={styles.userStory active"
           className={`${styles.userStory} ${
             activeTab === "gallery" ? `${styles.active}` : ""
           }`}
@@ -377,27 +379,41 @@ export default function page({ params }) {
             </p>
           </div>
         ) : (
-          //images
-          <div
-            className={styles.leftAside}
-            style={{
-              display: "grid",
-              gridGap: "22px",
-              gridTemplateColumns: "auto auto auto",
-            }}
-          >
-            {fundraiser?.fundraiserPage?.gallery?.map((image, index) => (
-              <div key={index} className={styles.galleryImage}>
-                <img
-                  src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
-                  loader={({ src }) => `${src}`}
-                  alt={`Image ${image}`}
-                  className={styles.galleryImg}
-                  height="200"
-                  width="200"
-                />
-              </div>
-            ))}
+          <div className={styles.leftAside}>
+            <div
+              className={styles.galleryGrid}
+              style={{
+                display: "grid",
+                gridGap: "22px",
+                gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+              }}
+            >
+              {currentImages.map((image, index) => (
+                <div key={index} className={styles.galleryImage}>
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                    alt={`Image ${image}`}
+                    className={styles.galleryImg}
+                    height="200"
+                    width="200"
+                    onClick={() => openModal(image)}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className={styles.pagination}>
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  className={`${styles.pageItem} ${
+                    currentPage === index + 1 ? styles.activePage : ""
+                  }`}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
           </div>
         )}
         <div className={styles.rightAside}>
@@ -421,6 +437,18 @@ export default function page({ params }) {
           </div>
         </div>
       </aside>
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <div className={styles.modalContent}>
+          <img
+            src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${modalImage}`}
+            alt="Modal Image"
+            className={styles.modalImage}
+          />
+          <button onClick={closeModal} className={styles.closeModal}>
+            Close
+          </button>
+        </div>
+      </Modal>
     </>
   ) : (
     <Notfundraiser />

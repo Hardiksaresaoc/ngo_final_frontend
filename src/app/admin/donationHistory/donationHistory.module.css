@@ -44,7 +44,7 @@
 }
 
 .rightsection {
-  width: 75%;
+  width: 80%;
   padding: 40px 20px;
 }
 
@@ -187,4 +187,8 @@
   width: 20px;
   height: 20px;
   border-width: thin;
+}
+.tableMain {
+  overflow-x: scroll;
+  scroll-behavior: smooth;
 }

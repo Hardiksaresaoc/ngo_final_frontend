@@ -9,6 +9,7 @@ import defaultProfileImage from "../../../public/images/profile.jpeg";
 import { jwtDecode } from "jwt-decode";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import { showSwal } from "@/validation";
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -29,18 +30,13 @@ export default function Header() {
   }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
-    Swal.fire({
-      title: "Logging you Out",
-      text: "Please Wait",
-      icon: "info",
-      showConfirmButton: false,
-    });
+    showSwal("info", "Please wait", "Logging out", null, false);
+
     setTimeout(() => {
       try {
         Cookies.remove("token");
         Cookies.remove("refreshToken");
         router.replace("/login");
-        Swal.close();
       } catch (error) {}
     }, 2000);
   };

@@ -9,6 +9,8 @@ import styles from "./generatecode.module.css";
 import Link from "next/link";
 import Swal from "sweetalert2";
 import Loading from "@/app/loading";
+import { showSwal } from "@/validation";
+import { FundraiserContext } from "@/context/FundraiserContext";
 
 const GeneratePage = () => {
   const router = useRouter();
@@ -74,14 +76,11 @@ const GeneratePage = () => {
               config
             )
             .then(
-              Swal.fire({
-                title: "Page created",
-                text: "check Email for more details!!",
-                icon: "success",
-                confirmButtonColor: "#000080",
-
-                confirmButtonText: "Close",
-              })
+              showSwal(
+                "success",
+                "Fundraiser Page Created",
+                "credentials sent to fundraiser email"
+              )
             )
             .finally(reset());
           setLoading(false);
@@ -92,12 +91,11 @@ const GeneratePage = () => {
           err.response.data.statusCode !== 201 ||
           err.response.data.statusCode == 404
         ) {
-          Swal.fire({
-            title: "Fundraiser already exists!",
-            text: err.response.data.message || "oops",
-            icon: "failed",
-            confirmButtonColor: "#000080",
-          });
+          showSwal(
+            "alert",
+            "wait!",
+            err.response.data.message || "Fundraiser already exist"
+          );
         }
       } finally {
         setLoading(false);
@@ -180,6 +178,9 @@ const GeneratePage = () => {
                   <br />
                   <input
                     type="text"
+                    onInput={(e) => {
+                      e.target.value = e.target.value.replace(/\d/g, "");
+                    }}
                     value={firstName}
                     name="fullName"
                     id="fullName"
