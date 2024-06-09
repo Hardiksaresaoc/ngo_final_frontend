@@ -107,7 +107,7 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
                 )}
                 <br />
               </h3>
-              <h4 className={styles.memberDetails}>(patron)</h4>
+              <h4 className={styles.memberDetails}>{team.patron}</h4>
             </div>
           </div>
         </SwiperSlide>
