@@ -182,7 +182,7 @@ export function FundraiserTable({ styles, data, formatDate }) {
       </div>
       {data.length > 0 ? (
         <div className={styles.pagination}>
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.paginationButton}>
             Previous
           </button>
           <span>
@@ -191,6 +191,7 @@ export function FundraiserTable({ styles, data, formatDate }) {
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
+            className={`${styles.paginationButton} ${styles.filled}`}
           >
             Next
           </button>
