@@ -53,7 +53,8 @@
   background-color: #04045f;
   color: #fff;
   position: absolute;
-  top: 586px;
+  /* top: 586px; */
+  bottom: 88px;
   border: 1px solid #fff;
   border-top: none;
   display: flex;
@@ -138,7 +139,10 @@
   background-color: rgba(0, 0, 128, 10%);
   /* background-color: #e1dfdf; */
 }
-.active {
+p.active {
+  background-color: rgba(0, 0, 128, 20%);
+}
+p.active:hover {
   background-color: rgba(0, 0, 128, 20%);
 }
 .asideIcon {

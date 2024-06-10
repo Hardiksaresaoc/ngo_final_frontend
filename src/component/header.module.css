@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+  padding: 4px 0;
 }
 /* #808080 */
 .head .logo {
@@ -194,6 +195,7 @@
   background-color: #ffffff;
   display: flex;
   outline: none;
+  cursor: pointer;
 }
 .profilebutton i {
   display: flex;

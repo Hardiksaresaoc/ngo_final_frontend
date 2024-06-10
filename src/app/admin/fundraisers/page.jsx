@@ -30,6 +30,7 @@ export default function FundraiserPage() {
   });
 
   const handleSubmit = async (e) => {
+    showSwal("info", "Saving", "please wait...");
     e.preventDefault();
 
     if (formData.target_amount <= 0) {
@@ -259,10 +260,10 @@ export default function FundraiserPage() {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className={styles.popupfundbutton}
+                className={`${styles.popupfundbutton} ${styles.filled}`}
                 disabled={loading}
               >
-                {loading ? "Loading..." : "Save"}
+                Save
               </button>
             </div>
           </div>

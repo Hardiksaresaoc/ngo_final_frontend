@@ -5,7 +5,6 @@
 .rightSection {
   width: 80%;
   margin: 0;
-
 }
 .rightsubSection {
   margin: 24px 24px 0 24px;
@@ -28,7 +27,8 @@
 }
 .form input {
   height: 40px;
-  width: 300px;
+
+  width: 365px;
   margin-top: 6px;
   border: 1px solid #d0d5dd;
   border-radius: 8px;

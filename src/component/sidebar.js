@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import styles from "./sidebar.module.css"; // Import your CSS module
+import styles from "./sidebar.module.css";
 
 import { BsPersonRaisedHand } from "react-icons/bs";
 import { TbPasswordFingerprint } from "react-icons/tb";
@@ -24,7 +24,7 @@ export default function Sidebar() {
             pathname === "/admin" ? `${styles.active}` : ""
           }`}
         >
-          <MdDashboard color={`${pathname === "/admin" ? "white" : "black"}`} />
+          <MdDashboard className={styles.icon} />
           Dashboard
         </p>
       </Link>
@@ -34,9 +34,7 @@ export default function Sidebar() {
             pathname === "/admin/generatecode" ? `${styles.active}` : ""
           }`}
         >
-          <TbPasswordFingerprint
-            color={`${pathname === "/admin/generatecode" ? "white" : "black"}`}
-          />
+          <TbPasswordFingerprint className={styles.icon} />
           Generate Fundraiser
         </p>
       </Link>
@@ -46,10 +44,7 @@ export default function Sidebar() {
             pathname === "/admin/fundraisers" ? `${styles.active}` : ""
           }`}
         >
-          <BsPersonRaisedHand
-            color={`${pathname === "/admin/fundraisers" ? "white" : "black"}`}
-          />
-          {/* <i className={`fa-regular fa-coins}`}></i> */}
+          <BsPersonRaisedHand className={styles.icon} />
           All Fundraiser
         </p>
       </Link>
@@ -59,9 +54,7 @@ export default function Sidebar() {
             pathname === "/admin/adddonation" ? `${styles.active}` : ""
           }`}
         >
-          <MdAddCircleOutline
-            color={`${pathname === "/admin/adddonation" ? "white" : "black"}`}
-          />
+          <MdAddCircleOutline className={styles.icon} />
           Offline Donation
         </p>
       </Link>
@@ -71,11 +64,7 @@ export default function Sidebar() {
             pathname === "/admin/donationHistory" ? `${styles.active}` : ""
           }`}
         >
-          <MdOutlineWorkHistory
-            color={`${
-              pathname === "/admin/donationHistory" ? "white" : "black"
-            }`}
-          />
+          <MdOutlineWorkHistory className={styles.icon} />
           Donation History
         </p>
       </Link>

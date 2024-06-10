@@ -74,7 +74,7 @@ export default function Update() {
 
         <div className={styles.rightAside}>
           <h1>Update Fundraiser Page</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.formPage}>
             <div className={styles.mainCol}>
               <div className={styles.firstCol}>
                 <label htmlFor="FundraisingTarget">

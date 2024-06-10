@@ -143,6 +143,9 @@
   flex-direction: column;
   gap: 20px;
 }
+.form span {
+  font-size: 18px;
+}
 .upperForm {
   display: flex;
   justify-content: space-between;
@@ -181,6 +184,8 @@
   border: none;
 }
 .form input {
+  width: 250px;
+  height: 40px;
   border: 1px solid #d9d9d9;
   outline: none;
   margin-top: 8px;
@@ -192,6 +197,8 @@
 }
 
 .form select {
+  width: 250px;
+  height: 40px;
   border: 1px solid #d9d9d9;
   outline: none;
   margin-top: 8px;
@@ -201,7 +208,6 @@
   font-size: 16px;
   font-weight: 400;
   background-color: white;
-  width: 15.1em;
 }
 
 .downloadExcel {

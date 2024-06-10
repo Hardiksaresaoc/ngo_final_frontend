@@ -8,7 +8,7 @@ import Sidebar from "@/component/sidebar";
 import useAuth from "@/context/auth";
 import Loading from "@/app/loading";
 import { showSwal } from "@/validation";
-import Table from "@/table";
+import { Table } from "@/table";
 import Unauthorized from "@/app/(pages)/unauthorized/page";
 export default function Page() {
   const user = useAuth(["ADMIN"]);
