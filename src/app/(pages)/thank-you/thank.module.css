@@ -149,7 +149,7 @@
     }
 }
 
-@media only screen and (min-width: 351px) and (max-width: 767px) {
+@media only screen and (min-width: 351px) and (max-width: 425px) {
     .mainClass {
         padding: 20px 16px;
     }
@@ -190,3 +190,44 @@
         margin: auto;
     }
     }
+    @media only screen and (min-width: 426px) and (max-width: 767px) {
+        .mainClass {
+            padding: 20px 16px;
+        }
+        .pageSection h1 {
+            margin: 20px;
+        }
+        .pageSection .message {
+            padding: 20px 20px 40px 20px;
+        }
+        .pageSection .message .successMessage {
+            padding: 35px 16px 10px;
+        }
+        .successMessage h2 {
+            padding: 0px;
+        }
+        .successIcon {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .successTable {
+            padding: 40px 20px;
+            padding-top: 0;
+        }
+        .pageTable {
+            min-width: 300px;
+        }
+        .tableRow {
+            display: grid;
+        }
+        .groupbtn {
+            flex-direction: column;
+            justify-content: center;
+        }
+        .donateBtn.filled {
+            max-width: 138px;
+            margin: auto;
+        }
+        }
