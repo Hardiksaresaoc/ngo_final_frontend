@@ -69,16 +69,12 @@ export default function Header() {
             />
             {!isopen ? (
               <div className={styles["custom-dropdown"]}>
-                <div className={styles["selcted-option"]}>
-                  <i className={`fa-solid fa-angle-up fa-rotate-180`}></i>
-                </div>
+                <div className={styles["selcted-option"]}></div>
               </div>
             ) : (
               <>
                 <div className={styles["custom-dropdown"]}>
-                  <div className={styles["selcted-option"]}>
-                    <i className={`fa-solid fa-angle-down`}></i>
-                  </div>
+                  <div className={styles["selcted-option"]}></div>
                 </div>
                 <ul className={styles["dropdown-options"]}>
                   <li data-value="option3" style={{ color: "red" }}>

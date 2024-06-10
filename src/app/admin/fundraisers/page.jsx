@@ -13,6 +13,7 @@ export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
   const [popupActive, setpopupActive] = useState(false);
   const [fundraisers, setFundraisers] = useState([]);
+  const [displayedFundraisers, setDisplayedFundraisers] = useState([]);
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedFundraiser, setSelectedFundraiser] = useState(null);
@@ -28,6 +29,10 @@ export default function FundraiserPage() {
     money_raised_for: "",
     target_amount: selectedFundraiser?.fundraiser_page?.target_amount || "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(fundraisers.length / itemsPerPage);
 
   const handleSubmit = async (e) => {
     showSwal("info", "Saving", "please wait...");
@@ -109,6 +114,20 @@ export default function FundraiserPage() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    setDisplayedFundraisers(
+      fundraisers.slice(indexOfFirstItem, indexOfLastItem)
+    );
+  }, [currentPage, fundraisers]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   return !user && loading ? (
     <Loading />
@@ -294,9 +313,9 @@ export default function FundraiserPage() {
                       <th className={styles.tableHead}>Edit</th>
                     </tr>
                   </thead>
-                  {fundraisers?.length >= 0 ? (
+                  {displayedFundraisers?.length >= 0 ? (
                     <tbody className={styles.tableBody}>
-                      {fundraisers?.map((fundraiser) => (
+                      {displayedFundraisers?.map((fundraiser) => (
                         <tr
                           className={styles.tableRow}
                           key={fundraiser.fundraiser_id}
@@ -348,7 +367,6 @@ export default function FundraiserPage() {
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {
-                                    const statusMessage = response.data.status;
                                     showSwal(
                                       "success",
                                       `${response.data.message}`,
@@ -382,6 +400,23 @@ export default function FundraiserPage() {
                     "error fetching data , try again later"
                   )}
                 </table>
+                <div className={styles.pagination}>
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
+                  </button>
+                  <span>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
             </div>
           ) : (

@@ -20,10 +20,9 @@ import { CiShare2 } from "react-icons/ci";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Modal } from "@nextui-org/react";
+import Swal from "sweetalert2";
 
 export default function page({ params }) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalImage, setModalImage] = useState();
   const [fundraiser, setFundraiser] = useState([]);
   const fundraiserID = params.id;
   const [activeTab, setActiveTab] = useState("myStory");
@@ -155,13 +154,7 @@ export default function page({ params }) {
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const openModal = (image) => {
-    setModalImage(image);
-    setModalIsOpen(true);
-  };
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+
   return loading ? (
     <Loading />
   ) : Isfundraiser ? (
@@ -396,7 +389,20 @@ export default function page({ params }) {
                     className={styles.galleryImg}
                     height="200"
                     width="200"
-                    onClick={() => openModal(image)}
+                    onClick={() => {
+                      Swal.fire({
+                        imageUrl:
+                          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}` ? (
+                            `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`
+                          ) : (
+                            <Loading />
+                          ),
+                        imageHeight: 1000,
+                        imageWidth: 2000,
+                        imageAlt: "A tall image",
+                        showCloseButton: true,
+                      });
+                    }}
                   />
                 </div>
               ))}
@@ -437,18 +443,6 @@ export default function page({ params }) {
           </div>
         </div>
       </aside>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <div className={styles.modalContent}>
-          <img
-            src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${modalImage}`}
-            alt="Modal Image"
-            className={styles.modalImage}
-          />
-          <button onClick={closeModal} className={styles.closeModal}>
-            Close
-          </button>
-        </div>
-      </Modal>
     </>
   ) : (
     <Notfundraiser />
