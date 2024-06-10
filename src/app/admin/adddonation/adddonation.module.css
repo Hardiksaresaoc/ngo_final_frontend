@@ -22,8 +22,8 @@
 .secondpersonalDetail input,
 .thirdpersonalDetail input,
 .firstdonationDetail input,
-.seconddonationDetail input {
-  width: 450px;
+.seconddonationDetail input, .selectNation {
+  width: 300px;
   height: 40px;
   padding: 8px 12px;
   display: flex;
@@ -60,8 +60,12 @@
 .secondpersonalDetail input,
 .thirdpersonalDetail input,
 .firstdonationDetail input,
-.seconddonationDetail input {
+.seconddonationDetail input, .selectNation {
   width: 300px;
+}
+.selectNation {
+  background-color: #ffffff;
+  color: #667085;
 }
 .mainFundraiser .rightSection .rightpart .formButton {
   display: flex;
@@ -69,7 +73,7 @@
   justify-content: flex-end;
   margin-top: 25px;
   margin-bottom: 25px;
-  padding: 0 16px;
+  padding: 0 45px;
 }
 .mainFundraiser .rightSection .rightpart .formButton .fundButton {
   padding: 10px 20px;
@@ -97,7 +101,7 @@
 /* CSS for styling datalist options */
 datalist#fundraiserPageList {
   background-color: #ffffff;
-  width: 450px;
+  width: 300px;
   border-radius: 8px;
   border: 1px solid #d0d5dd;
   box-shadow: 0px 1px 2px 0px #1018280d;
@@ -117,5 +121,5 @@ datalist#fundraiserPageList option {
   font-size: 16px;
   font-weight: 400;
   background-color: white;
-  width: 15.1em;
+  width: 300px;
 }

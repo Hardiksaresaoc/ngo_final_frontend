@@ -278,7 +278,7 @@ export default function page() {
                     <span>
                       <span>Country</span>
                       <br />
-                      <select onChange={handleCountryChange}>
+                      <select onChange={handleCountryChange} className={styles.selectNation}>
                         <option value="" hidden>
                           Select Country
                         </option>
@@ -292,7 +292,7 @@ export default function page() {
                     <span>
                       <span>State</span>
                       <br />
-                      <select onChange={handleStateChange}>
+                      <select onChange={handleStateChange} className={styles.selectNation}>
                         <option value="">Select State</option>
                         {states.map((state) => (
                           <option key={state.isoCode} value={state.isoCode}>
@@ -306,7 +306,7 @@ export default function page() {
                     <span>
                       <span>City</span>
                       <br />
-                      <select
+                      <select className={styles.selectNation}
                         onChange={(e) =>
                           setFormData({ ...formData, city: e.target.value })
                         }
@@ -440,10 +440,8 @@ export default function page() {
                         className={styles.donation_date}
                         required
                         style={{
-                          width: "170px",
+                          width: "300px",
                           color: "#667085",
-                          display: "flex",
-                          flexDirection: "column",
                         }}
                         max={new Date().toISOString().split("T")[0]}
                       />
