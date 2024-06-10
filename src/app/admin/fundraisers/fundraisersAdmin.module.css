@@ -48,8 +48,13 @@
   font-size: 16px;
   cursor: pointer;
 }
+.popupfundbutton.filled {
+  background-color: #000080;
+  color: #fff;
+  border: none;
+  outline: none;
+}
 
-/* Added margin to separate sections within the pop-up */
 .popupsecondfundraiserDetail,
 .popupthirdfundraiserDetail,
 .popupfourthfundraiserDetail {
@@ -82,7 +87,7 @@
 }
 .rightSection .rightsubSection h1 {
   padding: 20px 24px;
-}
+ }
 
 .adminTable {
   font-family: arial, sans-serif;
@@ -90,7 +95,7 @@
   width: 100%;
 }
 .td {
-  padding: 14px 20px 14px 20px;
+  padding: 14px 20px 14px 10px;
   font-size: 16px;
   font-weight: 400;
   text-align: left;
@@ -99,6 +104,7 @@
 .td a {
   cursor: pointer;
 }
+
 .tableRow,
 .tableHead {
   border: 1px solid #e4e1e1;

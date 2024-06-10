@@ -152,6 +152,7 @@ const GeneratePage = () => {
             <h1>Generate Credentials</h1>
             <div className={styles.rightsectionForm}>
               <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.userdetail}>
                 <span>
                   <span>E-mail </span>
                   <span className={styles.compulsory}>*</span>
@@ -219,7 +220,7 @@ const GeneratePage = () => {
                     </p>
                   )}
                 </span>
-
+                </div>
                 <div className={styles.rightsectionBtn}>
                   <button
                     type="reset"

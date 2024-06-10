@@ -196,14 +196,14 @@ export default function Header() {
                 {!isopen ? (
                   <div className={`${styles["custom-dropdown"]}`}>
                     <div className={`${styles["selcted-option"]}`}>
-                      <i className={`fa-solid  fa-angle-up fa-rotate-180`}></i>
+                      {/* <i className={`fa-solid  fa-angle-up fa-rotate-180`}></i> */}
                     </div>
                   </div>
                 ) : (
                   <>
                     <div className={`${styles["custom-dropdown"]}`}>
                       <div className={`${styles["selcted-option"]}`}>
-                        <i className={`fa-solid  fa-angle-down`}></i>
+                        {/* <i className={`fa-solid  fa-angle-down`}></i> */}
                       </div>
                     </div>
 
@@ -243,9 +243,9 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Link href="/login">
+            {/* <Link href="/login">
               <button className={styles.innerBtn}>Log in</button>
-            </Link>
+            </Link> */}
             <Link href="/donate">
               <button className={`${styles.innerBtn} ${styles.filled}`}>
                 Donate

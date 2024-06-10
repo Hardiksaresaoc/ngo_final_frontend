@@ -63,18 +63,17 @@ export default function Page() {
   useEffect(() => {
     setCountries(Country.getAllCountries());
   }, []);
+  useEffect(() => {
+    if (state) {
+      setCities(City.getCitiesOfState(country, state));
+    }
+  }, [state, country]);
 
   useEffect(() => {
     if (country) {
       setStates(State.getStatesOfCountry(country));
     }
   }, [country]);
-
-  useEffect(() => {
-    if (state) {
-      setCities(City.getCitiesOfState(country, state));
-    }
-  }, [state, country]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -284,23 +283,23 @@ export default function Page() {
                       />
                     </span>
                     <span>
-                      <span>City</span>
+                      <span>Country</span>
                       <br />
                       <select
-                        name="city"
-                        id="city"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        disabled={!state}
+                        name="country"
+                        id="country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        className={styles.selectNation}
                       >
-                        <option value="">Select City</option>
-                        {cities.map((city) => (
-                          <option key={city.name} value={city.name}>
-                            {city.name}
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.name} value={country.isoCode}>
+                            {country.name}
                           </option>
                         ))}
                       </select>
-                    </span>
+                    </span>{" "}
                     <span>
                       <span>State</span>
                       <br />
@@ -309,6 +308,7 @@ export default function Page() {
                         id="state"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
+                        className={styles.selectNation}
                         disabled={!country}
                       >
                         <option value="">Select State</option>
@@ -322,20 +322,23 @@ export default function Page() {
                   </div>
                   <div className={styles.thirdpersonalDetail}>
                     <span>
-                      <span>Country</span>
+                      <span>City</span>
                       <br />
                       <select
-                        name="country"
-                        id="country"
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        name="city"
+                        id="city"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        className={styles.selectNation}
+                        disabled={!state}
                       >
-                        <option value="">Select Country</option>
-                        {countries.map((country) => (
-                          <option key={country.name} value={country.isoCode}>
-                            {country.name}
+                        <option value="">Select City</option>
+                        {cities.map((city) => (
+                          <option key={city.isoCode} value={city.name}>
+                            {city.name}
                           </option>
-                        ))}
+                        ))} 
+                        
                       </select>
                     </span>
                     <span>

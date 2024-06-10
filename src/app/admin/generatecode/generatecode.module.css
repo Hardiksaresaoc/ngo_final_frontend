@@ -5,7 +5,6 @@
 .rightSection {
   width: 80%;
   margin: 0;
-
 }
 .rightsubSection {
   margin: 24px 24px 0 24px;
@@ -19,14 +18,17 @@
 .form {
   display: flex;
   gap: 10px;
-  padding: 16px;
-  justify-content: space-evenly;
-
+  padding: 16px 24px;
   flex-wrap: wrap;
+}
+.userdetail {
+  display: flex;
+  gap: 10px;
 }
 .form input {
   height: 40px;
-  width: 350px;
+
+  width: 365px;
   margin-top: 6px;
   border: 1px solid #d0d5dd;
   border-radius: 8px;
@@ -39,11 +41,10 @@
 }
 .rightsectionBtn {
   display: flex;
+  justify-content: flex-end;
   gap: 8px;
-  padding-left: 19px;
   width: 100%;
   padding-top: 18px;
-  margin-left: 9px;
 }
 .cancelBtn {
   padding: 10px 20px;

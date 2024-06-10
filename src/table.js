@@ -3,7 +3,7 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { MdCancel, MdTimer } from "react-icons/md";
 import { renderField } from "./validation";
 
-export default function Table({ data, styles, formatDate }) {
+export function Table({ data, styles, formatDate }) {
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10; // Adjust this value to change the number of rows per page
 
@@ -183,10 +183,9 @@ export function FundraiserTable({ styles, data, formatDate }) {
           </tbody>
         </table>
       </div>
-      {console.log("1", data)}
       {data.length > 0 ? (
         <div className={styles.pagination}>
-          <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.paginationButton}>
             Previous
           </button>
           <span>
@@ -195,6 +194,7 @@ export function FundraiserTable({ styles, data, formatDate }) {
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
+            className={`${styles.paginationButton} ${styles.filled}`}
           >
             Next
           </button>
