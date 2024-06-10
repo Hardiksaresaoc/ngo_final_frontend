@@ -190,7 +190,10 @@ export default function Right({ styles, images, teamData }) {
             <MySwiper image={images} />
           </div>
         </div>
-        <a href="#" className={styles.viewAllPage}>
+        <a
+          href="https://supportourheroes.in/letters-of-appreciation/"
+          className={styles.viewAllPage}
+        >
           View All
         </a>
       </div>
