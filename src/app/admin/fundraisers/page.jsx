@@ -180,7 +180,9 @@ export default function FundraiserPage() {
                   }}
                 />
                 {amountError && (
-                  <span style={{color:"red"}}  className={styles.error}>{amountError}</span>
+                  <span style={{ color: "red" }} className={styles.error}>
+                    {amountError}
+                  </span>
                 )}
               </span>
             </div>
@@ -346,12 +348,12 @@ export default function FundraiserPage() {
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {
-                                    const statusMessage =
-                                      response.data.status === 0
-                                        ? "inactivated"
-                                        : "activated";
-                                    const title = `Changed to ${statusMessage}`;
-                                    showSwal("success", title, "success");
+                                    const statusMessage = response.data.status;
+                                    showSwal(
+                                      "success",
+                                      `${response.data.message}`,
+                                      "success"
+                                    );
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}

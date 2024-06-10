@@ -288,7 +288,7 @@ export default function page() {
                     <span>
                       <span>Country</span>
                       <br />
-                      <select onChange={handleCountryChange}>
+                      <select  className={styles.selectNation} onChange={handleCountryChange}>
                         <option value="">Select Country</option>
                         {countries.map((country) => (
                           <option key={country.isoCode} value={country.isoCode}>
@@ -446,7 +446,7 @@ export default function page() {
                         className={styles.donation_date}
                         required
                         style={{
-                          width: "300px",
+                          width: "365px",
                           color: "#667085",
                         }}
                         max={new Date().toISOString().split("T")[0]}

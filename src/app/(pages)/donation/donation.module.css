@@ -29,17 +29,18 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .ytVideo {
   width: 100%;
-   display: flex;
+  display: flex;
   justify-content: center;
 }
 .videoPortion {
   width: 100%;
 }
 .benefits {
-padding-top: 40px;
+  padding-top: 40px;
 }
 .unorderList {
   display: flex;
@@ -211,7 +212,7 @@ padding-top: 40px;
   height: 20px;
   padding: 0 5px;
   border-radius: 4px;
-  background-color: #A4A4A4;
+  background-color: #a4a4a4;
   color: #ffffff;
   border: none;
   outline: none;
@@ -464,7 +465,7 @@ padding-top: 40px;
   gap: 10px;
 }
 
-@media only screen and  (max-width: 320px) {
+@media only screen and (max-width: 320px) {
   .upperPortion {
     flex-direction: column;
     padding: 60px 16px;
@@ -575,7 +576,6 @@ padding-top: 40px;
   .leftSection h2 {
     margin-bottom: 20px;
     margin-top: 20px;
-
   }
   .companyDetails {
     font-size: 18px;
@@ -610,8 +610,6 @@ padding-top: 40px;
     flex-direction: column;
   }
 }
-
-
 
 @media only screen and (min-width: 401px) and (max-width: 767px) {
   .upperPortion {

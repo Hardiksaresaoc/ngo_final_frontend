@@ -40,11 +40,7 @@ const DefaultResetPassword = () => {
       );
 
       setLoading(false);
-      showSwal(
-        "success",
-        "OTP generate Successfully",
-        `${response.data.message}`
-      );
+      showSwal("info", "OTP generated", `${response.data.message}`);
 
       setOtpGen(true);
     } catch (error) {
@@ -61,6 +57,7 @@ const DefaultResetPassword = () => {
   };
 
   const resetPassword = async (e) => {
+    showSwal("info", "Please wait...", "");
     e.preventDefault();
     if (otp > 8) {
       setOtpError("OTP must be 8 charcter long");
@@ -97,10 +94,11 @@ const DefaultResetPassword = () => {
         "Login with your new password",
         () => router.replace("/login")
       );
+      router.replace("/login");
     } catch (error) {
       console.error("Error resetting password:", error);
 
-      showSwal("error", `${error}`, "");
+      showSwal("error", `error`, "Try again later");
       setLoading(false);
     }
   };
