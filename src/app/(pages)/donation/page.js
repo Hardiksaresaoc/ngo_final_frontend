@@ -227,6 +227,7 @@ export default function Page() {
   return (
     <>
       <main className={styles.mainPage}>
+        <div className={"container"}>
         <div className={styles.upperPortion}>
           <div className={styles.pageTagline}>
             <p className={styles.tagline}>
@@ -263,7 +264,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-
+        </div>
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>
             <h2>Registration Details</h2>
