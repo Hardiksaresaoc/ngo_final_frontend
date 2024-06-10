@@ -25,6 +25,7 @@
   margin-bottom: 30px;
   font-size: 25px;
   font-family: "Montserrat Alternates", Sans-serif;
+  font-weight: 700;
 }
 .mainFooter .upperFooter .aboutUs .aboutCompany .aboutUsLink,
 .mainFooter .upperFooter .donate .aboutUsLink {
@@ -50,8 +51,8 @@
   font-size: 20px;
   margin-bottom: 1.75em;
 }
-.headlinePolicy{
-font-weight: 700;
+.headlinePolicy {
+  font-weight: 700;
 }
 .mainFooter .lowerFooter .socialmedia .socialmediaImage {
   border-radius: 50%;

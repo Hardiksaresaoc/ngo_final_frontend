@@ -6,29 +6,51 @@ import axios from "axios";
 import Right from "./right";
 
 export default function Page() {
-  const images = [
-    "/images/andhra.png",
-    "/images/assam.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
-    "/images/easternNaval.png",
+ const images = [
+    "/images/ChiefMinisterOfAssam.jpeg",
+    "/images/GovernorOfAndhraPradesh.jpeg",
+    "/images/EasternNavalCommand.jpeg",
+    "/images/EasternAirCommand.jpeg",
+    "/images/ArmyEducationalCorps.jpeg",
+    "/images/SainikWelfareAndhraPradesh.jpeg",
   ];
+
   const teamData = [
     {
       src: "/images/vinod-neb.png",
       name: "Late Wg. Cdr. Vinod Nebb (Retd)",
       award: " Vir Chakra & Bar (VrC)",
+      patron: "patron",
     },
     {
       src: "/images/RDSharma.png",
       name: "Lt. Col. R.D. Sharma (Retd.)",
       award: "",
+      patron: "patron",
     },
     {
       src: "/images/JSDhillon.png",
       name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
       award: " ",
+      patron: "patron",
+    },
+    {
+      src: "/images/RanjeetShukla.png",
+      name: "Mr. Ranjeet Shukla",
+      award: " ",
+      patron: "Co-founder",
+    },
+    {
+      src: "/images/GauravShukla.png",
+      name: "Mr. Gaurav Shukla",
+      award: " ",
+      patron: "Co-founder",
+    },
+    {
+      src: "/images/GavirKumar.png",
+      name: "Cdr. (IN) Gavi Kumar (Retd)",
+      award: "Head of PR &",
+      patron: "Communications",
     },
   ];
 
