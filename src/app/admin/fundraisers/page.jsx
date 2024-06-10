@@ -30,7 +30,7 @@ export default function FundraiserPage() {
   });
 
   const handleSubmit = async (e) => {
-    showSwal("info", "Saving", "please wait...");
+    showSwal("info", "Updating", "Please wait...", null, false);
     e.preventDefault();
 
     if (formData.target_amount <= 0) {
@@ -50,15 +50,15 @@ export default function FundraiserPage() {
       );
 
       setLoading(false);
-      showSwal("success", "updated", "Fundraiser page updated successfully");
+      showSwal("success", "Updated", "Fundraiser Page Updated Successfully");
 
       setShowPopup(false);
     } catch (error) {
-      showSwal("error", "oops", "Something went wrong");
+      showSwal("error", "Oops", "Something went wrong");
 
       setLoading(false);
 
-      console.error("Error updating fundraiser:", error);
+      console.error("Error Updating Fundraiser:", error);
     }
   };
 
@@ -180,7 +180,9 @@ export default function FundraiserPage() {
                   }}
                 />
                 {amountError && (
-                  <span style={{color:"red"}}  className={styles.error}>{amountError}</span>
+                  <span style={{ color: "red" }} className={styles.error}>
+                    {amountError}
+                  </span>
                 )}
               </span>
             </div>
@@ -332,7 +334,7 @@ export default function FundraiserPage() {
                                   showSwal(
                                     "info",
                                     "Updating",
-                                    "Please wait",
+                                    "Please wait...",
                                     null,
                                     false
                                   );
@@ -347,11 +349,11 @@ export default function FundraiserPage() {
                                     response?.status == 200
                                   ) {
                                     const statusMessage =
-                                      response.data.status === 0
-                                        ? "inactivated"
-                                        : "activated";
+                                      response.data.data.status === 0
+                                        ? "inactive"
+                                        : "active";
                                     const title = `Changed to ${statusMessage}`;
-                                    showSwal("success", title, "success");
+                                    showSwal("success", title, "");
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}

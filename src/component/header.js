@@ -37,7 +37,7 @@ export default function Header() {
   }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
-    showSwal("info", "Logging out", "Please wait...");
+    showSwal("info", "Logging Out", "Please wait...", "", false);
 
     setTimeout(() => {
       try {

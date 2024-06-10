@@ -304,7 +304,7 @@ export default function Page() {
   const handleFileUpload = async (file) => {
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("files", file);
       showSwal("info", "Uploading image", "Please wait...", null, false);
 
       const response = await axios.post(

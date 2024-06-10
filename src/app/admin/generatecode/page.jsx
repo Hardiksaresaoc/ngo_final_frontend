@@ -33,7 +33,6 @@ const GeneratePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     // Validation logic
     if (!email) {
@@ -51,6 +50,13 @@ const GeneratePage = () => {
 
     if (email && firstName && mobile_number && /^\d{10}$/.test(mobile_number)) {
       try {
+        showSwal(
+          "info",
+          "Generating Credentials",
+          "Please wait...",
+          null,
+          false
+        );
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +84,7 @@ const GeneratePage = () => {
               showSwal(
                 "success",
                 "Fundraiser Page Created",
-                "credentials sent to fundraiser email"
+                "Login Credentials sent to Fundraiser Email"
               )
             )
             .finally(reset());
@@ -91,9 +97,8 @@ const GeneratePage = () => {
           err.response.data.statusCode == 404
         ) {
           showSwal(
-            "info",
-            "wait!",
-            err.response.data.message || "Fundraiser already exist"
+            "error",
+            err.response.data.message || "Fundraiser Already Exists"
           );
         }
       } finally {
@@ -153,73 +158,73 @@ const GeneratePage = () => {
             <div className={styles.rightsectionForm}>
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.userdetail}>
-                <span>
-                  <span>E-mail </span>
-                  <span className={styles.compulsory}>*</span>
-                  <br />
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => handleBlur("email", email)}
-                    placeholder="Enter Fundraiser's e-mail"
-                  />
-                  {emailError && (
-                    <p style={{ color: "red" }} className={styles.error}>
-                      {emailError}
-                    </p>
-                  )}
-                </span>
-                <span>
-                  <span>Name </span>
-                  <span className={styles.compulsory}>*</span>
-                  <br />
-                  <input
-                    type="text"
-                    onInput={(e) => {
-                      e.target.value = e.target.value.replace(/\d/g, "");
-                    }}
-                    value={firstName}
-                    name="fullName"
-                    id="fullName"
-                    onChange={(e) => setFirstName(e.target.value)}
-                    onBlur={() => handleBlur("firstName", firstName)}
-                    placeholder="Enter Fundraiser's full name"
-                  />
-                  {firstNameError && (
-                    <p style={{ color: "red" }} className={styles.error}>
-                      {firstNameError}
-                    </p>
-                  )}
-                </span>
-                <span>
-                  <span>Mobile Number </span>
-                  <span className={styles.compulsory}>*</span>
-                  <br />
-                  <input
-                    type="text"
-                    name="mobileNumber"
-                    id="mobileNumber"
-                    value={mobile_number}
-                    // onChange={(e) => setMobileNumber(e.target.value)}
-                    onBlur={() => handleBlur("mobileNumber", mobile_number)}
-                    placeholder="Enter Fundraiser's mobile no."
-                    onChange={(e) => {
-                      const inputValue = e.target.value.replace(/\D/g, "");
-                      if (inputValue.length <= 10) {
-                        setMobileNumber(inputValue);
-                      }
-                    }}
-                    maxLength="10"
-                  />
-                  {mobileNumberError && (
-                    <p style={{ color: "red" }} className={styles.error}>
-                      {mobileNumberError}
-                    </p>
-                  )}
-                </span>
+                  <span>
+                    <span>E-mail </span>
+                    <span className={styles.compulsory}>*</span>
+                    <br />
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onBlur={() => handleBlur("email", email)}
+                      placeholder="Enter Fundraiser's e-mail"
+                    />
+                    {emailError && (
+                      <p style={{ color: "red" }} className={styles.error}>
+                        {emailError}
+                      </p>
+                    )}
+                  </span>
+                  <span>
+                    <span>Name </span>
+                    <span className={styles.compulsory}>*</span>
+                    <br />
+                    <input
+                      type="text"
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/\d/g, "");
+                      }}
+                      value={firstName}
+                      name="fullName"
+                      id="fullName"
+                      onChange={(e) => setFirstName(e.target.value)}
+                      onBlur={() => handleBlur("firstName", firstName)}
+                      placeholder="Enter Fundraiser's full name"
+                    />
+                    {firstNameError && (
+                      <p style={{ color: "red" }} className={styles.error}>
+                        {firstNameError}
+                      </p>
+                    )}
+                  </span>
+                  <span>
+                    <span>Mobile Number </span>
+                    <span className={styles.compulsory}>*</span>
+                    <br />
+                    <input
+                      type="text"
+                      name="mobileNumber"
+                      id="mobileNumber"
+                      value={mobile_number}
+                      // onChange={(e) => setMobileNumber(e.target.value)}
+                      onBlur={() => handleBlur("mobileNumber", mobile_number)}
+                      placeholder="Enter Fundraiser's mobile no."
+                      onChange={(e) => {
+                        const inputValue = e.target.value.replace(/\D/g, "");
+                        if (inputValue.length <= 10) {
+                          setMobileNumber(inputValue);
+                        }
+                      }}
+                      maxLength="10"
+                    />
+                    {mobileNumberError && (
+                      <p style={{ color: "red" }} className={styles.error}>
+                        {mobileNumberError}
+                      </p>
+                    )}
+                  </span>
                 </div>
                 <div className={styles.rightsectionBtn}>
                   <button
