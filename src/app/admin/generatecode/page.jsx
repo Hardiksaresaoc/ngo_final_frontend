@@ -7,7 +7,6 @@ import Sidebar from "../../../component/sidebar";
 import Cookies from "js-cookie";
 import styles from "./generatecode.module.css";
 import Link from "next/link";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
 import { showSwal } from "@/validation";
 import { FundraiserContext } from "@/context/FundraiserContext";
@@ -92,7 +91,7 @@ const GeneratePage = () => {
           err.response.data.statusCode == 404
         ) {
           showSwal(
-            "alert",
+            "info",
             "wait!",
             err.response.data.message || "Fundraiser already exist"
           );
@@ -203,10 +202,15 @@ const GeneratePage = () => {
                     name="mobileNumber"
                     id="mobileNumber"
                     value={mobile_number}
-                    onChange={(e) => setMobileNumber(e.target.value)}
+                    // onChange={(e) => setMobileNumber(e.target.value)}
                     onBlur={() => handleBlur("mobileNumber", mobile_number)}
                     placeholder="Enter Fundraiser's mobile no."
-                    pattern="[0-9]{10}"
+                    onChange={(e) => {
+                      const inputValue = e.target.value.replace(/\D/g, "");
+                      if (inputValue.length <= 10) {
+                        setMobileNumber(inputValue);
+                      }
+                    }}
                     maxLength="10"
                   />
                   {mobileNumberError && (

@@ -12,6 +12,7 @@ const DefaultResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [otpGen, setOtpGen] = useState(false);
   const [otp, setOtp] = useState("");
+  const [OtpError, setOtpError] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -60,6 +61,13 @@ const DefaultResetPassword = () => {
 
   const resetPassword = async (e) => {
     e.preventDefault();
+    if (otp > 8) {
+      setOtpError("OTP must be 8 charcter long");
+    } else if (otp == 0) {
+      setOtpError("Enter OTP");
+    } else {
+      setOtpError("");
+    }
     if (newPassword.length < 6) {
       setPasswordError("Password must be at least 6 characters long.");
       return;
@@ -132,7 +140,7 @@ const DefaultResetPassword = () => {
                             const inputValue = e.target.value.replace(
                               /[^a-zA-Z0-9]/g,
                               ""
-                            ); // Remove any character that is not a letter or digit
+                            );
                             setOtp(inputValue);
                           }}
                           type="text"
@@ -140,6 +148,14 @@ const DefaultResetPassword = () => {
                           placeholder="Enter your OTP"
                           required
                         />
+                        {OtpError.length >= 0 && (
+                          <p
+                            style={{ color: "red" }}
+                            className={styles.errorMessage}
+                          >
+                            {OtpError}
+                          </p>
+                        )}
                       </div>
 
                       <div className={styles.inputInside}>
@@ -227,7 +243,7 @@ const DefaultResetPassword = () => {
 
                     <div className={styles.submit}>
                       <button type="submit" className={styles.buttonSubmit}>
-                        {loading ? "loading" : "Reset Password"}
+                        Reset Password
                       </button>
                     </div>
                   </div>

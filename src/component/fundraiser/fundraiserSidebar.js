@@ -5,9 +5,9 @@ import { useState } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSolidReport } from "react-icons/bi";
 import { MdDashboard } from "react-icons/md";
-import Swal from "sweetalert2";
 import styles from "./fundraiserSidebar.module.css";
 import { showSwal } from "@/validation";
+import { LuClipboardCopy } from "react-icons/lu";
 
 export default function AsideBar() {
   const [loading, setLoading] = useState(false);
@@ -111,9 +111,18 @@ export const TopHeader = ({ link }) => {
             Fundraising Page Link:
             <a
               className={styles.tooltip}
+              href={`${process.env.NEXT_PUBLIC_frontEndAPI}/fundraiser/${link}`}
+            >
+              {link == "undefined" ? "------------------------" : link}
+            </a>
+          </p>
+          <p>
+            <a
               onClick={() => {
                 navigator.clipboard
-                  .writeText(`http://localhost:3000/fundraiser/${link}`)
+                  .writeText(
+                    `${process.env.NEXT_PUBLIC_frontEndAPI}/fundraiser/${link}`
+                  )
                   .then(
                     showSwal(
                       "success",
@@ -123,13 +132,7 @@ export const TopHeader = ({ link }) => {
                   );
               }}
             >
-              {link ? link : "------------------------"}
-              <span
-                style={{ width: "fit-content" }}
-                className={styles.tooltiptext}
-              >
-                click to copy
-              </span>
+              <LuClipboardCopy />
             </a>
           </p>
         </div>

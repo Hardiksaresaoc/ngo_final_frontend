@@ -23,6 +23,10 @@ export const addminAddDonationError = (props) => {
       validate: (value) => !value || isEmailValid(value),
       errorMessage: "Please enter a valid email address",
     },
+    email: {
+      validate: (value) => !value || isEmailValid(value),
+      errorMessage: "Please enter a valid email address",
+    },
     donor_phone: {
       required: "Mobile Number is required",
       validate: (value) => !value || value.length === 10,

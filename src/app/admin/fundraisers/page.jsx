@@ -179,7 +179,7 @@ export default function FundraiserPage() {
                   }}
                 />
                 {amountError && (
-                  <span className={styles.error}>{amountError}</span>
+                  <span style={{color:"red"}}  className={styles.error}>{amountError}</span>
                 )}
               </span>
             </div>

@@ -111,7 +111,9 @@ export default function page() {
       donor_first_name: formData.donor_first_name,
       donor_email: formData.donor_email,
       donor_phone: formData.donor_phone,
+      email: formData.email,
     };
+
     const validationErrors = addminAddDonationError(props);
     setErrors(validationErrors);
 
@@ -174,6 +176,11 @@ export default function page() {
                       onChange={handleChange}
                       placeholder="Enter fundraiser e-mail"
                     />
+                    {errors.email && (
+                      <p style={{ color: "red", marginTop: "5px" }}>
+                        {errors.email}
+                      </p>
+                    )}
                     <datalist id="fundraiserPageList">
                       {/* {fundraiserPages.map((page, index) => (
                       <option key={index} value={page} />
@@ -223,9 +230,9 @@ export default function page() {
                         placeholder="Enter donor first name"
                         required
                       />
-                      {errors.firstName && (
+                      {errors.donor_first_name && (
                         <p style={{ color: "red", marginTop: "5px" }}>
-                          {errors.firstName}
+                          {errors.donor_first_name}
                         </p>
                       )}
                     </span>

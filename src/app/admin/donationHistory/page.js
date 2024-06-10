@@ -208,9 +208,7 @@ export default function Page() {
           >
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
-          <div className={styles.tableMain}>
-            <Table data={data} formatDate={formatDate} styles={styles} />
-          </div>
+          <Table data={data} formatDate={formatDate} styles={styles} />
         </div>
       </section>
     </>

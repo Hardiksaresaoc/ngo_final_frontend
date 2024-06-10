@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Loading from "@/app/loading";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 export default function Dashboard() {
   const { user } = useAuth("FUNDRAISER");
@@ -14,6 +15,7 @@ export default function Dashboard() {
   const fundraiserCtx = useContext(FundraiserContext);
   return user && fundraiserCtx ? (
     <>
+      {Swal.close()}
       <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
       <aside className={styles.aside}>
         <AsideBar />

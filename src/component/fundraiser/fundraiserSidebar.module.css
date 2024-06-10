@@ -64,7 +64,7 @@
 .lowerPart p {
   display: flex;
   justify-content: flex-end;
-  margin-right: 100px;
+  margin-right: 30px;
   font-size: 28px;
 }
 .lowerPart p a {

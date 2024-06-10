@@ -78,7 +78,7 @@ export default function Page() {
     showSwal("info", "Searching", "Please wait...", null, false);
 
     fetchData();
-    // Swal.close();
+    Swal.close();
   };
 
   const handleDownload = async () => {
@@ -195,17 +195,17 @@ export default function Page() {
                   <option value="pending">Pending</option>
                 </select>
               </p>
-              <button
+              {/* <button
                 onSubmit={reset}
                 type="submit"
                 className={styles.formsearchButton}
               >
                 <i className={`fa-solid fa-magnifying-glass`}></i>
                 Reset
-              </button>
+              </button> */}
               <button
                 type="submit"
-                onSubmit={handleSubmit}
+                onClick={handleSubmit}
                 className={styles.formsearchButton}
               >
                 <i className={`fa-solid fa-magnifying-glass`}></i>
@@ -221,7 +221,6 @@ export default function Page() {
           >
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
-          {/* < TableComponent/> */}
           {data && Swal.close()}
           <FundraiserTable
             formatDate={formatDate}
