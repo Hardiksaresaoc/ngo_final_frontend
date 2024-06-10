@@ -50,8 +50,9 @@ const DefaultResetPassword = () => {
     } catch (error) {
       showSwal(
         "error",
-        `Try again later`,
-        error.response ? error.response.data.message : "An error occurred."
+
+        error.response ? error.response.data.message : "An error occurred.",
+        ""
       );
 
       console.error("Error sending OTP:", error);
@@ -99,7 +100,7 @@ const DefaultResetPassword = () => {
     } catch (error) {
       console.error("Error resetting password:", error);
 
-      showSwal("error", "Something went wrong", "Try again later");
+      showSwal("error", `${error}`, "");
       setLoading(false);
     }
   };
