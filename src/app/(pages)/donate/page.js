@@ -16,13 +16,14 @@ export default function Page({ params }) {
   const [donor_state, setdonor_state] = useState("");
   const [donor_country, setdonor_country] = useState("");
   const [donor_pin, setdonor_pin] = useState("");
+  const [donor_city, setdonor_city] = useState("");
   const [donor_Comments, setdonor_Comments] = useState("");
   const [submitted, setsubmitted] = useState(false);
   const [reference, setReference] = useState({});
   const [errors, setErrors] = useState({});
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
-  const [ , setCities] = useState([]);
+  const [cities, setCities] = useState([]);
 
   useEffect(() => {
     setCountries(Country.getAllCountries());
@@ -49,6 +50,7 @@ export default function Page({ params }) {
     setAddress("");
     setdonor_state("");
     setdonor_country("");
+    setdonor_city("");
     setdonor_pin("");
     setdonor_Comments("");
     setsubmitted(false);
@@ -68,6 +70,7 @@ export default function Page({ params }) {
       donor_state,
       donor_country,
       donor_pin,
+      donor_city,
     };
     const props = {
       amount: formData.amount,
@@ -117,19 +120,19 @@ export default function Page({ params }) {
         <>
           <div className={styles.donateform}>
             <div className={styles.donationtitle}>
-              <img src="/images/logo.png" height="49px" width="50px" />
+              <img src="/images/logo.png" height="49px" width="50px"/>
               <h1>SUPPORT OUR HEROES</h1>
             </div>
             <section className={styles.wrapperdonation}>
               <div className={styles.donationimg}>
                 <div className={styles.information}>
-                  <img src="/images/payment.svg" width="100%" height="640px" />
+                  <img src="/images/payment.svg" width="100%" height="640px"  style={{mixBlendMode: "multiply"}} />
                 </div>
               </div>
               <div className={styles.donationdetdetails}>
                 <form className={styles.form}>
                   <h1>Please Enter Your Details</h1>
-                  <div className={styles.details}>
+                  <div className={styles.details} style={{paddingTop: "30px"}}>
                     <div className={`${styles.donationdetails} ${styles.com}`}>
                       <label htmlFor="donation amount">Donation Amount </label>
                       <input
@@ -218,7 +221,7 @@ export default function Page({ params }) {
                         onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"
                         required
-                       maxLength={11}
+                        maxLength={11}
                         autoComplete=""
                       />
                     </div>
@@ -239,7 +242,7 @@ export default function Page({ params }) {
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="country">Country</label>
                       <select
-                        className={styles.country}
+                        className={styles.state}
                         name="Country"
                         value={donor_country}
                         onChange={(e) => setdonor_country(e.target.value)}
@@ -270,8 +273,27 @@ export default function Page({ params }) {
                           </option>
                         ))}
                       </select>
-                    </div>
-                    <div className={`${styles.donationdetails} ${styles.num}`}>
+                      </div>
+
+                      <div className={styles.details}>
+                      <div className={`${styles.donationdetails} ${styles.num}`}>
+                      <label htmlFor="state">City</label>
+                        <select
+                          className={styles.state}
+                          onChange={(e) => setdonor_city(e.target.value)}
+                        >
+                          <option value="">Select City</option>
+                          {cities.map((city) => (
+                            <option key={city.isoCode} value={city.name}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select></div>
+                      </div>
+
+                  </div>
+                  <div className={styles.details}>
+                  <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="pincode">Pincode</label>
                       <input
                         type="text"
@@ -282,8 +304,6 @@ export default function Page({ params }) {
                         placeholder="Enter your pincode"
                       />
                     </div>
-                  </div>
-                  <div className={styles.details}>
                     <div
                       className={`${styles.donationdetails} ${styles.com} ${styles.num}`}
                     >

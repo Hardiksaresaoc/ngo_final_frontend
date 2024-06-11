@@ -309,7 +309,7 @@ export default function Page() {
             </div>
           </div>
           <div className={styles.pagination}>
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.paginationButton}>
               Previous
             </button>
             <span>
@@ -318,6 +318,7 @@ export default function Page() {
             <button
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
+              className={`${styles.paginationButton} ${styles.filled}`}
             >
               Next
             </button>

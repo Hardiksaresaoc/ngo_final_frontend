@@ -47,12 +47,16 @@
   position: relative;
   top: 46px;
   font-family: "Inter", sans-serif;
+  padding-left: 65px;
+}
+.donateImg {
+  mix-blend-mode: multiply;
 }
 .donateform .donationdetdetails form .details {
   display: flex;
-  position: relative;
   margin-top: 16px;
-  top: 40px;
+  align-items: baseline;
+
 }
 .donateform .donationdetdetails form .details label {
   display: block;
@@ -85,8 +89,11 @@
   padding: 8px 12px;
 }
 .donateform .details .donationdetails.com input {
-  width: 200px;
+  width: 250px; 
   height: 30px;
+}
+.comment {
+  padding: 10px;  
 }
 .donateform .form .catBtn {
   background-color: #fff;
@@ -112,11 +119,18 @@
   border: 1px solid #eaecf0;
   border-radius: 16px;
   padding: 24px;
-  min-height: 102%;
+  height: 700px;
   box-shadow: 4px 4px 20px 0px #0000001a;
 }
 .num label::after {
   display: none;
+}
+.state {
+  padding: 5px 12px;
+  width: 250px;
+  height: 30px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
 }
 .donateform .donationdetails input placeholder {
   border: none;

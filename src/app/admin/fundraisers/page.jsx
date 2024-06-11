@@ -400,10 +400,12 @@ export default function FundraiserPage() {
                     "error fetching data , try again later"
                   )}
                 </table>
-                <div className={styles.pagination}>
+                
+              </div><div className={styles.pagination}>
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
+                    className={styles.paginationButton}
                   >
                     Previous
                   </button>
@@ -413,11 +415,11 @@ export default function FundraiserPage() {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
+                    className={`${styles.paginationButton} ${styles.filled}`}
                   >
                     Next
                   </button>
                 </div>
-              </div>
             </div>
           ) : (
             <Loading />
