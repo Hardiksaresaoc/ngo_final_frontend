@@ -6,7 +6,7 @@ import axios from "axios";
 import Right from "./right";
 
 export default function Page() {
- const images = [
+  const images = [
     "/images/ChiefMinisterOfAssam.jpeg",
     "/images/GovernorOfAndhraPradesh.jpeg",
     "/images/EasternNavalCommand.jpeg",
@@ -160,7 +160,8 @@ export default function Page() {
     setFormData((prevData) => {
       const newAmount = checked
         ? prevData.amount + amountMap[id] * (checkboxCounts[id] + 1)
-        : prevData > 0 && prevData.amount - amountMap[id] * checkboxCounts[id];
+        : prevData.amount > 0 &&
+          (prevData.amount - amountMap[id]) * checkboxCounts[id];
       return { ...prevData, amount: newAmount };
     });
 
@@ -169,6 +170,7 @@ export default function Page() {
       [id]: checked ? 1 : 0,
     }));
   };
+  // console.log(formData.amount);
 
   const incrementCount = (id) => {
     const amountMap = {
@@ -228,42 +230,42 @@ export default function Page() {
     <>
       <main className={styles.mainPage}>
         <div className={"container"}>
-        <div className={styles.upperPortion}>
-          <div className={styles.pageTagline}>
-            <p className={styles.tagline}>
-              “In our nation, there's always a soldier sacrificing his own
-              comfort for our peace. Now, it's our turn to shower them with love
-              and showing them they're not alone.”
-            </p>
-          </div>
-          <div className={styles.upperRight}>
-            <div className={styles.ytVideo}>
-              <iframe
-                width="693"
-                height="330"
-                src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
+          <div className={styles.upperPortion}>
+            <div className={styles.pageTagline}>
+              <p className={styles.tagline}>
+                “In our nation, there's always a soldier sacrificing his own
+                comfort for our peace. Now, it's our turn to shower them with
+                love and showing them they're not alone.”
+              </p>
             </div>
-            <div className={styles.benefits}>
-              <ul className={styles.unorderList}>
-                <li className={styles.benefitOptions}>100% Transparency</li>
-                <li className={`${styles.benefitOptions} ${styles.green}`}>
-                  Assured
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.orange}`}>
-                  Ex-soldiers
-                </li>
-                <li className={`${styles.benefitOptions} ${styles.red}`}>
-                  Tax-benefit
-                </li>
-              </ul>
+            <div className={styles.upperRight}>
+              <div className={styles.ytVideo}>
+                <iframe
+                  width="693"
+                  height="330"
+                  src="https://www.youtube.com/embed/FjjSQ52j93k?si=RS5z3l9AvawzolmT"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className={styles.benefits}>
+                <ul className={styles.unorderList}>
+                  <li className={styles.benefitOptions}>100% Transparency</li>
+                  <li className={`${styles.benefitOptions} ${styles.green}`}>
+                    Assured
+                  </li>
+                  <li className={`${styles.benefitOptions} ${styles.orange}`}>
+                    Ex-soldiers
+                  </li>
+                  <li className={`${styles.benefitOptions} ${styles.red}`}>
+                    Tax-benefit
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         <section className={styles.mainClass}>
           <div className={styles.leftSection}>

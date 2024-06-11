@@ -8,6 +8,7 @@ import Loading from "@/app/loading";
 import useAuth from "@/context/auth";
 import { addminAddDonationError, showSwal } from "@/validation";
 import { Country, State, City } from "country-state-city";
+import BankNames from "@/bank";
 
 export default function page() {
   const user = useAuth(["ADMIN"]);
@@ -35,10 +36,13 @@ export default function page() {
   const [formData, setFormData] = useState(initialFormState);
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
+  const [errors, setErrors] = useState({});
   const [cities, setCities] = useState([]);
 
-  const reset = () => setFormData(initialFormState);
-
+  const reset = () => {
+    setFormData(initialFormState);
+    setErrors({});
+  };
   useEffect(() => {
     const data = Cookies.get("token");
     settoken(data);
@@ -96,7 +100,6 @@ export default function page() {
     }
   };
 
-  const [errors, setErrors] = useState({});
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -108,7 +111,9 @@ export default function page() {
       donor_first_name: formData.donor_first_name,
       donor_email: formData.donor_email,
       donor_phone: formData.donor_phone,
+      email: formData.email,
     };
+
     const validationErrors = addminAddDonationError(props);
     setErrors(validationErrors);
 
@@ -171,6 +176,11 @@ export default function page() {
                       onChange={handleChange}
                       placeholder="Enter fundraiser e-mail"
                     />
+                    {errors.email && (
+                      <p style={{ color: "red", marginTop: "5px" }}>
+                        {errors.email}
+                      </p>
+                    )}
                     <datalist id="fundraiserPageList">
                       {/* {fundraiserPages.map((page, index) => (
                       <option key={index} value={page} />
@@ -220,9 +230,9 @@ export default function page() {
                         placeholder="Enter donor first name"
                         required
                       />
-                      {errors.firstName && (
+                      {errors.donor_first_name && (
                         <p style={{ color: "red", marginTop: "5px" }}>
-                          {errors.firstName}
+                          {errors.donor_first_name}
                         </p>
                       )}
                     </span>
@@ -278,10 +288,8 @@ export default function page() {
                     <span>
                       <span>Country</span>
                       <br />
-                      <select onChange={handleCountryChange} className={styles.selectNation}>
-                        <option value="" hidden>
-                          Select Country
-                        </option>
+                      <select  className={styles.selectNation} onChange={handleCountryChange}>
+                        <option value="">Select Country</option>
                         {countries.map((country) => (
                           <option key={country.isoCode} value={country.isoCode}>
                             {country.name}
@@ -396,9 +404,7 @@ export default function page() {
                         onChange={handleChange}
                         required
                       >
-                        <option value="" hidden>
-                          Select Method
-                        </option>
+                        <option value="">Select Method</option>
                         <option value="Cash">Cash</option>
                         <option value="Direct Bank Transfer">
                           Direct Bank Transfer
@@ -440,7 +446,7 @@ export default function page() {
                         className={styles.donation_date}
                         required
                         style={{
-                          width: "300px",
+                          width: "365px",
                           color: "#667085",
                         }}
                         max={new Date().toISOString().split("T")[0]}
@@ -455,23 +461,37 @@ export default function page() {
                     <span>
                       <span>Bank Name</span>
                       <br />
-                      <input
+                      {/* <input
                         type="text"
                         name="donor_bank_name"
                         id="bankName"
                         value={formData.donor_bank_name}
                         onChange={handleChange}
                         placeholder="Enter donor bank name"
-                      />
+                      /> */}
+                      <select
+                        type="text"
+                        name="donor_bank_name"
+                        id="bankName"
+                        value={formData.donor_bank_name}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Bank</option>
+                        {BankNames.map((bank, index) => (
+                          <option key={index} value={bank}>
+                            {bank}
+                          </option>
+                        ))}
+                      </select>
                     </span>
                     <span>
                       <span>Bank Branch Name</span>
                       <br />
                       <input
                         type="text"
-                        name="donor_bankBranch"
+                        name="donor_bank_branch"
                         id="branchName"
-                        value={formData.donor_bankBranch}
+                        value={formData.donor_bank_branch}
                         onChange={handleChange}
                         placeholder="Enter donor branch name"
                       />

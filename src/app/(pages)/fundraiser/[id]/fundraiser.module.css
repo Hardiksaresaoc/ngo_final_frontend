@@ -208,6 +208,7 @@
 .mainAside {
   width: 100%;
   display: flex;
+  padding-bottom: 30px;
 }
 
 .mainAside .leftAside {

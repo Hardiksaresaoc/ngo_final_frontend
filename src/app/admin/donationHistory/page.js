@@ -8,7 +8,7 @@ import Sidebar from "@/component/sidebar";
 import useAuth from "@/context/auth";
 import Loading from "@/app/loading";
 import { showSwal } from "@/validation";
-import Table from "@/table";
+import { Table } from "@/table";
 import Unauthorized from "@/app/(pages)/unauthorized/page";
 export default function Page() {
   const user = useAuth(["ADMIN"]);
@@ -208,9 +208,7 @@ export default function Page() {
           >
             <i className={`fa-solid fa-file-excel`}></i> Download Excel
           </button>
-          <div className={styles.tableMain}>
-            <Table data={data} formatDate={formatDate} styles={styles} />
-          </div>
+          <Table data={data} formatDate={formatDate} styles={styles} />
         </div>
       </section>
     </>

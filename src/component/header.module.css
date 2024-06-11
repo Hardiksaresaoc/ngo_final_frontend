@@ -200,6 +200,7 @@
   background-color: #ffffff;
   display: flex;
   outline: none;
+  cursor: pointer;
 }
 .profilebutton i {
   display: flex;

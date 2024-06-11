@@ -3,17 +3,15 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import AsideBar, { TopHeader } from "@/component/fundraiser/fundraiserSidebar";
 import styles from "./update.module.css";
-import { FundraiserContext } from "@/context/FundraiserContext";
+import { FundraiserContext, fetchData } from "@/context/FundraiserContext";
 import useAuth from "@/context/auth";
 import Cookies from "js-cookie";
-import Swal from "sweetalert2";
 import Loading from "@/app/loading";
 import { showSwal } from "@/validation";
 
 export default function Update() {
   const { user } = useAuth("FUNDRAISER");
   const fundraiserCtx = useContext(FundraiserContext);
-
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -55,10 +53,11 @@ export default function Update() {
         },
       };
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx?.fundraiser.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx?.fundraiser?.fundraiser_page?.id}`,
         data,
         config
       );
+      fetchData();
       showSwal("success", "Done", "Update Succesfully!!");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -74,7 +73,7 @@ export default function Update() {
 
         <div className={styles.rightAside}>
           <h1>Update Fundraiser Page</h1>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className={styles.mainCol}>
               <div className={styles.firstCol}>
                 <label htmlFor="FundraisingTarget">
@@ -156,7 +155,11 @@ export default function Update() {
               </label>
             </div>
             <div className={styles.submitButton}>
-              <button type="submit" className={styles.formButton}>
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className={styles.formButton}
+              >
                 Save Changes
               </button>
             </div>

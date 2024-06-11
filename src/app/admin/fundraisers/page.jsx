@@ -30,6 +30,7 @@ export default function FundraiserPage() {
   });
 
   const handleSubmit = async (e) => {
+    showSwal("info", "Saving", "please wait...");
     e.preventDefault();
 
     if (formData.target_amount <= 0) {
@@ -179,7 +180,9 @@ export default function FundraiserPage() {
                   }}
                 />
                 {amountError && (
-                  <span className={styles.error}>{amountError}</span>
+                  <span style={{ color: "red" }} className={styles.error}>
+                    {amountError}
+                  </span>
                 )}
               </span>
             </div>
@@ -259,10 +262,10 @@ export default function FundraiserPage() {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className={styles.popupfundbutton}
+                className={`${styles.popupfundbutton} ${styles.filled}`}
                 disabled={loading}
               >
-                {loading ? "Loading..." : "Save"}
+                Save
               </button>
             </div>
           </div>
@@ -345,12 +348,12 @@ export default function FundraiserPage() {
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {
-                                    const statusMessage =
-                                      response.data.status === 0
-                                        ? "inactivated"
-                                        : "activated";
-                                    const title = `Changed to ${statusMessage}`;
-                                    showSwal("success", title, "success");
+                                    const statusMessage = response.data.status;
+                                    showSwal(
+                                      "success",
+                                      `${response.data.message}`,
+                                      "success"
+                                    );
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}

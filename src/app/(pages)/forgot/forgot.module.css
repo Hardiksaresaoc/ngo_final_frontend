@@ -131,6 +131,7 @@
 .mainSection .leftSection .mainForm .lowerForm .submit .buttonSubmit {
   border: 1px solid #070790;
   background-color: #070790;
+  margin: 1em 0 8px 0px;
   color: #fff;
   cursor: pointer;
   outline: none;

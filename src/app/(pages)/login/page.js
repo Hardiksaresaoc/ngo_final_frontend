@@ -56,7 +56,7 @@ const LoginPage = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    showSwal("info", "Logging In", "Please wait...");
+    showSwal("info", "Logging In", "Please wait...", "", false);
 
     try {
       const config = {

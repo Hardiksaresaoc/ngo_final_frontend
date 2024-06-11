@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaCircleCheck, MdCancel, MdTimer } from "react-icons/fa";
 
-const TableComponent = ({ data }) => {
+const TableComponent = ({ styles, data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 

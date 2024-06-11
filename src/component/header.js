@@ -193,8 +193,7 @@ export default function Header() {
                 <Image
                   src={
                     `${fundraiserCtx?.fundraiser?.profileImage}` == "undefined"
-                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}` ||
-                        "/images/profile.jpeg"
+                      ? "/images/profile.jpeg"
                       : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`
                   }
                   width="40"
@@ -204,14 +203,14 @@ export default function Header() {
                 {!isopen ? (
                   <div className={`${styles["custom-dropdown"]}`}>
                     <div className={`${styles["selcted-option"]}`}>
-                      <i className={`fa-solid  fa-angle-up fa-rotate-180`}></i>
+                      {/* <i className={`fa-solid  fa-angle-up fa-rotate-180`}></i> */}
                     </div>
                   </div>
                 ) : (
                   <>
                     <div className={`${styles["custom-dropdown"]}`}>
                       <div className={`${styles["selcted-option"]}`}>
-                        <i className={`fa-solid  fa-angle-down`}></i>
+                        {/* <i className={`fa-solid  fa-angle-down`}></i> */}
                       </div>
                     </div>
 

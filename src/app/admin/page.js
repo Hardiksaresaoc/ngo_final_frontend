@@ -7,6 +7,7 @@ import useAuth from "@/context/auth";
 import styles from "./admin.module.css";
 import Image from "next/image";
 import Loading from "../loading";
+import Swal from "sweetalert2";
 
 export default function FundraiserPage() {
   const { user } = useAuth("ADMIN");
@@ -54,6 +55,7 @@ export default function FundraiserPage() {
     <Loading />
   ) : (
     <>
+      {Swal.close()}
       <section className={styles.section}>
         <Sidebar />
         {user && !loading && allData ? (
