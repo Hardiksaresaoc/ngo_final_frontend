@@ -68,7 +68,7 @@ export default function Header() {
       <nav className={styles.headerNav}>
         <ul className={styles.headerUL}>
           <li className={styles.headerLi}>
-            <Link legacyBehavior href="/">
+            <Link legacyBehavior href="https://supportourheroes.in/">
               <a
                 className={`${styles.navlink} ${
                   pathname === "/login" ? styles.active : ""
