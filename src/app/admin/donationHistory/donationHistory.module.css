@@ -11,7 +11,6 @@
   width: 100%;
 }
 .container a {
-  
   text-decoration: none;
   width: 100%;
 }
@@ -70,7 +69,8 @@
   justify-content: space-between;
   align-items: center;
 }
-.upperForm span, .lowerForm span {
+.upperForm span,
+.lowerForm span {
   font-size: 18px;
 }
 .chooseDate {
@@ -221,4 +221,21 @@
   color: #ffffff;
   border: none;
   outline: none;
+}
+.reportButton {
+  display: flex;
+  gap: 15px;
+}
+.formsearchButtonReset {
+  background-color: #fff;
+  cursor: pointer;
+  color: #000080;
+  border: 2px solid #000080;
+  /* outline: none; */
+  padding: 10px 20px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;   
 }

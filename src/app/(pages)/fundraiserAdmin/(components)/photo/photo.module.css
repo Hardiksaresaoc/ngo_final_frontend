@@ -55,7 +55,7 @@
 }
 .photowrapper .imgwrapper {
   margin-top: 10px;
-  margin-left: 4em;
+  /* margin-left: 4em; */
 }
 
 .photowrapper .upload button {
@@ -78,7 +78,7 @@
 
 .photowrapper {
   /* margin-left: 1.5rem; */
-  margin-right: 1.5rem;
+  /* margin-right: 1.5rem; */
 }
 
 .photowrapper .row {
@@ -89,7 +89,7 @@
   grid-row-gap: 25px;
   row-gap: 25px;
   grid-column-gap: 100px;
-  column-gap: 100px;
+  column-gap: 60px;
   grid-template-columns: 300px 300px 300px;
   /* padding: 0 40px; */
   justify-content: space-around;

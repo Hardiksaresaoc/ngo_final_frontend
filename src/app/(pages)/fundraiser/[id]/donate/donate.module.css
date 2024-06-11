@@ -98,6 +98,7 @@
 .donateform .form .catBtn {
   background-color: #fff;
   padding: 10px 20px;
+  cursor: pointer;
   position: relative;
   width: 94px;
   top: 35px;
@@ -119,7 +120,7 @@
   border: 1px solid #eaecf0;
   border-radius: 16px;
   padding: 24px;
-  height: 700px;
+  height: 760px;
   box-shadow: 4px 4px 20px 0px #0000001a;
 }
 .num label::after {

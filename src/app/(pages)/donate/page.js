@@ -120,19 +120,27 @@ export default function Page({ params }) {
         <>
           <div className={styles.donateform}>
             <div className={styles.donationtitle}>
-              <img src="/images/logo.png" height="49px" width="50px"/>
+              <img src="/images/logo.png" height="49px" width="50px" />
               <h1>SUPPORT OUR HEROES</h1>
             </div>
             <section className={styles.wrapperdonation}>
               <div className={styles.donationimg}>
                 <div className={styles.information}>
-                  <img src="/images/payment.svg" width="100%" height="640px"  style={{mixBlendMode: "multiply"}} />
+                  <img
+                    src="/images/payment.svg"
+                    width="100%"
+                    height="640px"
+                    style={{ mixBlendMode: "multiply" }}
+                  />
                 </div>
               </div>
               <div className={styles.donationdetdetails}>
                 <form className={styles.form}>
                   <h1>Please Enter Your Details</h1>
-                  <div className={styles.details} style={{paddingTop: "30px"}}>
+                  <div
+                    className={styles.details}
+                    style={{ paddingTop: "30px" }}
+                  >
                     <div className={`${styles.donationdetails} ${styles.com}`}>
                       <label htmlFor="donation amount">Donation Amount </label>
                       <input
@@ -145,7 +153,10 @@ export default function Page({ params }) {
                         min="0"
                       />
                       {errors.amount && (
-                        <p style={{ color: "red" }} className={styles.error}>
+                        <p
+                          style={{ color: "red", fontSize: "16px" }}
+                          className={styles.error}
+                        >
                           {errors.amount}
                         </p>
                       )}
@@ -166,7 +177,10 @@ export default function Page({ params }) {
                         required
                       />
                       {errors.donor_name && (
-                        <p style={{ color: "red" }} className={styles.error}>
+                        <p
+                          style={{ color: "red", fontSize: "16px" }}
+                          className={styles.error}
+                        >
                           {errors.donor_name}
                         </p>
                       )}
@@ -183,7 +197,10 @@ export default function Page({ params }) {
                         required
                       />
                       {errors.donor_email && (
-                        <p style={{ color: "red" }} className={styles.error}>
+                        <p
+                          style={{ color: "red", fontSize: "16px" }}
+                          className={styles.error}
+                        >
                           {errors.donor_email}
                         </p>
                       )}
@@ -206,7 +223,10 @@ export default function Page({ params }) {
                         placeholder="Enter your mobile no."
                       />
                       {errors.donor_phone && (
-                        <p style={{ color: "red" }} className={styles.error}>
+                        <p
+                          style={{ color: "red", fontSize: "16px" }}
+                          className={styles.error}
+                        >
                           {errors.donor_phone}
                         </p>
                       )}
@@ -273,11 +293,13 @@ export default function Page({ params }) {
                           </option>
                         ))}
                       </select>
-                      </div>
+                    </div>
 
-                      <div className={styles.details}>
-                      <div className={`${styles.donationdetails} ${styles.num}`}>
-                      <label htmlFor="state">City</label>
+                    <div className={styles.details}>
+                      <div
+                        className={`${styles.donationdetails} ${styles.num}`}
+                      >
+                        <label htmlFor="state">City</label>
                         <select
                           className={styles.state}
                           onChange={(e) => setdonor_city(e.target.value)}
@@ -288,12 +310,12 @@ export default function Page({ params }) {
                               {city.name}
                             </option>
                           ))}
-                        </select></div>
+                        </select>
                       </div>
-
+                    </div>
                   </div>
                   <div className={styles.details}>
-                  <div className={`${styles.donationdetails} ${styles.num}`}>
+                    <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="pincode">Pincode</label>
                       <input
                         type="text"

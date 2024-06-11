@@ -18,7 +18,7 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
     const fetchOrderDetails = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:3001/payment/checkout/${reference.reference}`,
+          `${process.env.NEXT_PUBLIC_NEXT_PUBLIC_serverAPI}/payment/checkout/${reference.reference}`,
           { amount }
         );
         return response?.data?.data?.id;
@@ -43,7 +43,7 @@ const RazorpayPaymentComponent = ({ amount, name, reference, id }) => {
           description: "Test Transaction",
           image: "",
           order_id: orderDetails, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          callback_url: `http://localhost:3001/payment/paymentVerfications?id=${id}`,
+          callback_url: ` BLIC_NEXT_PUBLIC_serverAPI}/payment/paymentVerfications?id=${id}`,
           // prefill: {
           //   name: name,
           //   email: "gaurav.kumar@example.com",
