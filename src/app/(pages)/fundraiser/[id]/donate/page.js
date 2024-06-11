@@ -131,13 +131,21 @@ export default function Page({ params }) {
             <section className={styles.wrapperdonation}>
               <div className={styles.donationimg}>
                 <div className={styles.information}>
-                  <img src="/images/payment.svg" width="100%" height="640px" />
+                  <img
+                    src="/images/payment.svg"
+                    width="100%"
+                    height="640px"
+                    style={{ mixBlendMode: "multiply" }}
+                  />
                 </div>
               </div>
               <div className={styles.donationdetdetails}>
                 <form className={styles.form}>
                   <h1>Please Enter Your Details</h1>
-                  <div className={styles.details}>
+                  <div
+                    className={styles.details}
+                    style={{ paddingTop: "30px" }}
+                  >
                     <div className={`${styles.donationdetails} ${styles.com}`}>
                       <label htmlFor="donation amount">Donation Amount </label>
                       <input
@@ -149,11 +157,10 @@ export default function Page({ params }) {
                         onChange={(e) => setDonationAmount(e.target.value)}
                         min="0"
                       />
-                      <br />
                       {errors.amount && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.amount}
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>
@@ -171,28 +178,27 @@ export default function Page({ params }) {
                         size="30"
                         required
                       />
-                      {errors.donor_first_name && (
-                        <span style={{ color: "red" }} className={styles.error}>
-                          {errors.donor_first_name}
-                        </span>
+                      {errors.donor_name && (
+                        <p style={{ color: "red" }} className={styles.error}>
+                          {errors.donor_name}
+                        </p>
                       )}
                     </div>
                     <div className={styles.donationdetails}>
                       <label htmlFor="e-mail">E-mail</label>
                       <input
-                        type="email"
+                        type="donor_email"
                         className={styles.donor_email}
                         value={donor_email}
-                        pattern="^[w-.]+@([w-]+.)+[w-]{2,4}$"
                         onChange={(e) => setdonor_email(e.target.value)}
                         name="donor_email"
                         placeholder="Enter your e-mail"
                         required
                       />
                       {errors.donor_email && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.donor_email}
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>
@@ -213,9 +219,9 @@ export default function Page({ params }) {
                         placeholder="Enter your mobile no."
                       />
                       {errors.donor_phone && (
-                        <span style={{ color: "red" }} className={styles.error}>
+                        <p style={{ color: "red" }} className={styles.error}>
                           {errors.donor_phone}
-                        </span>
+                        </p>
                       )}
                     </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
@@ -224,12 +230,12 @@ export default function Page({ params }) {
                         type="text"
                         className={styles.pannumber}
                         name="Pannumber"
-                        maxLength={11}
                         value={pan}
                         onChange={(e) => setPan(e.target.value)}
                         placeholder="Enter your PAN number"
                         required
-                        autoComplete="off"
+                        maxLength={11}
+                        autoComplete=""
                       />
                     </div>
                   </div>
@@ -245,6 +251,25 @@ export default function Page({ params }) {
                         placeholder="Enter your address"
                       />
                     </div>
+
+                    <div className={`${styles.donationdetails} ${styles.num}`}>
+                      <label htmlFor="country">Country</label>
+                      <select
+                        className={styles.state}
+                        name="Country"
+                        value={donor_country}
+                        onChange={(e) => setdonor_country(e.target.value)}
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((country) => (
+                          <option key={country.name} value={country.isoCode}>
+                            {country.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className={styles.details}>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="state">State</label>
                       <select
@@ -256,30 +281,33 @@ export default function Page({ params }) {
                       >
                         <option value="">Select State</option>
                         {states.map((state) => (
-                          <option key={state.isoCode} value={state.isoCode}>
+                          <option key={state.name} value={state.isoCode}>
                             {state.name}
                           </option>
                         ))}
                       </select>
                     </div>
+
+                    <div className={styles.details}>
+                      <div
+                        className={`${styles.donationdetails} ${styles.num}`}
+                      >
+                        <label htmlFor="state">City</label>
+                        <select
+                          className={styles.state}
+                          onChange={(e) => setdonor_city(e.target.value)}
+                        >
+                          <option value="">Select City</option>
+                          {cities.map((city) => (
+                            <option key={city.isoCode} value={city.name}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.details}>
-                    <div className={`${styles.donationdetails} ${styles.num}`}>
-                      <label htmlFor="country">Country</label>
-                      <select
-                        className={styles.country}
-                        name="Country"
-                        value={donor_country}
-                        onChange={(e) => setdonor_country(e.target.value)}
-                      >
-                        <option value="">Select Country</option>
-                        {countries.map((country) => (
-                          <option key={country.isoCode} value={country.isoCode}>
-                            {country.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
                     <div className={`${styles.donationdetails} ${styles.num}`}>
                       <label htmlFor="pincode">Pincode</label>
                       <input
@@ -287,24 +315,17 @@ export default function Page({ params }) {
                         className={styles.pincode}
                         name="Pincode"
                         value={donor_pin}
-                        // onChange={(e) => setdonor_pin(e.target.value)}
-                        onChange={(e) => {
-                          const inputValue = e.target.value.replace(/\D/g, "");
-                          if (inputValue.length <= 6) {
-                            setdonor_pin(inputValue);
-                          }
-                        }}
+                        onChange={(e) => setdonor_pin(e.target.value)}
                         placeholder="Enter your pincode"
                       />
                     </div>
-                  </div>
-                  <div className={styles.details}>
                     <div
                       className={`${styles.donationdetails} ${styles.com} ${styles.num}`}
                     >
                       <label htmlFor="comment">Comment</label>
-                      <input
-                        type="text"
+                      <textarea
+                        rows={5}
+                        cols={30}
                         value={donor_Comments}
                         onChange={(e) => setdonor_Comments(e.target.value)}
                         className={styles.comment}
@@ -330,7 +351,7 @@ export default function Page({ params }) {
                       className={`${styles.catBtn}  ${styles.donate}`}
                       name="button_name"
                       style={{ color: "#ffffff", backgroundColor: "#010080" }}
-                      onClick={(e) => handleSubmit(e)}
+                      onClick={handleSubmit}
                       aria-label="button_name"
                     >
                       Donate

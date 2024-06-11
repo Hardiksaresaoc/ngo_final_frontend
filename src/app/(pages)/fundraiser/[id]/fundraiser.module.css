@@ -467,3 +467,19 @@
 .copy:hover svg {
   color: var(--button-hover-text-color);
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 65px;
+}
+.pageItem {
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background-color: #000080;
+  color: #ffffff;
+  border: none;
+  outline: none;
+}
