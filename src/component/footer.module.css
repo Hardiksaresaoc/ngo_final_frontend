@@ -19,6 +19,9 @@
   gap: 15px;
   font-size: 18px;
 }
+.aboutCompany i {
+  margin-right: 17px;
+}
 .mainFooter .upperFooter .aboutUs h3,
 .mainFooter .upperFooter .donate h3,
 .mainFooter .upperFooter .scanner h3 {
@@ -46,10 +49,10 @@
 .mainFooter .lowerFooter .headline,
 .mainFooter .lowerFooter .headlinePolicy {
   display: flex;
-
   text-align: center;
   font-size: 20px;
   margin-bottom: 1.75em;
+  letter-spacing: 1px;
 }
 .headlinePolicy {
   font-weight: 700;

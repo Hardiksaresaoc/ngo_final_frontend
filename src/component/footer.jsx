@@ -51,6 +51,30 @@ export default function Footer() {
               <i className={`fa-regular  fa-circle-dot }`}></i> Our FAQs
             </Link>
           </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/privacy-policy/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Privacy Policy
+            </Link>
+          </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/refund-policy-cancellation-policy/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Refund Policy / Cancellation Policy
+            </Link>
+          </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/terms-and-conditions/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Terms And Conditions
+            </Link>
+          </p>
         </div>
         <div className={styles.donate}>
           <h3>Donate</h3>

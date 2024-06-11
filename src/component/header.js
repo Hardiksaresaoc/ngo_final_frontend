@@ -65,6 +65,7 @@ export default function Header() {
           />
         </Link>
       </div>
+      <div className={styles.contentBar}>
       <nav className={styles.headerNav}>
         <ul className={styles.headerUL}>
           <li className={styles.headerLi}>
@@ -114,6 +115,12 @@ export default function Header() {
                   className={styles.dropdownProject}
                 >
                   Project INSANIYAT
+                </Link>
+                <Link
+                  href="https://supportourheroes.in/project-pithu/"
+                  className={styles.dropdownProject}
+                >
+                  Wg Cdr Vinod Nebb Memorial Scholarship
                 </Link>
               </div>
             </div>
@@ -244,9 +251,9 @@ export default function Header() {
           </>
         ) : (
           <>
-            <Link href="/login">
+            {/* <Link href="/login">
               <button className={styles.innerBtn}>Log in</button>
-            </Link>
+            </Link> */}
             <Link href="/donate">
               <button className={`${styles.innerBtn} ${styles.filled}`}>
                 Donate
@@ -256,6 +263,7 @@ export default function Header() {
         )}
 
         <i className={`fa-solid  fa-bars ${styles.headerIcon}`}></i>
+      </div>
       </div>
     </header>
   );

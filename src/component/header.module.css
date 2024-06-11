@@ -1,14 +1,23 @@
 .head {
-  border-bottom: 2px solid #c2bfbf;
+  /* border-bottom: 2px solid #c2bfbf; */
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+  padding: 24px 20px;
 }
 /* #808080 */
 .head .logo {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.head .logo .logoImg {
+  object-fit: contain;
+}
+.head .contentBar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 .head .headerNav {
   display: flex;
@@ -21,7 +30,7 @@
 .head .headerNav .headerUL .headerLi {
   list-style: none;
   padding: 12px;
-  font-size: 18px;
+  font-size: 20px;
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 100;
@@ -65,7 +74,7 @@
   list-style: none;
 }
 .head .headerNav .headerUL .dropdownLi .dropdown .dropbtn {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 100;
   border: none;
   outline: none;
@@ -111,26 +120,22 @@
   .dropdown
   .dropdown-content
   .dropdownProject {
-  border-bottom: 1px solid #bdb8b8;
-}
-.head
-  .headerNav
-  .headerUL
-  .dropdownLi
-  .dropdown
-  .dropdown-content
-  .dropdownProject {
   float: none;
   color: #272525;
-  padding: 12px 16px;
+  padding: 20px;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
   text-align: left;
+  border-bottom: 1px solid #bdb8b8;
+  font-size: 20px;
+  max-width: 238px;
 }
 .head .headerNav .headerUL .dropdownLi .dropdown:hover .dropdown-content {
   display: block;
-  padding: 5px;
+  /* padding: 5px; */
   font-weight: 500;
+  min-width: 238px;
 }
 .head
   .headerNav
@@ -151,13 +156,14 @@
   align-items: center;
   gap: 8px;
   font-family: Arial, Helvetica, sans-serif;
+  padding: 0 20px;
 }
 .head .headerBtn .innerBtn {
   background-color: #fff;
   color: #3c3c94;
   border: 2px solid;
-  border-radius: 4px;
-  font-size: 17px;
+  border-radius: 6px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   padding: 12px 25px;
@@ -166,7 +172,7 @@
 .head .headerBtn .innerBtn.filled {
   background-color: #070790;
   color: #fff;
-  padding: 12px 45px;
+  padding: 19px 51px;
 }
 
 .head .headerBtn .innerBtn:hover {
