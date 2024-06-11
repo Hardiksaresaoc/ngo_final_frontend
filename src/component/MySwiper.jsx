@@ -7,7 +7,7 @@ import "swiper/css/effect-fade";
 import "./swiper.css";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
-const MySwiper = ({ image }) => {
+const MySwiper = ({ style, image }) => {
   let sliderConfig = {
     spaceBetween: 10,
     navigation: true,
@@ -26,13 +26,17 @@ const MySwiper = ({ image }) => {
     breakpoints: {
       320: {
         slidesPerView: 1,
+        spaceBetween: 10,
         slidesPerGroup: 1,
       },
       768: {
-        slidesPerView: 2,
+        slidesPerGroup: 1,
+        spaceBetween: 10,
+        slidesPerView: 1,
       },
       1024: {
         slidesPerGroup: 1,
+        spaceBetween: 10,
         slidesPerView: 3,
       },
     },
@@ -40,10 +44,10 @@ const MySwiper = ({ image }) => {
 
   return (
     <Swiper
-      className="sw"
       {...sliderConfig}
+      className="mainSwiper"
       modules={[Autoplay, Navigation]}
-      style={{ display: "flex", justifyContent: "space-between" }}
+      // style={{ display: "flex", justifyContent: "space-between" }}
     >
       {image &&
         image.map((image, index) => (
@@ -78,15 +82,15 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
       320: {
         slidesPerView: 1,
         slidesPerGroup: 1,
-        spaceBetween: 10,
+        spaceBetween: 2,
       },
       768: {
         slidesPerView: 2,
-        spaceBetween: 10,
+        spaceBetween: 2,
       },
       1024: {
         slidesPerView: 3,
-        spaceBetween: 10,
+        spaceBetween: 2,
       },
     },
   };

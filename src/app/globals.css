@@ -67,3 +67,8 @@ body {
     box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
   }
 }
+.swiper {
+  width: 600px;
+  height: 300px;
+}
+@import url("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs")

@@ -3,9 +3,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import MakePaymentComponent from "@/component/makePaymentComponent";
 import styles from "./donate.module.css";
-import Swal from "sweetalert2";
 import { Country, State, City } from "country-state-city";
-import { panRegex } from "@/validation";
+import { showSwal } from "@/validation";
 
 export default function Page({ params }) {
   const [amount, setDonationAmount] = useState("");
@@ -78,6 +77,7 @@ export default function Page({ params }) {
     };
 
     if (!formData.amount) newErrors.amount = "Please enter donation amount.";
+    if (formData.amount < 0) newErrors.amount = "Please enter Valid amount.";
     if (!formData.donor_first_name)
       newErrors.donor_first_name = "Please enter your name.";
     if (!formData.donor_phone)

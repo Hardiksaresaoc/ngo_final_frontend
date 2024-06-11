@@ -149,9 +149,7 @@ export default function Right({ styles, images, teamData }) {
             className={`${styles.summaryImage} ${styles.projectImage}`}
           />
         </div>
-        <div className={styles.carousals}>
-          <OneSwiper styles={styles} OneImage={images} />
-        </div>
+        <div className={styles.carousals}></div>
         <div className={styles.supportHeroesContent}>
           <p>
             We review every case expeditiously and try to offer meaningful help
@@ -187,7 +185,7 @@ export default function Right({ styles, images, teamData }) {
         <h2 className={styles.ourTeams}>Letters of Appreciation</h2>
         <div className={styles.sliders}>
           <div className={styles.LOA}>
-            <MySwiper image={images} />
+            <MySwiper styles={styles} image={images} />
           </div>
         </div>
         <a

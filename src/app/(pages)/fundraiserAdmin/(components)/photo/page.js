@@ -687,7 +687,7 @@ export default function Page() {
                 {Array.from({ length: totalPages }, (_, i) => (
                   <button
                     key={i}
-                    className={`${styles.pageButton} ${
+                    className={`${styles.paginationButton} ${
                       currentPage === i + 1 ? styles.active : ""
                     }`}
                     onClick={() => handlePageChange(i + 1)}
