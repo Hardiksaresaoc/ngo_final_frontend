@@ -144,10 +144,17 @@ export default function Page() {
       showSwal("error", "Oops", "Something went wrong!!");
     }
   };
-  const reset=()=>{
-    setFilters
-
-  }
+  const reset = () => {
+    showSwal("info", "Resetting", "Please wait...");
+    setFilters({
+      from_date: null,
+      to_date: null,
+      donation_id: null,
+      payment_option: null,
+      payment_status: null,
+    });
+    fetchData().then(() => Swal.close());
+  };
 
   return user ? (
     <>
@@ -226,7 +233,7 @@ export default function Page() {
               </p>{" "}
               <button
                 type="reset"
-                // onClick={reset}
+                onClick={() => reset()}
                 className={styles.formsearchButton}
               >
                 <GrPowerReset /> Reset
