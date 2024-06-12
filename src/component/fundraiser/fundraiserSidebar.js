@@ -112,6 +112,7 @@ export const TopHeader = ({ link }) => {
             <a
               className={styles.tooltip}
               href={`${process.env.NEXT_PUBLIC_frontEndAPI}/fundraiser/${link}`}
+              target="_blank"
             >
               {link == "undefined" ? "------------------------" : link}
             </a>

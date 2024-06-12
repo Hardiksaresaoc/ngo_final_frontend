@@ -144,10 +144,17 @@ export default function Page() {
       showSwal("error", "Oops", "Something went wrong!!");
     }
   };
-  const reset=()=>{
-    setFilters
-
-  }
+  const reset = () => {
+    showSwal("info", "Resetting", "Please wait...");
+    setFilters({
+      from_date: null,
+      to_date: null,
+      donation_id: null,
+      payment_option: null,
+      payment_status: null,
+    });
+    fetchData().then(() => Swal.close());
+  };
 
   return user ? (
     <>
@@ -224,17 +231,19 @@ export default function Page() {
                   <option value="pending">Pending</option>
                 </select>{" "}
               </p>{" "}
-              <button
-                type="reset"
-                // onClick={reset}
-                className={styles.formsearchButton}
-              >
-                <GrPowerReset /> Reset
-              </button>
-              <button type="submit" className={styles.formsearchButton}>
-                <i className={`fa-solid fa-magnifying-glass`}></i>
-                Search
-              </button>
+              <div className={styles.reportButton}>
+                <button
+                  type="reset"
+                  onClick={() => reset()}
+                  className={styles.formsearchButtonReset}
+                >
+                  <GrPowerReset /> Reset
+                </button>
+                <button type="submit" className={styles.formsearchButton}>
+                  <i className={`fa-solid fa-magnifying-glass`}></i>
+                  Search
+                </button>
+              </div>
             </div>
           </form>
           <button
@@ -309,7 +318,11 @@ export default function Page() {
             </div>
           </div>
           <div className={styles.pagination}>
-            <button onClick={handlePreviousPage} disabled={currentPage === 1} className={styles.paginationButton}>
+            <button
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+              className={styles.paginationButton}
+            >
               Previous
             </button>
             <span>

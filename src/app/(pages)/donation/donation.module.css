@@ -683,3 +683,11 @@
     flex-direction: column;
   }
 }
+.teamMember.swiper-button-prev {
+  left: 3px;
+  top: 50%;
+}
+.teamMember.swiper-button-next {
+  right: 3px;
+  top: 50%;
+}

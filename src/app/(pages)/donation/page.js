@@ -1,5 +1,4 @@
 "use client";
-import MySwiper, { MySwiperTeamMember, OneSwiper } from "@/component/MySwiper";
 import styles from "./donation.module.css";
 import { useState } from "react";
 import axios from "axios";
@@ -20,19 +19,19 @@ export default function Page() {
       src: "/images/vinod-neb.png",
       name: "Late Wg. Cdr. Vinod Nebb (Retd)",
       award: " Vir Chakra & Bar (VrC)",
-      patron: "patron",
+      patron: "Patron",
     },
     {
       src: "/images/RDSharma.png",
       name: "Lt. Col. R.D. Sharma (Retd.)",
       award: "",
-      patron: "patron",
+      patron: "Patron",
     },
     {
       src: "/images/JSDhillon.png",
       name: "Lt. Gen. J.S. Dhillon (Retd), Vishisht Seva Medal (VSM)",
       award: " ",
-      patron: "patron",
+      patron: "Patron",
     },
     {
       src: "/images/RanjeetShukla.png",
@@ -49,8 +48,8 @@ export default function Page() {
     {
       src: "/images/GavirKumar.png",
       name: "Cdr. (IN) Gavi Kumar (Retd)",
-      award: "Head of PR &",
-      patron: "Communications",
+      award: "Head of PR & Communications",
+      patron: "",
     },
   ];
 

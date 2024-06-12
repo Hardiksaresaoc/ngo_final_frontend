@@ -225,10 +225,12 @@ export default function Page() {
                       <option value="pending">Pending</option>
                     </select>
                   </p>
+                  <div className={styles.reportButton}>
+
                   <button
                     type="reset"
                     // onClick={reset}
-                    className={styles.formsearchButton}
+                    className={styles.formsearchButtonReset}
                   >
                     <GrPowerReset /> Reset
                   </button>
@@ -240,6 +242,7 @@ export default function Page() {
                     <i className={`fa-solid fa-magnifying-glass`}></i>
                     Search
                   </button>
+                </div>
                 </div>
               </form>
 

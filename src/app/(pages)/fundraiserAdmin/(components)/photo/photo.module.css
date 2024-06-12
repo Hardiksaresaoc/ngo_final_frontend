@@ -55,7 +55,7 @@
 }
 .photowrapper .imgwrapper {
   margin-top: 10px;
-  margin-left: 4em;
+  /* margin-left: 4em; */
 }
 
 .photowrapper .upload button {
@@ -78,7 +78,7 @@
 
 .photowrapper {
   /* margin-left: 1.5rem; */
-  margin-right: 1.5rem;
+  /* margin-right: 1.5rem; */
 }
 
 .photowrapper .row {
@@ -89,7 +89,7 @@
   grid-row-gap: 25px;
   row-gap: 25px;
   grid-column-gap: 100px;
-  column-gap: 100px;
+  column-gap: 60px;
   grid-template-columns: 300px 300px 300px;
   /* padding: 0 40px; */
   justify-content: space-around;
@@ -129,4 +129,30 @@
 
 .previewPhoto span {
   margin-left: 0.8em;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+.paginationButton {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #000080;
+  background-color: #fff;
+  color: #000000;
+  cursor: pointer;
+}
+.paginationButton.filled {
+  background-color: #000080;
+  color: #ffffff;
+  border: none;
+  outline: none;
+}
+.paginationButton.active {
+  background-color: #000080;
+  color: #fff;
+  margin-bottom: 20px;
 }

@@ -104,7 +104,7 @@ export default function Page() {
 
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
-        { filteredFormData },
+        filteredFormData,
         config
       );
 
@@ -337,8 +337,7 @@ export default function Page() {
                           <option key={city.isoCode} value={city.name}>
                             {city.name}
                           </option>
-                        ))} 
-                        
+                        ))}
                       </select>
                     </span>
                     <span>
