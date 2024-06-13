@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import MakePaymentComponent from "@/component/makePaymentComponent";
 import styles from "./donate.module.css";
 import { Country, State, City } from "country-state-city";
-import { showSwal } from "@/validation";
+import { panRegex, showSwal, showSwalWithTimer } from "@/validation";
 
 export default function Page({ params }) {
   const [amount, setDonationAmount] = useState("");
@@ -90,6 +90,8 @@ export default function Page({ params }) {
       return;
     }
 
+    showSwalWithTimer("info", "Adding Donation", "Please wait...", 3000);
+
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +113,6 @@ export default function Page({ params }) {
     } catch (error) {
       showSwal(
         "error",
-        "Error while adding",
         `${error.response ? error.response.data.message : "An error occurred."}`
       );
 

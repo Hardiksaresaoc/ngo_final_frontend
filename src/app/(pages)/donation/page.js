@@ -54,10 +54,10 @@ export default function Page() {
   ];
 
   const [formData, setFormData] = useState({
-    firstName: "",
+    donor_first_name: "",
     lastName: "",
-    email: "",
-    phoneNumber: "",
+    donor_email: "",
+    donor_phone: "",
     panNumber: "",
     address: "",
     amount: 0,
@@ -78,20 +78,20 @@ export default function Page() {
     if (formData.amount <= 0) {
       newErrors.amount = "Amount must be a positive number.";
     }
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required.";
+    if (!formData.donor_first_name.trim()) {
+      newErrors.donor_first_name = "First name is required.";
     }
     if (
-      !formData.email.trim() ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+      !formData.donor_email.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.donor_email)
     ) {
-      newErrors.email = "Valid email is required.";
+      newErrors.donor_email = "Valid email is required.";
     }
     if (
-      !formData.phoneNumber.trim() ||
-      !/^\d{10}$/.test(formData.phoneNumber)
+      !formData.donor_phone.trim() ||
+      !/^\d{10}$/.test(formData.donor_phone)
     ) {
-      newErrors.phoneNumber = "Mobile Number must be 10 digits";
+      newErrors.donor_phone = "Mobile Number must be 10 digits";
     }
     if (want80GCertificate) {
       if (!formData.panNumber.trim()) {
@@ -211,15 +211,33 @@ export default function Page() {
       return;
     }
 
-    const dataToSend = { ...formData, selectedCheckboxes };
+    const dataToSend = {
+      ...formData,
+      amount: parseFloat(formData.amount).toFixed(2),
+      selectedCheckboxes,
+    };
     if (!want80GCertificate) {
       delete dataToSend.panNumber;
       delete dataToSend.address;
     }
 
     try {
-      const response = await axios.post("api/donate", dataToSend);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_serverAPI}/donate`,
+        dataToSend
+      );
       console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_serverAPI}/easypay/donation`,
+        dataToSend
+      );
+      console.log(response.data);
+      window.location.href = response.data.url;
     } catch (error) {
       console.error("Error:", error);
     }
@@ -472,13 +490,13 @@ export default function Page() {
                   <input
                     type="text"
                     id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
+                    name="donor_first_name"
+                    value={formData.donor_first_name}
                     onChange={handleChange}
                   />
-                  {errors.firstName && (
+                  {errors.donor_first_name && (
                     <span className={styles.error} style={{ color: "red" }}>
-                      {errors.firstName}
+                      {errors.donor_first_name}
                     </span>
                   )}
                 </div>
@@ -498,13 +516,13 @@ export default function Page() {
                 <input
                   type="email"
                   id="email"
-                  name="email"
-                  value={formData.email}
+                  name="donor_email"
+                  value={formData.donor_email}
                   onChange={handleChange}
                 />
-                {errors.email && (
+                {errors.donor_email && (
                   <span className={styles.error} style={{ color: "red" }}>
-                    {errors.email}
+                    {errors.donor_email}
                   </span>
                 )}
               </div>
@@ -518,13 +536,13 @@ export default function Page() {
                       .replace(/\D/g, "")
                       .substring(0, 10);
                   }}
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  name="donor_phone"
+                  value={formData.donor_phone}
                   onChange={handleChange}
                 />
-                {errors.phoneNumber && (
+                {errors.donor_phone && (
                   <span className={styles.error} style={{ color: "red" }}>
-                    {errors.phoneNumber}
+                    {errors.donor_phone}
                   </span>
                 )}
               </div>

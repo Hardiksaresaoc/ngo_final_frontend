@@ -124,7 +124,7 @@ export default function page() {
     }
 
     try {
-      showSwal("info", "Adding donation...", "please wait...");
+      showSwal("info", "Adding Donation", "Please wait...", null, false);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -139,14 +139,14 @@ export default function page() {
       });
       if (response.status == 201) {
         setLoading(false);
-        showSwal("success", "Added successfully", "Donation added!!");
+        showSwal("success", "Donation added Successfully", "");
         reset();
         setLoading(false);
       }
       setLoading(false);
       setErrors({});
     } catch (error) {
-      showSwal("error", "Error", "Something went wrong!!");
+      showSwal("error", "Fundraiser is Inactive", "");
       console.error("API error:", error);
       setLoading(false);
     }
@@ -300,7 +300,10 @@ export default function page() {
                     <span>
                       <span>State</span>
                       <br />
-                      <select onChange={handleStateChange} className={styles.selectNation}>
+                      <select
+                        onChange={handleStateChange}
+                        className={styles.selectNation}
+                      >
                         <option value="">Select State</option>
                         {states.map((state) => (
                           <option key={state.isoCode} value={state.isoCode}>
@@ -314,7 +317,8 @@ export default function page() {
                     <span>
                       <span>City</span>
                       <br />
-                      <select className={styles.selectNation}
+                      <select
+                        className={styles.selectNation}
                         onChange={(e) =>
                           setFormData({ ...formData, city: e.target.value })
                         }

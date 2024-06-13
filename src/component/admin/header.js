@@ -30,7 +30,7 @@ export default function Header() {
   }, [Cookies.get("token")]);
 
   const handleLogout = (e) => {
-    showSwal("info", "Please wait", "Logging out", null, false);
+    showSwal("info", "Logging Out", "Please wait...", null, false);
 
     setTimeout(() => {
       try {
@@ -74,7 +74,9 @@ export default function Header() {
             ) : (
               <>
                 <div className={styles["custom-dropdown"]}>
-                  <div className={styles["selcted-option"]}></div>
+                  <div className={styles["selcted-option"]}>
+                    <i className={`fa-solid fa-angle-up fa-rotate-180`}></i>
+                  </div>
                 </div>
                 <ul className={styles["dropdown-options"]}>
                   <li data-value="option3" style={{ color: "red" }}>

@@ -28,6 +28,7 @@ export default function page({ params }) {
   const [activeTab, setActiveTab] = useState("myStory");
   const progressBarRef = useRef(null);
   const [startValue, setStartValue] = useState(0);
+  const [gallery, setGallery] = useState(0);
 
   const [Isfundraiser, setIsfundraiser] = useState();
   const [loading, setloading] = useState(true);
@@ -78,6 +79,7 @@ export default function page({ params }) {
         );
         if (response.status === 200) {
           setFundraiser(response.data.data);
+          setGallery(response.data.data.gallery);
           setIsfundraiser(true);
           setloading(false);
         }
@@ -144,7 +146,7 @@ export default function page({ params }) {
   const indexOfLastImage = currentPage * imagesPerPage;
   const indexOfFirstImage = indexOfLastImage - imagesPerPage;
   const currentImages =
-    fundraiser?.fundraiserPage?.gallery?.slice(
+    fundraiser?.fundraiserPage?.gallery?.image_url?.slice(
       indexOfFirstImage,
       indexOfLastImage
     ) || [];
