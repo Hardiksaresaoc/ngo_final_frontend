@@ -25,15 +25,15 @@ export default function Update() {
   const [money_raised_for, setRaisedFor] = useState("");
 
   useEffect(() => {
-    if (fundraiserCtx?.fundraiser?.fundraiser_page) {
+    if (fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page) {
       const { target_amount, resolution, story, money_raised_for } =
-        fundraiserCtx?.fundraiser?.fundraiser_page;
+        fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page;
       setTargetAmount(parseInt(target_amount));
       setResolution(resolution || "");
       setMyStory(story || "");
       setRaisedFor(money_raised_for || "");
     }
-  }, [fundraiserCtx?.fundraiser?.fundraiser_page]);
+  }, [fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export default function Update() {
         },
       };
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx?.fundraiser?.fundraiser_page?.id}`,
+        `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser-page/updatePage/${fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page?.id}`,
         data,
         config
       );
@@ -67,7 +67,9 @@ export default function Update() {
 
   return user ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
+      <TopHeader
+        link={`${fundraiserCtx.fundraiser?.fundraiser?.fundraiser_page?.id}`}
+      />
       <aside className={styles.aside}>
         <AsideBar />
 

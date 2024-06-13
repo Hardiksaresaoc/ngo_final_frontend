@@ -6,7 +6,6 @@ import useAuth from "@/context/auth";
 import { useContext } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Loading from "@/app/loading";
-import Image from "next/image";
 import Swal from "sweetalert2";
 
 export default function Dashboard() {
@@ -16,7 +15,10 @@ export default function Dashboard() {
   return user && fundraiserCtx ? (
     <>
       {Swal.close()}
-      <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
+
+      <TopHeader
+        link={`${fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page?.id}`}
+      />
       <aside className={styles.aside}>
         <AsideBar />
         {fundraiserCtx.fundraiser ? (
@@ -35,7 +37,8 @@ export default function Dashboard() {
                     className={styles.amtMoney}
                     style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
                   >
-                    &#8377; {fundraiserCtx.fundraiser.total_amount_raised}
+                    &#8377; {fundraiserCtx.fundraiser.dashboard_data?.amount}
+                    {/* // .fundraiser.total_amount_raised */}
                   </p>
                 </div>
                 <div className={styles.totalDonors}>
@@ -47,7 +50,7 @@ export default function Dashboard() {
                     className={`${styles["no-donor"]}`}
                     style={{ marginTop: "0.625rem", marginLeft: "4.7rem" }}
                   >
-                    {fundraiserCtx.fundraiser.total_donations}
+                    {fundraiserCtx.fundraiser.dashboard_data?.totalDonor}
                   </p>
                 </div>
               </div>

@@ -91,7 +91,7 @@ export default function page({ params }) {
   }, []);
 
   useEffect(() => {
-    const raisedAmount = fundraiser?.fundraiserPage?.raised_amount;
+    const raisedAmount = fundraiser?.raised_amount;
     const targetAmount = fundraiser?.fundraiserPage?.target_amount;
 
     if (raisedAmount > 0 && targetAmount > 0) {
@@ -144,13 +144,10 @@ export default function page({ params }) {
   const indexOfLastImage = currentPage * imagesPerPage;
   const indexOfFirstImage = indexOfLastImage - imagesPerPage;
   const currentImages =
-    fundraiser?.fundraiserPage?.gallery?.slice(
-      indexOfFirstImage,
-      indexOfLastImage
-    ) || [];
+    fundraiser?.gallery?.slice(indexOfFirstImage, indexOfLastImage) || [];
 
   const totalPages = Math.ceil(
-    (fundraiser?.fundraiserPage?.gallery?.length || 0) / imagesPerPage
+    (fundraiser?.gallery?.length || 0) / imagesPerPage
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -175,7 +172,7 @@ export default function page({ params }) {
                 <div className={styles["inner-circle"]}></div>
                 <p className={styles.percentage}>({startValue}%)</p>
                 <h2 className={styles.currentGoal}>
-                  &#8377; {fundraiser?.fundraiserPage?.raised_amount}
+                  &#8377; {fundraiser?.raised_amount}
                 </h2>
                 <p className={styles.percentage}>
                   of{" "}
@@ -384,7 +381,7 @@ export default function page({ params }) {
               {currentImages.map((image, index) => (
                 <div key={index} className={styles.galleryImage}>
                   <img
-                    src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`}
+                    src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}`}
                     alt={`Image ${image}`}
                     className={styles.galleryImg}
                     height="200"
@@ -392,8 +389,8 @@ export default function page({ params }) {
                     onClick={() => {
                       Swal.fire({
                         imageUrl:
-                          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}` ? (
-                            `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image}`
+                          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}` ? (
+                            `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}`
                           ) : (
                             <Loading />
                           ),
@@ -426,16 +423,13 @@ export default function page({ params }) {
           <div className={styles.container}>
             <h3 className={styles.supporters}>Our Supporters</h3>
             <div className={styles.allSupporters}>
-              {fundraiser?.fundraiserPage?.supporters &&
-              fundraiser?.fundraiserPage?.supporters.length > 0 ? (
-                fundraiser?.fundraiserPage?.supporters.map(
-                  (supporter, index) => (
-                    <p key={index} className={styles.ourSupporters}>
-                      <PiHandHeartDuotone fill="#000080" />
-                      {supporter}
-                    </p>
-                  )
-                )
+              {fundraiser?.supporters && fundraiser?.supporters.length > 0 ? (
+                fundraiser?.supporters.map((supporter, index) => (
+                  <p key={index} className={styles.ourSupporters}>
+                    <PiHandHeartDuotone fill="#000080" />
+                    {supporter}
+                  </p>
+                ))
               ) : (
                 <p>No supporters found.</p>
               )}

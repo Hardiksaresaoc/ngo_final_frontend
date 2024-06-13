@@ -25,6 +25,17 @@ export default function Page() {
     payment_option: null,
     payment_status: null,
   });
+  const reset = () => {
+    setFilters({
+      from_date: null,
+      to_date: null,
+      donation_id: null,
+      payment_option: null,
+      payment_status: null,
+    });
+    fetchData();
+    // setData(response?.data?.data);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
@@ -40,6 +51,7 @@ export default function Page() {
   }, [token]);
 
   const fetchData = async () => {
+    showSwal("info", "Fetching Data", "Please wait...");
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/donations`,
@@ -151,7 +163,9 @@ export default function Page() {
     <>
       {user ? (
         <>
-          <TopHeader link={`${fundraiserCtx.fundraiser.fundraiser_page?.id}`} />
+          <TopHeader
+            link={`${fundraiserCtx?.fundraiser?.fundraiser?.fundraiser_page?.id}`}
+          />
           <aside className={styles.aside}>
             <AsideBar />
             <div className={styles.rightAside}>
@@ -226,23 +240,22 @@ export default function Page() {
                     </select>
                   </p>
                   <div className={styles.reportButton}>
-
-                  <button
-                    type="reset"
-                    // onClick={reset}
-                    className={styles.formsearchButtonReset}
-                  >
-                    <GrPowerReset /> Reset
-                  </button>
-                  <button
-                    type="submit"
-                    onClick={handleSubmit}
-                    className={styles.formsearchButton}
-                  >
-                    <i className={`fa-solid fa-magnifying-glass`}></i>
-                    Search
-                  </button>
-                </div>
+                    <button
+                      type="reset"
+                      onClick={reset}
+                      className={styles.formsearchButtonReset}
+                    >
+                      <GrPowerReset /> Reset
+                    </button>
+                    <button
+                      type="submit"
+                      onClick={handleSubmit}
+                      className={styles.formsearchButton}
+                    >
+                      <i className={`fa-solid fa-magnifying-glass`}></i>
+                      Search
+                    </button>
+                  </div>
                 </div>
               </form>
 
