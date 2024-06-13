@@ -24,6 +24,7 @@
     "react-modal": "^3.16.1",
     "react-share": "^5.1.0",
     "react-simple-image-viewer": "^1.2.2",
+    "sass": "^1.77.5",
     "styled-components": "^6.1.8",
     "sweetalert2": "^11.10.8",
     "swiper": "^11.1.4",
