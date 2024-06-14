@@ -112,7 +112,8 @@
   line-height: 36px;
   color: #000080;
 }
-.inputRadio , .inputCheck {
+.inputRadio,
+.inputCheck {
   display: none;
 }
 .inputRadio + label {
@@ -123,7 +124,8 @@
   margin-right: 15px;
   font-size: 13px;
 }
-.inputRadio + label:before , .inputCheck + label:before  {
+.inputRadio + label:before,
+.inputCheck + label:before {
   content: "";
   display: block;
   width: 20px;
@@ -144,7 +146,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #0041BE;
+  background: #0041be;
 }
 .inputCheck + label {
   display: inline-block;
@@ -168,7 +170,7 @@
 }
 .inputCheck:checked + label:before {
   content: "\f00c";
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
   background: #545454;
   color: #fff;
 }
@@ -452,6 +454,7 @@
 }
 .teamMemberDetails {
   display: flex;
+  height: 90px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -525,7 +528,9 @@
   justify-content: center;
   gap: 10px;
 }
-
+.shareIcon:hover {
+  transform: scale(1.1);
+}
 @media only screen and (max-width: 320px) {
   .upperPortion {
     flex-direction: column;
@@ -670,6 +675,14 @@
   .LOA {
     flex-direction: column;
   }
+}
+.socialMedia .shareIcon {
+  height: 40px;
+  width: 40px;
+}
+.socialMedia {
+  display: flex;
+  gap: 15px;
 }
 
 @media only screen and (min-width: 401px) and (max-width: 767px) {

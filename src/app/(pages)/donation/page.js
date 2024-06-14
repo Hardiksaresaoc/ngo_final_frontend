@@ -3,6 +3,9 @@ import styles from "./donation.module.css";
 import { useState } from "react";
 import axios from "axios";
 import Right from "./right";
+import { FacebookShareButton, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
+import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function Page() {
   const images = [
@@ -13,6 +16,7 @@ export default function Page() {
     "/images/ArmyEducationalCorps.jpeg",
     "/images/SainikWelfareAndhraPradesh.jpeg",
   ];
+  const shareURL ="x"
 
   const teamData = [
     {
@@ -382,10 +386,18 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("schoolFees")}
                           >
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
-</svg>
-
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z"
+                                fill="white"
+                              />
+                            </svg>
                           </button>
                           <input
                             type="text"
@@ -420,10 +432,18 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("medicalCare")}
                           >
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
-</svg>
-
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z"
+                                fill="white"
+                              />
+                            </svg>
                           </button>
                           <input
                             type="text"
@@ -458,10 +478,18 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("ration")}
                           >
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
-</svg>
-
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z"
+                                fill="white"
+                              />
+                            </svg>
                           </button>
                           <input
                             type="text"
@@ -676,38 +704,18 @@ export default function Page() {
             heroes.”
           </p>
           <div className={styles.socialMedia}>
-            <a href="#">
-              <img
-                src="/images/facebook().png"
-                alt="facebook"
-                width="40"
-                height="40"
-              />
-            </a>
-            <a href="#">
-              <img
-                src="/images/twitter().png"
-                alt="twitter"
-                width="40"
-                height="40"
-              />
-            </a>
-            <a href="#">
-              <img
-                src="/images/youtube().png"
-                alt="youtube"
-                width="40"
-                height="40"
-              />
-            </a>
-            <a href="#">
-              <img
-                src="/images/linkedin().png"
-                alt="linkedin"
-                width="40"
-                height="40"
-              />
-            </a>
+            <FacebookShareButton url={shareURL}>
+              <FaFacebook color="#1877F2" className={styles.shareIcon} />
+            </FacebookShareButton>
+            <TwitterShareButton url={shareURL}>
+              <FaXTwitter className={styles.shareIcon} />
+            </TwitterShareButton>
+            <LinkedinShareButton url={shareURL}>
+              <FaLinkedin color="#0a66c2" className={styles.shareIcon} />
+            </LinkedinShareButton>
+            <WhatsappShareButton url={shareURL}>
+              <FaWhatsapp color="#25D366" className={styles.shareIcon} />
+            </WhatsappShareButton>
           </div>
         </section>
       </main>

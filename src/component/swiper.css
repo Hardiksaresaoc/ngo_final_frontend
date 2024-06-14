@@ -29,7 +29,7 @@
     margin-left: 0px;
   }
   .teamMember .swiper-slide {
-    margin-left: 30px;
+    margin-left: 0px;
   }
   .swiper-wrapper {
     margin-left: 50px;
@@ -99,6 +99,7 @@
   width: 173px;
   height: 220px;
 }
+/* 
 .mainSwiper.swiper-button-next {
   right: 3px;
   top: 35%;
@@ -112,6 +113,10 @@
 .mainSwiper.swiper-button-prev {
   left: 3px;
   top: 35%;
+} */
+.swiper-button-prev,
+.swiper-button-next {
+  top: 50%;
 }
 /* .MainSwiper.swiper-slide {
   width: 170px;

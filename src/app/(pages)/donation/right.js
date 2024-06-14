@@ -185,7 +185,7 @@ export default function Right({ styles, images, teamData }) {
         <h2 className={styles.ourTeams}>Letters of Appreciation</h2>
         <div className={styles.sliders}>
           <div className={styles.LOA}>
-            <MySwiper styles={styles} image={images} />
+            <MySwiper  styles={styles} image={images} />
           </div>
         </div>
         <a
