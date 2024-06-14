@@ -396,8 +396,7 @@ export default function page({ params }) {
                           ) : (
                             <Loading />
                           ),
-                        imageHeight: 1000,
-                        imageWidth: 2000,
+                        imageHeight: 500,
                         imageAlt: "A tall image",
                         showCloseButton: true,
                       });
