@@ -33,7 +33,6 @@ const GeneratePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     // Validation logic
     if (!email) {
@@ -51,6 +50,13 @@ const GeneratePage = () => {
 
     if (email && firstName && mobile_number && /^\d{10}$/.test(mobile_number)) {
       try {
+        showSwal(
+          "info",
+          "Generating Credentials",
+          "Please wait...",
+          null,
+          false
+        );
         const config = {
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +84,7 @@ const GeneratePage = () => {
               showSwal(
                 "success",
                 "Fundraiser Page Created",
-                "credentials sent to fundraiser email"
+                "Login Credentials sent to Fundraiser Email"
               )
             )
             .finally(reset());
@@ -91,9 +97,8 @@ const GeneratePage = () => {
           err.response.data.statusCode == 404
         ) {
           showSwal(
-            "info",
-            "wait!",
-            err.response.data.message || "Fundraiser already exist"
+            "error",
+            err.response.data.message || "Fundraiser Already Exists"
           );
         }
       } finally {

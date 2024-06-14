@@ -35,7 +35,7 @@ export default function FundraiserPage() {
   const totalPages = Math.ceil(fundraisers.length / itemsPerPage);
 
   const handleSubmit = async (e) => {
-    showSwal("info", "Saving", "please wait...");
+    showSwal("info", "Updating", "Please wait...", null, false);
     e.preventDefault();
 
     if (formData.target_amount <= 0) {
@@ -55,15 +55,15 @@ export default function FundraiserPage() {
       );
 
       setLoading(false);
-      showSwal("success", "updated", "Fundraiser page updated successfully");
+      showSwal("success", "Updated", "Fundraiser Page Updated Successfully");
 
       setShowPopup(false);
     } catch (error) {
-      showSwal("error", "oops", "Something went wrong");
+      showSwal("error", "Oops", "Something went wrong");
 
       setLoading(false);
 
-      console.error("Error updating fundraiser:", error);
+      console.error("Error Updating Fundraiser:", error);
     }
   };
 
@@ -353,7 +353,7 @@ export default function FundraiserPage() {
                                   showSwal(
                                     "info",
                                     "Updating",
-                                    "Please wait",
+                                    "Please wait...",
                                     null,
                                     false
                                   );
@@ -367,11 +367,12 @@ export default function FundraiserPage() {
                                     response?.status == 201 ||
                                     response?.status == 200
                                   ) {
-                                    showSwal(
-                                      "success",
-                                      `${response.data.message}`,
-                                      "success"
-                                    );
+                                    const statusMessage =
+                                      response.data.data.status === 0
+                                        ? "inactive"
+                                        : "active";
+                                    const title = `Changed to ${statusMessage}`;
+                                    showSwal("success", title, "");
                                   }
                                 }}
                                 defaultChecked={fundraiser.status === "active"}
@@ -400,26 +401,26 @@ export default function FundraiserPage() {
                     "error fetching data , try again later"
                   )}
                 </table>
-                
-              </div><div className={styles.pagination}>
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className={styles.paginationButton}
-                  >
-                    Previous
-                  </button>
-                  <span>
-                    Page {currentPage} of {totalPages}
-                  </span>
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className={`${styles.paginationButton} ${styles.filled}`}
-                  >
-                    Next
-                  </button>
-                </div>
+              </div>
+              <div className={styles.pagination}>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={styles.paginationButton}
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={`${styles.paginationButton} ${styles.filled}`}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           ) : (
             <Loading />

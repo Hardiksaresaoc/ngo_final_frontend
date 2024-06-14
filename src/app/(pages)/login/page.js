@@ -34,13 +34,13 @@ const LoginPage = () => {
     let newErrors = {};
 
     if (!email.trim()) {
-      newErrors.email = "Email is required.";
+      newErrors.email = "Email is Required.";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Email is invalid.";
+      newErrors.email = "Email is Invalid.";
     }
 
     if (!password.trim()) {
-      newErrors.password = "Password is required.";
+      newErrors.password = "Password is Required.";
     } else if (password.length < 6) {
       newErrors.password = "Password must be at least 6 characters.";
     }
@@ -72,10 +72,10 @@ const LoginPage = () => {
 
       if (!response || !response.data.data.token) {
         setErrors({
-          loginError: "email or password error",
+          loginError: "Email or Password Error",
         });
       } else {
-        showSwal("success", "Login successful", " ");
+        showSwal("success", "Login Successful", " ");
 
         const expiryDate = new Date();
         expiryDate.setTime(expiryDate.getTime() + 15 * 60 * 1000);
@@ -91,7 +91,7 @@ const LoginPage = () => {
     } catch (error) {
       console.error("An error occurred while logging in:", error);
       Swal.fire({
-        title: "Opps!!",
+        title: "Oops!!",
         text: error.response
           ? error.response.data.message
           : "An error occurred.",
@@ -102,7 +102,7 @@ const LoginPage = () => {
       });
       if (error.response && error.response.status === 401) {
         setErrors({
-          loginError: "Email or password is incorrect.",
+          loginError: "Password is Incorrect.",
         });
       }
     } finally {
@@ -126,7 +126,7 @@ const LoginPage = () => {
       if (field === "email" && value.trim() && !/\S+@\S+\.\S+/.test(value)) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "Email is invalid.",
+          email: "Email is Invalid.",
         }));
       }
       if (field === "password" && value.trim().length < 6) {
@@ -280,7 +280,7 @@ const LoginPage = () => {
                 </div>
                 <div className={styles.submit}>
                   <button type="submit" className={styles.buttonSubmit}>
-                    {loading ? "loading" : "Log In"}
+                    {loading ? "Log In" : "Log In"}
                   </button>
                 </div>
               </div>
