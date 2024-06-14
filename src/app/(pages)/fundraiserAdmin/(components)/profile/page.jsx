@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Country, State, City } from "country-state-city";
 import styles from "./profile.module.css";
+import { showSwal } from "@/validation";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -43,22 +44,25 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    const fundraiser = fundraiserCtx.fundraiser;
+    const fundraiser = fundraiserCtx.fundraiser?.fundraiser;
     if (fundraiser) {
-      setFirstName(fundraiser.firstName || "");
-      setLastName(fundraiser.lastName || "");
-      setEmail(fundraiser.email || "");
-      setAddress(fundraiser.address || "");
-      setState(fundraiser.state || "");
-      setCity(fundraiser.city || "");
-      setCountry(fundraiser.country || "");
-      setPincode(fundraiser.pincode || "");
-      setNumber(fundraiser.mobile_number || "");
-      setDOB(fundraiser.dob || "");
-      setPan(fundraiser.pan || "");
-      setProfileImage(fundraiser.profileImage || "/images/profile.jpeg");
+      setFirstName(fundraiser?.firstName || "");
+      setLastName(fundraiser?.lastName || "");
+      setEmail(fundraiser?.email || "");
+      setAddress(fundraiser?.address || "");
+      setState(fundraiser?.state || "");
+      setCity(fundraiser?.city || "");
+      setCountry(fundraiser?.country || "");
+      setPincode(fundraiser?.pincode || "");
+      setNumber(fundraiser?.mobile_number || "");
+      setDOB(fundraiser?.dob || "");
+      setPan(fundraiser?.pan || "");
+      setProfileImage(fundraiser.profileImage);
+      console.log("img", fundraiser);
+
+      // || "/images/profile.jpeg");
     }
-  }, [fundraiserCtx.fundraiser]);
+  }, [fundraiserCtx.fundraiser.fundraiser]);
 
   useEffect(() => {
     setCountries(Country.getAllCountries());
@@ -200,7 +204,9 @@ export default function Page() {
 
   return user ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser?.fundraiser_page?.id}`} />
+      <TopHeader
+        link={`${fundraiserCtx.fundraiser?.fundraiser?.fundraiser_page?.id}`}
+      />
       <section className={styles.mainSection}>
         <div className={styles.leftSection}>
           <a
@@ -427,7 +433,7 @@ export default function Page() {
               </>
             ) : (
               <div>
-                <Image
+                <img
                   id="blah"
                   src={
                     profileImage
