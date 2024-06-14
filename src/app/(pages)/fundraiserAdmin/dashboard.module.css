@@ -118,7 +118,31 @@
   align-items: center;
   gap: 20px;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 320px) {
+  .aside {
+    flex-direction: column;
+  }
+  .rightAside {
+    width: 100%;
+  }
+  .upperPortion {
+    height: 298px;
+  }
+  .upperPortion h2 {
+    padding: 40px 0 0 16px;
+    font-size: 31px;
+  }
+  .lowerPortion {
+    margin: 0;
+  }
+  .donors {
+    flex-direction: column;
+    padding-top: 60px;
+    bottom: 135px;
+    margin: 15px;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 767px) {
   .aside {
     flex-direction: column;
   }
