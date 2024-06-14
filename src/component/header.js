@@ -117,7 +117,7 @@ export default function Header() {
                   Project INSANIYAT
                 </Link>
                 <Link
-                  href="https://supportourheroes.in/project-pithu/"
+                  href="https://supportourheroes.in/wing-commander-vinod-nebb-memorial-scholarship/"
                   className={styles.dropdownProject}
                 >
                   Wg Cdr Vinod Nebb Memorial Scholarship

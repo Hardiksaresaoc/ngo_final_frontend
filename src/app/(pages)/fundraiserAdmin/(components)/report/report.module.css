@@ -334,6 +334,9 @@
   .toDate {
     padding-top: 20px;
   }
+  .form span {
+    padding-top: 20px;
+  }
   .donateId {
     padding-top: 20px;
   }
@@ -344,6 +347,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+    margin: 0;
   }
   .form input {
     min-width: 240px;
