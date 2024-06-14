@@ -6,7 +6,6 @@ import useAuth from "@/context/auth";
 import { useContext } from "react";
 import { FundraiserContext } from "@/context/FundraiserContext";
 import Loading from "@/app/loading";
-import Image from "next/image";
 import Swal from "sweetalert2";
 
 export default function Dashboard() {

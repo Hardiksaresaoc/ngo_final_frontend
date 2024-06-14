@@ -120,8 +120,8 @@ export default function Update() {
                     value={story}
                     className={styles.MyStory}
                     maxLength={500}
-                    cols="30"
-                    rows="16"
+                    cols="50"
+                    rows="15"
                     onChange={(e) => setMyStory(e.target.value)}
                   ></textarea>
                   {story.length == 500 && (

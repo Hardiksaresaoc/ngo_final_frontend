@@ -83,7 +83,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 Projects
-                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
+                <i className={`fa-solid fa-angle-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link
@@ -129,7 +129,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 About Us
-                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
+                <i className={`fa-solid fa-angle-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link

@@ -73,7 +73,7 @@ export default function Right({ styles, images, teamData }) {
             are being supported every month).
           </p>
           <img
-            src="/images/projectpithu.png"
+            src="/images/ProjectPithu.png"
             alt="Project Pithu"
             width="540"
             height="359"
@@ -86,7 +86,7 @@ export default function Right({ styles, images, teamData }) {
             soldiers/widows are being supported every month).
           </p>
           <img
-            src="/images/projectsehat.png"
+            src="/images/ProjectSehat.png"
             alt="Project Sehat"
             width="540"
             height="359"
@@ -98,7 +98,7 @@ export default function Right({ styles, images, teamData }) {
             are being supported every month).
           </p>
           <img
-            src="/images/projectsaksham.png"
+            src="/images/ProjectSaksham.png"
             alt="Project Saksham"
             width="540"
             height="359"
@@ -111,7 +111,7 @@ export default function Right({ styles, images, teamData }) {
             monthly cases so far).
           </p>
           <img
-            src="/images/projectsashakt.png"
+            src="/images/ProjectSashakt.png"
             alt="Project Sashakt"
             width="540"
             height="359"
@@ -123,7 +123,7 @@ export default function Right({ styles, images, teamData }) {
             well as downtrodden people in the society (no monthly cases so far).
           </p>
           <img
-            src="/images/projectinsaniyat.png"
+            src="/images/ProjectInsaniyat.png"
             alt="Project Insaniyat"
             width="540"
             height="359"
@@ -142,7 +142,7 @@ export default function Right({ styles, images, teamData }) {
             Government/Defence Schemes.
           </p>
           <img
-            src="/images/cadetscholarship.png"
+            src="/images/CadetScholarship.png"
             alt="Cadet Scholarship"
             width="540"
             height="359"

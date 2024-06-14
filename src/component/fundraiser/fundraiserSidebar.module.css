@@ -46,15 +46,21 @@
 .imgArea {
   margin-right: 60px;
 }
+.soldierImg {
+  height: 548px;
+  width: 100%;
+  object-fit: contain;
+}
 
 .lowerPart {
   width: 100%;
   height: 69px;
   background-color: #04045f;
   color: #fff;
-  position: absolute;
+  position: unset;
+  /* position: absolute; */
   /* top: 586px; */
-  bottom: 88px;
+  /* bottom: -38px; */
   border: 1px solid #fff;
   border-top: none;
   display: flex;
@@ -154,4 +160,57 @@ p.active:hover {
 }
 .rightAside {
   width: 80%;
+}
+
+@media only screen and (max-width: 767px) {
+  .main {
+    flex-direction: column;
+    /* height: 488px; */
+  }
+  .leftSection {
+    width: 100%;
+    padding: 28px 36px 8px;
+  }
+  .content {
+    width: 100%;
+    margin-left: 0;
+    height: fit-content;
+  }
+  .content h1 {
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+  }
+  .rightSection {
+    width: 100%;
+  }
+  .content p {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 1px;
+    text-align: center;
+    font-family: "Arimo", sans-serif;
+    padding-bottom: 58px;
+  }
+  .imgArea {
+    margin: 0;
+  }
+  .soldierImg {
+    max-height: 286px;
+    min-width: 300px;
+  }
+  .lowerPart {
+    height: 88px;
+  }
+  .lowerPart p {
+    font-size: 20px;
+    line-height: 24px;
+    margin-right: 0;
+  }
+  .aside {
+    flex-direction: column;
+  }
+  .leftAside {
+    width: 100%;
+  }
 }

@@ -311,6 +311,7 @@ export default function Page() {
                   <input
                     type="radio"
                     id="donateAnyAmount"
+                    className={styles.inputRadio}
                     name="donationOption"
                     value="donateAnyAmount"
                     checked={donationOption === "donateAnyAmount"}
@@ -322,6 +323,7 @@ export default function Page() {
                   <input
                     type="radio"
                     id="donateProjects"
+                    className={styles.inputRadio}
                     name="donationOption"
                     value="donateProjects"
                     onChange={handleDonationOptionChange}
@@ -348,6 +350,7 @@ export default function Page() {
                       <input
                         type="checkbox"
                         id="schoolFees"
+                        className={styles.inputCheck}
                         name="schoolFees"
                         checked={checkboxCounts.schoolFees > 0}
                         onChange={handleCheckboxChange}
@@ -362,7 +365,10 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("schoolFees")}
                           >
-                            -
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
+</svg>
+
                           </button>
                           <input
                             type="text"
@@ -384,6 +390,7 @@ export default function Page() {
                       <input
                         type="checkbox"
                         id="medicalCare"
+                        className={styles.inputCheck}
                         name="medicalCare"
                         checked={checkboxCounts.medicalCare > 0}
                         onChange={handleCheckboxChange}
@@ -396,7 +403,10 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("medicalCare")}
                           >
-                            -
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
+</svg>
+
                           </button>
                           <input
                             type="text"
@@ -418,6 +428,7 @@ export default function Page() {
                       <input
                         type="checkbox"
                         id="ration"
+                        className={styles.inputCheck}
                         name="ration"
                         checked={checkboxCounts.ration > 0}
                         onChange={handleCheckboxChange}
@@ -430,7 +441,10 @@ export default function Page() {
                             className={styles.minusButton}
                             onClick={() => decrementCount("ration")}
                           >
-                            -
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.0007 8.66536H4.00065C3.82384 8.66536 3.65427 8.59513 3.52925 8.4701C3.40422 8.34508 3.33398 8.17551 3.33398 7.9987C3.33398 7.82189 3.40422 7.65232 3.52925 7.52729C3.65427 7.40227 3.82384 7.33203 4.00065 7.33203H12.0007C12.1775 7.33203 12.347 7.40227 12.4721 7.52729C12.5971 7.65232 12.6673 7.82189 12.6673 7.9987C12.6673 8.17551 12.5971 8.34508 12.4721 8.4701C12.347 8.59513 12.1775 8.66536 12.0007 8.66536Z" fill="white"/>
+</svg>
+
                           </button>
                           <input
                             type="text"
@@ -592,7 +606,7 @@ export default function Page() {
               )}
               <div className={styles.donationBtn}>
                 <button type="submit" className={styles.donateBtn}>
-                  Donate ₹ {formData.amount}
+                  Donate &nbsp; ₹ {formData.amount}
                 </button>
               </div>
             </form>

@@ -23,29 +23,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 8px;
 }
 .head .headerNav .headerUL {
   display: flex;
 }
 .head .headerNav .headerUL .headerLi {
   list-style: none;
-  padding: 12px;
+  padding: 20px;
   font-size: 20px;
   text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 100;
 }
 .head .headerNav .headerUL .headerLi .navlink {
   text-decoration: none;
   color: inherit;
-  color: #696161;
+  color: #303030;
   position: relative;
   padding: 9px;
 }
 .head .headerNav .headerUL .headerLi .navlink:hover {
-  color: #e1960a;
+  color: #000080;
 }
-.head .headerNav .headerUL .headerLi .navlink::after {
+/* .head .headerNav .headerUL .headerLi .navlink::after {
   position: absolute;
   content: "";
   bottom: 0;
@@ -66,9 +67,9 @@
 .head .headerNav .headerUL .headerLi .navlink:hover::after,
 .head .headerNav .headerUL .headerLi .navlink.active::after {
   opacity: 1;
-}
+} */
 .head .headerNav .headerUL .headerLi .active {
-  color: #e1960a;
+  color: #000080;
 }
 .head .headerNav .headerUL .dropdownLi {
   list-style: none;
@@ -78,14 +79,16 @@
   font-weight: 100;
   border: none;
   outline: none;
-  padding: 14px 16px;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 21px 16px;
+  font-family: "Roboto", sans-serif;
   background-color: inherit;
   margin: 0;
-  color: #696161;
+  color: #303030;
   position: relative;
+  display: flex;
+  align-items: center;
 }
-.head .headerNav .headerUL .dropdownLi .dropdown .dropbtn::after {
+/* .head .headerNav .headerUL .dropdownLi .dropdown .dropbtn::after {
   position: absolute;
   content: "";
   bottom: 0;
@@ -101,14 +104,14 @@
 }
 .head .headerNav .headerUL .dropdownLi .dropdown .dropbtn:hover::after {
   opacity: 1;
-}
+} */
 .head .headerNav .headerUL .dropdownLi .dropdown .dropbtn:hover {
-  color: #e1960a;
+  color: #000080;
 }
 .head .headerNav .headerUL .dropdownLi .dropdown .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px #00000033;
   z-index: 1;
@@ -130,6 +133,7 @@
   border-bottom: 1px solid #bdb8b8;
   font-size: 20px;
   max-width: 238px;
+  line-height: 1.45;
 }
 .head .headerNav .headerUL .dropdownLi .dropdown:hover .dropdown-content {
   display: block;
@@ -145,17 +149,16 @@
   .dropdown-content
   .dropdownProject:hover {
   color: #020257;
-  background-color: #f1f1f1;
 }
 .downIcon {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 .head .headerBtn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   padding: 0 20px;
 }
 .head .headerBtn .innerBtn {
@@ -167,12 +170,14 @@
   font-weight: bold;
   cursor: pointer;
   padding: 12px 25px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .head .headerBtn .innerBtn.filled {
   background-color: #070790;
   color: #fff;
   padding: 19px 51px;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
 }
 
 .head .headerBtn .innerBtn:hover {
@@ -222,7 +227,8 @@
   padding-right: 75px;
 }
 .profileimg .dropdown-options {
-  min-width: 91px;
+  min-width: 91px;@media only screen and (max-width: 425px) {
+  }
   list-style: none;
   padding: 12px;
   position: absolute;
@@ -259,13 +265,11 @@
 .TagLine {
   display: flex;
   align-items: center;
-  font-family: Helvetica;
+  font-family: "Roboto", sans-serif;
   text-shadow: 2px 2px rgb(197, 179, 179);
   font-size: 50px;
 }
-@media only screen and (max-width: 425px) {
-}
-@media only screen and (max-width: 426px) {
+@media only screen and (max-width: 767px) {
   .head {
     justify-content: space-between;
   }
@@ -283,7 +287,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 8px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Roboto", sans-serif;
     padding-right: 10px;
   }
 
@@ -293,7 +297,7 @@
 
   .head .headerBtn .headerIcon {
     display: block;
-    color: #696161;
+    color: #303030;
     cursor: pointer;
   }
 

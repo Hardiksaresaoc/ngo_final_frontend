@@ -99,9 +99,10 @@ export const TopHeader = ({ link }) => {
           <div className={styles.rightSection}>
             <div className={styles.ImageArea}>
               <img
-                style={{ width: "100%", height: "548px", objectFit: "contain" }}
+                style={{ width: "100%", height: "548px"}}
                 src="/images/FrontImage.png"
                 alt="Soldiers"
+                className={styles.soldierImg}
               />
             </div>
           </div>

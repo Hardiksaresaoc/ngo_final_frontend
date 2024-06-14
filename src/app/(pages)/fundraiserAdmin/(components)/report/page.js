@@ -152,7 +152,7 @@ export default function Page() {
                   onChange={handleInputChange}
                 />
               </span>
-              <span>
+              <span className={styles.donateId}>
                 <span>Donation Id</span>
                 <br />
                 <input
@@ -166,7 +166,7 @@ export default function Page() {
                   onChange={handleInputChange}
                 />
               </span>
-              <span>
+              <span className={styles.paymentOption}>
                 <label htmlFor="payment_option">Payment Option</label>
                 <br />
                 <select
