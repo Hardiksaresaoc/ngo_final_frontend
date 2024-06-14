@@ -184,8 +184,7 @@
   border: none;
 }
 .form input {
-  width: 250px;
-  height: 40px;
+  min-width: 200px;
   border: 1px solid #d9d9d9;
   outline: none;
   margin-top: 8px;
@@ -197,8 +196,7 @@
 }
 
 .form select {
-  width: 250px;
-  height: 40px;
+  min-width: 200px;
   border: 1px solid #d9d9d9;
   outline: none;
   margin-top: 8px;
@@ -238,7 +236,7 @@
 .table th,
 .table td {
   border: 1px solid #d9d9d9;
-  text-align: center;
+  text-align: left;
   padding: 8px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -320,4 +318,37 @@
   align-items: center;
   gap: 10px;
   border-radius: 6px;
+}
+
+@media only screen and (max-width: 767px) {
+  .aside {
+    flex-direction: column;
+  }
+  .rightAside {
+    width: 100%;
+  }
+  .upperForm {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .toDate {
+    padding-top: 20px;
+  }
+  .donateId {
+    padding-top: 20px;
+  }
+  .paymentOption {
+    padding-top: 20px;
+  }
+  .lowerForm {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .form input {
+    min-width: 240px;
+  }
+  .form select {
+    min-width: 240px;
+  }
 }

@@ -102,12 +102,12 @@
 
 .rightAside {
   width: 75%;
-  padding: 0 20px 20px;
+  padding: 40px;
   background-color: #f8f8f8;
 }
 .rightAside h1 {
   color: #fd8900;
-  padding: 40px;
+  padding-bottom: 40px;
   font-weight: 700;
   font-size: 36px;
   font-family: "Roboto", sans-serif;
@@ -126,8 +126,7 @@
 }
 .mainCol {
   display: flex;
-  gap: 40px;
-  padding: 0px 40px;
+  gap: 65px;
 }
 .firstCol {
   display: flex;
@@ -142,7 +141,8 @@
   padding-left: 1px;
 }
 .FundraisingTarget {
-  width: 490px;
+  min-width: 450px;
+  width: 100%;
   display: flex;
   padding: 10px 16px;
   border: 1px solid #d9d9d9;
@@ -158,7 +158,8 @@
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   color: #171a1f;
-  width: 490px; 
+  max-width: 450px;
+  width: 100%;
 }
 .MyStory filled {
   border: 1px solid #d9d9d9;
@@ -173,7 +174,6 @@
 }
 .thirdCol {
   margin-top: 20px;
-  padding: 0 40px;
 }
 .MoneyRaised {
   width: 100%;
@@ -187,7 +187,6 @@
 }
 .submitButton {
   display: flex;
-  margin-right: 2.5em;
   justify-content: flex-end;
 }
 .formButton {
@@ -211,4 +210,26 @@
 .thirdCol span span {
   color: #9f9595;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 767px) {
+  .aside {
+    flex-direction: column;
+  }
+  .rightAside {
+    width: 100%;
+  }
+  .mainCol {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .FundraisingTarget {
+    min-width: 300px;
+  }
+  .secondCol {
+    padding-top: 10px;
+  }
+  .thirdCol {
+    padding-top: 20px;
+  }
 }

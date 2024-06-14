@@ -9,6 +9,7 @@ export default function Footer() {
   return (
     <footer className={styles.mainFooter}>
       <div className={styles.upperFooter}>
+        <div className={styles.mobileSec}>
         <div className={styles.aboutUs}>
           <h3>About Us</h3>
           <p className={styles.aboutCompany}>
@@ -49,6 +50,30 @@ export default function Footer() {
               className={styles.aboutUsLink}
             >
               <i className={`fa-regular  fa-circle-dot }`}></i> Our FAQs
+            </Link>
+          </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/privacy-policy/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Privacy Policy
+            </Link>
+          </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/refund-policy-cancellation-policy/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Refund Policy / Cancellation Policy
+            </Link>
+          </p>
+          <p className={styles.aboutCompany}>
+            <Link
+              href="https://supportourheroes.in/terms-and-conditions/"
+              className={styles.aboutUsLink}
+            >
+              <i className={`fa-regular  fa-circle-dot }`}></i> Terms And Conditions
             </Link>
           </p>
         </div>
@@ -101,12 +126,14 @@ export default function Footer() {
             UPI ID - supportourheroes.62349310@hdfcbank
           </p>
         </div>
+        </div>
       </div>
       <div className={styles.lowerFooter}>
         <p className={styles.headline}>
           SUPPORT OUR HEROES a Trust registered under Section 60 of Indian
-          Trusts Act, 1882. Registration no. 246/2017.
+          Trusts Act, 1882. <span className={styles.registerationDetail}>Registration no. 246/2017.</span>
         </p>
+        <p className={styles.mobileRegisteration}>Registration no. 246/2017.</p>
         <p className={styles.headlinePolicy}>
           All donations are permitted a 50% exemption from tax under section 80G
           (5)(vi) of Income Tax   

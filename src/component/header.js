@@ -65,6 +65,7 @@ export default function Header() {
           />
         </Link>
       </div>
+      <div className={styles.contentBar}>
       <nav className={styles.headerNav}>
         <ul className={styles.headerUL}>
           <li className={styles.headerLi}>
@@ -82,7 +83,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 Projects
-                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
+                <i className={`fa-solid fa-angle-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link
@@ -115,6 +116,12 @@ export default function Header() {
                 >
                   Project INSANIYAT
                 </Link>
+                <Link
+                  href="https://supportourheroes.in/project-pithu/"
+                  className={styles.dropdownProject}
+                >
+                  Wg Cdr Vinod Nebb Memorial Scholarship
+                </Link>
               </div>
             </div>
           </li>
@@ -122,7 +129,7 @@ export default function Header() {
             <div className={styles.dropdown}>
               <button className={`${styles.dropbtn} ${styles.navlink}`}>
                 About Us
-                <i className={`fa fa-caret-down ${styles.downIcon}`}></i>
+                <i className={`fa-solid fa-angle-down ${styles.downIcon}`}></i>
               </button>
               <div className={`${styles["dropdown-content"]}`}>
                 <Link
@@ -255,6 +262,7 @@ export default function Header() {
         )}
 
         <i className={`fa-solid  fa-bars ${styles.headerIcon}`}></i>
+      </div>
       </div>
     </header>
   );
