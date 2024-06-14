@@ -63,7 +63,12 @@ export default function FundraiserPage() {
             <div className={styles.rightmain}>
               <div className={styles.mainbox}>
                 <div className={styles.box}>
-                  <Image src="/images/coins-hand.svg" width={58} height={58} />
+                  <Image
+                    src="/images/coins-hand.svg"
+                    unoptimized
+                    width={58}
+                    height={58}
+                  />
                   <p>
                     <span> &#8377; {allData.totalDonations}/-</span>
                     <span>Total Donation</span>

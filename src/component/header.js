@@ -61,6 +61,7 @@ export default function Header() {
             src="/images/ProjectLogo.png"
             className={styles.logoImg}
             height="100"
+            unoptimized
             width="100"
           />
         </Link>
@@ -204,6 +205,7 @@ export default function Header() {
                         : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}`
                     }
                     width="40"
+                      unoptimized
                     height="40"
                     alt="profile"
                   />

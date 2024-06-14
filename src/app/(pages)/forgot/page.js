@@ -117,6 +117,7 @@ const DefaultResetPassword = () => {
                       alt="Indian Flag Tricolor"
                       height="120"
                       width="366"
+                      unoptimized
                     />
                   </div>
                   <div className={styles.lowerForm}>
@@ -270,6 +271,7 @@ const DefaultResetPassword = () => {
                       className={styles.w100}
                       alt="Indian Flag Tricolor"
                       height="120"
+                      unoptimized
                       width="366"
                     />
                   </div>

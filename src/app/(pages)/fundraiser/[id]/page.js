@@ -329,6 +329,7 @@ export default function page({ params }) {
                 width="200"
                 height="200"
                 className={styles.userImg}
+                unoptimized
               />
               <p className={styles.fundraiserName}>{fundraiser?.firstName} </p>
             </div>

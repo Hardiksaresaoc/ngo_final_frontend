@@ -180,8 +180,7 @@ export default function Page() {
                       className={styles.galleryImg}
                       height="230"
                       width="300"
-                      unoptimized={false}
-                      onClick={() => {
+                       onClick={() => {
                         Swal.fire({
                           imageUrl:
                             `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}` ? (

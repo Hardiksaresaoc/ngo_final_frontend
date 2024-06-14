@@ -170,6 +170,7 @@ const LoginPage = () => {
                   className={styles.w100}
                   alt="Indian Flag Tricolor"
                   height="120"
+                  unoptimized
                   width="366"
                 />
               </div>

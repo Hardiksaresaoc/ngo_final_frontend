@@ -58,7 +58,6 @@ export default function Page() {
       setDOB(fundraiser?.dob || "");
       setPan(fundraiser?.pan || "");
       setProfileImage(fundraiser.profileImage);
-      console.log("img", fundraiser);
 
       // || "/images/profile.jpeg");
     }
@@ -436,7 +435,7 @@ export default function Page() {
                 <img
                   id="blah"
                   src={
-                    profileImage
+                    !imagePreview
                       ? `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
                       : imagePreview
                   }

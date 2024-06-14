@@ -8,6 +8,7 @@ import useAuth from "@/context/auth";
 import Cookies from "js-cookie";
 import Loading from "@/app/loading";
 import { showSwal } from "@/validation";
+import Header from "@/component/header";
 
 export default function Update() {
   const { user } = useAuth("FUNDRAISER");
@@ -57,7 +58,7 @@ export default function Update() {
         data,
         config
       );
-      fetchData();
+      fundraiserCtx.fetchData();
       showSwal("success", "Done", "Update Succesfully!!");
     } catch (error) {
       console.error("Error submitting form:", error);

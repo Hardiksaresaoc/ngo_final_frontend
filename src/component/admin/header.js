@@ -46,6 +46,7 @@ export default function Header() {
         <Image
           priority
           src="/images/ProjectLogo.png"
+                      unoptimized
           alt="Webpage Logo"
           className={styles.logoImg}
           height="100"
@@ -64,6 +65,7 @@ export default function Header() {
               // src={!user.profileImage?(/images/profile) : (user.profileImage)}
               src={defaultProfileImage}
               alt="profile"
+                      unoptimized
               width="40"
               height="40"
             />

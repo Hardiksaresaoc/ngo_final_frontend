@@ -76,7 +76,8 @@
 }
 .lowerPart p a {
   text-decoration: none;
-  list-style: none;
+  border: none;
+
   color: #fff;
   font-weight: 500;
   margin-left: 5px;
