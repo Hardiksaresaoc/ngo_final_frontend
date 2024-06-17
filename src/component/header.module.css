@@ -195,6 +195,10 @@
 
 /* profile */
 
+.profileimg {
+  margin-right: 30px;
+}
+
 .profileimg img {
   border: 2px solid #252988;
   border-radius: 100%;
@@ -218,6 +222,7 @@
   font-family: Arial, sans-serif;
   border: none;
   z-index: 1;
+  display: none;
 }
 
 .profileimg .selected-option {
@@ -286,7 +291,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 8px;
+    gap: 20px;
     font-family: "Roboto", sans-serif;
     padding-right: 10px;
   }
@@ -304,7 +309,9 @@
   .head .headerBtn .innerBtn:hover .headerIcon {
     color: #e1960a;
   }
-
+  .profileimg {
+    margin: 0;
+  }
   .sidebar {
     position: fixed;
     top: 0;
