@@ -25,8 +25,7 @@ export default function Page() {
   const [modalImage, setModalImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [imagesPerPage] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 9;
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -52,10 +51,6 @@ export default function Page() {
     }
   }, [fundraiserCtx.fundraiser]);
 
-  // useEffect(() => {
-  //   fundraiserCtx.fetchData();
-  // }, [currentPage, fundraiserCtx.fundraiser]);
-
   const handleFileUpload = async () => {
     try {
       const formData = new FormData();
@@ -80,8 +75,6 @@ export default function Page() {
       setIsSubmitDisabled(true);
       showSwal("success", "Uploaded", "Images Uploaded Successfully");
       fundraiserCtx.fetchData();
-
-      // fetchGalleryImages(currentPage);
     } catch (error) {
       console.error("Error uploading files:", error);
       showSwal(
@@ -111,18 +104,12 @@ export default function Page() {
       if (response.status == 200 || response.status == 201) {
         showSwal("success", "Deleted", "Image Deleted Successfully");
         fundraiserCtx.fetchData();
-
-        // fetchGalleryImages(currentPage);
       }
     } catch (error) {
       showSwal("error", "error!", "Try Again");
 
       console.error("Error deleting image:", error);
     }
-  };
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
   };
 
   const openModal = (image) => {
@@ -133,6 +120,25 @@ export default function Page() {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const indexOfLastImage = currentPage * itemsPerPage;
+  const indexOfFirstImage = indexOfLastImage - itemsPerPage;
+  const currentImages = fundraiserCtx.fundraiser?.gallery?.slice(
+    indexOfFirstImage,
+    indexOfLastImage
+  );
+
+  const pageNumbers = [];
+  for (
+    let i = 1;
+    i <=
+    Math.ceil((fundraiserCtx.fundraiser?.gallery?.length || 0) / itemsPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
 
   return !user && loading ? (
     <Loading />
@@ -172,7 +178,7 @@ export default function Page() {
                 </div>
               </div>
               <div className={styles.row}>
-                {fundraiserCtx.fundraiser?.gallery?.map((image, index) => (
+                {currentImages?.map((image, index) => (
                   <div key={index} className={styles.galleryImage}>
                     <Image
                       src={`${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}`}
@@ -183,18 +189,24 @@ export default function Page() {
                       unoptimized={false}
                       onClick={() => {
                         Swal.fire({
-                          imageUrl:
-                            `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}` ? (
-                              `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}`
-                            ) : (
-                              <Loading />
-                            ),
-                          imageHeight: 500,
-                          imageAlt: "A tall image",
+                          html: `<img src="${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}" style="object-fit: contain; width: 100%; height: 500;" alt="A tall image">`,
                           showCloseButton: true,
                         });
+                        // Swal.fire({
+                        //   imageUrl:
+                        //     `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}` ? (
+                        //       `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/fundraiser-page/${image.image_url}`
+                        //     ) : (
+                        //       <Loading />
+                        //     ),
+                        //   imageHeight: 500,
+                        //   customClass: {
+                        //     image: "swal2-image",
+                        //   },
+                        //   imageAlt: "A tall image",
+                        //   showCloseButton: true,
+                        // });
                       }}
-                      // onClick={() => openModal(image)}
                     />
                     <a
                       type="button"
@@ -207,15 +219,17 @@ export default function Page() {
                 ))}
               </div>
               <div className={styles.pagination}>
-                {Array.from({ length: totalPages }, (_, i) => (
+                {pageNumbers.map((number) => (
                   <button
-                    key={i}
-                    className={`${styles.paginationButton} ${
-                      currentPage === i + 1 ? styles.active : ""
-                    }`}
-                    onClick={() => handlePageChange(i + 1)}
+                    key={number}
+                    onClick={() => paginate(number)}
+                    className={
+                      number === currentPage
+                        ? `${styles.pageLink} ${styles.activePage}`
+                        : styles.pageLink
+                    }
                   >
-                    {i + 1}
+                    {number}
                   </button>
                 ))}
               </div>
@@ -225,26 +239,36 @@ export default function Page() {
           <Loading />
         )}
       </aside>{" "}
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+      <Modal
+        className={styles.mainModal}
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+      >
         <div className={styles.modalContent}>
-          {previewURLs.map((url, index) => (
-            <img
-              key={index}
-              src={url}
-              alt={`Selected image ${index}`}
-              className={styles.modalImage}
-            />
-          ))}
-          <button
-            onClick={handleFileUpload}
-            className={styles.uploadButton}
-            disabled={isSubmitDisabled}
-          >
-            Upload All
-          </button>
-          <button onClick={closeModal} className={styles.closeModal}>
-            Close
-          </button>
+          <h1>Selected Images</h1>
+
+          <div className={styles.imageModal}>
+            {previewURLs.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                alt={`Selected image ${index}`}
+                className={styles.modalImage}
+              />
+            ))}
+          </div>
+          <div className={styles.button}>
+            <button
+              onClick={handleFileUpload}
+              className={styles.uploadButton}
+              disabled={isSubmitDisabled}
+            >
+              Upload All
+            </button>
+            <button onClick={closeModal} className={styles.closeModal}>
+              Close
+            </button>
+          </div>
         </div>
       </Modal>
     </>
