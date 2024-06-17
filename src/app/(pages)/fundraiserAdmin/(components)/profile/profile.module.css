@@ -4,7 +4,7 @@
   flex-direction: row;
 }
 .leftSection {
-  width: 20%;
+  width: 25%;
   height: 100vh;
   border: 1px solid lightgray;
   padding: 24px 4px;
@@ -34,7 +34,7 @@
   color: #fff;
 }
 .rightSection {
-  width: 80%;
+  width: 75%;
   margin: 24px;
 }
 .rightSection .accountDetails {
@@ -64,7 +64,7 @@
 .secondpersonalDetail input,
 .thirdpersonalDetail input,
 .fourthpersonalDetail input, .selectNation {
-  min-width: 370px;
+  min-width: 300px;
   width: 100%;
   height: 40px;
   padding: 8px 12px;
@@ -92,13 +92,13 @@ input#DOB {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  padding: 0 16px;
 }
 .fundButton {
   padding: 10px 20px;
   height: 45px;
   min-width: 95px;
-  border: 1px solid #79747e;
+  border: none;
+  outline: none;
   border-radius: 8px;
   color: #fff;
   background-color: #010080;
@@ -107,9 +107,65 @@ input#DOB {
 }
 
 .formButton .fundButton.donorButton {
+  border: 1px solid #79747e;
   background-color: #fff;
   color: #505050;
 }
 .compulsory {
   color: #ff0000;
+}
+@media only screen and (max-width: 320px) {
+  .mainSection {
+    flex-direction: column;
+  }
+  .leftSection {
+    width: 100%;
+    height: fit-content;
+  }
+  .rightSection {
+    width: 100%;
+    margin: 0;
+    padding: 40px 20px;
+  }
+  .firstpersonalDetail,
+.secondpersonalDetail,
+.thirdpersonalDetail,
+.fourthpersonalDetail {
+  flex-direction: column;
+  gap: 25px;
+}
+.firstpersonalDetail input,
+.secondpersonalDetail input,
+.thirdpersonalDetail input,
+.fourthpersonalDetail input, .selectNation {
+  min-width: 250px;
+}
+.formButton {
+  padding-top: 30px;
+}
+}
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  .mainSection {
+    flex-direction: column;
+  }
+  .leftSection {
+    width: 100%;
+    height: fit-content;
+  }
+  .rightSection {
+    width: 100%;
+    margin: 0;
+    padding: 40px 20px;
+  }
+  .firstpersonalDetail,
+.secondpersonalDetail,
+.thirdpersonalDetail,
+.fourthpersonalDetail {
+  flex-direction: column;
+  gap: 25px;
+}
+.formButton {
+  padding-top: 30px;
+}
 }
