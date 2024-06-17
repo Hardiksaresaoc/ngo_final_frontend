@@ -204,9 +204,6 @@
   height: auto;
 }
 
-  margin-bottom: 20px;
-}
-
 @media only screen and (max-width: 320px) {
   .aside {
     flex-direction: column;
@@ -232,7 +229,7 @@
     flex-direction: column;
     padding-left: 5px;
     padding-top: 60px;
-    gap: 60px;  
+    gap: 60px;
   }
   .delete {
     left: 15.5em;
@@ -264,7 +261,7 @@
     flex-direction: column;
     padding-left: 40px;
     padding-top: 60px;
-    gap: 60px;  
+    gap: 60px;
   }
   .delete {
     left: 15.5em;
