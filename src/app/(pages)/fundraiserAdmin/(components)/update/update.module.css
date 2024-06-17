@@ -211,8 +211,28 @@
   color: #9f9595;
   font-weight: 400;
 }
-
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 320px) {
+  .aside {
+    flex-direction: column;
+  }
+  .rightAside {
+    width: 100%;
+  }
+  .mainCol {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .FundraisingTarget {
+    min-width: 240px;
+  }
+  .secondCol {
+    padding-top: 10px;
+  }
+  .thirdCol {
+    padding-top: 20px;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 767px) {
   .aside {
     flex-direction: column;
   }
