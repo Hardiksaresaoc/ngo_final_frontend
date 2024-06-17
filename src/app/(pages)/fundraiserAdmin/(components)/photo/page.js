@@ -263,7 +263,7 @@ export default function Page() {
               className={styles.uploadButton}
               disabled={isSubmitDisabled}
             >
-              Upload All
+              Upload
             </button>
             <button onClick={closeModal} className={styles.closeModal}>
               Close

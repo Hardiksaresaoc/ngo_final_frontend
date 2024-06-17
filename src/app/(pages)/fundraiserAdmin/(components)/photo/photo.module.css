@@ -234,6 +234,33 @@
   .delete {
     left: 15.5em;
   }
+  .modalContent {
+    margin: 0px;
+    padding: 0px;
+  }
+  .imageModal {
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-columns: 300px;
+    grid-template-rows: auto;
+    row-gap: 10px;
+  }
+  .button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    padding-bottom: 30px;
+    gap: 10px;
+  }
+  .button button {
+    margin: auto;
+  }
+  .modalContent h1 {
+    text-align: center;
+  }
 }
 
 @media only screen and (min-width: 321px) and (max-width: 767px) {
@@ -265,5 +292,32 @@
   }
   .delete {
     left: 15.5em;
+  }
+  .modalContent {
+    margin: 0px;
+    padding: 0px;
+  }
+  .imageModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+  }
+  .modalContent h1 {
+    text-align: center;
+  }
+  .button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+
+    padding-bottom: 30px;
+    gap: 10px;
+  }
+  .button button {
+    margin: auto;
   }
 }
