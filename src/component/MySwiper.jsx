@@ -6,8 +6,9 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "./swiper.css";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
-const MySwiper = ({ style, image }) => {
+const MySwiper = ({ image }) => {
   let sliderConfig = {
     spaceBetween: 10,
     navigation: true,
@@ -47,7 +48,6 @@ const MySwiper = ({ style, image }) => {
       {...sliderConfig}
       className="mainSwiper"
       modules={[Autoplay, Navigation]}
-      // style={{ display: "flex", justifyContent: "space-between" }}
     >
       {image &&
         image.map((image, index) => (
@@ -58,6 +58,8 @@ const MySwiper = ({ style, image }) => {
                 style={{ marginTop: "41px" }}
                 alt={`Slide ${index + 1}`}
               />
+
+              <FaMagnifyingGlass className="magnify" />
             </a>
           </SwiperSlide>
         ))}
@@ -93,6 +95,7 @@ export const MySwiperTeamMember = ({ styles, teamData }) => {
         spaceBetween: 2,
       },
       1024: {
+        slidesPerGroup: 3,
         slidesPerView: 3,
         spaceBetween: 2,
       },

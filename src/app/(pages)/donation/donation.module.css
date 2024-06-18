@@ -306,7 +306,7 @@
 .pNumber,
 .gCerti,
 .panNo,
-.address {
+.donor_address {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -315,7 +315,7 @@
 .email label,
 .pNumber label,
 .panNo label,
-.address label {
+.donor_address label {
   font-size: 16px;
   font-weight: 600;
   line-height: 19px;
@@ -324,7 +324,7 @@
 .email input,
 .pNumber input,
 .panNo input,
-.address input {
+.donor_address input {
   padding: 12px 20px;
   width: 100%;
   min-height: 48px;
@@ -531,7 +531,31 @@
 .shareIcon:hover {
   transform: scale(1.1);
 }
+.socialMedia .shareIcon {
+  height: 40px;
+  width: 40px;
+}
+.socialMedia {
+  display: flex;
+  gap: 15px;
+}
 @media only screen and (max-width: 320px) {
+  .mainSection h2 {
+    padding: 10px;
+  }
+  .supportHeroesContent p {
+    font-size: 18px;
+  }
+  .mainSection p {
+    padding-right: 11px;
+    padding-left: 13px;
+  }
+  .supportHeroesContent p {
+    font-size: 18px;
+  }
+  .content p {
+    font-size: 18px;
+  }
   .upperPortion {
     flex-direction: column;
     padding: 60px 16px;
@@ -605,6 +629,19 @@
 }
 
 @media only screen and (min-width: 321px) and (max-width: 400px) {
+  .mainSection h2 {
+    padding: 10px;
+  }
+  .supportHeroesContent p {
+    font-size: 18px;
+  }
+  .mainSection p {
+    padding-right: 9px;
+    padding-left: 13px;
+  }
+  z .content {
+    font-size: 18px;
+  }
   .upperPortion {
     flex-direction: column;
     padding: 60px 16px;
@@ -676,16 +713,18 @@
     flex-direction: column;
   }
 }
-.socialMedia .shareIcon {
-  height: 40px;
-  width: 40px;
-}
-.socialMedia {
-  display: flex;
-  gap: 15px;
-}
 
 @media only screen and (min-width: 401px) and (max-width: 767px) {
+  .mainSection h2 {
+    padding: 10px;
+  }
+  .mainSection p {
+    padding-right: 9px;
+    padding-left: 13px;
+  }
+  .content {
+    font-size: 18px;
+  }
   .upperPortion {
     flex-direction: column;
     padding: 60px 16px;

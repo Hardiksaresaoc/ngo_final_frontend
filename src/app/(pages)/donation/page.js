@@ -3,9 +3,16 @@ import styles from "./donation.module.css";
 import { useState } from "react";
 import axios from "axios";
 import Right from "./right";
-import { FacebookShareButton, LinkedinShareButton, TwitterShareButton, WhatsappShareButton } from "react-share";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 import { FaFacebook, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { MdOutlineMail } from "react-icons/md";
 
 export default function Page() {
   const images = [
@@ -16,7 +23,7 @@ export default function Page() {
     "/images/ArmyEducationalCorps.jpeg",
     "/images/SainikWelfareAndhraPradesh.jpeg",
   ];
-  const shareURL ="x"
+  const shareURL = "x";
 
   const teamData = [
     {
@@ -62,8 +69,8 @@ export default function Page() {
     lastName: "",
     donor_email: "",
     donor_phone: "",
-    panNumber: "",
-    address: "",
+    pan: "",
+    donor_address: "",
     amount: 0,
   });
 
@@ -80,16 +87,16 @@ export default function Page() {
   const validateForm = () => {
     const newErrors = {};
     if (formData.amount <= 0) {
-      newErrors.amount = "Amount must be a positive number.";
+      newErrors.amount = "Invalid Amount";
     }
     if (!formData.donor_first_name.trim()) {
-      newErrors.donor_first_name = "First name is required.";
+      newErrors.donor_first_name = "Please enter first name.";
     }
     if (
       !formData.donor_email.trim() ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.donor_email)
     ) {
-      newErrors.donor_email = "Valid email is required.";
+      newErrors.donor_email = "Please enter valid email.";
     }
     if (
       !formData.donor_phone.trim() ||
@@ -98,15 +105,19 @@ export default function Page() {
       newErrors.donor_phone = "Mobile Number must be 10 digits";
     }
     if (want80GCertificate) {
-      if (!formData.panNumber.trim()) {
-        newErrors.panNumber = "PAN number is required for 80G certificate.";
+      if (!formData.pan.trim()) {
+        newErrors.pan = "PAN number is required for 80G certificate.";
       }
-      if (!formData.address.trim()) {
-        newErrors.address = "Address is required for 80G certificate.";
+      if (!formData.donor_address.trim()) {
+        newErrors.donor_address =
+          "donor_address is required for 80G certificate.";
       }
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+  const formatAmountWithCommas = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const handleChange = (e) => {
@@ -119,12 +130,10 @@ export default function Page() {
 
   const handleDonationOptionChange = (e) => {
     setDonationOption(e.target.value);
-    // if (e.target.value !== "donateAnyAmount") {
     setFormData({
       ...formData,
-      amount: 0,
+      amount: e.target.value === "donateAnyAmount" ? 0 : formData.amount,
     });
-    // } else {
     setSelectedCheckboxes([]);
     setCheckboxCounts({
       schoolFees: 0,
@@ -132,7 +141,6 @@ export default function Page() {
       ration: 0,
     });
   };
-  // };
 
   const handle80GCertificateChange = (e) => {
     setWant80GCertificate(e.target.value === "yes");
@@ -146,10 +154,7 @@ export default function Page() {
       ration: 1250,
     };
 
-    if (
-      checked
-      // && donationOption !== "donateProjects"
-    ) {
+    if (checked) {
       setDonationOption("donateProjects");
     }
 
@@ -163,8 +168,7 @@ export default function Page() {
     setFormData((prevData) => {
       const newAmount = checked
         ? prevData.amount + amountMap[id] * (checkboxCounts[id] + 1)
-        : prevData.amount > 0 &&
-          (prevData.amount - amountMap[id]) * checkboxCounts[id];
+        : prevData.amount - amountMap[id] * checkboxCounts[id];
       return { ...prevData, amount: newAmount };
     });
 
@@ -173,7 +177,6 @@ export default function Page() {
       [id]: checked ? 1 : 0,
     }));
   };
-  // console.log(formData.amount);
 
   const incrementCount = (id) => {
     const amountMap = {
@@ -203,7 +206,7 @@ export default function Page() {
       const newCount = Math.max(0, prevCounts[id] - 1);
       setFormData((prevData) => ({
         ...prevData,
-        amount: prevData.amount - (prevCounts[id] > 0 ? amountMap[id] : 0),
+        amount: prevData.amount - amountMap[id],
       }));
       return { ...prevCounts, [id]: newCount };
     });
@@ -215,14 +218,19 @@ export default function Page() {
       return;
     }
 
+    const donation_activity = {};
+    selectedCheckboxes.forEach((id) => {
+      donation_activity[id] = checkboxCounts[id];
+    });
+
     const dataToSend = {
       ...formData,
       amount: parseFloat(formData.amount).toFixed(2),
-      selectedCheckboxes,
+      donation_activity,
     };
     if (!want80GCertificate) {
-      delete dataToSend.panNumber;
-      delete dataToSend.address;
+      delete dataToSend.pan;
+      delete dataToSend.donor_address;
     }
 
     try {
@@ -316,7 +324,12 @@ export default function Page() {
                   type="text"
                   className={styles.amount}
                   name="amount"
-                  value={formData.amount}
+                  value={
+                    donationOption === "donateAnyAmount" &&
+                    formData.amount === 0
+                      ? ""
+                      : formData.amount
+                  }
                   onChange={handleChange}
                   placeholder="Enter amount"
                   disabled={donationOption !== "donateAnyAmount"}
@@ -554,7 +567,7 @@ export default function Page() {
                 </div>
               </div>
               <div className={styles.email}>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email*</label>
                 <input
                   type="email"
                   id="email"
@@ -569,7 +582,7 @@ export default function Page() {
                 )}
               </div>
               <div className={styles.pNumber}>
-                <label htmlFor="phoneNumber">Phone Number</label>
+                <label htmlFor="phoneNumber">Phone Number*</label>
                 <input
                   type="text"
                   id="phoneNumber"
@@ -618,32 +631,32 @@ export default function Page() {
               {want80GCertificate && (
                 <>
                   <div className={styles.panNo}>
-                    <label htmlFor="panNumber">PAN No.*</label>
+                    <label htmlFor="pan">PAN No.*</label>
                     <input
                       type="text"
-                      id="panNumber"
-                      name="panNumber"
-                      value={formData.panNumber}
+                      id="pan"
+                      name="pan"
+                      value={formData.pan}
                       onChange={handleChange}
                     />
-                    {errors.panNumber && (
+                    {errors.pan && (
                       <span className={styles.error} style={{ color: "red" }}>
-                        {errors.panNumber}
+                        {errors.pan}
                       </span>
                     )}
                   </div>
-                  <div className={styles.address}>
-                    <label htmlFor="address">Address*</label>
+                  <div className={styles.donor_address}>
+                    <label htmlFor="donor_address">Address*</label>
                     <input
                       type="text"
-                      id="address"
-                      name="address"
-                      value={formData.address}
+                      id="donor_address"
+                      name="donor_address"
+                      value={formData.donor_address}
                       onChange={handleChange}
                     />
-                    {errors.address && (
+                    {errors.donor_address && (
                       <span className={styles.error} style={{ color: "red" }}>
-                        {errors.address}
+                        {errors.donor_address}
                       </span>
                     )}
                   </div>
@@ -651,7 +664,7 @@ export default function Page() {
               )}
               <div className={styles.donationBtn}>
                 <button type="submit" className={styles.donateBtn}>
-                  Donate &nbsp; ₹ {formData.amount}
+                  Donate &nbsp; ₹{formatAmountWithCommas(formData.amount)}
                 </button>
               </div>
             </form>
@@ -716,6 +729,9 @@ export default function Page() {
             <WhatsappShareButton url={shareURL}>
               <FaWhatsapp color="#25D366" className={styles.shareIcon} />
             </WhatsappShareButton>
+            <EmailShareButton url={shareURL}>
+              <img src="/images/gmail.svg" className={styles.shareIcon} />
+            </EmailShareButton>
           </div>
         </section>
       </main>
