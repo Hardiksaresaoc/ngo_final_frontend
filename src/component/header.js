@@ -30,12 +30,14 @@ export default function Header() {
     if (token) {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
-      setProfileImage(decodedToken.profileImage);
     } else {
       setUser(null);
     }
   }, [Cookies.get("token")]);
-
+  useEffect(() => {
+    const profile = localStorage.getItem("profile");
+    setProfileImage(profile);
+  }, []);
   const handleLogout = (e) => {
     showSwal("info", "Logging Out", "Please wait...", "", false);
 
@@ -199,14 +201,15 @@ export default function Header() {
                 >
                   <Image
                     src={
-                      `${fundraiserCtx?.fundraiser?.profileImage}` ==
-                      "undefined"
+                      profileImage == "undefined"
                         ? "/images/profile.jpeg"
-                        : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${fundraiserCtx?.fundraiser?.profileImage}`
+                        : `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/profile-image/${profileImage}`
                     }
                     width="40"
                     height="40"
                     alt="profile"
+                    unoptimized
+                    style={{objectFit:"cover"}}
                   />
                   {!isopen ? (
                     <div className={`${styles["custom-dropdown"]}`}>

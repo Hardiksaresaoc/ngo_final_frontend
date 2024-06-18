@@ -44,7 +44,10 @@ export default function FundraiserContextData({ children }) {
       fetchData();
     }
   }, [token]);
-
+  useEffect(() => {
+    const profile = fundraiser?.fundraiser?.profileImage;
+    localStorage.setItem("profile", profile);
+  }, [fundraiser]);
   return (
     <FundraiserContext.Provider value={{ fundraiser, fetchData }}>
       {children}

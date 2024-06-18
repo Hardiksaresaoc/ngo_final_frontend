@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Country, State, City } from "country-state-city";
 import styles from "./profile.module.css";
+import { showSwal } from "@/validation";
 
 export default function Page() {
   const { user } = useAuth("FUNDRAISER");
@@ -23,7 +24,7 @@ export default function Page() {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [pincode, setPincode] = useState("");
+  const [pincode, setPincode] = useState(null);
   const [token, setToken] = useState("");
   const [number, setNumber] = useState("");
   const [image, setImage] = useState();
@@ -43,39 +44,43 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    const fundraiser = fundraiserCtx.fundraiser;
+    const fundraiser = fundraiserCtx?.fundraiser?.fundraiser;
     if (fundraiser) {
-      setFirstName(fundraiser.firstName || "");
-      setLastName(fundraiser.lastName || "");
-      setEmail(fundraiser.email || "");
-      setAddress(fundraiser.address || "");
-      setState(fundraiser.state || "");
-      setCity(fundraiser.city || "");
-      setCountry(fundraiser.country || "");
-      setPincode(fundraiser.pincode || "");
-      setNumber(fundraiser.mobile_number || "");
-      setDOB(fundraiser.dob || "");
-      setPan(fundraiser.pan || "");
-      setProfileImage(fundraiser.profileImage || "/images/profile.jpeg");
+      setFirstName(fundraiser?.firstName || "");
+      setLastName(fundraiser?.lastName || "");
+      setEmail(fundraiser?.email || "");
+      setAddress(fundraiser?.address || "");
+      setState(fundraiser?.state || "");
+      setCity(fundraiser.fundraiser?.city || "");
+      setCountry(fundraiser?.country || "");
+      setPincode(fundraiser?.pincode || "");
+      setNumber(fundraiser?.mobile_number || "");
+      setDOB(fundraiser?.dob || "");
+      setPan(fundraiser?.pan || "");
+      setProfileImage(fundraiser?.profileImage || "/images/profile.jpeg");
     }
   }, [fundraiserCtx.fundraiser]);
 
   useEffect(() => {
     setCountries(Country.getAllCountries());
   }, []);
-  useEffect(() => {
-    if (state) {
-      setCities(City.getCitiesOfState(country, state));
-    }
-  }, [state, country]);
 
   useEffect(() => {
     if (country) {
       setStates(State.getStatesOfCountry(country));
+    } else {
+      setStates([]);
     }
   }, [country]);
-
+  useEffect(() => {
+    if (state) {
+      setCities(City.getCitiesOfState(country, state));
+    } else {
+      setCities([]);
+    }
+  }, [state, country]);
   const handleUpdate = async (e) => {
+    showSwal("info", "Updating", "Please wait...", null, false);
     e.preventDefault();
 
     try {
@@ -102,16 +107,18 @@ export default function Page() {
         Object.entries(formData).filter(([_, v]) => v)
       );
 
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
-        filteredFormData,
-        config
-      );
-
-      showSwal("success", "Updated", "Updated  Successfully!!");
+      const response = await axios
+        .put(
+          `${process.env.NEXT_PUBLIC_serverAPI}/fundRaiser/update`,
+          filteredFormData,
+          config
+        )
+        .then(showSwal("success", "Updated", "Updated  Successfully!!"));
     } catch (err) {
       showSwal("error", "Error", `${err.response.data.message}`);
     }
+
+    Swal.close();
   };
 
   const handleImageUpload = async (e) => {
@@ -161,17 +168,17 @@ export default function Page() {
   };
 
   const reset = () => {
-    setFirstName(fundraiserCtx.fundraiser?.firstName || "");
-    setLastName(fundraiserCtx.fundraiser?.lastName || "");
-    setEmail(fundraiserCtx.fundraiser?.email || "");
-    setAddress(fundraiserCtx.fundraiser?.address || "");
-    setState(fundraiserCtx.fundraiser?.state || "");
-    setCity(fundraiserCtx.fundraiser?.city || "");
-    setCountry(fundraiserCtx.fundraiser?.country || "");
-    setPincode(fundraiserCtx.fundraiser?.pincode || "");
-    setNumber(fundraiserCtx.fundraiser?.mobile_number || "");
-    setDOB(fundraiserCtx.fundraiser?.dob || "");
-    setPan(fundraiserCtx.fundraiser?.pan || "");
+    setFirstName(fundraiserCtx.fundraiser?.fundraiser?.firstName || "");
+    setLastName(fundraiserCtx.fundraiser?.fundraiser?.lastName || "");
+    setEmail(fundraiserCtx.fundraiser?.fundraiser?.email || "");
+    setAddress(fundraiserCtx.fundraiser?.fundraiser?.address || "");
+    setState(fundraiserCtx.fundraiser?.fundraiser?.state || "");
+    setCity(fundraiserCtx.fundraiser?.fundraiser?.city || "");
+    setCountry(fundraiserCtx.fundraiser?.fundraiser?.country || "");
+    setPincode(fundraiserCtx.fundraiser?.fundraiser?.pincode || "");
+    setNumber(fundraiserCtx.fundraiser?.fundraiser?.mobile_number || "");
+    setDOB(fundraiserCtx.fundraiser?.fundraiser?.dob || "");
+    setPan(fundraiserCtx.fundraiser?.fundraiser?.pan || "");
   };
 
   useEffect(() => {
@@ -200,7 +207,9 @@ export default function Page() {
 
   return user ? (
     <>
-      <TopHeader link={`${fundraiserCtx.fundraiser?.fundraiser_page?.id}`} />
+      <TopHeader
+        link={`${fundraiserCtx.fundraiser?.fundraiser?.fundraiser_page?.id}`}
+      />
       <section className={styles.mainSection}>
         <div className={styles.leftSection}>
           <a
@@ -289,7 +298,7 @@ export default function Page() {
                       >
                         <option value="">Select Country</option>
                         {countries.map((country) => (
-                          <option key={country.name} value={country.isoCode}>
+                          <option key={country.isoCode} value={country.isoCode}>
                             {country.name}
                           </option>
                         ))}
@@ -307,7 +316,7 @@ export default function Page() {
                       >
                         <option value="">Select State</option>
                         {states.map((state) => (
-                          <option key={state.name} value={state.name}>
+                          <option key={state.isoCode} value={state.isoCode}>
                             {state.name}
                           </option>
                         ))}
@@ -326,8 +335,9 @@ export default function Page() {
                         disabled={!state}
                       >
                         <option value="">Select City</option>
+
                         {cities.map((city) => (
-                          <option key={city.isoCode} value={city.name}>
+                          <option key={city.name} value={city.name}>
                             {city.name}
                           </option>
                         ))}
@@ -345,7 +355,8 @@ export default function Page() {
                             .replace(/\D/g, "")
                             .substring(0, 6);
                         }}
-                        onChange={(e) => setPincode(e.target.value)}
+                        onChange={(e) => setPincode(Number(e.target.value))}
+                        // onChange={(e) => setPincode(e.target.value)}
                         placeholder="Enter your pincode"
                       />
                     </span>
@@ -423,14 +434,19 @@ export default function Page() {
                 <Image
                   id="blah"
                   src={
-                    profileImage
-                      ? `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
-                      : imagePreview
+                    imagePreview
+                      ? imagePreview
+                      : `${process.env.NEXT_PUBLIC_serverAPI}/fundraiser/profile-image/${profileImage}`
                   }
                   alt="your image"
                   width={225}
                   height={225}
-                  style={{ borderRadius: "50%", marginBottom: "1em" }}
+                  unoptimized
+                  style={{
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginBottom: "1em",
+                  }}
                 />
 
                 <br />
