@@ -22,7 +22,7 @@
   color: #fff;
 }
 .sideBar {
-  padding: 16px 24px;
+  padding: 16px 19px;
   display: flex;
   align-items: center;
   border-radius: 8px;
@@ -76,6 +76,14 @@
   margin-top: 6px;
   outline: none;
 }
+.selectNation {
+  appearance: none;
+  position: relative;
+  background-image: url(/images/downIcon.png);
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  background-size: 25px;
+}
 input#DOB {
   width: 170px;
   color: #667085;
@@ -87,6 +95,12 @@ input#DOB {
 }
 .form input::placeholder {
   color: #667085;
+}
+.selectNation::placeholder {
+  color: #667085;
+}
+.DOB {
+  color: #667085 !important;
 }
 .formButton {
   display: flex;
