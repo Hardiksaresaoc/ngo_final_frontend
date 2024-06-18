@@ -240,7 +240,6 @@ export default function Page() {
                   <div className={styles.firstpersonalDetail}>
                     <span>
                       <span>First Name</span>
-                      <br />
                       <input
                         type="text"
                         name="firstName"
@@ -253,7 +252,6 @@ export default function Page() {
                     </span>
                     <span>
                       <span>Last Name</span>
-                      <br />
                       <input
                         type="text"
                         name="lastName"
@@ -265,14 +263,12 @@ export default function Page() {
                     </span>
                     <span>
                       <span>Email</span>
-                      <br />
                       <input type="email" name="email" value={email} disabled />
                     </span>
                   </div>
                   <div className={styles.secondpersonalDetail}>
                     <span>
                       <span>Address</span>
-                      <br />
                       <input
                         type="text"
                         name="address"
@@ -284,7 +280,6 @@ export default function Page() {
                     </span>
                     <span>
                       <span>Country</span>
-                      <br />
                       <select
                         name="country"
                         id="country"
@@ -302,7 +297,6 @@ export default function Page() {
                     </span>{" "}
                     <span>
                       <span>State</span>
-                      <br />
                       <select
                         name="state"
                         id="state"
@@ -323,7 +317,6 @@ export default function Page() {
                   <div className={styles.thirdpersonalDetail}>
                     <span>
                       <span>City</span>
-                      <br />
                       <select
                         name="city"
                         id="city"
@@ -342,7 +335,6 @@ export default function Page() {
                     </span>
                     <span>
                       <span>Pincode</span>
-                      <br />
                       <input
                         type="text"
                         name="pincode"
@@ -387,6 +379,7 @@ export default function Page() {
                         name="dob"
                         id="DOB"
                         value={dob}
+                        className={styles.DOB}
                         onChange={(e) => setDOB(e.target.value)}
                         placeholder="Enter your DOB"
                       />

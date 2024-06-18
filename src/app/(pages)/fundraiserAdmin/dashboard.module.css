@@ -10,7 +10,7 @@
 }
 .upperPortion {
   background-color: rgba(253, 137, 0, 0.1);
-  height: 215px;
+  min-height: 215px;
   display: flex;
   align-items: flex-start;
 }
@@ -34,29 +34,18 @@
   margin-top: -2.438rem;
 }
 
-.lowerPortion .totalRaise {
-  width: 18.75rem;
-  height: 8.75rem;
+.lowerPortion .totalRaise , .lowerPortion .totalDonors {
+  min-width: 18.75rem;
   border-radius: 1rem;
 }
-
-.lowerPortion .totalDonors {
-  width: 18.75rem;
-  height: 8.75rem;
-  border-radius: 1rem;
-}
-
 .totalRaise {
-  /* border: 3px solid #0000ff; */
   border: 3px solid transparent;
   border-radius: 16px;
   background: linear-gradient(to right, white, white),
     linear-gradient(to bottom, #000080, #9f959520);
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
-  /* border-image: linear-gradient(180deg, #000080 0%, #9F959520 80%);
-    border-image-slice: 1; */
-  padding: 15px;
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -86,15 +75,12 @@
   font-weight: 700;
 }
 .totalDonors {
-  /* border: 3px solid #008000; */
   border: 3px solid transparent;
   border-radius: 16px;
   background: linear-gradient(to right, white, white),
     linear-gradient(to bottom, #0fa900, #9f959520);
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
-  /* border-image: linear-gradient(180deg, #0FA900 0%, #9F959520 80%);
-    border-image-slice: 1; */
   min-width: 279px;
   padding: 15px 30px;
   display: flex;
@@ -126,7 +112,7 @@
     width: 100%;
   }
   .upperPortion {
-    height: 298px;
+    min-height: 298px;
   }
   .upperPortion h2 {
     padding: 40px 0 0 16px;
@@ -159,5 +145,8 @@
     flex-direction: column;
     padding-top: 60px;
     bottom: 135px;
+  }
+  .lowerPortion .totalRaise , .lowerPortion .totalDonors {
+    max-width: 300px;
   }
 }
