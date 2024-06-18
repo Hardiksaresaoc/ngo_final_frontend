@@ -162,6 +162,10 @@ const LoginPage = () => {
     <>
       <div className={styles.main}>
         <section className={styles.mainSection}>
+        <h1 className={styles.mobileTagline}>
+                Empower Fundraising Heroes: Your
+                Appeal Sparks Change!
+              </h1>
           <div className={styles.leftSection}>
             <form className={styles.mainForm} onSubmit={submithandler}>
               <div className={styles.formImg}>
