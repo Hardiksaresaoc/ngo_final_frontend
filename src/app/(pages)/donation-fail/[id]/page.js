@@ -24,46 +24,46 @@ export default function page({ params }) {
     fetchData();
   }, []);
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(12);
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(12);
 
-    // Adding the header with the image
-    const logo = new Image();
-    logo.src = "/images/logo.png"; // Path to your logo image
-    logo.onload = () => {
-      doc.addImage(logo, "PNG", 10, 10, 50, 20); // Adjust the position and size of the logo
-      doc.setFontSize(16);
-      doc.text("Donation Details", 70, 20);
+  //   // Adding the header with the image
+  //   const logo = new Image();
+  //   logo.src = "/images/logo.png"; // Path to your logo image
+  //   logo.onload = () => {
+  //     doc.addImage(logo, "PNG", 10, 10, 50, 20); // Adjust the position and size of the logo
+  //     doc.setFontSize(16);
+  //     doc.text("Donation Details", 70, 20);
 
-      const tableData = [
-        ["Transaction Status", "Failed"],
-        ["Transaction Reference Number", data.reference_payment || ""],
-        ["Transaction Date & Time", data.created_at || "--"],
-        ["Mode Of Payment", data.payment_method || "--"],
-        ["Email", data.donor_email || "--"],
-        ["Phone Number", data.donor_phone || "--"],
-        ["Payment Amount (₹)", data.amount || "--"],
-        ["Receipt", "Download Receipt"],
-      ];
+  //     const tableData = [
+  //       ["Transaction Status", "Failed"],
+  //       ["Transaction Reference Number", data.reference_payment || ""],
+  //       ["Transaction Date & Time", data.created_at || "--"],
+  //       ["Mode Of Payment", data.payment_method || "--"],
+  //       ["Email", data.donor_email || "--"],
+  //       ["Phone Number", data.donor_phone || "--"],
+  //       ["Payment Amount (₹)", data.amount || "--"],
+  //       ["Receipt", "Download Receipt"],
+  //     ];
 
-      let startY = 40;
-      tableData.forEach((row, index) => {
-        doc.text(row[0], 20, startY + index * 10);
-        doc.text(row[1], 100, startY + index * 10);
-      });
+  //     let startY = 40;
+  //     tableData.forEach((row, index) => {
+  //       doc.text(row[0], 20, startY + index * 10);
+  //       doc.text(row[1], 100, startY + index * 10);
+  //     });
 
-      // Adding the "Thank you for donation" message
-      doc.setFontSize(14);
-      doc.text(
-        "Thank you for your donation",
-        20,
-        startY + tableData.length * 10 + 20
-      );
+  //     // Adding the "Thank you for donation" message
+  //     doc.setFontSize(14);
+  //     doc.text(
+  //       "Thank you for your donation",
+  //       20,
+  //       startY + tableData.length * 10 + 20
+  //     );
 
-      doc.save("donation-details.pdf");
-    };
-  };
+  //     doc.save("donation-details.pdf");
+  //   };
+  // };
 
   return (
     <>
@@ -135,18 +135,18 @@ export default function page({ params }) {
                     {renderField(data.amount)}
                   </td>
                 </tr>
-                <tr className={styles.tableRow}>
+                {/* <tr className={styles.tableRow}>
                   <th className={styles.tableHead}>Receipt:</th>
                   <td className={styles.tableColumn}>
                     <a
                       href=""
-                      onClick={generatePDF}
+                      // onClick={generatePDF}
                       className={styles.tableLink}
                     >
                       Download Receipt
                     </a>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>

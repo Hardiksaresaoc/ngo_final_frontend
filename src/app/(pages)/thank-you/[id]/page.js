@@ -21,30 +21,30 @@ export default function Page({ params }) {
 
     fetchData();
   }, []);
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(12);
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   doc.setFontSize(12);
 
-    doc.text("Donation Details", 20, 10);
+  //   doc.text("Donation Details", 20, 10);
 
-    const tableData = [
-      ["Transaction Status", "Failed"],
-      ["Transaction Reference Number", data.reference_payment || "--"],
-      ["Transaction Date & Time", data.created_at || "--"],
-      ["Mode Of Payment", data.payment_method || "--"],
-      ["Email", data.donor_email || "--"],
-      ["Phone Number", data.donor_phone || "--"],
-      ["Payment Amount (₹)", data.amount || "--"],
-    ];
+  //   const tableData = [
+  //     ["Transaction Status", "Failed"],
+  //     ["Transaction Reference Number", data.reference_payment || "--"],
+  //     ["Transaction Date & Time", data.created_at || "--"],
+  //     ["Mode Of Payment", data.payment_method || "--"],
+  //     ["Email", data.donor_email || "--"],
+  //     ["Phone Number", data.donor_phone || "--"],
+  //     ["Payment Amount (₹)", data.amount || "--"],
+  //   ];
 
-    let startY = 20;
-    tableData.forEach((row, index) => {
-      doc.text(row[0], 20, startY + index * 10);
-      doc.text(row[1], 100, startY + index * 10);
-    });
+  //   let startY = 20;
+  //   tableData.forEach((row, index) => {
+  //     doc.text(row[0], 20, startY + index * 10);
+  //     doc.text(row[1], 100, startY + index * 10);
+  //   });
 
-    doc.save("donation-details.pdf");
-  };
+  //   doc.save("donation-details.pdf");
+  // };
 
   return (
     <>
@@ -117,18 +117,18 @@ export default function Page({ params }) {
                     {renderField(data.amount)}
                   </td>
                 </tr>
-                <tr className={styles.tableRow}>
+                {/* <tr className={styles.tableRow}>
                   <th className={styles.tableHead}>Receipt:</th>
                   <td className={styles.tableColumn}>
                     <a
                       href=""
-                      onClick={generatePDF}
+                      // onClick={generatePDF}
                       className={styles.tableLink}
                     >
                       Download Receipt
                     </a>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </div>
