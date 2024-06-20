@@ -82,7 +82,7 @@
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
   min-width: 279px;
-  padding: 15px 30px;
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -128,7 +128,7 @@
     margin: 15px;
   }
 }
-@media only screen and (min-width: 321px) and (max-width: 767px) {
+@media only screen and (min-width: 321px) and (max-width: 1023px) {
   .aside {
     flex-direction: column;
   }

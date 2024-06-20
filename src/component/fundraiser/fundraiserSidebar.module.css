@@ -54,7 +54,7 @@
 
 .lowerPart {
   width: 100%;
-  height: 69px;
+  padding: 15px;
   background-color: #04045f;
   color: #fff;
   position: unset;
@@ -196,12 +196,20 @@ p.active:hover {
     min-width: 300px;
   }
   .lowerPart {
-    height: 88px;
+    padding: 10px;
+    align-items: flex-start;
   }
   .lowerPart p {
     font-size: 20px;
     line-height: 24px;
     margin-right: 0;
+  }
+  .lowerPart p a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 45px;
+    margin-left: 15px;
   }
   .aside {
     flex-direction: column;
@@ -249,12 +257,20 @@ p.active:hover {
     min-width: 300px;
   }
   .lowerPart {
-    height: 88px;
+    padding: 10px;
+    align-items: flex-start;
   }
   .lowerPart p {
     font-size: 20px;
     line-height: 24px;
     margin-right: 0;
+  }
+  .lowerPart p a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 45px;
+    margin-left: 15px;
   }
   .aside {
     flex-direction: column;
@@ -264,3 +280,19 @@ p.active:hover {
     height: fit-content;
   }
 }
+
+/* @media only screen and (min-width: 1024px){
+  .content {
+    padding-left: 20px;
+  }
+  .lowerPart p a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 45px;
+    margin-left: 15px;
+  }
+  .container p {
+    font-size: 17px;
+  }
+} */
