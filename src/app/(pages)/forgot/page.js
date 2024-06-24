@@ -23,7 +23,7 @@ const DefaultResetPassword = () => {
   const router = useRouter();
 
   const handleForgot = async (e) => {
-    showSwal("infor", "Please wait...", "", null, false);
+    showSwal("info", "Please wait...", "", null, false);
     e.preventDefault();
     setLoading(true);
     try {
